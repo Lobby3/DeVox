@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.12;
+pragma solidity 0.8.7;
 
 /// @notice Basic ERC20 implementation.
 contract TestERC20 {

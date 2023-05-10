@@ -1,25 +1,18 @@
-// import "@graphprotocol/hardhat-graph";
 import "@nomiclabs/hardhat-ethers";
 import "@nomiclabs/hardhat-etherscan";
 import "@nomiclabs/hardhat-waffle";
 import "@openzeppelin/hardhat-upgrades";
 import "@typechain/hardhat";
-import { config as dotenvConfig } from "dotenv";
 import * as fs from "fs";
 import "hardhat-abi-exporter";
 import "hardhat-contract-sizer";
-import "hardhat-deploy";
 import "hardhat-gas-reporter";
-import { HardhatUserConfig } from "hardhat/config";
-import { resolve } from "path";
+import { HardhatUserConfig, subtask, task } from "hardhat/config";
 import "solidity-coverage";
-import "@graphprotocol/hardhat-graph";
+import "hardhat-deploy";
 
 // You need to export an object to set up your config
 // Go to https://hardhat.org/config/ to learn more
-
-const dotenvConfigPath: string = process.env.DOTENV_CONFIG_PATH || "./.env";
-dotenvConfig({ path: resolve(__dirname, dotenvConfigPath) });
 
 const defaultNetwork = "localhost";
 
@@ -128,7 +121,7 @@ const config: HardhatUserConfig = {
   solidity: {
     compilers: [
       {
-        version: "0.8.12",
+        version: "0.8.7",
         settings: {
           optimizer: {
             enabled: true,
@@ -138,19 +131,11 @@ const config: HardhatUserConfig = {
       },
     ],
   },
-  // subgraph: {
-  //   name: "DeVox",
-  //   product: "subgraph-studio",
-  //   indexEvents: true,
-  // },
-  // paths: {
-  //   subgraph: "../packages/subgraph", // Defaults to './subgraph'
-  // },
   abiExporter: {
     path: "./abi",
     clear: true,
     flat: true,
-    except: ["@gnosis.pm", "@opengsn", "@openzeppelin"],
+    except: ["@gnosis.pm", "@openzeppelin"],
   },
   typechain: {
     outDir: "src/types",

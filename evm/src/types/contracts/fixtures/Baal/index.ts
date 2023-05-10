@@ -3,22 +3,20 @@
 /* tslint:disable */
 
 /* eslint-disable */
-import type * as higherOrderFactories from "./higherOrderFactories";
+import type * as lootErc20Sol from "./LootERC20.sol";
+import type * as sharesErc20Sol from "./SharesERC20.sol";
 import type * as interfaces from "./interfaces";
 import type * as mock from "./mock";
-import type * as tools from "./tools";
 import type * as utils from "./utils";
 
-export type { higherOrderFactories };
+export type { lootErc20Sol };
+
+export type { sharesErc20Sol };
 
 export type { interfaces };
 
 export type { mock };
 
-export type { tools };
-
 export type { utils };
-export type { BaalSummonerV1 } from "./BaalSummonerV1";
-export type { BaalV1 } from "./BaalV1";
-export type { LootV1 } from "./LootV1";
-export type { SharesV1 } from "./SharesV1";
+export type { Baal } from "./Baal";
+export type { BaalSummoner } from "./BaalSummoner";
