@@ -1,3 +1,4 @@
+// import "@graphprotocol/hardhat-graph";
 import "@nomiclabs/hardhat-ethers";
 import "@nomiclabs/hardhat-etherscan";
 import "@nomiclabs/hardhat-waffle";
@@ -136,11 +137,19 @@ const config: HardhatUserConfig = {
       },
     ],
   },
+  // subgraph: {
+  //   name: "DeVox",
+  //   product: "subgraph-studio",
+  //   indexEvents: true,
+  // },
+  // paths: {
+  //   subgraph: "../packages/subgraph", // Defaults to './subgraph'
+  // },
   abiExporter: {
     path: "./abi",
     clear: true,
     flat: true,
-    except: ["@gnosis.pm", "@openzeppelin"],
+    except: ["@gnosis.pm", "@opengsn", "@openzeppelin"],
   },
   typechain: {
     outDir: "src/types",
