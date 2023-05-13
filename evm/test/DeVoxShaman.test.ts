@@ -14,18 +14,16 @@ import { ethers, upgrades } from "hardhat";
 
 import {
   CompatibilityFallbackHandler,
-  DeVoxShamanSummonerV1,
-  DeVoxShamanV1,
+  DeVoxShamanSummoner,
+  DeVoxShaman,
   GnosisSafe,
   MyToken,
   Poster,
-} from "../src/types";
-import { encodeMultiAction } from "../src/util";
+} from "../src";
+import { encodeMultiAction } from "../src/util/encoding";
 
 use(solidity);
 
-type DeVoxShaman = DeVoxShamanV1;
-type DeVoxShamanSummoner = DeVoxShamanSummonerV1;
 type DeVoxShamanArgs = {
   moloch: string;
   token: string;
@@ -264,10 +262,10 @@ describe("DeVoxShaman", function () {
   let gnosisSafe: GnosisSafe;
 
   let deVoxShamanFactory: ContractFactory;
-  let deVoxShamanSingleton: DeVoxShamanV1;
+  let deVoxShamanSingleton: DeVoxShaman;
   let deVoxShamanSummonerFactory: ContractFactory;
   let deVoxShamanSummoner: DeVoxShamanSummoner;
-  let deVoxShaman: DeVoxShamanV1;
+  let deVoxShaman: DeVoxShaman;
 
   let proposal: { [key: string]: any };
 
@@ -280,11 +278,11 @@ describe("DeVoxShaman", function () {
   const no = false;
 
   this.beforeAll(async function () {
-    LootFactory = await ethers.getContractFactory("Loot");
+    LootFactory = await ethers.getContractFactory("LootV1");
     lootSingleton = (await LootFactory.deploy()) as Loot;
-    SharesFactory = await ethers.getContractFactory("Shares");
+    SharesFactory = await ethers.getContractFactory("SharesV1");
     sharesSingleton = (await SharesFactory.deploy()) as Shares;
-    BaalFactory = await ethers.getContractFactory("Baal");
+    BaalFactory = await ethers.getContractFactory("BaalV1");
     baalSingleton = (await BaalFactory.deploy()) as Baal;
     Poster = await ethers.getContractFactory("Poster");
     poster = (await Poster.deploy()) as Poster;
@@ -300,9 +298,9 @@ describe("DeVoxShaman", function () {
   });
 
   beforeEach(async function () {
-    const BaalContract = await ethers.getContractFactory("Baal");
+    const BaalContract = await ethers.getContractFactory("BaalV1");
     const GnosisSafe = await ethers.getContractFactory("GnosisSafe");
-    const BaalSummoner = await ethers.getContractFactory("BaalSummoner");
+    const BaalSummoner = await ethers.getContractFactory("BaalSummonerV1");
 
     const GnosisSafeProxyFactory = await ethers.getContractFactory(
       "GnosisSafeProxyFactory"
@@ -327,7 +325,10 @@ describe("DeVoxShaman", function () {
       applicant.address,
       ethers.utils.parseUnits("10.0", "ether")
     );
-    await token.transfer(s2.address, ethers.utils.parseUnits("10000.0", "ether"));
+    await token.transfer(
+      s2.address,
+      ethers.utils.parseUnits("10000.0", "ether")
+    );
 
     multisend = (await MultisendContract.deploy()) as MultiSend;
     gnosisSafeSingleton = (await GnosisSafe.deploy()) as GnosisSafe;
@@ -434,13 +435,14 @@ describe("DeVoxShaman", function () {
       const applicantdeVoxShaman = deVoxShaman.connect(s2);
       const applicantToken = token.connect(s2);
 
-      const testDonate = async (donation: BigNumberish) => {
+      const testDonate = async (donation: string) => {
         const amount = ethers.utils.parseUnits(donation, "ether");
         await applicantToken.approve(deVoxShamanAddress, amount);
 
         const s2BalanceBefore = await token.balanceOf(s2.address);
         const s2SharesBefore = await sharesToken.balanceOf(s2.address);
         const s2LootBefore = await lootToken.balanceOf(s2.address);
+        const baalTotalLootBefore = await baal.totalLoot();
         const baalTotalSharesBefore = await baal.totalShares();
 
         await applicantdeVoxShaman.donate(amount, "hello");
@@ -448,21 +450,25 @@ describe("DeVoxShaman", function () {
         const s2BalanceAfter = await token.balanceOf(s2.address);
         const s2LootAfter = await lootToken.balanceOf(s2.address);
         const s2SharesAfter = await sharesToken.balanceOf(s2.address);
+        const baalTotalLootAfter = await baal.totalLoot();
         const baalTotalSharesAfter = await baal.totalShares();
 
-        expect(s2LootAfter).to.equal(
-          s2LootBefore.add(
-            BigNumber.from(donation).mul(deVoxShamanArgs.lootPerUnit)
-          ),
-          "s2LootAfter"
+        const newLoot = BigNumber.from(donation).mul(
+          deVoxShamanArgs.lootPerUnit
         );
+
+        expect(s2LootAfter).to.equal(s2LootBefore.add(newLoot), "s2LootAfter"); // receive lootPerUnit per token donated
         expect(s2SharesAfter).to.equal(
           deVoxShamanArgs.sharesPerMember,
           "s2SharesAfter"
-        );
+        ); // should only receive sharesPerMember on first donation
         expect(s2BalanceAfter).to.equal(
           s2BalanceBefore.sub(amount),
           "s2BalanceAfter"
+        );
+        expect(baalTotalLootAfter).to.equal(
+          baalTotalLootBefore.add(newLoot),
+          "baalTotalSharesAfter"
         );
         expect(baalTotalSharesAfter).to.equal(
           baalTotalSharesBefore.add(s2SharesAfter.sub(s2SharesBefore)),

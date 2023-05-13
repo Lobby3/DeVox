@@ -3,6 +3,6 @@
 /* tslint:disable */
 
 /* eslint-disable */
-import type * as deVoxShamanSol from "./DeVoxShaman.sol";
+import type * as deVoxShamanV1Sol from "./DeVoxShamanV1.sol";
 
-export type { deVoxShamanSol };
+export type { deVoxShamanV1Sol };

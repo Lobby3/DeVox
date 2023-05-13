@@ -2,4 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 export type { IBaal } from "./IBaal";
+export type { IBaalHelper } from "./IBaalHelper";
+export type { IBaalStore } from "./IBaalStore";
+export type { IBaalSummoner } from "./IBaalSummoner";
 export type { IBaalToken } from "./IBaalToken";

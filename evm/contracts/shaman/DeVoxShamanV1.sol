@@ -2,7 +2,7 @@
 pragma solidity ^0.8.7;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/security/ReentrancyGuardUpgradeable.sol";
@@ -12,7 +12,7 @@ import "../fixtures/Baal/interfaces/IBaal.sol";
 /// @notice Shamom administers the cookie jar
 contract DeVoxShamanV1 is
     Initializable,
-    OwnableUpgradeable,
+    AccessControlUpgradeable,
     ReentrancyGuardUpgradeable,
     UUPSUpgradeable
 {
@@ -28,6 +28,8 @@ contract DeVoxShamanV1 is
         SHARES
     }
 
+    /// @notice User role required in order to upgrade the contract
+    bytes32 public constant UPGRADER_ROLE = keccak256("UPGRADER_ROLE");
     /// @notice Role required in order to access admin methods
     // bytes32 public constant DEFAULT_ADMIN_ROLE =
     //     keccak256('DEFAULT_ADMIN_ROLE');
@@ -95,7 +97,7 @@ contract DeVoxShamanV1 is
         uint256 _sharesPerMember,
         uint256 _target
     ) public initializer {
-        __Ownable_init();
+        __AccessControl_init();
         __UUPSUpgradeable_init();
 
         baal = IBaal(_moloch);
@@ -104,6 +106,9 @@ contract DeVoxShamanV1 is
         lootPerUnit = _lootPerUnit;
         sharesPerMember = _sharesPerMember;
         target = _target;
+
+        _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
+        _grantRole(UPGRADER_ROLE, msg.sender);
     }
 
     /// @notice Grant membership to the specified address
@@ -192,8 +197,8 @@ contract DeVoxShamanV1 is
     }
 
     /// @notice Update the contract version number
-    /// @dev onlyOwner
-    function updateVersion() external onlyOwner {
+    /// @notice Only allowed for member of UPGRADER_ROLE
+    function updateVersion() external onlyRole(UPGRADER_ROLE) {
         _version += 1;
     }
 
@@ -202,15 +207,65 @@ contract DeVoxShamanV1 is
      ******************/
 
     /// @notice upgrade authorization logic
-    /// @dev adds onlyOwner requirement
+    /// @dev adds onlyRole(UPGRADER_ROLE) requirement
     function _authorizeUpgrade(
         address /*newImplementation*/
     )
         internal
         view
         override
-        onlyOwner // solhint-disable-next-line no-empty-blocks
+        onlyRole(UPGRADER_ROLE) // solhint-disable-next-line no-empty-blocks
     {
         //empty block
+    }
+}
+
+contract DeVoxShamanSummonerV1 {
+    address payable public template;
+
+    event SummonComplete(
+        address indexed baal,
+        address shaman,
+        address token,
+        uint256 pricePerUnit,
+        uint256 lootPerUnit,
+        uint256 sharesPerMember,
+        uint256 target
+    );
+
+    constructor(address payable _template) {
+        template = _template;
+    }
+
+    function summonDeVoxShaman(
+        address _moloch,
+        address payable _token,
+        uint256 _pricePerUnit,
+        uint256 _lootPerUnit,
+        uint256 _sharesPerMember,
+        uint256 _target
+    ) public returns (address) {
+        DeVoxShamanV1 shaman = DeVoxShamanV1(payable(Clones.clone(template)));
+
+        shaman.initialize(
+            _moloch,
+            _token,
+            _pricePerUnit,
+            _lootPerUnit,
+            _sharesPerMember,
+            _target
+        );
+
+        emit SummonComplete(
+            _moloch,
+            address(shaman),
+            address(_token),
+            _pricePerUnit,
+            _lootPerUnit,
+            _sharesPerMember,
+            _target
+        );
+
+        return address(shaman);
     }
 }

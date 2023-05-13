@@ -1,5 +1,5 @@
 //SPDX-License-Identifier: MIT
-pragma solidity 0.8.7;
+pragma solidity ^0.8.12;
 
 interface IBaalToken {
     function name() external view returns (string memory);

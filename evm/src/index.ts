@@ -5,24 +5,35 @@
     3) add the path to the ts.config.build.json under the { include: [...] } configuration.
     4) bump package.json version to publish a new package to npm.
 */
-export { Baal, BaalSummoner } from "./types/contracts/fixtures/Baal";
-// export { Baal__factory as BaalFactory } from "./types/factories/contracts/fixtures/Baal__factory";
-// export { BaalSummoner__factory as BaalSummonerFactory } from "./types/factories/contracts/BaalSummoner__factory";
-// export { BaalAdvTokenSummoner } from "./types/contracts/higherOrderFactories/BaalAdvTokenSummoner";
-// export { BaalAdvTokenSummoner__factory as BaalAdvTokenSummonerFactory } from "./types/factories/contracts/higherOrderFactories/BaalAdvTokenSummoner__factory";
-// export { BaalAndVaultSummoner } from "./types/contracts/higherOrderFactories/BaalAndVaultSummoner";
-// export { BaalAndVaultSummoner__factory as BaalAndVaultFactory } from "./types/factories/contracts/higherOrderFactories/BaalAndVaultSummoner__factory";
-export { Loot } from "./types/contracts/fixtures/Baal/LootERC20.sol";
-// export { Loot__factory as LootFactory } from "./types/factories/contracts/LootERC20.sol/Loot__factory";
-export { Shares } from "./types/contracts/fixtures/Baal/SharesERC20.sol";
-// export { Shares__factory as SharesFactory } from "./types/factories/contracts/SharesERC20.sol/Shares__factory";
-export { Poster } from "./types/contracts/fixtures/Baal/utils/Poster";
-// export { Poster__factory as PosterFactory } from "./types/factories/contracts/utils/Poster__factory";
-// export { TributeMinion } from "./types/contracts/fixtures/Baal/tools/TributeMinion.sol";
-// export { TributeMinion__factory as TributeMinionFactory } from "./types/factories/contracts/tools/TributeMinion.sol/TributeMinion__factory";
-export { MultiSend } from "./types/@gnosis.pm/safe-contracts/contracts/libraries/MultiSend";
-export { MultiSend__factory as MultiSendFactory } from "./types/factories/@gnosis.pm/safe-contracts/contracts/libraries/MultiSend__factory";
-
-// Interfaces
-export { IBaalToken } from "./types/contracts/fixtures/Baal/interfaces/IBaalToken";
-export { IBaal } from "./types/contracts/fixtures/Baal/interfaces/IBaal";
+export {
+  BaalAdvTokenSummonerV1 as BaalAdvTokenSummoner,
+  BaalAdvTokenSummonerV1__factory as BaalAdvTokenSummonerFactory,
+  BaalAndVaultSummonerV1 as BaalAndVaultSummoner,
+  BaalAndVaultSummonerV1__factory as BaalAndVaultFactory,
+  BaalLessShares,
+  BaalSummonerV1 as BaalSummoner,
+  BaalSummonerV1__factory as BaalSummonerFactory,
+  BaalV1 as Baal,
+  BaalV1__factory as BaalFactory,
+  CompatibilityFallbackHandler,
+  DeVoxShamanSummonerV1 as DeVoxShamanSummoner,
+  DeVoxShamanV1 as DeVoxShaman, 
+  GnosisSafe,
+  GnosisSafeProxyFactory,
+  IBaal,
+  IBaalToken,
+  LootV1 as Loot,
+  LootV1__factory as LootFactory,
+  MockBaal,
+  ModuleProxyFactory,
+  MultiSend,
+  MultiSend__factory as MultiSendFactory,
+  MyToken,
+  Poster,
+  Poster__factory as PosterFactory,
+  SharesV1 as Shares,
+  SharesV1__factory as SharesFactory,
+  TestERC20,
+  TributeMinion,
+  TributeMinion__factory as TributeMinionFactory,
+} from "./types";

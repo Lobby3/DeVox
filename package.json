@@ -2,7 +2,9 @@
   "name": "devox",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "lint": "nx lint"
+  },
   "private": true,
   "dependencies": {
   },
