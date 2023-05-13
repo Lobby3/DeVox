@@ -2,4 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 export { IBaal__factory } from "./IBaal__factory";
+export { IBaalHelper__factory } from "./IBaalHelper__factory";
+export { IBaalStore__factory } from "./IBaalStore__factory";
+export { IBaalSummoner__factory } from "./IBaalSummoner__factory";
 export { IBaalToken__factory } from "./IBaalToken__factory";

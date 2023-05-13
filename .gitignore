@@ -5,6 +5,8 @@ dist
 tmp
 /out-tsc
 artifacts
+cache
+./evm/src/types
 
 # dependencies
 node_modules

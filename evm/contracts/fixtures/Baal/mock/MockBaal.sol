@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.7;
+pragma solidity ^0.8.12;
 
 import "@openzeppelin/contracts/proxy/Clones.sol";
 
-import "../Baal.sol";
+import "../BaalV1.sol";
 
 contract MockBaal {
     bool public lootPaused;

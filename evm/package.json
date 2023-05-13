@@ -3,9 +3,18 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "test": "hardhat test --network hardhat",
+    "test": "npx hardhat test --network hardhat",
     "build": "npx hardhat compile",
-    "clean": "npx hardhat clean"
+    "clean": "npx hardhat clean",
+    "coverage": "npx hardhat coverage",
+    "deploy": "npx hardhat deploy",
+    "docgen": "npx hardhat docgen",
+    "node": "npx hardhat node",
+    "lint": "yarn lint:sol && yarn lint:ts && yarn prettier:check",
+    "lint:sol": "solhint --config ./.solhint.json --max-warnings 0 \"contracts/**/*.sol\"",
+    "lint:ts": "eslint --config ./.eslintrc.yml --ignore-path ./.eslintignore --ext .js,.ts .",
+    "prettier": "prettier --config ../.prettierrc --write \"**/*.{js,json,md,sol,ts,yml}\"",
+    "prettier:check": "prettier --check --config ../.prettierrc \"**/*.{js,json,md,sol,ts,yml}\""
   },
   "private": true,
   "dependencies": {
@@ -29,6 +38,7 @@
     "@types/chai": "^4.3.5",
     "@types/mocha": "^10.0.1",
     "chai": "^4.3.7",
+    "dotenv": "^16.0.3",
     "ethereum-waffle": "^4.0.10",
     "ethers": "^5.7.2",
     "hardhat": "^2.14.0",

@@ -3,16 +3,21 @@ import "@nomiclabs/hardhat-etherscan";
 import "@nomiclabs/hardhat-waffle";
 import "@openzeppelin/hardhat-upgrades";
 import "@typechain/hardhat";
+import { config as dotenvConfig } from "dotenv";
 import * as fs from "fs";
 import "hardhat-abi-exporter";
 import "hardhat-contract-sizer";
-import "hardhat-gas-reporter";
-import { HardhatUserConfig, subtask, task } from "hardhat/config";
-import "solidity-coverage";
 import "hardhat-deploy";
+import "hardhat-gas-reporter";
+import { HardhatUserConfig } from "hardhat/config";
+import { resolve } from "path";
+import "solidity-coverage";
 
 // You need to export an object to set up your config
 // Go to https://hardhat.org/config/ to learn more
+
+const dotenvConfigPath: string = process.env.DOTENV_CONFIG_PATH || "./.env";
+dotenvConfig({ path: resolve(__dirname, dotenvConfigPath) });
 
 const defaultNetwork = "localhost";
 
@@ -121,7 +126,7 @@ const config: HardhatUserConfig = {
   solidity: {
     compilers: [
       {
-        version: "0.8.7",
+        version: "0.8.12",
         settings: {
           optimizer: {
             enabled: true,

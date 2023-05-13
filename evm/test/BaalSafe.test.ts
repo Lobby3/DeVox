@@ -3,18 +3,15 @@ import { calculateProxyAddress } from "@gnosis.pm/zodiac";
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
 import { expect, use } from "chai";
 import { solidity } from "ethereum-waffle";
-import { ContractFactory, ContractTransaction, utils } from "ethers";
+import { ContractFactory, ContractTransaction } from "ethers";
 import { ethers, upgrades } from "hardhat";
 
-import signDelegation from "../src/signDelegation";
-import signVote from "../src/signVote";
 import {
   Baal,
   BaalLessShares,
   BaalSummoner,
   CompatibilityFallbackHandler,
   GnosisSafe,
-  GnosisSafeProxy,
   GnosisSafeProxyFactory,
   Loot,
   ModuleProxyFactory,
@@ -22,12 +19,9 @@ import {
   Poster,
   Shares,
   TestERC20,
-} from "../src/types";
-import {
-  decodeMultiAction,
-  encodeMultiAction,
-  hashOperation,
-} from "../src/util";
+} from "../src";
+import { signDelegation, signVote } from "../src/util";
+import { encodeMultiAction, hashOperation } from "../src/util/encoding";
 
 use(solidity);
 
@@ -60,8 +54,7 @@ const revertMessages = {
   sharesInsufficientBalance: "ERC20: transfer amount exceeds balance",
   sharesInsufficientApproval: "ERC20: insufficient allowance", // Error: Transaction reverted without a reason string
   lootTransferPaused: "loot: !transferable",
-  lootInsufficientBalance:
-    "ERC20: transfer amount exceeds balance",
+  lootInsufficientBalance: "ERC20: transfer amount exceeds balance",
   // lootInsufficientApproval: 'reverted with panic code 0x11 (Arithmetic operation underflowed or overflowed outside of an unchecked block)',
   lootInsufficientApproval: "ERC20: insufficient allowance", // Error: Transaction reverted without a reason string
   mintSharesArrayParity: "!array parity",
@@ -69,8 +62,7 @@ const revertMessages = {
   burnSharesInsufficientShares: "ERC20: burn amount exceeds balance",
   mintLootArrayParity: "!array parity",
   burnLootArrayParity: "!array parity",
-  burnLootInsufficientShares:
-    "ERC20: burn amount exceeds balance",
+  burnLootInsufficientShares: "ERC20: burn amount exceeds balance",
   cancelProposalNotVoting: "!voting",
   cancelProposalNotCancellable: "!cancellable",
   baalOrAdmin: "!baal & !admin",
@@ -171,31 +163,26 @@ const getBaalParams = async function (
 
   // console.log('mint shares', shares);
 
-  const setAdminConfig = await baal.interface.encodeFunctionData(
+  const setAdminConfig = baal.interface.encodeFunctionData(
     "setAdminConfig",
     adminConfig
   );
-  const setGovernanceConfig = await baal.interface.encodeFunctionData(
+  const setGovernanceConfig = baal.interface.encodeFunctionData(
     "setGovernanceConfig",
     [governanceConfig]
   );
-  const setShaman = await baal.interface.encodeFunctionData(
-    "setShamans",
-    shamans
-  );
-  const mintShares = await baal.interface.encodeFunctionData(
-    "mintShares",
-    shares
-  );
-  const mintLoot = await baal.interface.encodeFunctionData("mintLoot", loots);
-  const postMetaData = await poster.interface.encodeFunctionData("post", [
+  const setShaman = baal.interface.encodeFunctionData("setShamans", shamans);
+  const mintShares = baal.interface.encodeFunctionData("mintShares", shares);
+  const mintLoot = baal.interface.encodeFunctionData("mintLoot", loots);
+  const postMetaData = poster.interface.encodeFunctionData("post", [
     metadataConfig.CONTENT,
     metadataConfig.TAG,
   ]);
-  const posterFromBaal = await baal.interface.encodeFunctionData(
-    "executeAsBaal",
-    [poster.address, 0, postMetaData]
-  );
+  const posterFromBaal = baal.interface.encodeFunctionData("executeAsBaal", [
+    poster.address,
+    0,
+    postMetaData,
+  ]);
 
   const initalizationActions = [
     setAdminConfig,
@@ -263,7 +250,7 @@ const setShamanProposal = async function (
   shaman: SignerWithAddress,
   permission: BigNumberish
 ) {
-  const setShaman = await baal.interface.encodeFunctionData("setShamans", [
+  const setShaman = baal.interface.encodeFunctionData("setShamans", [
     [shaman.address],
     [permission],
   ]);
@@ -282,7 +269,7 @@ const setShamanProposal = async function (
   return proposalId;
 };
 
-describe.skip("Baal contract", function () {
+describe("Baal contract", function () {
   let baal: Baal;
   let baalSingleton: Baal;
   let baalAsShaman: Baal;
@@ -381,11 +368,11 @@ describe.skip("Baal contract", function () {
   }
 
   this.beforeAll(async function () {
-    LootFactory = await ethers.getContractFactory("Loot");
+    LootFactory = await ethers.getContractFactory("LootV1");
     lootSingleton = (await LootFactory.deploy()) as Loot;
-    SharesFactory = await ethers.getContractFactory("Shares");
+    SharesFactory = await ethers.getContractFactory("SharesV1");
     sharesSingleton = (await SharesFactory.deploy()) as Shares;
-    BaalFactory = await ethers.getContractFactory("Baal");
+    BaalFactory = await ethers.getContractFactory("BaalV1");
     baalSingleton = (await BaalFactory.deploy()) as Baal;
     Poster = await ethers.getContractFactory("Poster");
     poster = (await Poster.deploy()) as Poster;
@@ -397,9 +384,9 @@ describe.skip("Baal contract", function () {
   });
 
   beforeEach(async function () {
-    const BaalContract = await ethers.getContractFactory("Baal");
+    const BaalContract = await ethers.getContractFactory("BaalV1");
     const GnosisSafe = await ethers.getContractFactory("GnosisSafe");
-    const BaalSummoner = await ethers.getContractFactory("BaalSummoner");
+    const BaalSummoner = await ethers.getContractFactory("BaalSummonerV1");
 
     const GnosisSafeProxyFactory = await ethers.getContractFactory(
       "GnosisSafeProxyFactory"
@@ -579,11 +566,10 @@ describe.skip("Baal contract", function () {
     it("can renounce loot token ownership", async function () {
       expect(await lootToken.owner()).to.equal(baal.address);
 
-      const renounceAction = await lootToken.interface.encodeFunctionData(
-        "renounceOwnership"
-      );
+      const renounceAction =
+        lootToken.interface.encodeFunctionData("renounceOwnership");
 
-      const renounceFromBaal = await baal.interface.encodeFunctionData(
+      const renounceFromBaal = baal.interface.encodeFunctionData(
         "executeAsBaal",
         [lootToken.address, 0, renounceAction]
       );
@@ -597,11 +583,10 @@ describe.skip("Baal contract", function () {
     it("can renounce shares token ownership", async function () {
       expect(await sharesToken.owner()).to.equal(baal.address);
 
-      const renounceAction = await sharesToken.interface.encodeFunctionData(
-        "renounceOwnership"
-      );
+      const renounceAction =
+        sharesToken.interface.encodeFunctionData("renounceOwnership");
 
-      const renounceFromBaal = await baal.interface.encodeFunctionData(
+      const renounceFromBaal = baal.interface.encodeFunctionData(
         "executeAsBaal",
         [sharesToken.address, 0, renounceAction]
       );
@@ -615,12 +600,12 @@ describe.skip("Baal contract", function () {
     it("can change shares token ownership to avatar", async function () {
       expect(await sharesToken.owner()).to.equal(baal.address);
 
-      const transferOwnershipAction =
-        await sharesToken.interface.encodeFunctionData("transferOwnership", [
-          gnosisSafe.address,
-        ]);
+      const transferOwnershipAction = sharesToken.interface.encodeFunctionData(
+        "transferOwnership",
+        [gnosisSafe.address]
+      );
 
-      const transferOwnershipFromBaal = await baal.interface.encodeFunctionData(
+      const transferOwnershipFromBaal = baal.interface.encodeFunctionData(
         "executeAsBaal",
         [sharesToken.address, 0, transferOwnershipAction]
       );
@@ -634,12 +619,12 @@ describe.skip("Baal contract", function () {
     it("can change loot token ownership to avatar", async function () {
       expect(await lootToken.owner()).to.equal(baal.address);
 
-      const transferOwnershipAction =
-        await lootToken.interface.encodeFunctionData("transferOwnership", [
-          gnosisSafe.address,
-        ]);
+      const transferOwnershipAction = lootToken.interface.encodeFunctionData(
+        "transferOwnership",
+        [gnosisSafe.address]
+      );
 
-      const transferOwnershipFromBaal = await baal.interface.encodeFunctionData(
+      const transferOwnershipFromBaal = baal.interface.encodeFunctionData(
         "executeAsBaal",
         [lootToken.address, 0, transferOwnershipAction]
       );
@@ -659,12 +644,12 @@ describe.skip("Baal contract", function () {
       // owner should be baal
       expect(await sharesToken.owner()).to.equal(baal.address);
 
-      const transferOwnershipAction =
-        await sharesToken.interface.encodeFunctionData("transferOwnership", [
-          summoner.address,
-        ]);
+      const transferOwnershipAction = sharesToken.interface.encodeFunctionData(
+        "transferOwnership",
+        [summoner.address]
+      );
 
-      const transferOwnershipFromBaal = await baal.interface.encodeFunctionData(
+      const transferOwnershipFromBaal = baal.interface.encodeFunctionData(
         "executeAsBaal",
         [sharesToken.address, 0, transferOwnershipAction]
       );
@@ -682,7 +667,7 @@ describe.skip("Baal contract", function () {
       const baalLessSharesSingleton =
         (await BaalLessSharesFactory.deploy()) as BaalLessShares;
 
-      const sharesTokenAsOwnerEoa = await sharesToken.connect(summoner);
+      const sharesTokenAsOwnerEoa = sharesToken.connect(summoner);
       expect(await baalLessSharesSingleton.version()).to.equal(0);
 
       await sharesTokenAsOwnerEoa.upgradeToAndCall(
@@ -1090,7 +1075,7 @@ describe.skip("Baal contract", function () {
         s6.address,
       ];
       const permissions = [0, 1, 2, 3, 4, 5, 6];
-      const setShaman = await baal.interface.encodeFunctionData("setShamans", [
+      const setShaman = baal.interface.encodeFunctionData("setShamans", [
         shamanAddresses,
         permissions,
       ]);
@@ -1412,7 +1397,7 @@ describe.skip("Baal contract", function () {
 
   describe("shaman locks", function () {
     it("lockAdmin", async function () {
-      const lockAdmin = await baal.interface.encodeFunctionData("lockAdmin");
+      const lockAdmin = baal.interface.encodeFunctionData("lockAdmin");
       const lockAdminAction = encodeMultiAction(
         multisend,
         [lockAdmin],
@@ -1434,9 +1419,7 @@ describe.skip("Baal contract", function () {
     });
 
     it("lockManager", async function () {
-      const lockManager = await baal.interface.encodeFunctionData(
-        "lockManager"
-      );
+      const lockManager = baal.interface.encodeFunctionData("lockManager");
       const lockManagerAction = encodeMultiAction(
         multisend,
         [lockManager],
@@ -1458,9 +1441,7 @@ describe.skip("Baal contract", function () {
     });
 
     it("lockGovernor", async function () {
-      const lockGovernor = await baal.interface.encodeFunctionData(
-        "lockGovernor"
-      );
+      const lockGovernor = baal.interface.encodeFunctionData("lockGovernor");
       const lockGovernorAction = encodeMultiAction(
         multisend,
         [lockGovernor],
@@ -1489,7 +1470,7 @@ describe.skip("Baal contract", function () {
 
   describe("setShamans - adminLock (1, 3, 5, 7)", function () {
     beforeEach(async function () {
-      const lockAdmin = await baal.interface.encodeFunctionData("lockAdmin");
+      const lockAdmin = baal.interface.encodeFunctionData("lockAdmin");
       const lockAdminAction = encodeMultiAction(
         multisend,
         [lockAdmin],
@@ -1569,9 +1550,7 @@ describe.skip("Baal contract", function () {
 
   describe("setShamans - managerLock (2, 3, 6, 7)", function () {
     beforeEach(async function () {
-      const lockManager = await baal.interface.encodeFunctionData(
-        "lockManager"
-      );
+      const lockManager = baal.interface.encodeFunctionData("lockManager");
       const lockManagerAction = encodeMultiAction(
         multisend,
         [lockManager],
@@ -1651,9 +1630,7 @@ describe.skip("Baal contract", function () {
 
   describe("setShamans - governorLock (4, 5, 6, 7)", function () {
     beforeEach(async function () {
-      const lockGovernor = await baal.interface.encodeFunctionData(
-        "lockGovernor"
-      );
+      const lockGovernor = baal.interface.encodeFunctionData("lockGovernor");
       const lockGovernorAction = encodeMultiAction(
         multisend,
         [lockGovernor],
@@ -1733,13 +1710,9 @@ describe.skip("Baal contract", function () {
 
   describe("setShamans - all locked", function () {
     beforeEach(async function () {
-      const lockAdmin = await baal.interface.encodeFunctionData("lockAdmin");
-      const lockManager = await baal.interface.encodeFunctionData(
-        "lockManager"
-      );
-      const lockGovernor = await baal.interface.encodeFunctionData(
-        "lockGovernor"
-      );
+      const lockAdmin = baal.interface.encodeFunctionData("lockAdmin");
+      const lockManager = baal.interface.encodeFunctionData("lockManager");
+      const lockGovernor = baal.interface.encodeFunctionData("lockGovernor");
       const lockAllAction = encodeMultiAction(
         multisend,
         [lockAdmin, lockManager, lockGovernor],
@@ -2529,7 +2502,7 @@ describe.skip("Baal contract", function () {
         true
       );
 
-      const { v, r, s } = await ethers.utils.splitSignature(signature);
+      const { v, r, s } = ethers.utils.splitSignature(signature);
       await baal.submitVoteWithSig(
         summoner.address,
         expiry,
@@ -2567,7 +2540,7 @@ describe.skip("Baal contract", function () {
         true
       );
 
-      const { v, r, s } = await ethers.utils.splitSignature(signature);
+      const { v, r, s } = ethers.utils.splitSignature(signature);
       expect(
         baal.submitVoteWithSig(applicant.address, expiry, 0, 1, true, v, r, s)
       ).to.be.revertedWith("invalid signature");
@@ -2587,7 +2560,7 @@ describe.skip("Baal contract", function () {
         true
       );
 
-      const { v, r, s } = await ethers.utils.splitSignature(signature);
+      const { v, r, s } = ethers.utils.splitSignature(signature);
       await baal.submitVoteWithSig(
         summoner.address,
         expiry,
@@ -2609,7 +2582,7 @@ describe.skip("Baal contract", function () {
         1,
         true
       );
-      const sigTwo = await ethers.utils.splitSignature(signatureTwo);
+      const sigTwo = ethers.utils.splitSignature(signatureTwo);
       expect(
         baal.submitVoteWithSig(
           summoner.address,
@@ -2648,7 +2621,7 @@ describe.skip("Baal contract", function () {
         expiry
       );
 
-      const { v, r, s } = await ethers.utils.splitSignature(signature);
+      const { v, r, s } = ethers.utils.splitSignature(signature);
       await shamanSharesToken.delegateBySig(
         shaman.address,
         nonce,
@@ -2674,7 +2647,7 @@ describe.skip("Baal contract", function () {
         expiry
       );
 
-      const { v, r, s } = await ethers.utils.splitSignature(signature);
+      const { v, r, s } = ethers.utils.splitSignature(signature);
       await shamanSharesToken.delegateBySig(
         shaman.address,
         nonce,
@@ -2700,7 +2673,7 @@ describe.skip("Baal contract", function () {
         0
       );
 
-      const { v, r, s } = await ethers.utils.splitSignature(signature);
+      const { v, r, s } = ethers.utils.splitSignature(signature);
       expect(
         shamanSharesToken.delegateBySig(shaman.address, nonce, 0, v, r, s)
       ).to.be.revertedWith("ERC20Votes: signature expired");
@@ -3336,10 +3309,10 @@ describe.skip("Baal contract", function () {
 
       expect(await sharesToken.balanceOf(applicant.address)).to.equal(0);
 
-      const mintSharesAction = await baal.interface.encodeFunctionData(
-        "mintShares",
-        [[applicant.address], [minting]]
-      );
+      const mintSharesAction = baal.interface.encodeFunctionData("mintShares", [
+        [applicant.address],
+        [minting],
+      ]);
 
       await expect(submitAndProcessProposal(baal, mintSharesAction, 1))
         .to.emit(baal, "ProcessProposal")
@@ -3353,10 +3326,10 @@ describe.skip("Baal contract", function () {
 
       expect(await sharesToken.balanceOf(summoner.address)).to.equal(shares);
 
-      const burnSharesAction = await baal.interface.encodeFunctionData(
-        "burnShares",
-        [[summoner.address], [burning]]
-      );
+      const burnSharesAction = baal.interface.encodeFunctionData("burnShares", [
+        [summoner.address],
+        [burning],
+      ]);
 
       await expect(submitAndProcessProposal(baal, burnSharesAction, 1))
         .to.emit(baal, "ProcessProposal")
@@ -3372,10 +3345,10 @@ describe.skip("Baal contract", function () {
 
       expect(await lootToken.balanceOf(applicant.address)).to.equal(0);
 
-      const mintLootAction = await baal.interface.encodeFunctionData(
-        "mintLoot",
-        [[applicant.address], [minting]]
-      );
+      const mintLootAction = baal.interface.encodeFunctionData("mintLoot", [
+        [applicant.address],
+        [minting],
+      ]);
 
       await expect(submitAndProcessProposal(baal, mintLootAction, 1))
         .to.emit(baal, "ProcessProposal")
@@ -3389,10 +3362,10 @@ describe.skip("Baal contract", function () {
 
       expect(await lootToken.balanceOf(summoner.address)).to.equal(loot);
 
-      const burnLootAction = await baal.interface.encodeFunctionData(
-        "burnLoot",
-        [[summoner.address], [burning]]
-      );
+      const burnLootAction = baal.interface.encodeFunctionData("burnLoot", [
+        [summoner.address],
+        [burning],
+      ]);
 
       await expect(submitAndProcessProposal(baal, burnLootAction, 1))
         .to.emit(baal, "ProcessProposal")
@@ -3620,7 +3593,7 @@ describe.skip("Baal contract", function () {
   });
 });
 
-describe.skip("Baal contract - offering required", function () {
+describe("Baal contract - offering required", function () {
   let customConfig = {
     ...deploymentConfig,
     PROPOSAL_OFFERING: 69,
@@ -3665,11 +3638,11 @@ describe.skip("Baal contract - offering required", function () {
   const lootPaused = false;
 
   this.beforeAll(async function () {
-    LootFactory = await ethers.getContractFactory("Loot");
+    LootFactory = await ethers.getContractFactory("LootV1");
     lootSingleton = (await LootFactory.deploy()) as Loot;
-    SharesFactory = await ethers.getContractFactory("Shares");
+    SharesFactory = await ethers.getContractFactory("SharesV1");
     sharesSingleton = (await SharesFactory.deploy()) as Shares;
-    BaalFactory = await ethers.getContractFactory("Baal");
+    BaalFactory = await ethers.getContractFactory("BaalV1");
     baalSingleton = (await BaalFactory.deploy()) as Baal;
     Poster = await ethers.getContractFactory("Poster");
     poster = (await Poster.deploy()) as Poster;
@@ -3678,7 +3651,7 @@ describe.skip("Baal contract - offering required", function () {
   beforeEach(async function () {
     const MultisendContract = await ethers.getContractFactory("MultiSend");
     const GnosisSafe = await ethers.getContractFactory("GnosisSafe");
-    const BaalSummoner = await ethers.getContractFactory("BaalSummoner");
+    const BaalSummoner = await ethers.getContractFactory("BaalSummonerV1");
     const GnosisSafeProxyFactory = await ethers.getContractFactory(
       "GnosisSafeProxyFactory"
     );
@@ -3740,7 +3713,7 @@ describe.skip("Baal contract - offering required", function () {
     const addresses = await getNewBaalAddresses(tx);
 
     baal = BaalFactory.attach(addresses.baal) as Baal;
-    shamanBaal = await baal.connect(shaman);
+    shamanBaal = baal.connect(shaman);
     const lootTokenAddress = await baal.lootToken();
 
     sharesToken = SharesFactory.attach(addresses.shares) as Shares;
@@ -3871,31 +3844,26 @@ const getBaalParamsWithAvatar = async function (
 
   // console.log('mint shares', shares);
 
-  const setAdminConfig = await baal.interface.encodeFunctionData(
+  const setAdminConfig = baal.interface.encodeFunctionData(
     "setAdminConfig",
     adminConfig
   );
-  const setGovernanceConfig = await baal.interface.encodeFunctionData(
+  const setGovernanceConfig = baal.interface.encodeFunctionData(
     "setGovernanceConfig",
     [governanceConfig]
   );
-  const setShaman = await baal.interface.encodeFunctionData(
-    "setShamans",
-    shamans
-  );
-  const mintShares = await baal.interface.encodeFunctionData(
-    "mintShares",
-    shares
-  );
-  const mintLoot = await baal.interface.encodeFunctionData("mintLoot", loots);
-  const postMetaData = await poster.interface.encodeFunctionData("post", [
+  const setShaman = baal.interface.encodeFunctionData("setShamans", shamans);
+  const mintShares = baal.interface.encodeFunctionData("mintShares", shares);
+  const mintLoot = baal.interface.encodeFunctionData("mintLoot", loots);
+  const postMetaData = poster.interface.encodeFunctionData("post", [
     metadataConfig.CONTENT,
     metadataConfig.TAG,
   ]);
-  const posterFromBaal = await baal.interface.encodeFunctionData(
-    "executeAsBaal",
-    [poster.address, 0, postMetaData]
-  );
+  const posterFromBaal = baal.interface.encodeFunctionData("executeAsBaal", [
+    poster.address,
+    0,
+    postMetaData,
+  ]);
 
   const initalizationActions = [
     setAdminConfig,
@@ -3929,7 +3897,7 @@ const getBaalParamsWithAvatar = async function (
   };
 };
 
-describe.skip("Baal contract - summon baal with current safe", function () {
+describe("Baal contract - summon baal with current safe", function () {
   let customConfig = {
     ...deploymentConfig,
     PROPOSAL_OFFERING: 69,
@@ -3974,11 +3942,11 @@ describe.skip("Baal contract - summon baal with current safe", function () {
   const lootPaused = false;
 
   this.beforeAll(async function () {
-    LootFactory = await ethers.getContractFactory("Loot");
+    LootFactory = await ethers.getContractFactory("LootV1");
     lootSingleton = (await LootFactory.deploy()) as Loot;
-    SharesFactory = await ethers.getContractFactory("Shares");
+    SharesFactory = await ethers.getContractFactory("SharesV1");
     sharesSingleton = (await SharesFactory.deploy()) as Shares;
-    BaalFactory = await ethers.getContractFactory("Baal");
+    BaalFactory = await ethers.getContractFactory("BaalV1");
     baalSingleton = (await BaalFactory.deploy()) as Baal;
     Poster = await ethers.getContractFactory("Poster");
     poster = (await Poster.deploy()) as Poster;
@@ -3989,7 +3957,7 @@ describe.skip("Baal contract - summon baal with current safe", function () {
       beforeEach(async function () {
         const MultisendContract = await ethers.getContractFactory("MultiSend");
         const GnosisSafe = await ethers.getContractFactory("GnosisSafe");
-        const BaalSummoner = await ethers.getContractFactory("BaalSummoner");
+        const BaalSummoner = await ethers.getContractFactory("BaalSummonerV1");
         const GnosisSafeProxyFactory = await ethers.getContractFactory(
           "GnosisSafeProxyFactory"
         );
@@ -4056,7 +4024,7 @@ describe.skip("Baal contract - summon baal with current safe", function () {
         const avatarAddress = avatar.address;
 
         // pre calculated address for the new module
-        const expectedAddress = await calculateProxyAddress(
+        const expectedAddress = calculateProxyAddress(
           moduleProxyFactory,
           baalSingleton.address,
           initData,
@@ -4076,7 +4044,7 @@ describe.skip("Baal contract - summon baal with current safe", function () {
         // console.log('addresses', addresses);
 
         baal = BaalFactory.attach(addresses.baal) as Baal;
-        shamanBaal = await baal.connect(shaman);
+        shamanBaal = baal.connect(shaman);
         const lootTokenAddress = await baal.lootToken();
 
         sharesToken = SharesFactory.attach(addresses.shares) as Shares;
@@ -4109,7 +4077,7 @@ async function lockRagequit(
   multisend: MultiSend,
   proposal: { [key: string]: any }
 ) {
-  const lockRagequit = await baal.interface.encodeFunctionData("lockRagequit");
+  const lockRagequit = baal.interface.encodeFunctionData("lockRagequit");
   const lockRagequitAction = encodeMultiAction(
     multisend,
     [lockRagequit],
