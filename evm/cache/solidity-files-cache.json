@@ -282,48 +282,6 @@
         "GnosisSafeProxyFactory"
       ]
     },
-    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/evm/node_modules/@gnosis.pm/zodiac/contracts/factory/ModuleProxyFactory.sol": {
-      "lastModificationDate": 1683725129697,
-      "contentHash": "c759566c01e623d2021764eff379cfbd",
-      "sourceName": "@gnosis.pm/zodiac/contracts/factory/ModuleProxyFactory.sol",
-      "solcConfig": {
-        "version": "0.8.12",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 100
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        ">=0.8.0"
-      ],
-      "artifacts": [
-        "ModuleProxyFactory"
-      ]
-    },
     "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@openzeppelin/contracts/proxy/ERC1967/ERC1967Proxy.sol": {
       "lastModificationDate": 1683725125156,
       "contentHash": "3fc3c7c0a2956f36e766691bb9473b06",
@@ -643,52 +601,6 @@
       ],
       "artifacts": [
         "Executor"
-      ]
-    },
-    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/evm/node_modules/@gnosis.pm/zodiac/contracts/core/Module.sol": {
-      "lastModificationDate": 1683725129697,
-      "contentHash": "483c76f91c270363fccfdeee848684a7",
-      "sourceName": "@gnosis.pm/zodiac/contracts/core/Module.sol",
-      "solcConfig": {
-        "version": "0.8.12",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 100
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "../interfaces/IAvatar.sol",
-        "../factory/FactoryFriendly.sol",
-        "../guard/Guardable.sol"
-      ],
-      "versionPragmas": [
-        ">=0.7.0 <0.9.0"
-      ],
-      "artifacts": [
-        "Module"
       ]
     },
     "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@openzeppelin/contracts-upgradeable/utils/cryptography/draft-EIP712Upgradeable.sol": {
@@ -1633,230 +1545,6 @@
       ],
       "artifacts": [
         "IRelayRecipient"
-      ]
-    },
-    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/evm/node_modules/@gnosis.pm/zodiac/contracts/factory/FactoryFriendly.sol": {
-      "lastModificationDate": 1683725129697,
-      "contentHash": "6b9eae1b9a4e3b78b39ae84440e38ac4",
-      "sourceName": "@gnosis.pm/zodiac/contracts/factory/FactoryFriendly.sol",
-      "solcConfig": {
-        "version": "0.8.12",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 100
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol"
-      ],
-      "versionPragmas": [
-        ">=0.7.0 <0.9.0"
-      ],
-      "artifacts": [
-        "FactoryFriendly"
-      ]
-    },
-    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/evm/node_modules/@gnosis.pm/zodiac/contracts/guard/Guardable.sol": {
-      "lastModificationDate": 1683725129699,
-      "contentHash": "aeff53a0e89d73b8460d8f89a2a831a1",
-      "sourceName": "@gnosis.pm/zodiac/contracts/guard/Guardable.sol",
-      "solcConfig": {
-        "version": "0.8.12",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 100
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "@gnosis.pm/safe-contracts/contracts/common/Enum.sol",
-        "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol",
-        "./BaseGuard.sol"
-      ],
-      "versionPragmas": [
-        ">=0.7.0 <0.9.0"
-      ],
-      "artifacts": [
-        "Guardable"
-      ]
-    },
-    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/evm/node_modules/@gnosis.pm/zodiac/contracts/interfaces/IAvatar.sol": {
-      "lastModificationDate": 1683725129697,
-      "contentHash": "bde7ca4df535d7d3acfeb298abaf8da4",
-      "sourceName": "@gnosis.pm/zodiac/contracts/interfaces/IAvatar.sol",
-      "solcConfig": {
-        "version": "0.8.12",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 100
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "@gnosis.pm/safe-contracts/contracts/common/Enum.sol"
-      ],
-      "versionPragmas": [
-        ">=0.7.0 <0.9.0"
-      ],
-      "artifacts": [
-        "IAvatar"
-      ]
-    },
-    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/evm/node_modules/@gnosis.pm/zodiac/contracts/guard/BaseGuard.sol": {
-      "lastModificationDate": 1683725129698,
-      "contentHash": "d45a1301d15dba09be57c2067f5081e8",
-      "sourceName": "@gnosis.pm/zodiac/contracts/guard/BaseGuard.sol",
-      "solcConfig": {
-        "version": "0.8.12",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 100
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "@gnosis.pm/safe-contracts/contracts/common/Enum.sol",
-        "@openzeppelin/contracts/utils/introspection/IERC165.sol",
-        "../interfaces/IGuard.sol"
-      ],
-      "versionPragmas": [
-        ">=0.7.0 <0.9.0"
-      ],
-      "artifacts": [
-        "BaseGuard"
-      ]
-    },
-    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/evm/node_modules/@gnosis.pm/zodiac/contracts/interfaces/IGuard.sol": {
-      "lastModificationDate": 1683725129697,
-      "contentHash": "f44bfd52d28472afc1810859cb08d71a",
-      "sourceName": "@gnosis.pm/zodiac/contracts/interfaces/IGuard.sol",
-      "solcConfig": {
-        "version": "0.8.12",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 100
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "@gnosis.pm/safe-contracts/contracts/common/Enum.sol"
-      ],
-      "versionPragmas": [
-        ">=0.7.0 <0.9.0"
-      ],
-      "artifacts": [
-        "IGuard"
       ]
     },
     "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@openzeppelin/contracts/utils/introspection/IERC165.sol": {
@@ -4652,6 +4340,318 @@
       ],
       "artifacts": [
         "IBaalStore"
+      ]
+    },
+    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@gnosis.pm/zodiac/contracts/core/Module.sol": {
+      "lastModificationDate": 1684007659874,
+      "contentHash": "483c76f91c270363fccfdeee848684a7",
+      "sourceName": "@gnosis.pm/zodiac/contracts/core/Module.sol",
+      "solcConfig": {
+        "version": "0.8.12",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 100
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../interfaces/IAvatar.sol",
+        "../factory/FactoryFriendly.sol",
+        "../guard/Guardable.sol"
+      ],
+      "versionPragmas": [
+        ">=0.7.0 <0.9.0"
+      ],
+      "artifacts": [
+        "Module"
+      ]
+    },
+    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@gnosis.pm/zodiac/contracts/factory/FactoryFriendly.sol": {
+      "lastModificationDate": 1684007659874,
+      "contentHash": "6b9eae1b9a4e3b78b39ae84440e38ac4",
+      "sourceName": "@gnosis.pm/zodiac/contracts/factory/FactoryFriendly.sol",
+      "solcConfig": {
+        "version": "0.8.12",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 100
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol"
+      ],
+      "versionPragmas": [
+        ">=0.7.0 <0.9.0"
+      ],
+      "artifacts": [
+        "FactoryFriendly"
+      ]
+    },
+    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@gnosis.pm/zodiac/contracts/guard/Guardable.sol": {
+      "lastModificationDate": 1684007659875,
+      "contentHash": "aeff53a0e89d73b8460d8f89a2a831a1",
+      "sourceName": "@gnosis.pm/zodiac/contracts/guard/Guardable.sol",
+      "solcConfig": {
+        "version": "0.8.12",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 100
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@gnosis.pm/safe-contracts/contracts/common/Enum.sol",
+        "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol",
+        "./BaseGuard.sol"
+      ],
+      "versionPragmas": [
+        ">=0.7.0 <0.9.0"
+      ],
+      "artifacts": [
+        "Guardable"
+      ]
+    },
+    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@gnosis.pm/zodiac/contracts/interfaces/IAvatar.sol": {
+      "lastModificationDate": 1684007659875,
+      "contentHash": "bde7ca4df535d7d3acfeb298abaf8da4",
+      "sourceName": "@gnosis.pm/zodiac/contracts/interfaces/IAvatar.sol",
+      "solcConfig": {
+        "version": "0.8.12",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 100
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@gnosis.pm/safe-contracts/contracts/common/Enum.sol"
+      ],
+      "versionPragmas": [
+        ">=0.7.0 <0.9.0"
+      ],
+      "artifacts": [
+        "IAvatar"
+      ]
+    },
+    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@gnosis.pm/zodiac/contracts/guard/BaseGuard.sol": {
+      "lastModificationDate": 1684007659875,
+      "contentHash": "d45a1301d15dba09be57c2067f5081e8",
+      "sourceName": "@gnosis.pm/zodiac/contracts/guard/BaseGuard.sol",
+      "solcConfig": {
+        "version": "0.8.12",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 100
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@gnosis.pm/safe-contracts/contracts/common/Enum.sol",
+        "@openzeppelin/contracts/utils/introspection/IERC165.sol",
+        "../interfaces/IGuard.sol"
+      ],
+      "versionPragmas": [
+        ">=0.7.0 <0.9.0"
+      ],
+      "artifacts": [
+        "BaseGuard"
+      ]
+    },
+    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@gnosis.pm/zodiac/contracts/interfaces/IGuard.sol": {
+      "lastModificationDate": 1684007659875,
+      "contentHash": "f44bfd52d28472afc1810859cb08d71a",
+      "sourceName": "@gnosis.pm/zodiac/contracts/interfaces/IGuard.sol",
+      "solcConfig": {
+        "version": "0.8.12",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 100
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@gnosis.pm/safe-contracts/contracts/common/Enum.sol"
+      ],
+      "versionPragmas": [
+        ">=0.7.0 <0.9.0"
+      ],
+      "artifacts": [
+        "IGuard"
+      ]
+    },
+    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@gnosis.pm/zodiac/contracts/factory/ModuleProxyFactory.sol": {
+      "lastModificationDate": 1684007659874,
+      "contentHash": "c759566c01e623d2021764eff379cfbd",
+      "sourceName": "@gnosis.pm/zodiac/contracts/factory/ModuleProxyFactory.sol",
+      "solcConfig": {
+        "version": "0.8.12",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 100
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.8.0"
+      ],
+      "artifacts": [
+        "ModuleProxyFactory"
       ]
     }
   }

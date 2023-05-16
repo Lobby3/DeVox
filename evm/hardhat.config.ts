@@ -13,6 +13,7 @@ import "hardhat-gas-reporter";
 import { HardhatUserConfig } from "hardhat/config";
 import { resolve } from "path";
 import "solidity-coverage";
+import "@graphprotocol/hardhat-graph";
 
 // You need to export an object to set up your config
 // Go to https://hardhat.org/config/ to learn more

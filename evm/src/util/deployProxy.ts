@@ -31,5 +31,7 @@ export const deployProxy = async (
     };
 
     await save(contractName, proxyDeployments);
+
+    return proxy;
   }
 };

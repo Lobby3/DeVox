@@ -26,6 +26,8 @@ export const Hardhat = "hardhat";
 
 export const Baal = "BaalV1";
 export const BaalSummoner = "BaalSummonerV1";
+export const BaalAdvTokenSummoner = "BaalAdvTokenSummonerV1";
+export const BaalAndVaultSummoner = "BaalAndVaultSummonerV1";
 export const DeVoxShaman = "DeVoxShamanV1";
 export const DeVoxShamanSummoner = "DeVoxShamanSummonerV1";
 export const Loot = "LootV1";

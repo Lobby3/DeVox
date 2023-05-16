@@ -32,5 +32,7 @@ export const deployInstance = async (
     };
 
     await save(contractName, instanceDeployments);
+
+    return instance;
   }
 };
