@@ -118,6 +118,28 @@ export class Initialized__Params {
   }
 }
 
+export class OwnershipTransferred extends ethereum.Event {
+  get params(): OwnershipTransferred__Params {
+    return new OwnershipTransferred__Params(this);
+  }
+}
+
+export class OwnershipTransferred__Params {
+  _event: OwnershipTransferred;
+
+  constructor(event: OwnershipTransferred) {
+    this._event = event;
+  }
+
+  get previousOwner(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+
+  get newOwner(): Address {
+    return this._event.parameters[1].value.toAddress();
+  }
+}
+
 export class TargetUpdated extends ethereum.Event {
   get params(): TargetUpdated__Params {
     return new TargetUpdated__Params(this);
@@ -163,48 +185,6 @@ export class DeVoxShamanV1 extends ethereum.SmartContract {
     return new DeVoxShamanV1("DeVoxShamanV1", address);
   }
 
-  DEFAULT_ADMIN_ROLE(): Bytes {
-    let result = super.call(
-      "DEFAULT_ADMIN_ROLE",
-      "DEFAULT_ADMIN_ROLE():(bytes32)",
-      []
-    );
-
-    return result[0].toBytes();
-  }
-
-  try_DEFAULT_ADMIN_ROLE(): ethereum.CallResult<Bytes> {
-    let result = super.tryCall(
-      "DEFAULT_ADMIN_ROLE",
-      "DEFAULT_ADMIN_ROLE():(bytes32)",
-      []
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBytes());
-  }
-
-  UPGRADER_ROLE(): Bytes {
-    let result = super.call("UPGRADER_ROLE", "UPGRADER_ROLE():(bytes32)", []);
-
-    return result[0].toBytes();
-  }
-
-  try_UPGRADER_ROLE(): ethereum.CallResult<Bytes> {
-    let result = super.tryCall(
-      "UPGRADER_ROLE",
-      "UPGRADER_ROLE():(bytes32)",
-      []
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBytes());
-  }
-
   baal(): Address {
     let result = super.call("baal", "baal():(address)", []);
 
@@ -239,27 +219,6 @@ export class DeVoxShamanV1 extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBigInt());
   }
 
-  getRoleAdmin(role: Bytes): Bytes {
-    let result = super.call("getRoleAdmin", "getRoleAdmin(bytes32):(bytes32)", [
-      ethereum.Value.fromFixedBytes(role)
-    ]);
-
-    return result[0].toBytes();
-  }
-
-  try_getRoleAdmin(role: Bytes): ethereum.CallResult<Bytes> {
-    let result = super.tryCall(
-      "getRoleAdmin",
-      "getRoleAdmin(bytes32):(bytes32)",
-      [ethereum.Value.fromFixedBytes(role)]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBytes());
-  }
-
   getTokenBalance(): BigInt {
     let result = super.call(
       "getTokenBalance",
@@ -283,27 +242,6 @@ export class DeVoxShamanV1 extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBigInt());
   }
 
-  hasRole(role: Bytes, account: Address): boolean {
-    let result = super.call("hasRole", "hasRole(bytes32,address):(bool)", [
-      ethereum.Value.fromFixedBytes(role),
-      ethereum.Value.fromAddress(account)
-    ]);
-
-    return result[0].toBoolean();
-  }
-
-  try_hasRole(role: Bytes, account: Address): ethereum.CallResult<boolean> {
-    let result = super.tryCall("hasRole", "hasRole(bytes32,address):(bool)", [
-      ethereum.Value.fromFixedBytes(role),
-      ethereum.Value.fromAddress(account)
-    ]);
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBoolean());
-  }
-
   lootPerUnit(): BigInt {
     let result = super.call("lootPerUnit", "lootPerUnit():(uint256)", []);
 
@@ -317,6 +255,21 @@ export class DeVoxShamanV1 extends ethereum.SmartContract {
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toBigInt());
+  }
+
+  owner(): Address {
+    let result = super.call("owner", "owner():(address)", []);
+
+    return result[0].toAddress();
+  }
+
+  try_owner(): ethereum.CallResult<Address> {
+    let result = super.tryCall("owner", "owner():(address)", []);
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toAddress());
   }
 
   pricePerUnit(): BigInt {
@@ -374,29 +327,6 @@ export class DeVoxShamanV1 extends ethereum.SmartContract {
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toBigInt());
-  }
-
-  supportsInterface(interfaceId: Bytes): boolean {
-    let result = super.call(
-      "supportsInterface",
-      "supportsInterface(bytes4):(bool)",
-      [ethereum.Value.fromFixedBytes(interfaceId)]
-    );
-
-    return result[0].toBoolean();
-  }
-
-  try_supportsInterface(interfaceId: Bytes): ethereum.CallResult<boolean> {
-    let result = super.tryCall(
-      "supportsInterface",
-      "supportsInterface(bytes4):(bool)",
-      [ethereum.Value.fromFixedBytes(interfaceId)]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBoolean());
   }
 
   target(): BigInt {
@@ -535,40 +465,6 @@ export class GetTokenBalanceCall__Outputs {
   }
 }
 
-export class GrantRoleCall extends ethereum.Call {
-  get inputs(): GrantRoleCall__Inputs {
-    return new GrantRoleCall__Inputs(this);
-  }
-
-  get outputs(): GrantRoleCall__Outputs {
-    return new GrantRoleCall__Outputs(this);
-  }
-}
-
-export class GrantRoleCall__Inputs {
-  _call: GrantRoleCall;
-
-  constructor(call: GrantRoleCall) {
-    this._call = call;
-  }
-
-  get role(): Bytes {
-    return this._call.inputValues[0].value.toBytes();
-  }
-
-  get account(): Address {
-    return this._call.inputValues[1].value.toAddress();
-  }
-}
-
-export class GrantRoleCall__Outputs {
-  _call: GrantRoleCall;
-
-  constructor(call: GrantRoleCall) {
-    this._call = call;
-  }
-}
-
 export class InitializeCall extends ethereum.Call {
   get inputs(): InitializeCall__Inputs {
     return new InitializeCall__Inputs(this);
@@ -619,70 +515,28 @@ export class InitializeCall__Outputs {
   }
 }
 
-export class RenounceRoleCall extends ethereum.Call {
-  get inputs(): RenounceRoleCall__Inputs {
-    return new RenounceRoleCall__Inputs(this);
+export class RenounceOwnershipCall extends ethereum.Call {
+  get inputs(): RenounceOwnershipCall__Inputs {
+    return new RenounceOwnershipCall__Inputs(this);
   }
 
-  get outputs(): RenounceRoleCall__Outputs {
-    return new RenounceRoleCall__Outputs(this);
-  }
-}
-
-export class RenounceRoleCall__Inputs {
-  _call: RenounceRoleCall;
-
-  constructor(call: RenounceRoleCall) {
-    this._call = call;
-  }
-
-  get role(): Bytes {
-    return this._call.inputValues[0].value.toBytes();
-  }
-
-  get account(): Address {
-    return this._call.inputValues[1].value.toAddress();
+  get outputs(): RenounceOwnershipCall__Outputs {
+    return new RenounceOwnershipCall__Outputs(this);
   }
 }
 
-export class RenounceRoleCall__Outputs {
-  _call: RenounceRoleCall;
+export class RenounceOwnershipCall__Inputs {
+  _call: RenounceOwnershipCall;
 
-  constructor(call: RenounceRoleCall) {
+  constructor(call: RenounceOwnershipCall) {
     this._call = call;
   }
 }
 
-export class RevokeRoleCall extends ethereum.Call {
-  get inputs(): RevokeRoleCall__Inputs {
-    return new RevokeRoleCall__Inputs(this);
-  }
+export class RenounceOwnershipCall__Outputs {
+  _call: RenounceOwnershipCall;
 
-  get outputs(): RevokeRoleCall__Outputs {
-    return new RevokeRoleCall__Outputs(this);
-  }
-}
-
-export class RevokeRoleCall__Inputs {
-  _call: RevokeRoleCall;
-
-  constructor(call: RevokeRoleCall) {
-    this._call = call;
-  }
-
-  get role(): Bytes {
-    return this._call.inputValues[0].value.toBytes();
-  }
-
-  get account(): Address {
-    return this._call.inputValues[1].value.toAddress();
-  }
-}
-
-export class RevokeRoleCall__Outputs {
-  _call: RevokeRoleCall;
-
-  constructor(call: RevokeRoleCall) {
+  constructor(call: RenounceOwnershipCall) {
     this._call = call;
   }
 }
@@ -713,6 +567,36 @@ export class SetTargetCall__Outputs {
   _call: SetTargetCall;
 
   constructor(call: SetTargetCall) {
+    this._call = call;
+  }
+}
+
+export class TransferOwnershipCall extends ethereum.Call {
+  get inputs(): TransferOwnershipCall__Inputs {
+    return new TransferOwnershipCall__Inputs(this);
+  }
+
+  get outputs(): TransferOwnershipCall__Outputs {
+    return new TransferOwnershipCall__Outputs(this);
+  }
+}
+
+export class TransferOwnershipCall__Inputs {
+  _call: TransferOwnershipCall;
+
+  constructor(call: TransferOwnershipCall) {
+    this._call = call;
+  }
+
+  get newOwner(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+}
+
+export class TransferOwnershipCall__Outputs {
+  _call: TransferOwnershipCall;
+
+  constructor(call: TransferOwnershipCall) {
     this._call = call;
   }
 }

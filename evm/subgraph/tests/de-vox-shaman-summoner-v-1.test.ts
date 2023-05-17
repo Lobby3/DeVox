@@ -6,10 +6,10 @@ import {
   beforeAll,
   afterAll
 } from "matchstick-as/assembly/index"
-import { Address, BigInt, Bytes } from "@graphprotocol/graph-ts"
-import { AdminChanged } from "../generated/DeVoxShamanV1/DeVoxShamanV1"
-import { handleAdminChanged } from "../src/de-vox-shaman-v-1"
-import { createAdminChangedEvent } from "./de-vox-shaman-v-1-utils"
+import { Address, BigInt } from "@graphprotocol/graph-ts"
+import { AdminChanged } from "../generated/DeVoxShamanSummonerV1/DeVoxShamanSummonerV1"
+import { handleAdminChanged } from "../src/de-vox-shaman-summoner-v-1"
+import { createAdminChangedEvent } from "./de-vox-shaman-summoner-v-1-utils"
 
 // Tests structure (matchstick-as >=0.5.0)
 // https://thegraph.com/docs/en/developer/matchstick/#tests-structure-0-5-0
