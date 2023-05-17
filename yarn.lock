@@ -2417,7 +2417,7 @@
 
 "@graphprotocol/hardhat-graph@https://github.com/graphprotocol/hardhat-graph":
   version "0.1.0-alpha.2"
-  resolved "https://github.com/graphprotocol/hardhat-graph#787ac65102bf26f6a6a264a9ec194901d1a28d3b"
+  resolved "git+ssh://git@github.com/graphprotocol/hardhat-graph.git#787ac65102bf26f6a6a264a9ec194901d1a28d3b"
 
 "@graphql-typed-document-node/core@3.1.1":
   version "3.1.1"
