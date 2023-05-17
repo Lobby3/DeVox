@@ -1,7 +1,7 @@
 import { DeployFunction } from "hardhat-deploy/types";
 import { HardhatRuntimeEnvironment } from "hardhat/types";
 
-import { DeVoxShaman, DeVoxShamanSummoner, deployInstance } from "../src/util";
+import { DeVoxShaman, DeVoxShamanSummoner, deployProxy } from "../src/util";
 
 const deploy: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   const { deployments } = hre; // we get the deployments and getNamedAccounts which are provided by hardhat-deploy.
@@ -10,7 +10,7 @@ const deploy: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   const shamanDeployment = await get(DeVoxShaman);
   const args = [shamanDeployment.address];
 
-  await deployInstance(DeVoxShamanSummoner, hre, args); // TODO: deployProxy
+  await deployProxy(DeVoxShamanSummoner, hre, args);
 };
 
 export default deploy;

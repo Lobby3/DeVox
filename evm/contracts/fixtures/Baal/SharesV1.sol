@@ -39,8 +39,6 @@ contract SharesV1 is BaalVotes, ERC20SnapshotUpgradeable, OwnableUpgradeable, Pa
         __Ownable_init();
         __UUPSUpgradeable_init();
         __EIP712_init_delegation("delegation", "4");
-
-
     }
 
     /// @notice Baal-only function to pause shares.

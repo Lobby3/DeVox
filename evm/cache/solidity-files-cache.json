@@ -103,7 +103,7 @@
       ]
     },
     "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol": {
-      "lastModificationDate": 1683725118546,
+      "lastModificationDate": 1684007656843,
       "contentHash": "403ce8273abde646bff81558ddf512ad",
       "sourceName": "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol",
       "solcConfig": {
@@ -147,10 +147,10 @@
         "OwnableUpgradeable"
       ]
     },
-    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol": {
-      "lastModificationDate": 1683725125240,
-      "contentHash": "fc5844e59776a976987884e4d9814c7d",
-      "sourceName": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol",
+    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@gnosis.pm/zodiac/contracts/factory/ModuleProxyFactory.sol": {
+      "lastModificationDate": 1684007659874,
+      "contentHash": "c759566c01e623d2021764eff379cfbd",
+      "sourceName": "@gnosis.pm/zodiac/contracts/factory/ModuleProxyFactory.sol",
       "solcConfig": {
         "version": "0.8.12",
         "settings": {
@@ -181,64 +181,16 @@
           }
         }
       },
-      "imports": [
-        "../../utils/AddressUpgradeable.sol"
-      ],
+      "imports": [],
       "versionPragmas": [
-        "^0.8.2"
+        ">=0.8.0"
       ],
       "artifacts": [
-        "Initializable"
-      ]
-    },
-    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol": {
-      "lastModificationDate": 1683725125240,
-      "contentHash": "e271d7f01f6ba5cb9dbe19c49180243d",
-      "sourceName": "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol",
-      "solcConfig": {
-        "version": "0.8.12",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 100
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "../../interfaces/draft-IERC1822Upgradeable.sol",
-        "../ERC1967/ERC1967UpgradeUpgradeable.sol",
-        "./Initializable.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "UUPSUpgradeable"
+        "ModuleProxyFactory"
       ]
     },
     "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@gnosis.pm/safe-contracts/contracts/proxies/GnosisSafeProxyFactory.sol": {
-      "lastModificationDate": 1683725123489,
+      "lastModificationDate": 1684007659855,
       "contentHash": "1c6f2708f7097b32396e492b6d545f07",
       "sourceName": "@gnosis.pm/safe-contracts/contracts/proxies/GnosisSafeProxyFactory.sol",
       "solcConfig": {
@@ -283,7 +235,7 @@
       ]
     },
     "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@openzeppelin/contracts/proxy/ERC1967/ERC1967Proxy.sol": {
-      "lastModificationDate": 1683725125156,
+      "lastModificationDate": 1684007660417,
       "contentHash": "3fc3c7c0a2956f36e766691bb9473b06",
       "sourceName": "@openzeppelin/contracts/proxy/ERC1967/ERC1967Proxy.sol",
       "solcConfig": {
@@ -325,6 +277,96 @@
       ],
       "artifacts": [
         "ERC1967Proxy"
+      ]
+    },
+    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol": {
+      "lastModificationDate": 1684007660449,
+      "contentHash": "e271d7f01f6ba5cb9dbe19c49180243d",
+      "sourceName": "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol",
+      "solcConfig": {
+        "version": "0.8.12",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 100
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../../interfaces/draft-IERC1822Upgradeable.sol",
+        "../ERC1967/ERC1967UpgradeUpgradeable.sol",
+        "./Initializable.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "UUPSUpgradeable"
+      ]
+    },
+    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol": {
+      "lastModificationDate": 1684007660450,
+      "contentHash": "fc5844e59776a976987884e4d9814c7d",
+      "sourceName": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol",
+      "solcConfig": {
+        "version": "0.8.12",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 100
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../../utils/AddressUpgradeable.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.2"
+      ],
+      "artifacts": [
+        "Initializable"
       ]
     },
     "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/evm/contracts/fixtures/Baal/interfaces/IBaalToken.sol": {
@@ -370,7 +412,7 @@
       ]
     },
     "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@gnosis.pm/safe-contracts/contracts/GnosisSafe.sol": {
-      "lastModificationDate": 1683725118166,
+      "lastModificationDate": 1684007656461,
       "contentHash": "6302a9ad4b2767251b680676d0dfa334",
       "sourceName": "@gnosis.pm/safe-contracts/contracts/GnosisSafe.sol",
       "solcConfig": {
@@ -423,56 +465,8 @@
         "GnosisSafe"
       ]
     },
-    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol": {
-      "lastModificationDate": 1683725118546,
-      "contentHash": "1e9b13e33c8524e33d22f3f1239efe5c",
-      "sourceName": "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol",
-      "solcConfig": {
-        "version": "0.8.12",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 100
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "./IAccessControlUpgradeable.sol",
-        "../utils/ContextUpgradeable.sol",
-        "../utils/StringsUpgradeable.sol",
-        "../utils/introspection/ERC165Upgradeable.sol",
-        "../proxy/utils/Initializable.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "AccessControlUpgradeable"
-      ]
-    },
     "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@openzeppelin/contracts-upgradeable/security/ReentrancyGuardUpgradeable.sol": {
-      "lastModificationDate": 1683725118548,
+      "lastModificationDate": 1684007656843,
       "contentHash": "1453fc85149da6598faf08c46b88182d",
       "sourceName": "@openzeppelin/contracts-upgradeable/security/ReentrancyGuardUpgradeable.sol",
       "solcConfig": {
@@ -516,7 +510,7 @@
       ]
     },
     "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@opengsn/contracts/src/BaseRelayRecipient.sol": {
-      "lastModificationDate": 1683725118478,
+      "lastModificationDate": 1684007656784,
       "contentHash": "d88b74178c935209123074eab10678cc",
       "sourceName": "@opengsn/contracts/src/BaseRelayRecipient.sol",
       "solcConfig": {
@@ -559,8 +553,96 @@
         "BaseRelayRecipient"
       ]
     },
+    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@gnosis.pm/zodiac/contracts/core/Module.sol": {
+      "lastModificationDate": 1684007659874,
+      "contentHash": "483c76f91c270363fccfdeee848684a7",
+      "sourceName": "@gnosis.pm/zodiac/contracts/core/Module.sol",
+      "solcConfig": {
+        "version": "0.8.12",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 100
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../interfaces/IAvatar.sol",
+        "../factory/FactoryFriendly.sol",
+        "../guard/Guardable.sol"
+      ],
+      "versionPragmas": [
+        ">=0.7.0 <0.9.0"
+      ],
+      "artifacts": [
+        "Module"
+      ]
+    },
+    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@gnosis.pm/safe-contracts/contracts/common/Enum.sol": {
+      "lastModificationDate": 1684007659850,
+      "contentHash": "70d93d6b3e8b23f419fe3e529a43c17e",
+      "sourceName": "@gnosis.pm/safe-contracts/contracts/common/Enum.sol",
+      "solcConfig": {
+        "version": "0.8.12",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 100
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.7.0 <0.9.0"
+      ],
+      "artifacts": [
+        "Enum"
+      ]
+    },
     "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@gnosis.pm/safe-contracts/contracts/base/Executor.sol": {
-      "lastModificationDate": 1683725123483,
+      "lastModificationDate": 1684007659850,
       "contentHash": "5d439865306475654cf018596f1b1061",
       "sourceName": "@gnosis.pm/safe-contracts/contracts/base/Executor.sol",
       "solcConfig": {
@@ -604,7 +686,7 @@
       ]
     },
     "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@openzeppelin/contracts-upgradeable/utils/cryptography/draft-EIP712Upgradeable.sol": {
-      "lastModificationDate": 1683725125308,
+      "lastModificationDate": 1684007660453,
       "contentHash": "7694c4cb5fd0f010d9a3c6aab3f62a9f",
       "sourceName": "@openzeppelin/contracts-upgradeable/utils/cryptography/draft-EIP712Upgradeable.sol",
       "solcConfig": {
@@ -645,50 +727,8 @@
       ],
       "artifacts": []
     },
-    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@gnosis.pm/safe-contracts/contracts/common/Enum.sol": {
-      "lastModificationDate": 1683725123483,
-      "contentHash": "70d93d6b3e8b23f419fe3e529a43c17e",
-      "sourceName": "@gnosis.pm/safe-contracts/contracts/common/Enum.sol",
-      "solcConfig": {
-        "version": "0.8.12",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 100
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        ">=0.7.0 <0.9.0"
-      ],
-      "artifacts": [
-        "Enum"
-      ]
-    },
     "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@gnosis.pm/safe-contracts/contracts/base/ModuleManager.sol": {
-      "lastModificationDate": 1683725123483,
+      "lastModificationDate": 1684007659850,
       "contentHash": "90b2541c32a7644991f6ec3510dc3776",
       "sourceName": "@gnosis.pm/safe-contracts/contracts/base/ModuleManager.sol",
       "solcConfig": {
@@ -733,50 +773,8 @@
         "ModuleManager"
       ]
     },
-    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@gnosis.pm/safe-contracts/contracts/common/EtherPaymentFallback.sol": {
-      "lastModificationDate": 1683725123483,
-      "contentHash": "566ab89634daf8e542177b1e7016971e",
-      "sourceName": "@gnosis.pm/safe-contracts/contracts/common/EtherPaymentFallback.sol",
-      "solcConfig": {
-        "version": "0.8.12",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 100
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        ">=0.7.0 <0.9.0"
-      ],
-      "artifacts": [
-        "EtherPaymentFallback"
-      ]
-    },
     "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@gnosis.pm/safe-contracts/contracts/base/FallbackManager.sol": {
-      "lastModificationDate": 1683725123483,
+      "lastModificationDate": 1684007659850,
       "contentHash": "de30ab56ace98b84e2a047164e06d0c5",
       "sourceName": "@gnosis.pm/safe-contracts/contracts/base/FallbackManager.sol",
       "solcConfig": {
@@ -819,8 +817,52 @@
         "FallbackManager"
       ]
     },
+    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@gnosis.pm/safe-contracts/contracts/base/OwnerManager.sol": {
+      "lastModificationDate": 1684007659850,
+      "contentHash": "53e497cc090cb4931ca5905d7f671cc5",
+      "sourceName": "@gnosis.pm/safe-contracts/contracts/base/OwnerManager.sol",
+      "solcConfig": {
+        "version": "0.8.12",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 100
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../common/SelfAuthorized.sol"
+      ],
+      "versionPragmas": [
+        ">=0.7.0 <0.9.0"
+      ],
+      "artifacts": [
+        "OwnerManager"
+      ]
+    },
     "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@gnosis.pm/safe-contracts/contracts/base/GuardManager.sol": {
-      "lastModificationDate": 1683725123483,
+      "lastModificationDate": 1684007659850,
       "contentHash": "30b3fe3c67c994d66c5965199d64d86d",
       "sourceName": "@gnosis.pm/safe-contracts/contracts/base/GuardManager.sol",
       "solcConfig": {
@@ -865,94 +907,8 @@
         "GuardManager"
       ]
     },
-    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@gnosis.pm/safe-contracts/contracts/common/Singleton.sol": {
-      "lastModificationDate": 1683725123484,
-      "contentHash": "334ef119459ae9a5487c6bd346752778",
-      "sourceName": "@gnosis.pm/safe-contracts/contracts/common/Singleton.sol",
-      "solcConfig": {
-        "version": "0.8.12",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 100
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        ">=0.7.0 <0.9.0"
-      ],
-      "artifacts": [
-        "Singleton"
-      ]
-    },
-    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@gnosis.pm/safe-contracts/contracts/base/OwnerManager.sol": {
-      "lastModificationDate": 1683725123483,
-      "contentHash": "53e497cc090cb4931ca5905d7f671cc5",
-      "sourceName": "@gnosis.pm/safe-contracts/contracts/base/OwnerManager.sol",
-      "solcConfig": {
-        "version": "0.8.12",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 100
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "../common/SelfAuthorized.sol"
-      ],
-      "versionPragmas": [
-        ">=0.7.0 <0.9.0"
-      ],
-      "artifacts": [
-        "OwnerManager"
-      ]
-    },
     "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@gnosis.pm/safe-contracts/contracts/common/SignatureDecoder.sol": {
-      "lastModificationDate": 1683725123484,
+      "lastModificationDate": 1684007659854,
       "contentHash": "c42a4ba77188fde1fff8281ea700f4fa",
       "sourceName": "@gnosis.pm/safe-contracts/contracts/common/SignatureDecoder.sol",
       "solcConfig": {
@@ -993,10 +949,10 @@
         "SignatureDecoder"
       ]
     },
-    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@gnosis.pm/safe-contracts/contracts/common/StorageAccessible.sol": {
-      "lastModificationDate": 1683725123484,
-      "contentHash": "b2008c1f9b2cb3bbda6710f462ae7c1f",
-      "sourceName": "@gnosis.pm/safe-contracts/contracts/common/StorageAccessible.sol",
+    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@gnosis.pm/safe-contracts/contracts/common/Singleton.sol": {
+      "lastModificationDate": 1684007659854,
+      "contentHash": "334ef119459ae9a5487c6bd346752778",
+      "sourceName": "@gnosis.pm/safe-contracts/contracts/common/Singleton.sol",
       "solcConfig": {
         "version": "0.8.12",
         "settings": {
@@ -1032,11 +988,95 @@
         ">=0.7.0 <0.9.0"
       ],
       "artifacts": [
-        "StorageAccessible"
+        "Singleton"
+      ]
+    },
+    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@gnosis.pm/safe-contracts/contracts/common/SecuredTokenTransfer.sol": {
+      "lastModificationDate": 1684007659850,
+      "contentHash": "80c88034d9e09f88f6853fc707cf03c6",
+      "sourceName": "@gnosis.pm/safe-contracts/contracts/common/SecuredTokenTransfer.sol",
+      "solcConfig": {
+        "version": "0.8.12",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 100
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.7.0 <0.9.0"
+      ],
+      "artifacts": [
+        "SecuredTokenTransfer"
+      ]
+    },
+    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@gnosis.pm/safe-contracts/contracts/common/EtherPaymentFallback.sol": {
+      "lastModificationDate": 1684007659850,
+      "contentHash": "566ab89634daf8e542177b1e7016971e",
+      "sourceName": "@gnosis.pm/safe-contracts/contracts/common/EtherPaymentFallback.sol",
+      "solcConfig": {
+        "version": "0.8.12",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 100
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.7.0 <0.9.0"
+      ],
+      "artifacts": [
+        "EtherPaymentFallback"
       ]
     },
     "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@gnosis.pm/safe-contracts/contracts/interfaces/ISignatureValidator.sol": {
-      "lastModificationDate": 1683725123488,
+      "lastModificationDate": 1684007659856,
       "contentHash": "45be433b79d00dd9f3b8047489c3ff80",
       "sourceName": "@gnosis.pm/safe-contracts/contracts/interfaces/ISignatureValidator.sol",
       "solcConfig": {
@@ -1078,10 +1118,10 @@
         "ISignatureValidatorConstants"
       ]
     },
-    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@gnosis.pm/safe-contracts/contracts/common/SecuredTokenTransfer.sol": {
-      "lastModificationDate": 1683725123484,
-      "contentHash": "80c88034d9e09f88f6853fc707cf03c6",
-      "sourceName": "@gnosis.pm/safe-contracts/contracts/common/SecuredTokenTransfer.sol",
+    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@gnosis.pm/safe-contracts/contracts/common/StorageAccessible.sol": {
+      "lastModificationDate": 1684007659854,
+      "contentHash": "b2008c1f9b2cb3bbda6710f462ae7c1f",
+      "sourceName": "@gnosis.pm/safe-contracts/contracts/common/StorageAccessible.sol",
       "solcConfig": {
         "version": "0.8.12",
         "settings": {
@@ -1117,11 +1157,11 @@
         ">=0.7.0 <0.9.0"
       ],
       "artifacts": [
-        "SecuredTokenTransfer"
+        "StorageAccessible"
       ]
     },
     "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@gnosis.pm/safe-contracts/contracts/external/GnosisSafeMath.sol": {
-      "lastModificationDate": 1683725123484,
+      "lastModificationDate": 1684007659855,
       "contentHash": "0b98e5ff6cd364731017082744cf5706",
       "sourceName": "@gnosis.pm/safe-contracts/contracts/external/GnosisSafeMath.sol",
       "solcConfig": {
@@ -1163,7 +1203,7 @@
       ]
     },
     "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@gnosis.pm/safe-contracts/contracts/common/SelfAuthorized.sol": {
-      "lastModificationDate": 1683725123484,
+      "lastModificationDate": 1684007659854,
       "contentHash": "4c773e803298d5521ba60d7fc06df0b3",
       "sourceName": "@gnosis.pm/safe-contracts/contracts/common/SelfAuthorized.sol",
       "solcConfig": {
@@ -1204,8 +1244,226 @@
         "SelfAuthorized"
       ]
     },
+    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol": {
+      "lastModificationDate": 1684007656846,
+      "contentHash": "228f256dbb21393bc9ad02648e222f74",
+      "sourceName": "@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol",
+      "solcConfig": {
+        "version": "0.8.12",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 100
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.1"
+      ],
+      "artifacts": [
+        "AddressUpgradeable"
+      ]
+    },
+    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@opengsn/contracts/src/interfaces/IRelayRecipient.sol": {
+      "lastModificationDate": 1684007660310,
+      "contentHash": "6ed61fbbd3eab84648d82c99d1541fdf",
+      "sourceName": "@opengsn/contracts/src/interfaces/IRelayRecipient.sol",
+      "solcConfig": {
+        "version": "0.8.12",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 100
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.6.0"
+      ],
+      "artifacts": [
+        "IRelayRecipient"
+      ]
+    },
+    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@gnosis.pm/zodiac/contracts/factory/FactoryFriendly.sol": {
+      "lastModificationDate": 1684007659874,
+      "contentHash": "6b9eae1b9a4e3b78b39ae84440e38ac4",
+      "sourceName": "@gnosis.pm/zodiac/contracts/factory/FactoryFriendly.sol",
+      "solcConfig": {
+        "version": "0.8.12",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 100
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol"
+      ],
+      "versionPragmas": [
+        ">=0.7.0 <0.9.0"
+      ],
+      "artifacts": [
+        "FactoryFriendly"
+      ]
+    },
+    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@gnosis.pm/zodiac/contracts/guard/Guardable.sol": {
+      "lastModificationDate": 1684007659875,
+      "contentHash": "aeff53a0e89d73b8460d8f89a2a831a1",
+      "sourceName": "@gnosis.pm/zodiac/contracts/guard/Guardable.sol",
+      "solcConfig": {
+        "version": "0.8.12",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 100
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@gnosis.pm/safe-contracts/contracts/common/Enum.sol",
+        "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol",
+        "./BaseGuard.sol"
+      ],
+      "versionPragmas": [
+        ">=0.7.0 <0.9.0"
+      ],
+      "artifacts": [
+        "Guardable"
+      ]
+    },
+    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@gnosis.pm/zodiac/contracts/interfaces/IAvatar.sol": {
+      "lastModificationDate": 1684007659875,
+      "contentHash": "bde7ca4df535d7d3acfeb298abaf8da4",
+      "sourceName": "@gnosis.pm/zodiac/contracts/interfaces/IAvatar.sol",
+      "solcConfig": {
+        "version": "0.8.12",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 100
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@gnosis.pm/safe-contracts/contracts/common/Enum.sol"
+      ],
+      "versionPragmas": [
+        ">=0.7.0 <0.9.0"
+      ],
+      "artifacts": [
+        "IAvatar"
+      ]
+    },
     "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@openzeppelin/contracts-upgradeable/utils/ContextUpgradeable.sol": {
-      "lastModificationDate": 1683725118548,
+      "lastModificationDate": 1684007656846,
       "contentHash": "6200b84950eb05b4a92a39fd1d6e0f9b",
       "sourceName": "@openzeppelin/contracts-upgradeable/utils/ContextUpgradeable.sol",
       "solcConfig": {
@@ -1248,10 +1506,10 @@
         "ContextUpgradeable"
       ]
     },
-    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@openzeppelin/contracts-upgradeable/utils/StringsUpgradeable.sol": {
-      "lastModificationDate": 1683725118549,
-      "contentHash": "3805d0267faeda96624b50a67ca89f08",
-      "sourceName": "@openzeppelin/contracts-upgradeable/utils/StringsUpgradeable.sol",
+    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@gnosis.pm/zodiac/contracts/guard/BaseGuard.sol": {
+      "lastModificationDate": 1684007659875,
+      "contentHash": "d45a1301d15dba09be57c2067f5081e8",
+      "sourceName": "@gnosis.pm/zodiac/contracts/guard/BaseGuard.sol",
       "solcConfig": {
         "version": "0.8.12",
         "settings": {
@@ -1283,61 +1541,21 @@
         }
       },
       "imports": [
-        "./math/MathUpgradeable.sol"
+        "@gnosis.pm/safe-contracts/contracts/common/Enum.sol",
+        "@openzeppelin/contracts/utils/introspection/IERC165.sol",
+        "../interfaces/IGuard.sol"
       ],
       "versionPragmas": [
-        "^0.8.0"
+        ">=0.7.0 <0.9.0"
       ],
       "artifacts": [
-        "StringsUpgradeable"
+        "BaseGuard"
       ]
     },
-    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@openzeppelin/contracts-upgradeable/access/IAccessControlUpgradeable.sol": {
-      "lastModificationDate": 1683725118546,
-      "contentHash": "21b43d1337ebc77c11da3cbe3fd65316",
-      "sourceName": "@openzeppelin/contracts-upgradeable/access/IAccessControlUpgradeable.sol",
-      "solcConfig": {
-        "version": "0.8.12",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 100
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "IAccessControlUpgradeable"
-      ]
-    },
-    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@openzeppelin/contracts-upgradeable/utils/introspection/ERC165Upgradeable.sol": {
-      "lastModificationDate": 1683725125309,
-      "contentHash": "5f2d8b81c0ff5bd2047b4846c20b998d",
-      "sourceName": "@openzeppelin/contracts-upgradeable/utils/introspection/ERC165Upgradeable.sol",
+    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@gnosis.pm/zodiac/contracts/interfaces/IGuard.sol": {
+      "lastModificationDate": 1684007659875,
+      "contentHash": "f44bfd52d28472afc1810859cb08d71a",
+      "sourceName": "@gnosis.pm/zodiac/contracts/interfaces/IGuard.sol",
       "solcConfig": {
         "version": "0.8.12",
         "settings": {
@@ -1369,186 +1587,17 @@
         }
       },
       "imports": [
-        "./IERC165Upgradeable.sol",
-        "../../proxy/utils/Initializable.sol"
+        "@gnosis.pm/safe-contracts/contracts/common/Enum.sol"
       ],
       "versionPragmas": [
-        "^0.8.0"
+        ">=0.7.0 <0.9.0"
       ],
       "artifacts": [
-        "ERC165Upgradeable"
-      ]
-    },
-    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol": {
-      "lastModificationDate": 1683725118548,
-      "contentHash": "228f256dbb21393bc9ad02648e222f74",
-      "sourceName": "@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol",
-      "solcConfig": {
-        "version": "0.8.12",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 100
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.1"
-      ],
-      "artifacts": [
-        "AddressUpgradeable"
-      ]
-    },
-    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@openzeppelin/contracts-upgradeable/utils/math/MathUpgradeable.sol": {
-      "lastModificationDate": 1683725125315,
-      "contentHash": "469f71655418cc5f328fcc9bfdf10e9a",
-      "sourceName": "@openzeppelin/contracts-upgradeable/utils/math/MathUpgradeable.sol",
-      "solcConfig": {
-        "version": "0.8.12",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 100
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "MathUpgradeable"
-      ]
-    },
-    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@openzeppelin/contracts-upgradeable/utils/introspection/IERC165Upgradeable.sol": {
-      "lastModificationDate": 1683725125310,
-      "contentHash": "d6ecf203a5e72c845be9bbf2f304a289",
-      "sourceName": "@openzeppelin/contracts-upgradeable/utils/introspection/IERC165Upgradeable.sol",
-      "solcConfig": {
-        "version": "0.8.12",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 100
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "IERC165Upgradeable"
-      ]
-    },
-    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@opengsn/contracts/src/interfaces/IRelayRecipient.sol": {
-      "lastModificationDate": 1683725125121,
-      "contentHash": "6ed61fbbd3eab84648d82c99d1541fdf",
-      "sourceName": "@opengsn/contracts/src/interfaces/IRelayRecipient.sol",
-      "solcConfig": {
-        "version": "0.8.12",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 100
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        ">=0.6.0"
-      ],
-      "artifacts": [
-        "IRelayRecipient"
+        "IGuard"
       ]
     },
     "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@openzeppelin/contracts/utils/introspection/IERC165.sol": {
-      "lastModificationDate": 1683725125194,
+      "lastModificationDate": 1684007660422,
       "contentHash": "03e6768535ac4da0e9756f1d8a4a018a",
       "sourceName": "@openzeppelin/contracts/utils/introspection/IERC165.sol",
       "solcConfig": {
@@ -1589,225 +1638,8 @@
         "IERC165"
       ]
     },
-    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@openzeppelin/contracts-upgradeable/interfaces/draft-IERC1822Upgradeable.sol": {
-      "lastModificationDate": 1683725118547,
-      "contentHash": "a6883cfd85607b16c121a02728369eb3",
-      "sourceName": "@openzeppelin/contracts-upgradeable/interfaces/draft-IERC1822Upgradeable.sol",
-      "solcConfig": {
-        "version": "0.8.12",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 100
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "IERC1822ProxiableUpgradeable"
-      ]
-    },
-    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@openzeppelin/contracts-upgradeable/proxy/ERC1967/ERC1967UpgradeUpgradeable.sol": {
-      "lastModificationDate": 1683725125240,
-      "contentHash": "eba93b58d7bf7ffbdce09dbe9c5f3bb6",
-      "sourceName": "@openzeppelin/contracts-upgradeable/proxy/ERC1967/ERC1967UpgradeUpgradeable.sol",
-      "solcConfig": {
-        "version": "0.8.12",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 100
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "../beacon/IBeaconUpgradeable.sol",
-        "../../interfaces/IERC1967Upgradeable.sol",
-        "../../interfaces/draft-IERC1822Upgradeable.sol",
-        "../../utils/AddressUpgradeable.sol",
-        "../../utils/StorageSlotUpgradeable.sol",
-        "../utils/Initializable.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.2"
-      ],
-      "artifacts": [
-        "ERC1967UpgradeUpgradeable"
-      ]
-    },
-    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@openzeppelin/contracts-upgradeable/interfaces/IERC1967Upgradeable.sol": {
-      "lastModificationDate": 1683725118547,
-      "contentHash": "1d98f0f04dba67b0b50e61141b23e6d3",
-      "sourceName": "@openzeppelin/contracts-upgradeable/interfaces/IERC1967Upgradeable.sol",
-      "solcConfig": {
-        "version": "0.8.12",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 100
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "IERC1967Upgradeable"
-      ]
-    },
-    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@openzeppelin/contracts-upgradeable/utils/StorageSlotUpgradeable.sol": {
-      "lastModificationDate": 1683725118549,
-      "contentHash": "731fafe5fdaca6e0749253ab7ce7d3b9",
-      "sourceName": "@openzeppelin/contracts-upgradeable/utils/StorageSlotUpgradeable.sol",
-      "solcConfig": {
-        "version": "0.8.12",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 100
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "StorageSlotUpgradeable"
-      ]
-    },
-    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@openzeppelin/contracts-upgradeable/proxy/beacon/IBeaconUpgradeable.sol": {
-      "lastModificationDate": 1683725125240,
-      "contentHash": "21bffd733b4ca013e125a0ffe2e52254",
-      "sourceName": "@openzeppelin/contracts-upgradeable/proxy/beacon/IBeaconUpgradeable.sol",
-      "solcConfig": {
-        "version": "0.8.12",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 100
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "IBeaconUpgradeable"
-      ]
-    },
     "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@openzeppelin/contracts-upgradeable/utils/cryptography/EIP712Upgradeable.sol": {
-      "lastModificationDate": 1683725125308,
+      "lastModificationDate": 1684007660453,
       "contentHash": "4022a2f2e92f5c281d1a2cdae10a9e6b",
       "sourceName": "@openzeppelin/contracts-upgradeable/utils/cryptography/EIP712Upgradeable.sol",
       "solcConfig": {
@@ -1852,7 +1684,7 @@
       ]
     },
     "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@openzeppelin/contracts-upgradeable/utils/cryptography/ECDSAUpgradeable.sol": {
-      "lastModificationDate": 1683725125303,
+      "lastModificationDate": 1684007660453,
       "contentHash": "b3e120a8002394aabbbc467369cd7390",
       "sourceName": "@openzeppelin/contracts-upgradeable/utils/cryptography/ECDSAUpgradeable.sol",
       "solcConfig": {
@@ -1895,8 +1727,94 @@
         "ECDSAUpgradeable"
       ]
     },
+    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@openzeppelin/contracts-upgradeable/utils/StringsUpgradeable.sol": {
+      "lastModificationDate": 1684007656847,
+      "contentHash": "3805d0267faeda96624b50a67ca89f08",
+      "sourceName": "@openzeppelin/contracts-upgradeable/utils/StringsUpgradeable.sol",
+      "solcConfig": {
+        "version": "0.8.12",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 100
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "./math/MathUpgradeable.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "StringsUpgradeable"
+      ]
+    },
+    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@openzeppelin/contracts-upgradeable/utils/math/MathUpgradeable.sol": {
+      "lastModificationDate": 1684007660453,
+      "contentHash": "469f71655418cc5f328fcc9bfdf10e9a",
+      "sourceName": "@openzeppelin/contracts-upgradeable/utils/math/MathUpgradeable.sol",
+      "solcConfig": {
+        "version": "0.8.12",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 100
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "MathUpgradeable"
+      ]
+    },
     "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@gnosis.pm/safe-contracts/contracts/proxies/IProxyCreationCallback.sol": {
-      "lastModificationDate": 1683725123489,
+      "lastModificationDate": 1684007659856,
       "contentHash": "e73c0b8a985873c817469f5c6038e233",
       "sourceName": "@gnosis.pm/safe-contracts/contracts/proxies/IProxyCreationCallback.sol",
       "solcConfig": {
@@ -1940,7 +1858,7 @@
       ]
     },
     "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@gnosis.pm/safe-contracts/contracts/proxies/GnosisSafeProxy.sol": {
-      "lastModificationDate": 1683725123488,
+      "lastModificationDate": 1684007659856,
       "contentHash": "eba113f6899fe142a2081f63aded8c83",
       "sourceName": "@gnosis.pm/safe-contracts/contracts/proxies/GnosisSafeProxy.sol",
       "solcConfig": {
@@ -1983,7 +1901,7 @@
       ]
     },
     "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@openzeppelin/contracts/proxy/Proxy.sol": {
-      "lastModificationDate": 1683725118484,
+      "lastModificationDate": 1684007656837,
       "contentHash": "40b3d81a836d50ff47e03893dcaaf204",
       "sourceName": "@openzeppelin/contracts/proxy/Proxy.sol",
       "solcConfig": {
@@ -2025,7 +1943,7 @@
       ]
     },
     "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@openzeppelin/contracts/proxy/ERC1967/ERC1967Upgrade.sol": {
-      "lastModificationDate": 1683725125155,
+      "lastModificationDate": 1684007660417,
       "contentHash": "02cd73b0fd6f712455af4c12ffd59ceb",
       "sourceName": "@openzeppelin/contracts/proxy/ERC1967/ERC1967Upgrade.sol",
       "solcConfig": {
@@ -2073,7 +1991,7 @@
       ]
     },
     "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@openzeppelin/contracts/utils/Address.sol": {
-      "lastModificationDate": 1683725118484,
+      "lastModificationDate": 1684007656837,
       "contentHash": "f31ad6fc4bbf9c06203987220156a6ba",
       "sourceName": "@openzeppelin/contracts/utils/Address.sol",
       "solcConfig": {
@@ -2115,7 +2033,7 @@
       ]
     },
     "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@openzeppelin/contracts/interfaces/draft-IERC1822.sol": {
-      "lastModificationDate": 1683725118481,
+      "lastModificationDate": 1684007656837,
       "contentHash": "2858d98e74e67987ec81b39605230b74",
       "sourceName": "@openzeppelin/contracts/interfaces/draft-IERC1822.sol",
       "solcConfig": {
@@ -2157,7 +2075,7 @@
       ]
     },
     "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@openzeppelin/contracts/interfaces/IERC1967.sol": {
-      "lastModificationDate": 1683725118480,
+      "lastModificationDate": 1684007656834,
       "contentHash": "71e431b9bec8ee79c019265063e11431",
       "sourceName": "@openzeppelin/contracts/interfaces/IERC1967.sol",
       "solcConfig": {
@@ -2199,7 +2117,7 @@
       ]
     },
     "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@openzeppelin/contracts/utils/StorageSlot.sol": {
-      "lastModificationDate": 1683725118484,
+      "lastModificationDate": 1684007656838,
       "contentHash": "f993f8f50186952a59ee5e3a30b68222",
       "sourceName": "@openzeppelin/contracts/utils/StorageSlot.sol",
       "solcConfig": {
@@ -2241,7 +2159,7 @@
       ]
     },
     "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@openzeppelin/contracts/proxy/beacon/IBeacon.sol": {
-      "lastModificationDate": 1683725125149,
+      "lastModificationDate": 1684007660414,
       "contentHash": "b6bd23bf19e90b771337037706470933",
       "sourceName": "@openzeppelin/contracts/proxy/beacon/IBeacon.sol",
       "solcConfig": {
@@ -2282,10 +2200,10 @@
         "IBeacon"
       ]
     },
-    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/evm/contracts/fixtures/Baal/LootV1.sol": {
-      "lastModificationDate": 1683986619049,
-      "contentHash": "070a3a3571b201530c9780d06cc87f6f",
-      "sourceName": "contracts/fixtures/Baal/LootV1.sol",
+    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@openzeppelin/contracts-upgradeable/interfaces/draft-IERC1822Upgradeable.sol": {
+      "lastModificationDate": 1684007656846,
+      "contentHash": "a6883cfd85607b16c121a02728369eb3",
+      "sourceName": "@openzeppelin/contracts-upgradeable/interfaces/draft-IERC1822Upgradeable.sol",
       "solcConfig": {
         "version": "0.8.12",
         "settings": {
@@ -2316,26 +2234,18 @@
           }
         }
       },
-      "imports": [
-        "@openzeppelin/contracts-upgradeable/token/ERC20/ERC20Upgradeable.sol",
-        "@openzeppelin/contracts-upgradeable/security/PausableUpgradeable.sol",
-        "@openzeppelin/contracts-upgradeable/token/ERC20/extensions/ERC20SnapshotUpgradeable.sol",
-        "@openzeppelin/contracts-upgradeable/token/ERC20/extensions/draft-ERC20PermitUpgradeable.sol",
-        "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol",
-        "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol",
-        "@openzeppelin/contracts/utils/Address.sol"
-      ],
+      "imports": [],
       "versionPragmas": [
-        "^0.8.12"
+        "^0.8.0"
       ],
       "artifacts": [
-        "LootV1"
+        "IERC1822ProxiableUpgradeable"
       ]
     },
-    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@openzeppelin/contracts-upgradeable/security/PausableUpgradeable.sol": {
-      "lastModificationDate": 1683725118548,
-      "contentHash": "cbe53d6b803c1102081e00b3a0418ea3",
-      "sourceName": "@openzeppelin/contracts-upgradeable/security/PausableUpgradeable.sol",
+    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@openzeppelin/contracts-upgradeable/proxy/ERC1967/ERC1967UpgradeUpgradeable.sol": {
+      "lastModificationDate": 1684007660449,
+      "contentHash": "eba93b58d7bf7ffbdce09dbe9c5f3bb6",
+      "sourceName": "@openzeppelin/contracts-upgradeable/proxy/ERC1967/ERC1967UpgradeUpgradeable.sol",
       "solcConfig": {
         "version": "0.8.12",
         "settings": {
@@ -2367,112 +2277,193 @@
         }
       },
       "imports": [
-        "../utils/ContextUpgradeable.sol",
-        "../proxy/utils/Initializable.sol"
+        "../beacon/IBeaconUpgradeable.sol",
+        "../../interfaces/IERC1967Upgradeable.sol",
+        "../../interfaces/draft-IERC1822Upgradeable.sol",
+        "../../utils/AddressUpgradeable.sol",
+        "../../utils/StorageSlotUpgradeable.sol",
+        "../utils/Initializable.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.2"
+      ],
+      "artifacts": [
+        "ERC1967UpgradeUpgradeable"
+      ]
+    },
+    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@openzeppelin/contracts-upgradeable/utils/StorageSlotUpgradeable.sol": {
+      "lastModificationDate": 1684007656847,
+      "contentHash": "731fafe5fdaca6e0749253ab7ce7d3b9",
+      "sourceName": "@openzeppelin/contracts-upgradeable/utils/StorageSlotUpgradeable.sol",
+      "solcConfig": {
+        "version": "0.8.12",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 100
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "StorageSlotUpgradeable"
+      ]
+    },
+    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@openzeppelin/contracts-upgradeable/interfaces/IERC1967Upgradeable.sol": {
+      "lastModificationDate": 1684007656844,
+      "contentHash": "1d98f0f04dba67b0b50e61141b23e6d3",
+      "sourceName": "@openzeppelin/contracts-upgradeable/interfaces/IERC1967Upgradeable.sol",
+      "solcConfig": {
+        "version": "0.8.12",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 100
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "IERC1967Upgradeable"
+      ]
+    },
+    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@openzeppelin/contracts-upgradeable/proxy/beacon/IBeaconUpgradeable.sol": {
+      "lastModificationDate": 1684007660450,
+      "contentHash": "21bffd733b4ca013e125a0ffe2e52254",
+      "sourceName": "@openzeppelin/contracts-upgradeable/proxy/beacon/IBeaconUpgradeable.sol",
+      "solcConfig": {
+        "version": "0.8.12",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 100
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "IBeaconUpgradeable"
+      ]
+    },
+    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@openzeppelin/contracts-upgradeable/utils/ArraysUpgradeable.sol": {
+      "lastModificationDate": 1684007656846,
+      "contentHash": "31fffb993d9fd31108d170b5abe5a484",
+      "sourceName": "@openzeppelin/contracts-upgradeable/utils/ArraysUpgradeable.sol",
+      "solcConfig": {
+        "version": "0.8.12",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 100
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "./StorageSlotUpgradeable.sol",
+        "./math/MathUpgradeable.sol"
       ],
       "versionPragmas": [
         "^0.8.0"
       ],
       "artifacts": [
-        "PausableUpgradeable"
-      ]
-    },
-    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@openzeppelin/contracts-upgradeable/token/ERC20/ERC20Upgradeable.sol": {
-      "lastModificationDate": 1683725125290,
-      "contentHash": "3731d62752408e56578b89ac293659c6",
-      "sourceName": "@openzeppelin/contracts-upgradeable/token/ERC20/ERC20Upgradeable.sol",
-      "solcConfig": {
-        "version": "0.8.12",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 100
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "./IERC20Upgradeable.sol",
-        "./extensions/IERC20MetadataUpgradeable.sol",
-        "../../utils/ContextUpgradeable.sol",
-        "../../proxy/utils/Initializable.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "ERC20Upgradeable"
-      ]
-    },
-    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@openzeppelin/contracts-upgradeable/token/ERC20/extensions/ERC20SnapshotUpgradeable.sol": {
-      "lastModificationDate": 1683725132418,
-      "contentHash": "5497a3b10bfe129d0f154b8923da73c3",
-      "sourceName": "@openzeppelin/contracts-upgradeable/token/ERC20/extensions/ERC20SnapshotUpgradeable.sol",
-      "solcConfig": {
-        "version": "0.8.12",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 100
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "../ERC20Upgradeable.sol",
-        "../../../utils/ArraysUpgradeable.sol",
-        "../../../utils/CountersUpgradeable.sol",
-        "../../../proxy/utils/Initializable.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "ERC20SnapshotUpgradeable"
+        "ArraysUpgradeable"
       ]
     },
     "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@openzeppelin/contracts-upgradeable/token/ERC20/extensions/draft-ERC20PermitUpgradeable.sol": {
-      "lastModificationDate": 1683725132419,
+      "lastModificationDate": 1684007663501,
       "contentHash": "8bce39d1c92a8a00597c31ef2fe40eb1",
       "sourceName": "@openzeppelin/contracts-upgradeable/token/ERC20/extensions/draft-ERC20PermitUpgradeable.sol",
       "solcConfig": {
@@ -2520,8 +2511,139 @@
         "ERC20PermitUpgradeable"
       ]
     },
+    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@openzeppelin/contracts-upgradeable/token/ERC20/ERC20Upgradeable.sol": {
+      "lastModificationDate": 1684007660449,
+      "contentHash": "3731d62752408e56578b89ac293659c6",
+      "sourceName": "@openzeppelin/contracts-upgradeable/token/ERC20/ERC20Upgradeable.sol",
+      "solcConfig": {
+        "version": "0.8.12",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 100
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "./IERC20Upgradeable.sol",
+        "./extensions/IERC20MetadataUpgradeable.sol",
+        "../../utils/ContextUpgradeable.sol",
+        "../../proxy/utils/Initializable.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "ERC20Upgradeable"
+      ]
+    },
+    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@openzeppelin/contracts-upgradeable/utils/CountersUpgradeable.sol": {
+      "lastModificationDate": 1684007656846,
+      "contentHash": "2e908c762a799baea365e68a50500e2c",
+      "sourceName": "@openzeppelin/contracts-upgradeable/utils/CountersUpgradeable.sol",
+      "solcConfig": {
+        "version": "0.8.12",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 100
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "CountersUpgradeable"
+      ]
+    },
+    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@openzeppelin/contracts-upgradeable/token/ERC20/extensions/draft-IERC20PermitUpgradeable.sol": {
+      "lastModificationDate": 1684007663501,
+      "contentHash": "afab576c4d1f55fbf293a0daf3826e31",
+      "sourceName": "@openzeppelin/contracts-upgradeable/token/ERC20/extensions/draft-IERC20PermitUpgradeable.sol",
+      "solcConfig": {
+        "version": "0.8.12",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 100
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "IERC20PermitUpgradeable"
+      ]
+    },
     "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@openzeppelin/contracts-upgradeable/token/ERC20/IERC20Upgradeable.sol": {
-      "lastModificationDate": 1683725125290,
+      "lastModificationDate": 1684007660450,
       "contentHash": "a9ed3c7bc7d9ebb5e34f20829274f088",
       "sourceName": "@openzeppelin/contracts-upgradeable/token/ERC20/IERC20Upgradeable.sol",
       "solcConfig": {
@@ -2563,7 +2685,7 @@
       ]
     },
     "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@openzeppelin/contracts-upgradeable/token/ERC20/extensions/IERC20MetadataUpgradeable.sol": {
-      "lastModificationDate": 1683725132419,
+      "lastModificationDate": 1684007663501,
       "contentHash": "9efcd5467a7f0bf533910ee8a267adb2",
       "sourceName": "@openzeppelin/contracts-upgradeable/token/ERC20/extensions/IERC20MetadataUpgradeable.sol",
       "solcConfig": {
@@ -2606,52 +2728,10 @@
         "IERC20MetadataUpgradeable"
       ]
     },
-    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@openzeppelin/contracts-upgradeable/utils/CountersUpgradeable.sol": {
-      "lastModificationDate": 1683725118549,
-      "contentHash": "2e908c762a799baea365e68a50500e2c",
-      "sourceName": "@openzeppelin/contracts-upgradeable/utils/CountersUpgradeable.sol",
-      "solcConfig": {
-        "version": "0.8.12",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 100
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "CountersUpgradeable"
-      ]
-    },
-    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@openzeppelin/contracts-upgradeable/utils/ArraysUpgradeable.sol": {
-      "lastModificationDate": 1683725118548,
-      "contentHash": "31fffb993d9fd31108d170b5abe5a484",
-      "sourceName": "@openzeppelin/contracts-upgradeable/utils/ArraysUpgradeable.sol",
+    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@openzeppelin/contracts-upgradeable/token/ERC20/extensions/ERC20SnapshotUpgradeable.sol": {
+      "lastModificationDate": 1684007663500,
+      "contentHash": "5497a3b10bfe129d0f154b8923da73c3",
+      "sourceName": "@openzeppelin/contracts-upgradeable/token/ERC20/extensions/ERC20SnapshotUpgradeable.sol",
       "solcConfig": {
         "version": "0.8.12",
         "settings": {
@@ -2683,20 +2763,22 @@
         }
       },
       "imports": [
-        "./StorageSlotUpgradeable.sol",
-        "./math/MathUpgradeable.sol"
+        "../ERC20Upgradeable.sol",
+        "../../../utils/ArraysUpgradeable.sol",
+        "../../../utils/CountersUpgradeable.sol",
+        "../../../proxy/utils/Initializable.sol"
       ],
       "versionPragmas": [
         "^0.8.0"
       ],
       "artifacts": [
-        "ArraysUpgradeable"
+        "ERC20SnapshotUpgradeable"
       ]
     },
-    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@openzeppelin/contracts-upgradeable/token/ERC20/extensions/draft-IERC20PermitUpgradeable.sol": {
-      "lastModificationDate": 1683725132419,
-      "contentHash": "afab576c4d1f55fbf293a0daf3826e31",
-      "sourceName": "@openzeppelin/contracts-upgradeable/token/ERC20/extensions/draft-IERC20PermitUpgradeable.sol",
+    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@openzeppelin/contracts-upgradeable/security/PausableUpgradeable.sol": {
+      "lastModificationDate": 1684007656843,
+      "contentHash": "cbe53d6b803c1102081e00b3a0418ea3",
+      "sourceName": "@openzeppelin/contracts-upgradeable/security/PausableUpgradeable.sol",
       "solcConfig": {
         "version": "0.8.12",
         "settings": {
@@ -2727,17 +2809,20 @@
           }
         }
       },
-      "imports": [],
+      "imports": [
+        "../utils/ContextUpgradeable.sol",
+        "../proxy/utils/Initializable.sol"
+      ],
       "versionPragmas": [
         "^0.8.0"
       ],
       "artifacts": [
-        "IERC20PermitUpgradeable"
+        "PausableUpgradeable"
       ]
     },
     "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/evm/contracts/fixtures/Baal/SharesV1.sol": {
-      "lastModificationDate": 1683986619059,
-      "contentHash": "2f218978461290cfb85933e8cd898ea7",
+      "lastModificationDate": 1684337632303,
+      "contentHash": "57ddf9f357abf9f8dc70e1b6869dfaf8",
       "sourceName": "contracts/fixtures/Baal/SharesV1.sol",
       "solcConfig": {
         "version": "0.8.12",
@@ -2875,7 +2960,7 @@
       ]
     },
     "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol": {
-      "lastModificationDate": 1683725125160,
+      "lastModificationDate": 1684007660416,
       "contentHash": "834a0dde221759af42b030253315b086",
       "sourceName": "@openzeppelin/contracts/token/ERC20/ERC20.sol",
       "solcConfig": {
@@ -2966,7 +3051,7 @@
       ]
     },
     "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@openzeppelin/contracts/token/ERC20/IERC20.sol": {
-      "lastModificationDate": 1683725125161,
+      "lastModificationDate": 1684007660416,
       "contentHash": "ad7c2d0af148c8f9f097d65deeb4da6b",
       "sourceName": "@openzeppelin/contracts/token/ERC20/IERC20.sol",
       "solcConfig": {
@@ -3008,7 +3093,7 @@
       ]
     },
     "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@openzeppelin/contracts/utils/Context.sol": {
-      "lastModificationDate": 1683725118484,
+      "lastModificationDate": 1684007656838,
       "contentHash": "5f2c5c4b6af2dd4551027144797bc8be",
       "sourceName": "@openzeppelin/contracts/utils/Context.sol",
       "solcConfig": {
@@ -3050,7 +3135,7 @@
       ]
     },
     "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol": {
-      "lastModificationDate": 1683725132414,
+      "lastModificationDate": 1684007663495,
       "contentHash": "909ab67fc5c25033fe6cd364f8c056f9",
       "sourceName": "@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol",
       "solcConfig": {
@@ -3094,8 +3179,8 @@
       ]
     },
     "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/evm/contracts/shaman/DeVoxShamanV1.sol": {
-      "lastModificationDate": 1683968563390,
-      "contentHash": "6e0ce3ca5b3d400ca833c99f3b766f47",
+      "lastModificationDate": 1684338079386,
+      "contentHash": "d13c0515d87a65c048a25e17e78a9a25",
       "sourceName": "contracts/shaman/DeVoxShamanV1.sol",
       "solcConfig": {
         "version": "0.8.12",
@@ -3129,7 +3214,7 @@
       },
       "imports": [
         "@openzeppelin/contracts/token/ERC20/IERC20.sol",
-        "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol",
+        "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol",
         "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol",
         "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol",
         "@openzeppelin/contracts-upgradeable/security/ReentrancyGuardUpgradeable.sol",
@@ -3140,12 +3225,11 @@
         "^0.8.7"
       ],
       "artifacts": [
-        "DeVoxShamanSummonerV1",
         "DeVoxShamanV1"
       ]
     },
     "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@openzeppelin/contracts/proxy/Clones.sol": {
-      "lastModificationDate": 1683725118484,
+      "lastModificationDate": 1684007656837,
       "contentHash": "11535a839f5494023c396098504f5646",
       "sourceName": "@openzeppelin/contracts/proxy/Clones.sol",
       "solcConfig": {
@@ -3186,10 +3270,10 @@
         "Clones"
       ]
     },
-    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/evm/contracts/fixtures/Baal/mock/BaalLessToken.sol": {
-      "lastModificationDate": 1683986619051,
-      "contentHash": "9f55cb864e6b2e0ed3747f4a8ef7a933",
-      "sourceName": "contracts/fixtures/Baal/mock/BaalLessToken.sol",
+    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/evm/contracts/shaman/DeVoxShamanSummonerV1.sol": {
+      "lastModificationDate": 1684338098451,
+      "contentHash": "47f77ad461e5ae5ef68053b6347326ae",
+      "sourceName": "contracts/shaman/DeVoxShamanSummonerV1.sol",
       "solcConfig": {
         "version": "0.8.12",
         "settings": {
@@ -3221,18 +3305,16 @@
         }
       },
       "imports": [
-        "@openzeppelin/contracts-upgradeable/token/ERC20/ERC20Upgradeable.sol",
-        "@openzeppelin/contracts/token/ERC20/ERC20.sol",
         "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol",
+        "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol",
         "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol",
-        "../utils/BaalVotes.sol",
-        "../interfaces/IBaal.sol"
+        "./DeVoxShamanV1.sol"
       ],
       "versionPragmas": [
-        "^0.8.12"
+        "^0.8.7"
       ],
       "artifacts": [
-        "BaalLessShares"
+        "DeVoxShamanSummonerV1"
       ]
     },
     "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/evm/contracts/fixtures/Baal/tools/TributeMinion.sol": {
@@ -3326,7 +3408,7 @@
       ]
     },
     "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/evm/contracts/fixtures/Baal/higherOrderFactories/BaalAdvTokenSummonerV1.sol": {
-      "lastModificationDate": 1683986619049,
+      "lastModificationDate": 1684229476772,
       "contentHash": "99a04eebd7a4d1a25c89d7e181edc8f8",
       "sourceName": "contracts/fixtures/Baal/higherOrderFactories/BaalAdvTokenSummonerV1.sol",
       "solcConfig": {
@@ -3418,6 +3500,56 @@
         "IBaalSummoner"
       ]
     },
+    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/evm/contracts/fixtures/Baal/LootV1.sol": {
+      "lastModificationDate": 1683986619049,
+      "contentHash": "070a3a3571b201530c9780d06cc87f6f",
+      "sourceName": "contracts/fixtures/Baal/LootV1.sol",
+      "solcConfig": {
+        "version": "0.8.12",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 100
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts-upgradeable/token/ERC20/ERC20Upgradeable.sol",
+        "@openzeppelin/contracts-upgradeable/security/PausableUpgradeable.sol",
+        "@openzeppelin/contracts-upgradeable/token/ERC20/extensions/ERC20SnapshotUpgradeable.sol",
+        "@openzeppelin/contracts-upgradeable/token/ERC20/extensions/draft-ERC20PermitUpgradeable.sol",
+        "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol",
+        "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol",
+        "@openzeppelin/contracts/utils/Address.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.12"
+      ],
+      "artifacts": [
+        "LootV1"
+      ]
+    },
     "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/evm/contracts/fixtures/GnosisImports.sol": {
       "lastModificationDate": 1683483555461,
       "contentHash": "fd87dd7d4e41e7188864581120b2459b",
@@ -3464,8 +3596,50 @@
       ],
       "artifacts": []
     },
+    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@gnosis.pm/safe-contracts/contracts/libraries/MultiSend.sol": {
+      "lastModificationDate": 1684007659857,
+      "contentHash": "a7b41ac2932ddd3c1d11c7076ace270d",
+      "sourceName": "@gnosis.pm/safe-contracts/contracts/libraries/MultiSend.sol",
+      "solcConfig": {
+        "version": "0.8.12",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 100
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.7.0 <0.9.0"
+      ],
+      "artifacts": [
+        "MultiSend"
+      ]
+    },
     "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@gnosis.pm/safe-contracts/contracts/handler/CompatibilityFallbackHandler.sol": {
-      "lastModificationDate": 1683725123489,
+      "lastModificationDate": 1684007659858,
       "contentHash": "0663cc338351b228ee368891a754198a",
       "sourceName": "@gnosis.pm/safe-contracts/contracts/handler/CompatibilityFallbackHandler.sol",
       "solcConfig": {
@@ -3510,50 +3684,8 @@
         "CompatibilityFallbackHandler"
       ]
     },
-    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@gnosis.pm/safe-contracts/contracts/libraries/MultiSend.sol": {
-      "lastModificationDate": 1683725123496,
-      "contentHash": "a7b41ac2932ddd3c1d11c7076ace270d",
-      "sourceName": "@gnosis.pm/safe-contracts/contracts/libraries/MultiSend.sol",
-      "solcConfig": {
-        "version": "0.8.12",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 100
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        ">=0.7.0 <0.9.0"
-      ],
-      "artifacts": [
-        "MultiSend"
-      ]
-    },
     "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@gnosis.pm/safe-contracts/contracts/examples/libraries/SignMessage.sol": {
-      "lastModificationDate": 1683725131816,
+      "lastModificationDate": 1684007663120,
       "contentHash": "38e750ef832fbfbe0f135e2bc16f0210",
       "sourceName": "@gnosis.pm/safe-contracts/contracts/examples/libraries/SignMessage.sol",
       "solcConfig": {
@@ -3598,7 +3730,7 @@
       ]
     },
     "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@gnosis.pm/safe-contracts/contracts/handler/DefaultCallbackHandler.sol": {
-      "lastModificationDate": 1683725123488,
+      "lastModificationDate": 1684007659858,
       "contentHash": "5a4fbd56521d514530c7f6206e8eca89",
       "sourceName": "@gnosis.pm/safe-contracts/contracts/handler/DefaultCallbackHandler.sol",
       "solcConfig": {
@@ -3645,7 +3777,7 @@
       ]
     },
     "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@gnosis.pm/safe-contracts/contracts/interfaces/ERC1155TokenReceiver.sol": {
-      "lastModificationDate": 1683725123486,
+      "lastModificationDate": 1684007659855,
       "contentHash": "1d63defb083613ac870a97490f3635ba",
       "sourceName": "@gnosis.pm/safe-contracts/contracts/interfaces/ERC1155TokenReceiver.sol",
       "solcConfig": {
@@ -3687,7 +3819,7 @@
       ]
     },
     "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@gnosis.pm/safe-contracts/contracts/interfaces/ERC721TokenReceiver.sol": {
-      "lastModificationDate": 1683725123484,
+      "lastModificationDate": 1684007659855,
       "contentHash": "ffac82dd785c225e65d296c1c6596d5a",
       "sourceName": "@gnosis.pm/safe-contracts/contracts/interfaces/ERC721TokenReceiver.sol",
       "solcConfig": {
@@ -3729,7 +3861,7 @@
       ]
     },
     "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@gnosis.pm/safe-contracts/contracts/interfaces/ERC777TokensRecipient.sol": {
-      "lastModificationDate": 1683725123484,
+      "lastModificationDate": 1684007659855,
       "contentHash": "38601f7aa7b8c19d689915aeda071ef0",
       "sourceName": "@gnosis.pm/safe-contracts/contracts/interfaces/ERC777TokensRecipient.sol",
       "solcConfig": {
@@ -3771,7 +3903,7 @@
       ]
     },
     "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@gnosis.pm/safe-contracts/contracts/interfaces/IERC165.sol": {
-      "lastModificationDate": 1683725123488,
+      "lastModificationDate": 1684007659855,
       "contentHash": "2d418698dff7323e4f199ff8633d1a3a",
       "sourceName": "@gnosis.pm/safe-contracts/contracts/interfaces/IERC165.sol",
       "solcConfig": {
@@ -3813,7 +3945,7 @@
       ]
     },
     "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@gnosis.pm/safe-contracts/contracts/examples/libraries/GnosisSafeStorage.sol": {
-      "lastModificationDate": 1683725131820,
+      "lastModificationDate": 1684007663120,
       "contentHash": "62d516f9db15e3e52638095ba56f2fed",
       "sourceName": "@gnosis.pm/safe-contracts/contracts/examples/libraries/GnosisSafeStorage.sol",
       "solcConfig": {
@@ -3901,8 +4033,57 @@
         "BaalAndVaultSummonerV1"
       ]
     },
+    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/evm/contracts/fixtures/Baal/mock/BaalLessToken.sol": {
+      "lastModificationDate": 1683986619051,
+      "contentHash": "9f55cb864e6b2e0ed3747f4a8ef7a933",
+      "sourceName": "contracts/fixtures/Baal/mock/BaalLessToken.sol",
+      "solcConfig": {
+        "version": "0.8.12",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 100
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts-upgradeable/token/ERC20/ERC20Upgradeable.sol",
+        "@openzeppelin/contracts/token/ERC20/ERC20.sol",
+        "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol",
+        "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol",
+        "../utils/BaalVotes.sol",
+        "../interfaces/IBaal.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.12"
+      ],
+      "artifacts": [
+        "BaalLessShares"
+      ]
+    },
     "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@openzeppelin/contracts/access/Ownable.sol": {
-      "lastModificationDate": 1683725118477,
+      "lastModificationDate": 1684007656831,
       "contentHash": "e436cea06129be2c73cda4b1acc848b5",
       "sourceName": "@openzeppelin/contracts/access/Ownable.sol",
       "solcConfig": {
@@ -4115,543 +4296,6 @@
       ],
       "artifacts": [
         "Poster"
-      ]
-    },
-    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/evm/contracts/fixtures/Baal/utils/BaalHelpers.sol": {
-      "lastModificationDate": 1683989698065,
-      "contentHash": "10836751d2827aea2297d85e9f40e658",
-      "sourceName": "contracts/fixtures/Baal/utils/BaalHelpers.sol",
-      "solcConfig": {
-        "version": "0.8.12",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 100
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "@gnosis.pm/safe-contracts/contracts/base/Executor.sol",
-        "@gnosis.pm/zodiac/contracts/core/Module.sol",
-        "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol",
-        "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol",
-        "../interfaces/IBaalHelper.sol",
-        "../interfaces/IBaalToken.sol",
-        "../types/BaalTypes.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.12"
-      ],
-      "artifacts": [
-        "BaalHelpers"
-      ]
-    },
-    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/evm/contracts/fixtures/Baal/interfaces/IBaalHelper.sol": {
-      "lastModificationDate": 1683987471471,
-      "contentHash": "fdf71525a509c558f69e03f8fee56ef4",
-      "sourceName": "contracts/fixtures/Baal/interfaces/IBaalHelper.sol",
-      "solcConfig": {
-        "version": "0.8.12",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 100
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "../types/BaalTypes.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.12"
-      ],
-      "artifacts": [
-        "IBaalHelper"
-      ]
-    },
-    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/evm/contracts/fixtures/Baal/types/BaalTypes.sol": {
-      "lastModificationDate": 1683990668411,
-      "contentHash": "ed3a6bf2974f77f25476daa414326f54",
-      "sourceName": "contracts/fixtures/Baal/types/BaalTypes.sol",
-      "solcConfig": {
-        "version": "0.8.12",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 100
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.12"
-      ],
-      "artifacts": [
-        "BaalTypes"
-      ]
-    },
-    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/evm/contracts/fixtures/Baal/BaalStorageV1.sol": {
-      "lastModificationDate": 1683990668385,
-      "contentHash": "9bae0e798f65013a064cc141be6d938b",
-      "sourceName": "contracts/fixtures/Baal/BaalStorageV1.sol",
-      "solcConfig": {
-        "version": "0.8.12",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 100
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "./interfaces/IBaalStore.sol",
-        "./types/BaalTypes.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.12"
-      ],
-      "artifacts": [
-        "BaalStorageV1"
-      ]
-    },
-    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/evm/contracts/fixtures/Baal/interfaces/IBaalStore.sol": {
-      "lastModificationDate": 1683990663231,
-      "contentHash": "9535ed02ccf8a7ba14287f6d0b3400ac",
-      "sourceName": "contracts/fixtures/Baal/interfaces/IBaalStore.sol",
-      "solcConfig": {
-        "version": "0.8.12",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 100
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "../types/BaalTypes.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.12"
-      ],
-      "artifacts": [
-        "IBaalStore"
-      ]
-    },
-    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@gnosis.pm/zodiac/contracts/core/Module.sol": {
-      "lastModificationDate": 1684007659874,
-      "contentHash": "483c76f91c270363fccfdeee848684a7",
-      "sourceName": "@gnosis.pm/zodiac/contracts/core/Module.sol",
-      "solcConfig": {
-        "version": "0.8.12",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 100
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "../interfaces/IAvatar.sol",
-        "../factory/FactoryFriendly.sol",
-        "../guard/Guardable.sol"
-      ],
-      "versionPragmas": [
-        ">=0.7.0 <0.9.0"
-      ],
-      "artifacts": [
-        "Module"
-      ]
-    },
-    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@gnosis.pm/zodiac/contracts/factory/FactoryFriendly.sol": {
-      "lastModificationDate": 1684007659874,
-      "contentHash": "6b9eae1b9a4e3b78b39ae84440e38ac4",
-      "sourceName": "@gnosis.pm/zodiac/contracts/factory/FactoryFriendly.sol",
-      "solcConfig": {
-        "version": "0.8.12",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 100
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol"
-      ],
-      "versionPragmas": [
-        ">=0.7.0 <0.9.0"
-      ],
-      "artifacts": [
-        "FactoryFriendly"
-      ]
-    },
-    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@gnosis.pm/zodiac/contracts/guard/Guardable.sol": {
-      "lastModificationDate": 1684007659875,
-      "contentHash": "aeff53a0e89d73b8460d8f89a2a831a1",
-      "sourceName": "@gnosis.pm/zodiac/contracts/guard/Guardable.sol",
-      "solcConfig": {
-        "version": "0.8.12",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 100
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "@gnosis.pm/safe-contracts/contracts/common/Enum.sol",
-        "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol",
-        "./BaseGuard.sol"
-      ],
-      "versionPragmas": [
-        ">=0.7.0 <0.9.0"
-      ],
-      "artifacts": [
-        "Guardable"
-      ]
-    },
-    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@gnosis.pm/zodiac/contracts/interfaces/IAvatar.sol": {
-      "lastModificationDate": 1684007659875,
-      "contentHash": "bde7ca4df535d7d3acfeb298abaf8da4",
-      "sourceName": "@gnosis.pm/zodiac/contracts/interfaces/IAvatar.sol",
-      "solcConfig": {
-        "version": "0.8.12",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 100
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "@gnosis.pm/safe-contracts/contracts/common/Enum.sol"
-      ],
-      "versionPragmas": [
-        ">=0.7.0 <0.9.0"
-      ],
-      "artifacts": [
-        "IAvatar"
-      ]
-    },
-    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@gnosis.pm/zodiac/contracts/guard/BaseGuard.sol": {
-      "lastModificationDate": 1684007659875,
-      "contentHash": "d45a1301d15dba09be57c2067f5081e8",
-      "sourceName": "@gnosis.pm/zodiac/contracts/guard/BaseGuard.sol",
-      "solcConfig": {
-        "version": "0.8.12",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 100
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "@gnosis.pm/safe-contracts/contracts/common/Enum.sol",
-        "@openzeppelin/contracts/utils/introspection/IERC165.sol",
-        "../interfaces/IGuard.sol"
-      ],
-      "versionPragmas": [
-        ">=0.7.0 <0.9.0"
-      ],
-      "artifacts": [
-        "BaseGuard"
-      ]
-    },
-    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@gnosis.pm/zodiac/contracts/interfaces/IGuard.sol": {
-      "lastModificationDate": 1684007659875,
-      "contentHash": "f44bfd52d28472afc1810859cb08d71a",
-      "sourceName": "@gnosis.pm/zodiac/contracts/interfaces/IGuard.sol",
-      "solcConfig": {
-        "version": "0.8.12",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 100
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "@gnosis.pm/safe-contracts/contracts/common/Enum.sol"
-      ],
-      "versionPragmas": [
-        ">=0.7.0 <0.9.0"
-      ],
-      "artifacts": [
-        "IGuard"
-      ]
-    },
-    "/Users/matthewoconnell/dev/raidguild/lobby3/DeVox/node_modules/@gnosis.pm/zodiac/contracts/factory/ModuleProxyFactory.sol": {
-      "lastModificationDate": 1684007659874,
-      "contentHash": "c759566c01e623d2021764eff379cfbd",
-      "sourceName": "@gnosis.pm/zodiac/contracts/factory/ModuleProxyFactory.sol",
-      "solcConfig": {
-        "version": "0.8.12",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 100
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        ">=0.8.0"
-      ],
-      "artifacts": [
-        "ModuleProxyFactory"
       ]
     }
   }

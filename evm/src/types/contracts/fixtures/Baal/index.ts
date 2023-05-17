@@ -18,7 +18,6 @@ export type { mock };
 export type { tools };
 
 export type { utils };
-export type { BaalStorageV1 } from "./BaalStorageV1";
 export type { BaalSummonerV1 } from "./BaalSummonerV1";
 export type { BaalV1 } from "./BaalV1";
 export type { LootV1 } from "./LootV1";
