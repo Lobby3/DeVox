@@ -6,7 +6,6 @@ export * as interfaces from "./interfaces";
 export * as mock from "./mock";
 export * as tools from "./tools";
 export * as utils from "./utils";
-export { BaalStorageV1__factory } from "./BaalStorageV1__factory";
 export { BaalSummonerV1__factory } from "./BaalSummonerV1__factory";
 export { BaalV1__factory } from "./BaalV1__factory";
 export { LootV1__factory } from "./LootV1__factory";
