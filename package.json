@@ -3,8 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "lint": "nx lint",
-    "frontend": "nx serve frontend"
+    "lint": "nx lint"
   },
   "private": true,
   "dependencies": {
