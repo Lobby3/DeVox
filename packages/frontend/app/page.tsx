@@ -1,3 +1,7 @@
+"use client";
+
+import { Flex } from "@chakra-ui/react";
+
 import styles from "./page.module.scss";
 
 export default async function Index() {
@@ -16,6 +20,7 @@ export default async function Index() {
               Welcome frontend 👋
             </h1>
           </div>
+          <Flex>Hello there, Welcome frontend 👋</Flex>
 
           <div id="hero" className="rounded">
             <div className="text-container">
