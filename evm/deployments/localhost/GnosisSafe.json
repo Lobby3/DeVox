@@ -1,0 +1,1404 @@
+{
+  "address": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+  "abi": [
+    {
+      "inputs": [],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        }
+      ],
+      "name": "AddedOwner",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "bytes32",
+          "name": "approvedHash",
+          "type": "bytes32"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        }
+      ],
+      "name": "ApproveHash",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "handler",
+          "type": "address"
+        }
+      ],
+      "name": "ChangedFallbackHandler",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "guard",
+          "type": "address"
+        }
+      ],
+      "name": "ChangedGuard",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "threshold",
+          "type": "uint256"
+        }
+      ],
+      "name": "ChangedThreshold",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "module",
+          "type": "address"
+        }
+      ],
+      "name": "DisabledModule",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "module",
+          "type": "address"
+        }
+      ],
+      "name": "EnabledModule",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "bytes32",
+          "name": "txHash",
+          "type": "bytes32"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "payment",
+          "type": "uint256"
+        }
+      ],
+      "name": "ExecutionFailure",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "module",
+          "type": "address"
+        }
+      ],
+      "name": "ExecutionFromModuleFailure",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "module",
+          "type": "address"
+        }
+      ],
+      "name": "ExecutionFromModuleSuccess",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "bytes32",
+          "name": "txHash",
+          "type": "bytes32"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "payment",
+          "type": "uint256"
+        }
+      ],
+      "name": "ExecutionSuccess",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        }
+      ],
+      "name": "RemovedOwner",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "sender",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "value",
+          "type": "uint256"
+        }
+      ],
+      "name": "SafeReceived",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "initiator",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "address[]",
+          "name": "owners",
+          "type": "address[]"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "threshold",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "initializer",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "fallbackHandler",
+          "type": "address"
+        }
+      ],
+      "name": "SafeSetup",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "bytes32",
+          "name": "msgHash",
+          "type": "bytes32"
+        }
+      ],
+      "name": "SignMsg",
+      "type": "event"
+    },
+    {
+      "stateMutability": "nonpayable",
+      "type": "fallback"
+    },
+    {
+      "inputs": [],
+      "name": "VERSION",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_threshold",
+          "type": "uint256"
+        }
+      ],
+      "name": "addOwnerWithThreshold",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "hashToApprove",
+          "type": "bytes32"
+        }
+      ],
+      "name": "approveHash",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "name": "approvedHashes",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_threshold",
+          "type": "uint256"
+        }
+      ],
+      "name": "changeThreshold",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "dataHash",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "bytes",
+          "name": "data",
+          "type": "bytes"
+        },
+        {
+          "internalType": "bytes",
+          "name": "signatures",
+          "type": "bytes"
+        },
+        {
+          "internalType": "uint256",
+          "name": "requiredSignatures",
+          "type": "uint256"
+        }
+      ],
+      "name": "checkNSignatures",
+      "outputs": [],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "dataHash",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "bytes",
+          "name": "data",
+          "type": "bytes"
+        },
+        {
+          "internalType": "bytes",
+          "name": "signatures",
+          "type": "bytes"
+        }
+      ],
+      "name": "checkSignatures",
+      "outputs": [],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "prevModule",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "module",
+          "type": "address"
+        }
+      ],
+      "name": "disableModule",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "domainSeparator",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "module",
+          "type": "address"
+        }
+      ],
+      "name": "enableModule",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "to",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "value",
+          "type": "uint256"
+        },
+        {
+          "internalType": "bytes",
+          "name": "data",
+          "type": "bytes"
+        },
+        {
+          "internalType": "enum Enum.Operation",
+          "name": "operation",
+          "type": "uint8"
+        },
+        {
+          "internalType": "uint256",
+          "name": "safeTxGas",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "baseGas",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "gasPrice",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "gasToken",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "refundReceiver",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_nonce",
+          "type": "uint256"
+        }
+      ],
+      "name": "encodeTransactionData",
+      "outputs": [
+        {
+          "internalType": "bytes",
+          "name": "",
+          "type": "bytes"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "to",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "value",
+          "type": "uint256"
+        },
+        {
+          "internalType": "bytes",
+          "name": "data",
+          "type": "bytes"
+        },
+        {
+          "internalType": "enum Enum.Operation",
+          "name": "operation",
+          "type": "uint8"
+        },
+        {
+          "internalType": "uint256",
+          "name": "safeTxGas",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "baseGas",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "gasPrice",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "gasToken",
+          "type": "address"
+        },
+        {
+          "internalType": "address payable",
+          "name": "refundReceiver",
+          "type": "address"
+        },
+        {
+          "internalType": "bytes",
+          "name": "signatures",
+          "type": "bytes"
+        }
+      ],
+      "name": "execTransaction",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "success",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "to",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "value",
+          "type": "uint256"
+        },
+        {
+          "internalType": "bytes",
+          "name": "data",
+          "type": "bytes"
+        },
+        {
+          "internalType": "enum Enum.Operation",
+          "name": "operation",
+          "type": "uint8"
+        }
+      ],
+      "name": "execTransactionFromModule",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "success",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "to",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "value",
+          "type": "uint256"
+        },
+        {
+          "internalType": "bytes",
+          "name": "data",
+          "type": "bytes"
+        },
+        {
+          "internalType": "enum Enum.Operation",
+          "name": "operation",
+          "type": "uint8"
+        }
+      ],
+      "name": "execTransactionFromModuleReturnData",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "success",
+          "type": "bool"
+        },
+        {
+          "internalType": "bytes",
+          "name": "returnData",
+          "type": "bytes"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getChainId",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "start",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "pageSize",
+          "type": "uint256"
+        }
+      ],
+      "name": "getModulesPaginated",
+      "outputs": [
+        {
+          "internalType": "address[]",
+          "name": "array",
+          "type": "address[]"
+        },
+        {
+          "internalType": "address",
+          "name": "next",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getOwners",
+      "outputs": [
+        {
+          "internalType": "address[]",
+          "name": "",
+          "type": "address[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "offset",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "length",
+          "type": "uint256"
+        }
+      ],
+      "name": "getStorageAt",
+      "outputs": [
+        {
+          "internalType": "bytes",
+          "name": "",
+          "type": "bytes"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getThreshold",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "to",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "value",
+          "type": "uint256"
+        },
+        {
+          "internalType": "bytes",
+          "name": "data",
+          "type": "bytes"
+        },
+        {
+          "internalType": "enum Enum.Operation",
+          "name": "operation",
+          "type": "uint8"
+        },
+        {
+          "internalType": "uint256",
+          "name": "safeTxGas",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "baseGas",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "gasPrice",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "gasToken",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "refundReceiver",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_nonce",
+          "type": "uint256"
+        }
+      ],
+      "name": "getTransactionHash",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "module",
+          "type": "address"
+        }
+      ],
+      "name": "isModuleEnabled",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        }
+      ],
+      "name": "isOwner",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "nonce",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "prevOwner",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_threshold",
+          "type": "uint256"
+        }
+      ],
+      "name": "removeOwner",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "to",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "value",
+          "type": "uint256"
+        },
+        {
+          "internalType": "bytes",
+          "name": "data",
+          "type": "bytes"
+        },
+        {
+          "internalType": "enum Enum.Operation",
+          "name": "operation",
+          "type": "uint8"
+        }
+      ],
+      "name": "requiredTxGas",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "handler",
+          "type": "address"
+        }
+      ],
+      "name": "setFallbackHandler",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "guard",
+          "type": "address"
+        }
+      ],
+      "name": "setGuard",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address[]",
+          "name": "_owners",
+          "type": "address[]"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_threshold",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "to",
+          "type": "address"
+        },
+        {
+          "internalType": "bytes",
+          "name": "data",
+          "type": "bytes"
+        },
+        {
+          "internalType": "address",
+          "name": "fallbackHandler",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "paymentToken",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "payment",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address payable",
+          "name": "paymentReceiver",
+          "type": "address"
+        }
+      ],
+      "name": "setup",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "name": "signedMessages",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "targetContract",
+          "type": "address"
+        },
+        {
+          "internalType": "bytes",
+          "name": "calldataPayload",
+          "type": "bytes"
+        }
+      ],
+      "name": "simulateAndRevert",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "prevOwner",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "oldOwner",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "swapOwner",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "stateMutability": "payable",
+      "type": "receive"
+    }
+  ],
+  "numDeployments": 2,
+  "solcInputHash": "1d13235a91f824b1e88a57247a153e5c",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.12+commit.f00d7308\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"}],\"name\":\"AddedOwner\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"approvedHash\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"}],\"name\":\"ApproveHash\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"handler\",\"type\":\"address\"}],\"name\":\"ChangedFallbackHandler\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"guard\",\"type\":\"address\"}],\"name\":\"ChangedGuard\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"threshold\",\"type\":\"uint256\"}],\"name\":\"ChangedThreshold\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"module\",\"type\":\"address\"}],\"name\":\"DisabledModule\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"module\",\"type\":\"address\"}],\"name\":\"EnabledModule\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"bytes32\",\"name\":\"txHash\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"payment\",\"type\":\"uint256\"}],\"name\":\"ExecutionFailure\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"module\",\"type\":\"address\"}],\"name\":\"ExecutionFromModuleFailure\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"module\",\"type\":\"address\"}],\"name\":\"ExecutionFromModuleSuccess\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"bytes32\",\"name\":\"txHash\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"payment\",\"type\":\"uint256\"}],\"name\":\"ExecutionSuccess\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"}],\"name\":\"RemovedOwner\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"SafeReceived\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"initiator\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address[]\",\"name\":\"owners\",\"type\":\"address[]\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"threshold\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"initializer\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"fallbackHandler\",\"type\":\"address\"}],\"name\":\"SafeSetup\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"msgHash\",\"type\":\"bytes32\"}],\"name\":\"SignMsg\",\"type\":\"event\"},{\"stateMutability\":\"nonpayable\",\"type\":\"fallback\"},{\"inputs\":[],\"name\":\"VERSION\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_threshold\",\"type\":\"uint256\"}],\"name\":\"addOwnerWithThreshold\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"hashToApprove\",\"type\":\"bytes32\"}],\"name\":\"approveHash\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"approvedHashes\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_threshold\",\"type\":\"uint256\"}],\"name\":\"changeThreshold\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"dataHash\",\"type\":\"bytes32\"},{\"internalType\":\"bytes\",\"name\":\"data\",\"type\":\"bytes\"},{\"internalType\":\"bytes\",\"name\":\"signatures\",\"type\":\"bytes\"},{\"internalType\":\"uint256\",\"name\":\"requiredSignatures\",\"type\":\"uint256\"}],\"name\":\"checkNSignatures\",\"outputs\":[],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"dataHash\",\"type\":\"bytes32\"},{\"internalType\":\"bytes\",\"name\":\"data\",\"type\":\"bytes\"},{\"internalType\":\"bytes\",\"name\":\"signatures\",\"type\":\"bytes\"}],\"name\":\"checkSignatures\",\"outputs\":[],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"prevModule\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"module\",\"type\":\"address\"}],\"name\":\"disableModule\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"domainSeparator\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"module\",\"type\":\"address\"}],\"name\":\"enableModule\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"},{\"internalType\":\"bytes\",\"name\":\"data\",\"type\":\"bytes\"},{\"internalType\":\"enum Enum.Operation\",\"name\":\"operation\",\"type\":\"uint8\"},{\"internalType\":\"uint256\",\"name\":\"safeTxGas\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"baseGas\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"gasPrice\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"gasToken\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"refundReceiver\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_nonce\",\"type\":\"uint256\"}],\"name\":\"encodeTransactionData\",\"outputs\":[{\"internalType\":\"bytes\",\"name\":\"\",\"type\":\"bytes\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"},{\"internalType\":\"bytes\",\"name\":\"data\",\"type\":\"bytes\"},{\"internalType\":\"enum Enum.Operation\",\"name\":\"operation\",\"type\":\"uint8\"},{\"internalType\":\"uint256\",\"name\":\"safeTxGas\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"baseGas\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"gasPrice\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"gasToken\",\"type\":\"address\"},{\"internalType\":\"address payable\",\"name\":\"refundReceiver\",\"type\":\"address\"},{\"internalType\":\"bytes\",\"name\":\"signatures\",\"type\":\"bytes\"}],\"name\":\"execTransaction\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"success\",\"type\":\"bool\"}],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"},{\"internalType\":\"bytes\",\"name\":\"data\",\"type\":\"bytes\"},{\"internalType\":\"enum Enum.Operation\",\"name\":\"operation\",\"type\":\"uint8\"}],\"name\":\"execTransactionFromModule\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"success\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"},{\"internalType\":\"bytes\",\"name\":\"data\",\"type\":\"bytes\"},{\"internalType\":\"enum Enum.Operation\",\"name\":\"operation\",\"type\":\"uint8\"}],\"name\":\"execTransactionFromModuleReturnData\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"success\",\"type\":\"bool\"},{\"internalType\":\"bytes\",\"name\":\"returnData\",\"type\":\"bytes\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getChainId\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"start\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"pageSize\",\"type\":\"uint256\"}],\"name\":\"getModulesPaginated\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"array\",\"type\":\"address[]\"},{\"internalType\":\"address\",\"name\":\"next\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getOwners\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"\",\"type\":\"address[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"offset\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"length\",\"type\":\"uint256\"}],\"name\":\"getStorageAt\",\"outputs\":[{\"internalType\":\"bytes\",\"name\":\"\",\"type\":\"bytes\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getThreshold\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"},{\"internalType\":\"bytes\",\"name\":\"data\",\"type\":\"bytes\"},{\"internalType\":\"enum Enum.Operation\",\"name\":\"operation\",\"type\":\"uint8\"},{\"internalType\":\"uint256\",\"name\":\"safeTxGas\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"baseGas\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"gasPrice\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"gasToken\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"refundReceiver\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_nonce\",\"type\":\"uint256\"}],\"name\":\"getTransactionHash\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"module\",\"type\":\"address\"}],\"name\":\"isModuleEnabled\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"}],\"name\":\"isOwner\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"nonce\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"prevOwner\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_threshold\",\"type\":\"uint256\"}],\"name\":\"removeOwner\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"},{\"internalType\":\"bytes\",\"name\":\"data\",\"type\":\"bytes\"},{\"internalType\":\"enum Enum.Operation\",\"name\":\"operation\",\"type\":\"uint8\"}],\"name\":\"requiredTxGas\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"handler\",\"type\":\"address\"}],\"name\":\"setFallbackHandler\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"guard\",\"type\":\"address\"}],\"name\":\"setGuard\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address[]\",\"name\":\"_owners\",\"type\":\"address[]\"},{\"internalType\":\"uint256\",\"name\":\"_threshold\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"bytes\",\"name\":\"data\",\"type\":\"bytes\"},{\"internalType\":\"address\",\"name\":\"fallbackHandler\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"paymentToken\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"payment\",\"type\":\"uint256\"},{\"internalType\":\"address payable\",\"name\":\"paymentReceiver\",\"type\":\"address\"}],\"name\":\"setup\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"signedMessages\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"targetContract\",\"type\":\"address\"},{\"internalType\":\"bytes\",\"name\":\"calldataPayload\",\"type\":\"bytes\"}],\"name\":\"simulateAndRevert\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"prevOwner\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"oldOwner\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"swapOwner\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"stateMutability\":\"payable\",\"type\":\"receive\"}],\"devdoc\":{\"author\":\"Stefan George - <stefan@gnosis.io>Richard Meissner - <richard@gnosis.io>\",\"kind\":\"dev\",\"methods\":{\"addOwnerWithThreshold(address,uint256)\":{\"details\":\"Allows to add a new owner to the Safe and update the threshold at the same time.      This can only be done via a Safe transaction.\",\"params\":{\"_threshold\":\"New threshold.\",\"owner\":\"New owner address.\"}},\"approveHash(bytes32)\":{\"details\":\"Marks a hash as approved. This can be used to validate a hash that is used by a signature.\",\"params\":{\"hashToApprove\":\"The hash that should be marked as approved for signatures that are verified by this contract.\"}},\"changeThreshold(uint256)\":{\"details\":\"Allows to update the number of required confirmations by Safe owners.      This can only be done via a Safe transaction.\",\"params\":{\"_threshold\":\"New threshold.\"}},\"checkNSignatures(bytes32,bytes,bytes,uint256)\":{\"details\":\"Checks whether the signature provided is valid for the provided data, hash. Will revert otherwise.\",\"params\":{\"data\":\"That should be signed (this is passed to an external validator contract)\",\"dataHash\":\"Hash of the data (could be either a message hash or transaction hash)\",\"requiredSignatures\":\"Amount of required valid signatures.\",\"signatures\":\"Signature data that should be verified. Can be ECDSA signature, contract signature (EIP-1271) or approved hash.\"}},\"checkSignatures(bytes32,bytes,bytes)\":{\"details\":\"Checks whether the signature provided is valid for the provided data, hash. Will revert otherwise.\",\"params\":{\"data\":\"That should be signed (this is passed to an external validator contract)\",\"dataHash\":\"Hash of the data (could be either a message hash or transaction hash)\",\"signatures\":\"Signature data that should be verified. Can be ECDSA signature, contract signature (EIP-1271) or approved hash.\"}},\"disableModule(address,address)\":{\"details\":\"Allows to remove a module from the whitelist.      This can only be done via a Safe transaction.\",\"params\":{\"module\":\"Module to be removed.\",\"prevModule\":\"Module that pointed to the module to be removed in the linked list\"}},\"enableModule(address)\":{\"details\":\"Allows to add a module to the whitelist.      This can only be done via a Safe transaction.\",\"params\":{\"module\":\"Module to be whitelisted.\"}},\"encodeTransactionData(address,uint256,bytes,uint8,uint256,uint256,uint256,address,address,uint256)\":{\"details\":\"Returns the bytes that are hashed to be signed by owners.\",\"params\":{\"_nonce\":\"Transaction nonce.\",\"baseGas\":\"Gas costs for that are independent of the transaction execution(e.g. base transaction fee, signature check, payment of the refund)\",\"data\":\"Data payload.\",\"gasPrice\":\"Maximum gas price that should be used for this transaction.\",\"gasToken\":\"Token address (or 0 if ETH) that is used for the payment.\",\"operation\":\"Operation type.\",\"refundReceiver\":\"Address of receiver of gas payment (or 0 if tx.origin).\",\"safeTxGas\":\"Gas that should be used for the safe transaction.\",\"to\":\"Destination address.\",\"value\":\"Ether value.\"},\"returns\":{\"_0\":\"Transaction hash bytes.\"}},\"execTransaction(address,uint256,bytes,uint8,uint256,uint256,uint256,address,address,bytes)\":{\"details\":\"Allows to execute a Safe transaction confirmed by required number of owners and then pays the account that submitted the transaction.      Note: The fees are always transferred, even if the user transaction fails.\",\"params\":{\"baseGas\":\"Gas costs that are independent of the transaction execution(e.g. base transaction fee, signature check, payment of the refund)\",\"data\":\"Data payload of Safe transaction.\",\"gasPrice\":\"Gas price that should be used for the payment calculation.\",\"gasToken\":\"Token address (or 0 if ETH) that is used for the payment.\",\"operation\":\"Operation type of Safe transaction.\",\"refundReceiver\":\"Address of receiver of gas payment (or 0 if tx.origin).\",\"safeTxGas\":\"Gas that should be used for the Safe transaction.\",\"signatures\":\"Packed signature data ({bytes32 r}{bytes32 s}{uint8 v})\",\"to\":\"Destination address of Safe transaction.\",\"value\":\"Ether value of Safe transaction.\"}},\"execTransactionFromModule(address,uint256,bytes,uint8)\":{\"details\":\"Allows a Module to execute a Safe transaction without any further confirmations.\",\"params\":{\"data\":\"Data payload of module transaction.\",\"operation\":\"Operation type of module transaction.\",\"to\":\"Destination address of module transaction.\",\"value\":\"Ether value of module transaction.\"}},\"execTransactionFromModuleReturnData(address,uint256,bytes,uint8)\":{\"details\":\"Allows a Module to execute a Safe transaction without any further confirmations and return data\",\"params\":{\"data\":\"Data payload of module transaction.\",\"operation\":\"Operation type of module transaction.\",\"to\":\"Destination address of module transaction.\",\"value\":\"Ether value of module transaction.\"}},\"getChainId()\":{\"details\":\"Returns the chain id used by this contract.\"},\"getModulesPaginated(address,uint256)\":{\"details\":\"Returns array of modules.\",\"params\":{\"pageSize\":\"Maximum number of modules that should be returned.\",\"start\":\"Start of the page.\"},\"returns\":{\"array\":\"Array of modules.\",\"next\":\"Start of the next page.\"}},\"getOwners()\":{\"details\":\"Returns array of owners.\",\"returns\":{\"_0\":\"Array of Safe owners.\"}},\"getStorageAt(uint256,uint256)\":{\"details\":\"Reads `length` bytes of storage in the currents contract\",\"params\":{\"length\":\"- the number of words (32 bytes) of data to read\",\"offset\":\"- the offset in the current contract's storage in words to start reading from\"},\"returns\":{\"_0\":\"the bytes that were read.\"}},\"getTransactionHash(address,uint256,bytes,uint8,uint256,uint256,uint256,address,address,uint256)\":{\"details\":\"Returns hash to be signed by owners.\",\"params\":{\"_nonce\":\"Transaction nonce.\",\"baseGas\":\"Gas costs for data used to trigger the safe transaction.\",\"data\":\"Data payload.\",\"gasPrice\":\"Maximum gas price that should be used for this transaction.\",\"gasToken\":\"Token address (or 0 if ETH) that is used for the payment.\",\"operation\":\"Operation type.\",\"refundReceiver\":\"Address of receiver of gas payment (or 0 if tx.origin).\",\"safeTxGas\":\"Fas that should be used for the safe transaction.\",\"to\":\"Destination address.\",\"value\":\"Ether value.\"},\"returns\":{\"_0\":\"Transaction hash.\"}},\"isModuleEnabled(address)\":{\"details\":\"Returns if an module is enabled\",\"returns\":{\"_0\":\"True if the module is enabled\"}},\"removeOwner(address,address,uint256)\":{\"details\":\"Allows to remove an owner from the Safe and update the threshold at the same time.      This can only be done via a Safe transaction.\",\"params\":{\"_threshold\":\"New threshold.\",\"owner\":\"Owner address to be removed.\",\"prevOwner\":\"Owner that pointed to the owner to be removed in the linked list\"}},\"requiredTxGas(address,uint256,bytes,uint8)\":{\"details\":\"Allows to estimate a Safe transaction.      This method is only meant for estimation purpose, therefore the call will always revert and encode the result in the revert data.      Since the `estimateGas` function includes refunds, call this method to get an estimated of the costs that are deducted from the safe with `execTransaction`\",\"params\":{\"data\":\"Data payload of Safe transaction.\",\"operation\":\"Operation type of Safe transaction.\",\"to\":\"Destination address of Safe transaction.\",\"value\":\"Ether value of Safe transaction.\"},\"returns\":{\"_0\":\"Estimate without refunds and overhead fees (base transaction and payload data gas costs).\"}},\"setFallbackHandler(address)\":{\"details\":\"Allows to add a contract to handle fallback calls.      Only fallback calls without value and with data will be forwarded.      This can only be done via a Safe transaction.\",\"params\":{\"handler\":\"contract to handle fallbacks calls.\"}},\"setGuard(address)\":{\"details\":\"Set a guard that checks transactions before execution\",\"params\":{\"guard\":\"The address of the guard to be used or the 0 address to disable the guard\"}},\"setup(address[],uint256,address,bytes,address,address,uint256,address)\":{\"details\":\"Setup function sets initial storage of contract.\",\"params\":{\"_owners\":\"List of Safe owners.\",\"_threshold\":\"Number of required confirmations for a Safe transaction.\",\"data\":\"Data payload for optional delegate call.\",\"fallbackHandler\":\"Handler for fallback calls to this contract\",\"payment\":\"Value that should be paid\",\"paymentReceiver\":\"Adddress that should receive the payment (or 0 if tx.origin)\",\"paymentToken\":\"Token that should be used for the payment (0 is ETH)\",\"to\":\"Contract address for optional delegate call.\"}},\"simulateAndRevert(address,bytes)\":{\"details\":\"Performs a delegetecall on a targetContract in the context of self. Internally reverts execution to avoid side effects (making it static). This method reverts with data equal to `abi.encode(bool(success), bytes(response))`. Specifically, the `returndata` after a call to this method will be: `success:bool || response.length:uint256 || response:bytes`.\",\"params\":{\"calldataPayload\":\"Calldata that should be sent to the target contract (encoded method name and arguments).\",\"targetContract\":\"Address of the contract containing the code to execute.\"}},\"swapOwner(address,address,address)\":{\"details\":\"Allows to swap/replace an owner from the Safe with another address.      This can only be done via a Safe transaction.\",\"params\":{\"newOwner\":\"New owner address.\",\"oldOwner\":\"Owner address to be replaced.\",\"prevOwner\":\"Owner that pointed to the owner to be replaced in the linked list\"}}},\"title\":\"Gnosis Safe - A multisignature wallet with support for confirmations using signed messages based on ERC191.\",\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{\"addOwnerWithThreshold(address,uint256)\":{\"notice\":\"Adds the owner `owner` to the Safe and updates the threshold to `_threshold`.\"},\"changeThreshold(uint256)\":{\"notice\":\"Changes the threshold of the Safe to `_threshold`.\"},\"disableModule(address,address)\":{\"notice\":\"Disables the module `module` for the Safe.\"},\"enableModule(address)\":{\"notice\":\"Enables the module `module` for the Safe.\"},\"removeOwner(address,address,uint256)\":{\"notice\":\"Removes the owner `owner` from the Safe and updates the threshold to `_threshold`.\"},\"requiredTxGas(address,uint256,bytes,uint8)\":{\"notice\":\"Deprecated in favor of common/StorageAccessible.sol and will be removed in next version.\"},\"swapOwner(address,address,address)\":{\"notice\":\"Replaces the owner `oldOwner` in the Safe with `newOwner`.\"}},\"version\":1}},\"settings\":{\"compilationTarget\":{\"@gnosis.pm/safe-contracts/contracts/GnosisSafe.sol\":\"GnosisSafe\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":100},\"remappings\":[]},\"sources\":{\"@gnosis.pm/safe-contracts/contracts/GnosisSafe.sol\":{\"content\":\"// SPDX-License-Identifier: LGPL-3.0-only\\npragma solidity >=0.7.0 <0.9.0;\\n\\nimport \\\"./base/ModuleManager.sol\\\";\\nimport \\\"./base/OwnerManager.sol\\\";\\nimport \\\"./base/FallbackManager.sol\\\";\\nimport \\\"./base/GuardManager.sol\\\";\\nimport \\\"./common/EtherPaymentFallback.sol\\\";\\nimport \\\"./common/Singleton.sol\\\";\\nimport \\\"./common/SignatureDecoder.sol\\\";\\nimport \\\"./common/SecuredTokenTransfer.sol\\\";\\nimport \\\"./common/StorageAccessible.sol\\\";\\nimport \\\"./interfaces/ISignatureValidator.sol\\\";\\nimport \\\"./external/GnosisSafeMath.sol\\\";\\n\\n/// @title Gnosis Safe - A multisignature wallet with support for confirmations using signed messages based on ERC191.\\n/// @author Stefan George - <stefan@gnosis.io>\\n/// @author Richard Meissner - <richard@gnosis.io>\\ncontract GnosisSafe is\\n    EtherPaymentFallback,\\n    Singleton,\\n    ModuleManager,\\n    OwnerManager,\\n    SignatureDecoder,\\n    SecuredTokenTransfer,\\n    ISignatureValidatorConstants,\\n    FallbackManager,\\n    StorageAccessible,\\n    GuardManager\\n{\\n    using GnosisSafeMath for uint256;\\n\\n    string public constant VERSION = \\\"1.3.0\\\";\\n\\n    // keccak256(\\n    //     \\\"EIP712Domain(uint256 chainId,address verifyingContract)\\\"\\n    // );\\n    bytes32 private constant DOMAIN_SEPARATOR_TYPEHASH = 0x47e79534a245952e8b16893a336b85a3d9ea9fa8c573f3d803afb92a79469218;\\n\\n    // keccak256(\\n    //     \\\"SafeTx(address to,uint256 value,bytes data,uint8 operation,uint256 safeTxGas,uint256 baseGas,uint256 gasPrice,address gasToken,address refundReceiver,uint256 nonce)\\\"\\n    // );\\n    bytes32 private constant SAFE_TX_TYPEHASH = 0xbb8310d486368db6bd6f849402fdd73ad53d316b5a4b2644ad6efe0f941286d8;\\n\\n    event SafeSetup(address indexed initiator, address[] owners, uint256 threshold, address initializer, address fallbackHandler);\\n    event ApproveHash(bytes32 indexed approvedHash, address indexed owner);\\n    event SignMsg(bytes32 indexed msgHash);\\n    event ExecutionFailure(bytes32 txHash, uint256 payment);\\n    event ExecutionSuccess(bytes32 txHash, uint256 payment);\\n\\n    uint256 public nonce;\\n    bytes32 private _deprecatedDomainSeparator;\\n    // Mapping to keep track of all message hashes that have been approve by ALL REQUIRED owners\\n    mapping(bytes32 => uint256) public signedMessages;\\n    // Mapping to keep track of all hashes (message or transaction) that have been approve by ANY owners\\n    mapping(address => mapping(bytes32 => uint256)) public approvedHashes;\\n\\n    // This constructor ensures that this contract can only be used as a master copy for Proxy contracts\\n    constructor() {\\n        // By setting the threshold it is not possible to call setup anymore,\\n        // so we create a Safe with 0 owners and threshold 1.\\n        // This is an unusable Safe, perfect for the singleton\\n        threshold = 1;\\n    }\\n\\n    /// @dev Setup function sets initial storage of contract.\\n    /// @param _owners List of Safe owners.\\n    /// @param _threshold Number of required confirmations for a Safe transaction.\\n    /// @param to Contract address for optional delegate call.\\n    /// @param data Data payload for optional delegate call.\\n    /// @param fallbackHandler Handler for fallback calls to this contract\\n    /// @param paymentToken Token that should be used for the payment (0 is ETH)\\n    /// @param payment Value that should be paid\\n    /// @param paymentReceiver Adddress that should receive the payment (or 0 if tx.origin)\\n    function setup(\\n        address[] calldata _owners,\\n        uint256 _threshold,\\n        address to,\\n        bytes calldata data,\\n        address fallbackHandler,\\n        address paymentToken,\\n        uint256 payment,\\n        address payable paymentReceiver\\n    ) external {\\n        // setupOwners checks if the Threshold is already set, therefore preventing that this method is called twice\\n        setupOwners(_owners, _threshold);\\n        if (fallbackHandler != address(0)) internalSetFallbackHandler(fallbackHandler);\\n        // As setupOwners can only be called if the contract has not been initialized we don't need a check for setupModules\\n        setupModules(to, data);\\n\\n        if (payment > 0) {\\n            // To avoid running into issues with EIP-170 we reuse the handlePayment function (to avoid adjusting code of that has been verified we do not adjust the method itself)\\n            // baseGas = 0, gasPrice = 1 and gas = payment => amount = (payment + 0) * 1 = payment\\n            handlePayment(payment, 0, 1, paymentToken, paymentReceiver);\\n        }\\n        emit SafeSetup(msg.sender, _owners, _threshold, to, fallbackHandler);\\n    }\\n\\n    /// @dev Allows to execute a Safe transaction confirmed by required number of owners and then pays the account that submitted the transaction.\\n    ///      Note: The fees are always transferred, even if the user transaction fails.\\n    /// @param to Destination address of Safe transaction.\\n    /// @param value Ether value of Safe transaction.\\n    /// @param data Data payload of Safe transaction.\\n    /// @param operation Operation type of Safe transaction.\\n    /// @param safeTxGas Gas that should be used for the Safe transaction.\\n    /// @param baseGas Gas costs that are independent of the transaction execution(e.g. base transaction fee, signature check, payment of the refund)\\n    /// @param gasPrice Gas price that should be used for the payment calculation.\\n    /// @param gasToken Token address (or 0 if ETH) that is used for the payment.\\n    /// @param refundReceiver Address of receiver of gas payment (or 0 if tx.origin).\\n    /// @param signatures Packed signature data ({bytes32 r}{bytes32 s}{uint8 v})\\n    function execTransaction(\\n        address to,\\n        uint256 value,\\n        bytes calldata data,\\n        Enum.Operation operation,\\n        uint256 safeTxGas,\\n        uint256 baseGas,\\n        uint256 gasPrice,\\n        address gasToken,\\n        address payable refundReceiver,\\n        bytes memory signatures\\n    ) public payable virtual returns (bool success) {\\n        bytes32 txHash;\\n        // Use scope here to limit variable lifetime and prevent `stack too deep` errors\\n        {\\n            bytes memory txHashData =\\n                encodeTransactionData(\\n                    // Transaction info\\n                    to,\\n                    value,\\n                    data,\\n                    operation,\\n                    safeTxGas,\\n                    // Payment info\\n                    baseGas,\\n                    gasPrice,\\n                    gasToken,\\n                    refundReceiver,\\n                    // Signature info\\n                    nonce\\n                );\\n            // Increase nonce and execute transaction.\\n            nonce++;\\n            txHash = keccak256(txHashData);\\n            checkSignatures(txHash, txHashData, signatures);\\n        }\\n        address guard = getGuard();\\n        {\\n            if (guard != address(0)) {\\n                Guard(guard).checkTransaction(\\n                    // Transaction info\\n                    to,\\n                    value,\\n                    data,\\n                    operation,\\n                    safeTxGas,\\n                    // Payment info\\n                    baseGas,\\n                    gasPrice,\\n                    gasToken,\\n                    refundReceiver,\\n                    // Signature info\\n                    signatures,\\n                    msg.sender\\n                );\\n            }\\n        }\\n        // We require some gas to emit the events (at least 2500) after the execution and some to perform code until the execution (500)\\n        // We also include the 1/64 in the check that is not send along with a call to counteract potential shortings because of EIP-150\\n        require(gasleft() >= ((safeTxGas * 64) / 63).max(safeTxGas + 2500) + 500, \\\"GS010\\\");\\n        // Use scope here to limit variable lifetime and prevent `stack too deep` errors\\n        {\\n            uint256 gasUsed = gasleft();\\n            // If the gasPrice is 0 we assume that nearly all available gas can be used (it is always more than safeTxGas)\\n            // We only substract 2500 (compared to the 3000 before) to ensure that the amount passed is still higher than safeTxGas\\n            success = execute(to, value, data, operation, gasPrice == 0 ? (gasleft() - 2500) : safeTxGas);\\n            gasUsed = gasUsed.sub(gasleft());\\n            // If no safeTxGas and no gasPrice was set (e.g. both are 0), then the internal tx is required to be successful\\n            // This makes it possible to use `estimateGas` without issues, as it searches for the minimum gas where the tx doesn't revert\\n            require(success || safeTxGas != 0 || gasPrice != 0, \\\"GS013\\\");\\n            // We transfer the calculated tx costs to the tx.origin to avoid sending it to intermediate contracts that have made calls\\n            uint256 payment = 0;\\n            if (gasPrice > 0) {\\n                payment = handlePayment(gasUsed, baseGas, gasPrice, gasToken, refundReceiver);\\n            }\\n            if (success) emit ExecutionSuccess(txHash, payment);\\n            else emit ExecutionFailure(txHash, payment);\\n        }\\n        {\\n            if (guard != address(0)) {\\n                Guard(guard).checkAfterExecution(txHash, success);\\n            }\\n        }\\n    }\\n\\n    function handlePayment(\\n        uint256 gasUsed,\\n        uint256 baseGas,\\n        uint256 gasPrice,\\n        address gasToken,\\n        address payable refundReceiver\\n    ) private returns (uint256 payment) {\\n        // solhint-disable-next-line avoid-tx-origin\\n        address payable receiver = refundReceiver == address(0) ? payable(tx.origin) : refundReceiver;\\n        if (gasToken == address(0)) {\\n            // For ETH we will only adjust the gas price to not be higher than the actual used gas price\\n            payment = gasUsed.add(baseGas).mul(gasPrice < tx.gasprice ? gasPrice : tx.gasprice);\\n            require(receiver.send(payment), \\\"GS011\\\");\\n        } else {\\n            payment = gasUsed.add(baseGas).mul(gasPrice);\\n            require(transferToken(gasToken, receiver, payment), \\\"GS012\\\");\\n        }\\n    }\\n\\n    /**\\n     * @dev Checks whether the signature provided is valid for the provided data, hash. Will revert otherwise.\\n     * @param dataHash Hash of the data (could be either a message hash or transaction hash)\\n     * @param data That should be signed (this is passed to an external validator contract)\\n     * @param signatures Signature data that should be verified. Can be ECDSA signature, contract signature (EIP-1271) or approved hash.\\n     */\\n    function checkSignatures(\\n        bytes32 dataHash,\\n        bytes memory data,\\n        bytes memory signatures\\n    ) public view {\\n        // Load threshold to avoid multiple storage loads\\n        uint256 _threshold = threshold;\\n        // Check that a threshold is set\\n        require(_threshold > 0, \\\"GS001\\\");\\n        checkNSignatures(dataHash, data, signatures, _threshold);\\n    }\\n\\n    /**\\n     * @dev Checks whether the signature provided is valid for the provided data, hash. Will revert otherwise.\\n     * @param dataHash Hash of the data (could be either a message hash or transaction hash)\\n     * @param data That should be signed (this is passed to an external validator contract)\\n     * @param signatures Signature data that should be verified. Can be ECDSA signature, contract signature (EIP-1271) or approved hash.\\n     * @param requiredSignatures Amount of required valid signatures.\\n     */\\n    function checkNSignatures(\\n        bytes32 dataHash,\\n        bytes memory data,\\n        bytes memory signatures,\\n        uint256 requiredSignatures\\n    ) public view {\\n        // Check that the provided signature data is not too short\\n        require(signatures.length >= requiredSignatures.mul(65), \\\"GS020\\\");\\n        // There cannot be an owner with address 0.\\n        address lastOwner = address(0);\\n        address currentOwner;\\n        uint8 v;\\n        bytes32 r;\\n        bytes32 s;\\n        uint256 i;\\n        for (i = 0; i < requiredSignatures; i++) {\\n            (v, r, s) = signatureSplit(signatures, i);\\n            if (v == 0) {\\n                // If v is 0 then it is a contract signature\\n                // When handling contract signatures the address of the contract is encoded into r\\n                currentOwner = address(uint160(uint256(r)));\\n\\n                // Check that signature data pointer (s) is not pointing inside the static part of the signatures bytes\\n                // This check is not completely accurate, since it is possible that more signatures than the threshold are send.\\n                // Here we only check that the pointer is not pointing inside the part that is being processed\\n                require(uint256(s) >= requiredSignatures.mul(65), \\\"GS021\\\");\\n\\n                // Check that signature data pointer (s) is in bounds (points to the length of data -> 32 bytes)\\n                require(uint256(s).add(32) <= signatures.length, \\\"GS022\\\");\\n\\n                // Check if the contract signature is in bounds: start of data is s + 32 and end is start + signature length\\n                uint256 contractSignatureLen;\\n                // solhint-disable-next-line no-inline-assembly\\n                assembly {\\n                    contractSignatureLen := mload(add(add(signatures, s), 0x20))\\n                }\\n                require(uint256(s).add(32).add(contractSignatureLen) <= signatures.length, \\\"GS023\\\");\\n\\n                // Check signature\\n                bytes memory contractSignature;\\n                // solhint-disable-next-line no-inline-assembly\\n                assembly {\\n                    // The signature data for contract signatures is appended to the concatenated signatures and the offset is stored in s\\n                    contractSignature := add(add(signatures, s), 0x20)\\n                }\\n                require(ISignatureValidator(currentOwner).isValidSignature(data, contractSignature) == EIP1271_MAGIC_VALUE, \\\"GS024\\\");\\n            } else if (v == 1) {\\n                // If v is 1 then it is an approved hash\\n                // When handling approved hashes the address of the approver is encoded into r\\n                currentOwner = address(uint160(uint256(r)));\\n                // Hashes are automatically approved by the sender of the message or when they have been pre-approved via a separate transaction\\n                require(msg.sender == currentOwner || approvedHashes[currentOwner][dataHash] != 0, \\\"GS025\\\");\\n            } else if (v > 30) {\\n                // If v > 30 then default va (27,28) has been adjusted for eth_sign flow\\n                // To support eth_sign and similar we adjust v and hash the messageHash with the Ethereum message prefix before applying ecrecover\\n                currentOwner = ecrecover(keccak256(abi.encodePacked(\\\"\\\\x19Ethereum Signed Message:\\\\n32\\\", dataHash)), v - 4, r, s);\\n            } else {\\n                // Default is the ecrecover flow with the provided data hash\\n                // Use ecrecover with the messageHash for EOA signatures\\n                currentOwner = ecrecover(dataHash, v, r, s);\\n            }\\n            require(currentOwner > lastOwner && owners[currentOwner] != address(0) && currentOwner != SENTINEL_OWNERS, \\\"GS026\\\");\\n            lastOwner = currentOwner;\\n        }\\n    }\\n\\n    /// @dev Allows to estimate a Safe transaction.\\n    ///      This method is only meant for estimation purpose, therefore the call will always revert and encode the result in the revert data.\\n    ///      Since the `estimateGas` function includes refunds, call this method to get an estimated of the costs that are deducted from the safe with `execTransaction`\\n    /// @param to Destination address of Safe transaction.\\n    /// @param value Ether value of Safe transaction.\\n    /// @param data Data payload of Safe transaction.\\n    /// @param operation Operation type of Safe transaction.\\n    /// @return Estimate without refunds and overhead fees (base transaction and payload data gas costs).\\n    /// @notice Deprecated in favor of common/StorageAccessible.sol and will be removed in next version.\\n    function requiredTxGas(\\n        address to,\\n        uint256 value,\\n        bytes calldata data,\\n        Enum.Operation operation\\n    ) external returns (uint256) {\\n        uint256 startGas = gasleft();\\n        // We don't provide an error message here, as we use it to return the estimate\\n        require(execute(to, value, data, operation, gasleft()));\\n        uint256 requiredGas = startGas - gasleft();\\n        // Convert response to string and return via error message\\n        revert(string(abi.encodePacked(requiredGas)));\\n    }\\n\\n    /**\\n     * @dev Marks a hash as approved. This can be used to validate a hash that is used by a signature.\\n     * @param hashToApprove The hash that should be marked as approved for signatures that are verified by this contract.\\n     */\\n    function approveHash(bytes32 hashToApprove) external {\\n        require(owners[msg.sender] != address(0), \\\"GS030\\\");\\n        approvedHashes[msg.sender][hashToApprove] = 1;\\n        emit ApproveHash(hashToApprove, msg.sender);\\n    }\\n\\n    /// @dev Returns the chain id used by this contract.\\n    function getChainId() public view returns (uint256) {\\n        uint256 id;\\n        // solhint-disable-next-line no-inline-assembly\\n        assembly {\\n            id := chainid()\\n        }\\n        return id;\\n    }\\n\\n    function domainSeparator() public view returns (bytes32) {\\n        return keccak256(abi.encode(DOMAIN_SEPARATOR_TYPEHASH, getChainId(), this));\\n    }\\n\\n    /// @dev Returns the bytes that are hashed to be signed by owners.\\n    /// @param to Destination address.\\n    /// @param value Ether value.\\n    /// @param data Data payload.\\n    /// @param operation Operation type.\\n    /// @param safeTxGas Gas that should be used for the safe transaction.\\n    /// @param baseGas Gas costs for that are independent of the transaction execution(e.g. base transaction fee, signature check, payment of the refund)\\n    /// @param gasPrice Maximum gas price that should be used for this transaction.\\n    /// @param gasToken Token address (or 0 if ETH) that is used for the payment.\\n    /// @param refundReceiver Address of receiver of gas payment (or 0 if tx.origin).\\n    /// @param _nonce Transaction nonce.\\n    /// @return Transaction hash bytes.\\n    function encodeTransactionData(\\n        address to,\\n        uint256 value,\\n        bytes calldata data,\\n        Enum.Operation operation,\\n        uint256 safeTxGas,\\n        uint256 baseGas,\\n        uint256 gasPrice,\\n        address gasToken,\\n        address refundReceiver,\\n        uint256 _nonce\\n    ) public view returns (bytes memory) {\\n        bytes32 safeTxHash =\\n            keccak256(\\n                abi.encode(\\n                    SAFE_TX_TYPEHASH,\\n                    to,\\n                    value,\\n                    keccak256(data),\\n                    operation,\\n                    safeTxGas,\\n                    baseGas,\\n                    gasPrice,\\n                    gasToken,\\n                    refundReceiver,\\n                    _nonce\\n                )\\n            );\\n        return abi.encodePacked(bytes1(0x19), bytes1(0x01), domainSeparator(), safeTxHash);\\n    }\\n\\n    /// @dev Returns hash to be signed by owners.\\n    /// @param to Destination address.\\n    /// @param value Ether value.\\n    /// @param data Data payload.\\n    /// @param operation Operation type.\\n    /// @param safeTxGas Fas that should be used for the safe transaction.\\n    /// @param baseGas Gas costs for data used to trigger the safe transaction.\\n    /// @param gasPrice Maximum gas price that should be used for this transaction.\\n    /// @param gasToken Token address (or 0 if ETH) that is used for the payment.\\n    /// @param refundReceiver Address of receiver of gas payment (or 0 if tx.origin).\\n    /// @param _nonce Transaction nonce.\\n    /// @return Transaction hash.\\n    function getTransactionHash(\\n        address to,\\n        uint256 value,\\n        bytes calldata data,\\n        Enum.Operation operation,\\n        uint256 safeTxGas,\\n        uint256 baseGas,\\n        uint256 gasPrice,\\n        address gasToken,\\n        address refundReceiver,\\n        uint256 _nonce\\n    ) public view returns (bytes32) {\\n        return keccak256(encodeTransactionData(to, value, data, operation, safeTxGas, baseGas, gasPrice, gasToken, refundReceiver, _nonce));\\n    }\\n}\\n\",\"keccak256\":\"0x2ca9e3e053c969b9364f62c50c2c25b92525db7fd0bad3ae1fb0c20dd575367c\",\"license\":\"LGPL-3.0-only\"},\"@gnosis.pm/safe-contracts/contracts/base/Executor.sol\":{\"content\":\"// SPDX-License-Identifier: LGPL-3.0-only\\npragma solidity >=0.7.0 <0.9.0;\\nimport \\\"../common/Enum.sol\\\";\\n\\n/// @title Executor - A contract that can execute transactions\\n/// @author Richard Meissner - <richard@gnosis.pm>\\ncontract Executor {\\n    function execute(\\n        address to,\\n        uint256 value,\\n        bytes memory data,\\n        Enum.Operation operation,\\n        uint256 txGas\\n    ) internal returns (bool success) {\\n        if (operation == Enum.Operation.DelegateCall) {\\n            // solhint-disable-next-line no-inline-assembly\\n            assembly {\\n                success := delegatecall(txGas, to, add(data, 0x20), mload(data), 0, 0)\\n            }\\n        } else {\\n            // solhint-disable-next-line no-inline-assembly\\n            assembly {\\n                success := call(txGas, to, value, add(data, 0x20), mload(data), 0, 0)\\n            }\\n        }\\n    }\\n}\\n\",\"keccak256\":\"0x4d3a900673473466bc27413fdbb11aae60b5580b792c49411f01544e0b24fe08\",\"license\":\"LGPL-3.0-only\"},\"@gnosis.pm/safe-contracts/contracts/base/FallbackManager.sol\":{\"content\":\"// SPDX-License-Identifier: LGPL-3.0-only\\npragma solidity >=0.7.0 <0.9.0;\\n\\nimport \\\"../common/SelfAuthorized.sol\\\";\\n\\n/// @title Fallback Manager - A contract that manages fallback calls made to this contract\\n/// @author Richard Meissner - <richard@gnosis.pm>\\ncontract FallbackManager is SelfAuthorized {\\n    event ChangedFallbackHandler(address handler);\\n\\n    // keccak256(\\\"fallback_manager.handler.address\\\")\\n    bytes32 internal constant FALLBACK_HANDLER_STORAGE_SLOT = 0x6c9a6c4a39284e37ed1cf53d337577d14212a4870fb976a4366c693b939918d5;\\n\\n    function internalSetFallbackHandler(address handler) internal {\\n        bytes32 slot = FALLBACK_HANDLER_STORAGE_SLOT;\\n        // solhint-disable-next-line no-inline-assembly\\n        assembly {\\n            sstore(slot, handler)\\n        }\\n    }\\n\\n    /// @dev Allows to add a contract to handle fallback calls.\\n    ///      Only fallback calls without value and with data will be forwarded.\\n    ///      This can only be done via a Safe transaction.\\n    /// @param handler contract to handle fallbacks calls.\\n    function setFallbackHandler(address handler) public authorized {\\n        internalSetFallbackHandler(handler);\\n        emit ChangedFallbackHandler(handler);\\n    }\\n\\n    // solhint-disable-next-line payable-fallback,no-complex-fallback\\n    fallback() external {\\n        bytes32 slot = FALLBACK_HANDLER_STORAGE_SLOT;\\n        // solhint-disable-next-line no-inline-assembly\\n        assembly {\\n            let handler := sload(slot)\\n            if iszero(handler) {\\n                return(0, 0)\\n            }\\n            calldatacopy(0, 0, calldatasize())\\n            // The msg.sender address is shifted to the left by 12 bytes to remove the padding\\n            // Then the address without padding is stored right after the calldata\\n            mstore(calldatasize(), shl(96, caller()))\\n            // Add 20 bytes for the address appended add the end\\n            let success := call(gas(), handler, 0, 0, add(calldatasize(), 20), 0, 0)\\n            returndatacopy(0, 0, returndatasize())\\n            if iszero(success) {\\n                revert(0, returndatasize())\\n            }\\n            return(0, returndatasize())\\n        }\\n    }\\n}\\n\",\"keccak256\":\"0x1be9f0f3e80a78134c2e3a026c6a14759785bd35d135e87a4a025aeb6742791f\",\"license\":\"LGPL-3.0-only\"},\"@gnosis.pm/safe-contracts/contracts/base/GuardManager.sol\":{\"content\":\"// SPDX-License-Identifier: LGPL-3.0-only\\npragma solidity >=0.7.0 <0.9.0;\\n\\nimport \\\"../common/Enum.sol\\\";\\nimport \\\"../common/SelfAuthorized.sol\\\";\\n\\ninterface Guard {\\n    function checkTransaction(\\n        address to,\\n        uint256 value,\\n        bytes memory data,\\n        Enum.Operation operation,\\n        uint256 safeTxGas,\\n        uint256 baseGas,\\n        uint256 gasPrice,\\n        address gasToken,\\n        address payable refundReceiver,\\n        bytes memory signatures,\\n        address msgSender\\n    ) external;\\n\\n    function checkAfterExecution(bytes32 txHash, bool success) external;\\n}\\n\\n/// @title Fallback Manager - A contract that manages fallback calls made to this contract\\n/// @author Richard Meissner - <richard@gnosis.pm>\\ncontract GuardManager is SelfAuthorized {\\n    event ChangedGuard(address guard);\\n    // keccak256(\\\"guard_manager.guard.address\\\")\\n    bytes32 internal constant GUARD_STORAGE_SLOT = 0x4a204f620c8c5ccdca3fd54d003badd85ba500436a431f0cbda4f558c93c34c8;\\n\\n    /// @dev Set a guard that checks transactions before execution\\n    /// @param guard The address of the guard to be used or the 0 address to disable the guard\\n    function setGuard(address guard) external authorized {\\n        bytes32 slot = GUARD_STORAGE_SLOT;\\n        // solhint-disable-next-line no-inline-assembly\\n        assembly {\\n            sstore(slot, guard)\\n        }\\n        emit ChangedGuard(guard);\\n    }\\n\\n    function getGuard() internal view returns (address guard) {\\n        bytes32 slot = GUARD_STORAGE_SLOT;\\n        // solhint-disable-next-line no-inline-assembly\\n        assembly {\\n            guard := sload(slot)\\n        }\\n    }\\n}\\n\",\"keccak256\":\"0x53a532a31f9632d5a73ad0df56f05bd2b66a2f781f571eb48d00367d370707f9\",\"license\":\"LGPL-3.0-only\"},\"@gnosis.pm/safe-contracts/contracts/base/ModuleManager.sol\":{\"content\":\"// SPDX-License-Identifier: LGPL-3.0-only\\npragma solidity >=0.7.0 <0.9.0;\\nimport \\\"../common/Enum.sol\\\";\\nimport \\\"../common/SelfAuthorized.sol\\\";\\nimport \\\"./Executor.sol\\\";\\n\\n/// @title Module Manager - A contract that manages modules that can execute transactions via this contract\\n/// @author Stefan George - <stefan@gnosis.pm>\\n/// @author Richard Meissner - <richard@gnosis.pm>\\ncontract ModuleManager is SelfAuthorized, Executor {\\n    event EnabledModule(address module);\\n    event DisabledModule(address module);\\n    event ExecutionFromModuleSuccess(address indexed module);\\n    event ExecutionFromModuleFailure(address indexed module);\\n\\n    address internal constant SENTINEL_MODULES = address(0x1);\\n\\n    mapping(address => address) internal modules;\\n\\n    function setupModules(address to, bytes memory data) internal {\\n        require(modules[SENTINEL_MODULES] == address(0), \\\"GS100\\\");\\n        modules[SENTINEL_MODULES] = SENTINEL_MODULES;\\n        if (to != address(0))\\n            // Setup has to complete successfully or transaction fails.\\n            require(execute(to, 0, data, Enum.Operation.DelegateCall, gasleft()), \\\"GS000\\\");\\n    }\\n\\n    /// @dev Allows to add a module to the whitelist.\\n    ///      This can only be done via a Safe transaction.\\n    /// @notice Enables the module `module` for the Safe.\\n    /// @param module Module to be whitelisted.\\n    function enableModule(address module) public authorized {\\n        // Module address cannot be null or sentinel.\\n        require(module != address(0) && module != SENTINEL_MODULES, \\\"GS101\\\");\\n        // Module cannot be added twice.\\n        require(modules[module] == address(0), \\\"GS102\\\");\\n        modules[module] = modules[SENTINEL_MODULES];\\n        modules[SENTINEL_MODULES] = module;\\n        emit EnabledModule(module);\\n    }\\n\\n    /// @dev Allows to remove a module from the whitelist.\\n    ///      This can only be done via a Safe transaction.\\n    /// @notice Disables the module `module` for the Safe.\\n    /// @param prevModule Module that pointed to the module to be removed in the linked list\\n    /// @param module Module to be removed.\\n    function disableModule(address prevModule, address module) public authorized {\\n        // Validate module address and check that it corresponds to module index.\\n        require(module != address(0) && module != SENTINEL_MODULES, \\\"GS101\\\");\\n        require(modules[prevModule] == module, \\\"GS103\\\");\\n        modules[prevModule] = modules[module];\\n        modules[module] = address(0);\\n        emit DisabledModule(module);\\n    }\\n\\n    /// @dev Allows a Module to execute a Safe transaction without any further confirmations.\\n    /// @param to Destination address of module transaction.\\n    /// @param value Ether value of module transaction.\\n    /// @param data Data payload of module transaction.\\n    /// @param operation Operation type of module transaction.\\n    function execTransactionFromModule(\\n        address to,\\n        uint256 value,\\n        bytes memory data,\\n        Enum.Operation operation\\n    ) public virtual returns (bool success) {\\n        // Only whitelisted modules are allowed.\\n        require(msg.sender != SENTINEL_MODULES && modules[msg.sender] != address(0), \\\"GS104\\\");\\n        // Execute transaction without further confirmations.\\n        success = execute(to, value, data, operation, gasleft());\\n        if (success) emit ExecutionFromModuleSuccess(msg.sender);\\n        else emit ExecutionFromModuleFailure(msg.sender);\\n    }\\n\\n    /// @dev Allows a Module to execute a Safe transaction without any further confirmations and return data\\n    /// @param to Destination address of module transaction.\\n    /// @param value Ether value of module transaction.\\n    /// @param data Data payload of module transaction.\\n    /// @param operation Operation type of module transaction.\\n    function execTransactionFromModuleReturnData(\\n        address to,\\n        uint256 value,\\n        bytes memory data,\\n        Enum.Operation operation\\n    ) public returns (bool success, bytes memory returnData) {\\n        success = execTransactionFromModule(to, value, data, operation);\\n        // solhint-disable-next-line no-inline-assembly\\n        assembly {\\n            // Load free memory location\\n            let ptr := mload(0x40)\\n            // We allocate memory for the return data by setting the free memory location to\\n            // current free memory location + data size + 32 bytes for data size value\\n            mstore(0x40, add(ptr, add(returndatasize(), 0x20)))\\n            // Store the size\\n            mstore(ptr, returndatasize())\\n            // Store the data\\n            returndatacopy(add(ptr, 0x20), 0, returndatasize())\\n            // Point the return data to the correct memory location\\n            returnData := ptr\\n        }\\n    }\\n\\n    /// @dev Returns if an module is enabled\\n    /// @return True if the module is enabled\\n    function isModuleEnabled(address module) public view returns (bool) {\\n        return SENTINEL_MODULES != module && modules[module] != address(0);\\n    }\\n\\n    /// @dev Returns array of modules.\\n    /// @param start Start of the page.\\n    /// @param pageSize Maximum number of modules that should be returned.\\n    /// @return array Array of modules.\\n    /// @return next Start of the next page.\\n    function getModulesPaginated(address start, uint256 pageSize) external view returns (address[] memory array, address next) {\\n        // Init array with max page size\\n        array = new address[](pageSize);\\n\\n        // Populate return array\\n        uint256 moduleCount = 0;\\n        address currentModule = modules[start];\\n        while (currentModule != address(0x0) && currentModule != SENTINEL_MODULES && moduleCount < pageSize) {\\n            array[moduleCount] = currentModule;\\n            currentModule = modules[currentModule];\\n            moduleCount++;\\n        }\\n        next = currentModule;\\n        // Set correct size of returned array\\n        // solhint-disable-next-line no-inline-assembly\\n        assembly {\\n            mstore(array, moduleCount)\\n        }\\n    }\\n}\\n\",\"keccak256\":\"0x5512760a0328309f82a71cbe2ac14e0942501b9d44d5fb417bd02174546672e5\",\"license\":\"LGPL-3.0-only\"},\"@gnosis.pm/safe-contracts/contracts/base/OwnerManager.sol\":{\"content\":\"// SPDX-License-Identifier: LGPL-3.0-only\\npragma solidity >=0.7.0 <0.9.0;\\nimport \\\"../common/SelfAuthorized.sol\\\";\\n\\n/// @title OwnerManager - Manages a set of owners and a threshold to perform actions.\\n/// @author Stefan George - <stefan@gnosis.pm>\\n/// @author Richard Meissner - <richard@gnosis.pm>\\ncontract OwnerManager is SelfAuthorized {\\n    event AddedOwner(address owner);\\n    event RemovedOwner(address owner);\\n    event ChangedThreshold(uint256 threshold);\\n\\n    address internal constant SENTINEL_OWNERS = address(0x1);\\n\\n    mapping(address => address) internal owners;\\n    uint256 internal ownerCount;\\n    uint256 internal threshold;\\n\\n    /// @dev Setup function sets initial storage of contract.\\n    /// @param _owners List of Safe owners.\\n    /// @param _threshold Number of required confirmations for a Safe transaction.\\n    function setupOwners(address[] memory _owners, uint256 _threshold) internal {\\n        // Threshold can only be 0 at initialization.\\n        // Check ensures that setup function can only be called once.\\n        require(threshold == 0, \\\"GS200\\\");\\n        // Validate that threshold is smaller than number of added owners.\\n        require(_threshold <= _owners.length, \\\"GS201\\\");\\n        // There has to be at least one Safe owner.\\n        require(_threshold >= 1, \\\"GS202\\\");\\n        // Initializing Safe owners.\\n        address currentOwner = SENTINEL_OWNERS;\\n        for (uint256 i = 0; i < _owners.length; i++) {\\n            // Owner address cannot be null.\\n            address owner = _owners[i];\\n            require(owner != address(0) && owner != SENTINEL_OWNERS && owner != address(this) && currentOwner != owner, \\\"GS203\\\");\\n            // No duplicate owners allowed.\\n            require(owners[owner] == address(0), \\\"GS204\\\");\\n            owners[currentOwner] = owner;\\n            currentOwner = owner;\\n        }\\n        owners[currentOwner] = SENTINEL_OWNERS;\\n        ownerCount = _owners.length;\\n        threshold = _threshold;\\n    }\\n\\n    /// @dev Allows to add a new owner to the Safe and update the threshold at the same time.\\n    ///      This can only be done via a Safe transaction.\\n    /// @notice Adds the owner `owner` to the Safe and updates the threshold to `_threshold`.\\n    /// @param owner New owner address.\\n    /// @param _threshold New threshold.\\n    function addOwnerWithThreshold(address owner, uint256 _threshold) public authorized {\\n        // Owner address cannot be null, the sentinel or the Safe itself.\\n        require(owner != address(0) && owner != SENTINEL_OWNERS && owner != address(this), \\\"GS203\\\");\\n        // No duplicate owners allowed.\\n        require(owners[owner] == address(0), \\\"GS204\\\");\\n        owners[owner] = owners[SENTINEL_OWNERS];\\n        owners[SENTINEL_OWNERS] = owner;\\n        ownerCount++;\\n        emit AddedOwner(owner);\\n        // Change threshold if threshold was changed.\\n        if (threshold != _threshold) changeThreshold(_threshold);\\n    }\\n\\n    /// @dev Allows to remove an owner from the Safe and update the threshold at the same time.\\n    ///      This can only be done via a Safe transaction.\\n    /// @notice Removes the owner `owner` from the Safe and updates the threshold to `_threshold`.\\n    /// @param prevOwner Owner that pointed to the owner to be removed in the linked list\\n    /// @param owner Owner address to be removed.\\n    /// @param _threshold New threshold.\\n    function removeOwner(\\n        address prevOwner,\\n        address owner,\\n        uint256 _threshold\\n    ) public authorized {\\n        // Only allow to remove an owner, if threshold can still be reached.\\n        require(ownerCount - 1 >= _threshold, \\\"GS201\\\");\\n        // Validate owner address and check that it corresponds to owner index.\\n        require(owner != address(0) && owner != SENTINEL_OWNERS, \\\"GS203\\\");\\n        require(owners[prevOwner] == owner, \\\"GS205\\\");\\n        owners[prevOwner] = owners[owner];\\n        owners[owner] = address(0);\\n        ownerCount--;\\n        emit RemovedOwner(owner);\\n        // Change threshold if threshold was changed.\\n        if (threshold != _threshold) changeThreshold(_threshold);\\n    }\\n\\n    /// @dev Allows to swap/replace an owner from the Safe with another address.\\n    ///      This can only be done via a Safe transaction.\\n    /// @notice Replaces the owner `oldOwner` in the Safe with `newOwner`.\\n    /// @param prevOwner Owner that pointed to the owner to be replaced in the linked list\\n    /// @param oldOwner Owner address to be replaced.\\n    /// @param newOwner New owner address.\\n    function swapOwner(\\n        address prevOwner,\\n        address oldOwner,\\n        address newOwner\\n    ) public authorized {\\n        // Owner address cannot be null, the sentinel or the Safe itself.\\n        require(newOwner != address(0) && newOwner != SENTINEL_OWNERS && newOwner != address(this), \\\"GS203\\\");\\n        // No duplicate owners allowed.\\n        require(owners[newOwner] == address(0), \\\"GS204\\\");\\n        // Validate oldOwner address and check that it corresponds to owner index.\\n        require(oldOwner != address(0) && oldOwner != SENTINEL_OWNERS, \\\"GS203\\\");\\n        require(owners[prevOwner] == oldOwner, \\\"GS205\\\");\\n        owners[newOwner] = owners[oldOwner];\\n        owners[prevOwner] = newOwner;\\n        owners[oldOwner] = address(0);\\n        emit RemovedOwner(oldOwner);\\n        emit AddedOwner(newOwner);\\n    }\\n\\n    /// @dev Allows to update the number of required confirmations by Safe owners.\\n    ///      This can only be done via a Safe transaction.\\n    /// @notice Changes the threshold of the Safe to `_threshold`.\\n    /// @param _threshold New threshold.\\n    function changeThreshold(uint256 _threshold) public authorized {\\n        // Validate that threshold is smaller than number of owners.\\n        require(_threshold <= ownerCount, \\\"GS201\\\");\\n        // There has to be at least one Safe owner.\\n        require(_threshold >= 1, \\\"GS202\\\");\\n        threshold = _threshold;\\n        emit ChangedThreshold(threshold);\\n    }\\n\\n    function getThreshold() public view returns (uint256) {\\n        return threshold;\\n    }\\n\\n    function isOwner(address owner) public view returns (bool) {\\n        return owner != SENTINEL_OWNERS && owners[owner] != address(0);\\n    }\\n\\n    /// @dev Returns array of owners.\\n    /// @return Array of Safe owners.\\n    function getOwners() public view returns (address[] memory) {\\n        address[] memory array = new address[](ownerCount);\\n\\n        // populate return array\\n        uint256 index = 0;\\n        address currentOwner = owners[SENTINEL_OWNERS];\\n        while (currentOwner != SENTINEL_OWNERS) {\\n            array[index] = currentOwner;\\n            currentOwner = owners[currentOwner];\\n            index++;\\n        }\\n        return array;\\n    }\\n}\\n\",\"keccak256\":\"0x01a3d64cc0967f42ae63802409f5404d18352516ea2a6335005003d919ffcf12\",\"license\":\"LGPL-3.0-only\"},\"@gnosis.pm/safe-contracts/contracts/common/Enum.sol\":{\"content\":\"// SPDX-License-Identifier: LGPL-3.0-only\\npragma solidity >=0.7.0 <0.9.0;\\n\\n/// @title Enum - Collection of enums\\n/// @author Richard Meissner - <richard@gnosis.pm>\\ncontract Enum {\\n    enum Operation {Call, DelegateCall}\\n}\\n\",\"keccak256\":\"0x473e45b1a5cc47be494b0e123c9127f0c11c1e0992a321ae5a644c0bfdb2c14f\",\"license\":\"LGPL-3.0-only\"},\"@gnosis.pm/safe-contracts/contracts/common/EtherPaymentFallback.sol\":{\"content\":\"// SPDX-License-Identifier: LGPL-3.0-only\\npragma solidity >=0.7.0 <0.9.0;\\n\\n/// @title EtherPaymentFallback - A contract that has a fallback to accept ether payments\\n/// @author Richard Meissner - <richard@gnosis.pm>\\ncontract EtherPaymentFallback {\\n    event SafeReceived(address indexed sender, uint256 value);\\n\\n    /// @dev Fallback function accepts Ether transactions.\\n    receive() external payable {\\n        emit SafeReceived(msg.sender, msg.value);\\n    }\\n}\\n\",\"keccak256\":\"0x1a7928d29877da84a3d0df846d5cd933d48ee095c1bde0aa044e249b12e27a72\",\"license\":\"LGPL-3.0-only\"},\"@gnosis.pm/safe-contracts/contracts/common/SecuredTokenTransfer.sol\":{\"content\":\"// SPDX-License-Identifier: LGPL-3.0-only\\npragma solidity >=0.7.0 <0.9.0;\\n\\n/// @title SecuredTokenTransfer - Secure token transfer\\n/// @author Richard Meissner - <richard@gnosis.pm>\\ncontract SecuredTokenTransfer {\\n    /// @dev Transfers a token and returns if it was a success\\n    /// @param token Token that should be transferred\\n    /// @param receiver Receiver to whom the token should be transferred\\n    /// @param amount The amount of tokens that should be transferred\\n    function transferToken(\\n        address token,\\n        address receiver,\\n        uint256 amount\\n    ) internal returns (bool transferred) {\\n        // 0xa9059cbb - keccack(\\\"transfer(address,uint256)\\\")\\n        bytes memory data = abi.encodeWithSelector(0xa9059cbb, receiver, amount);\\n        // solhint-disable-next-line no-inline-assembly\\n        assembly {\\n            // We write the return value to scratch space.\\n            // See https://docs.soliditylang.org/en/v0.7.6/internals/layout_in_memory.html#layout-in-memory\\n            let success := call(sub(gas(), 10000), token, 0, add(data, 0x20), mload(data), 0, 0x20)\\n            switch returndatasize()\\n                case 0 {\\n                    transferred := success\\n                }\\n                case 0x20 {\\n                    transferred := iszero(or(iszero(success), iszero(mload(0))))\\n                }\\n                default {\\n                    transferred := 0\\n                }\\n        }\\n    }\\n}\\n\",\"keccak256\":\"0x178682d8477da42936c7e8e24d39094c4ac08ecd8623794b9535d77001b665f1\",\"license\":\"LGPL-3.0-only\"},\"@gnosis.pm/safe-contracts/contracts/common/SelfAuthorized.sol\":{\"content\":\"// SPDX-License-Identifier: LGPL-3.0-only\\npragma solidity >=0.7.0 <0.9.0;\\n\\n/// @title SelfAuthorized - authorizes current contract to perform actions\\n/// @author Richard Meissner - <richard@gnosis.pm>\\ncontract SelfAuthorized {\\n    function requireSelfCall() private view {\\n        require(msg.sender == address(this), \\\"GS031\\\");\\n    }\\n\\n    modifier authorized() {\\n        // This is a function call as it minimized the bytecode size\\n        requireSelfCall();\\n        _;\\n    }\\n}\\n\",\"keccak256\":\"0x59d36efca578b75541a776f62a0d0ef03712fc27b6647c3915c14b572106d7bc\",\"license\":\"LGPL-3.0-only\"},\"@gnosis.pm/safe-contracts/contracts/common/SignatureDecoder.sol\":{\"content\":\"// SPDX-License-Identifier: LGPL-3.0-only\\npragma solidity >=0.7.0 <0.9.0;\\n\\n/// @title SignatureDecoder - Decodes signatures that a encoded as bytes\\n/// @author Richard Meissner - <richard@gnosis.pm>\\ncontract SignatureDecoder {\\n    /// @dev divides bytes signature into `uint8 v, bytes32 r, bytes32 s`.\\n    /// @notice Make sure to peform a bounds check for @param pos, to avoid out of bounds access on @param signatures\\n    /// @param pos which signature to read. A prior bounds check of this parameter should be performed, to avoid out of bounds access\\n    /// @param signatures concatenated rsv signatures\\n    function signatureSplit(bytes memory signatures, uint256 pos)\\n        internal\\n        pure\\n        returns (\\n            uint8 v,\\n            bytes32 r,\\n            bytes32 s\\n        )\\n    {\\n        // The signature format is a compact form of:\\n        //   {bytes32 r}{bytes32 s}{uint8 v}\\n        // Compact means, uint8 is not padded to 32 bytes.\\n        // solhint-disable-next-line no-inline-assembly\\n        assembly {\\n            let signaturePos := mul(0x41, pos)\\n            r := mload(add(signatures, add(signaturePos, 0x20)))\\n            s := mload(add(signatures, add(signaturePos, 0x40)))\\n            // Here we are loading the last 32 bytes, including 31 bytes\\n            // of 's'. There is no 'mload8' to do this.\\n            //\\n            // 'byte' is not working due to the Solidity parser, so lets\\n            // use the second best option, 'and'\\n            v := and(mload(add(signatures, add(signaturePos, 0x41))), 0xff)\\n        }\\n    }\\n}\\n\",\"keccak256\":\"0x2d37be182472ccfee62a33e9939f9b3d509be4c32e9fdebc2c1746c573655987\",\"license\":\"LGPL-3.0-only\"},\"@gnosis.pm/safe-contracts/contracts/common/Singleton.sol\":{\"content\":\"// SPDX-License-Identifier: LGPL-3.0-only\\npragma solidity >=0.7.0 <0.9.0;\\n\\n/// @title Singleton - Base for singleton contracts (should always be first super contract)\\n///         This contract is tightly coupled to our proxy contract (see `proxies/GnosisSafeProxy.sol`)\\n/// @author Richard Meissner - <richard@gnosis.io>\\ncontract Singleton {\\n    // singleton always needs to be first declared variable, to ensure that it is at the same location as in the Proxy contract.\\n    // It should also always be ensured that the address is stored alone (uses a full word)\\n    address private singleton;\\n}\\n\",\"keccak256\":\"0x6e02c18998de8834dd7d69890cb6ede996b6f635d2337081a596d91e35e2c648\",\"license\":\"LGPL-3.0-only\"},\"@gnosis.pm/safe-contracts/contracts/common/StorageAccessible.sol\":{\"content\":\"// SPDX-License-Identifier: LGPL-3.0-only\\npragma solidity >=0.7.0 <0.9.0;\\n\\n/// @title StorageAccessible - generic base contract that allows callers to access all internal storage.\\n/// @notice See https://github.com/gnosis/util-contracts/blob/bb5fe5fb5df6d8400998094fb1b32a178a47c3a1/contracts/StorageAccessible.sol\\ncontract StorageAccessible {\\n    /**\\n     * @dev Reads `length` bytes of storage in the currents contract\\n     * @param offset - the offset in the current contract's storage in words to start reading from\\n     * @param length - the number of words (32 bytes) of data to read\\n     * @return the bytes that were read.\\n     */\\n    function getStorageAt(uint256 offset, uint256 length) public view returns (bytes memory) {\\n        bytes memory result = new bytes(length * 32);\\n        for (uint256 index = 0; index < length; index++) {\\n            // solhint-disable-next-line no-inline-assembly\\n            assembly {\\n                let word := sload(add(offset, index))\\n                mstore(add(add(result, 0x20), mul(index, 0x20)), word)\\n            }\\n        }\\n        return result;\\n    }\\n\\n    /**\\n     * @dev Performs a delegetecall on a targetContract in the context of self.\\n     * Internally reverts execution to avoid side effects (making it static).\\n     *\\n     * This method reverts with data equal to `abi.encode(bool(success), bytes(response))`.\\n     * Specifically, the `returndata` after a call to this method will be:\\n     * `success:bool || response.length:uint256 || response:bytes`.\\n     *\\n     * @param targetContract Address of the contract containing the code to execute.\\n     * @param calldataPayload Calldata that should be sent to the target contract (encoded method name and arguments).\\n     */\\n    function simulateAndRevert(address targetContract, bytes memory calldataPayload) external {\\n        // solhint-disable-next-line no-inline-assembly\\n        assembly {\\n            let success := delegatecall(gas(), targetContract, add(calldataPayload, 0x20), mload(calldataPayload), 0, 0)\\n\\n            mstore(0x00, success)\\n            mstore(0x20, returndatasize())\\n            returndatacopy(0x40, 0, returndatasize())\\n            revert(0, add(returndatasize(), 0x40))\\n        }\\n    }\\n}\\n\",\"keccak256\":\"0x36853adb266c2ab7d3c612aca799441a86bd15d9e1d24fc6c70d63f5c2df3aaf\",\"license\":\"LGPL-3.0-only\"},\"@gnosis.pm/safe-contracts/contracts/external/GnosisSafeMath.sol\":{\"content\":\"// SPDX-License-Identifier: LGPL-3.0-only\\npragma solidity >=0.7.0 <0.9.0;\\n\\n/**\\n * @title GnosisSafeMath\\n * @dev Math operations with safety checks that revert on error\\n * Renamed from SafeMath to GnosisSafeMath to avoid conflicts\\n * TODO: remove once open zeppelin update to solc 0.5.0\\n */\\nlibrary GnosisSafeMath {\\n    /**\\n     * @dev Multiplies two numbers, reverts on overflow.\\n     */\\n    function mul(uint256 a, uint256 b) internal pure returns (uint256) {\\n        // Gas optimization: this is cheaper than requiring 'a' not being zero, but the\\n        // benefit is lost if 'b' is also tested.\\n        // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522\\n        if (a == 0) {\\n            return 0;\\n        }\\n\\n        uint256 c = a * b;\\n        require(c / a == b);\\n\\n        return c;\\n    }\\n\\n    /**\\n     * @dev Subtracts two numbers, reverts on overflow (i.e. if subtrahend is greater than minuend).\\n     */\\n    function sub(uint256 a, uint256 b) internal pure returns (uint256) {\\n        require(b <= a);\\n        uint256 c = a - b;\\n\\n        return c;\\n    }\\n\\n    /**\\n     * @dev Adds two numbers, reverts on overflow.\\n     */\\n    function add(uint256 a, uint256 b) internal pure returns (uint256) {\\n        uint256 c = a + b;\\n        require(c >= a);\\n\\n        return c;\\n    }\\n\\n    /**\\n     * @dev Returns the largest of two numbers.\\n     */\\n    function max(uint256 a, uint256 b) internal pure returns (uint256) {\\n        return a >= b ? a : b;\\n    }\\n}\\n\",\"keccak256\":\"0x2a2b4d74f5834a9437be0cd3254d7a676698fc78aa47941c2009470196998d98\",\"license\":\"LGPL-3.0-only\"},\"@gnosis.pm/safe-contracts/contracts/interfaces/ISignatureValidator.sol\":{\"content\":\"// SPDX-License-Identifier: LGPL-3.0-only\\npragma solidity >=0.7.0 <0.9.0;\\n\\ncontract ISignatureValidatorConstants {\\n    // bytes4(keccak256(\\\"isValidSignature(bytes,bytes)\\\")\\n    bytes4 internal constant EIP1271_MAGIC_VALUE = 0x20c13b0b;\\n}\\n\\nabstract contract ISignatureValidator is ISignatureValidatorConstants {\\n    /**\\n     * @dev Should return whether the signature provided is valid for the provided data\\n     * @param _data Arbitrary length data signed on the behalf of address(this)\\n     * @param _signature Signature byte array associated with _data\\n     *\\n     * MUST return the bytes4 magic value 0x20c13b0b when function passes.\\n     * MUST NOT modify state (using STATICCALL for solc < 0.5, view modifier for solc > 0.5)\\n     * MUST allow external calls\\n     */\\n    function isValidSignature(bytes memory _data, bytes memory _signature) public view virtual returns (bytes4);\\n}\\n\",\"keccak256\":\"0x5b6e9bf17f28738ce88e751f420b0559f5151ba7bec2ff3c7bb31e42673d6801\",\"license\":\"LGPL-3.0-only\"}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b506001600455612f88806100256000396000f3fe60806040526004361061019c5760003560e01c8063affed0e0116100e2578063e19a9dd911610085578063e19a9dd914610559578063e318b52b14610579578063e75235b814610599578063e86637db146105ae578063f08a0323146105ce578063f698da25146105ee578063f8dc5dd914610603578063ffa1ad7414610623576101d8565b8063affed0e014610455578063b4faba091461046b578063b63e800d1461048b578063c4ca3a9c146104ab578063cc2f8452146104cb578063d4d9bdcd146104f9578063d8d11f7814610519578063e009cfde14610539576101d8565b80635624b25b1161014a5780635624b25b1461032e5780635ae6bd371461035b578063610b592514610388578063694e80c3146103a85780636a761202146103c85780637d832974146103db578063934f3a1114610413578063a0e67e2b14610433576101d8565b80630d582f131461022c57806312fb68e01461024e5780632d9ad53d1461026e5780632f54bf6e146102a35780633408e470146102c3578063468721a7146102e05780635229073f14610300576101d8565b366101d85760405134815233907f3d0ce9bfc3ed7d6862dbb28b2dea94561fe714a1b4d019aa8af39730d1ad7c3d9060200160405180910390a2005b3480156101e457600080fd5b50600080516020612f338339815191528054806101fd57005b36600080373360601b365260008060143601600080855af190503d6000803e80610226573d6000fd5b503d6000f35b34801561023857600080fd5b5061024c61024736600461234a565b610654565b005b34801561025a57600080fd5b5061024c610269366004612418565b6107af565b34801561027a57600080fd5b5061028e61028936600461248c565b610c17565b60405190151581526020015b60405180910390f35b3480156102af57600080fd5b5061028e6102be36600461248c565b610c52565b3480156102cf57600080fd5b50465b60405190815260200161029a565b3480156102ec57600080fd5b5061028e6102fb3660046124b8565b610c8a565b34801561030c57600080fd5b5061032061031b3660046124b8565b610d61565b60405161029a92919061256e565b34801561033a57600080fd5b5061034e610349366004612589565b610d97565b60405161029a91906125ab565b34801561036757600080fd5b506102d26103763660046125be565b60076020526000908152604090205481565b34801561039457600080fd5b5061024c6103a336600461248c565b610e1c565b3480156103b457600080fd5b5061024c6103c33660046125be565b610f3a565b61028e6103d636600461261f565b610fba565b3480156103e757600080fd5b506102d26103f636600461234a565b600860209081526000928352604080842090915290825290205481565b34801561041f57600080fd5b5061024c61042e3660046126f7565b611303565b34801561043f57600080fd5b5061044861134d565b60405161029a91906127a7565b34801561046157600080fd5b506102d260055481565b34801561047757600080fd5b5061024c6104863660046127ba565b61143d565b34801561049757600080fd5b5061024c6104a6366004612809565b611460565b3480156104b757600080fd5b506102d26104c63660046128fd565b61156f565b3480156104d757600080fd5b506104eb6104e636600461234a565b611609565b60405161029a92919061296d565b34801561050557600080fd5b5061024c6105143660046125be565b611702565b34801561052557600080fd5b506102d2610534366004612997565b611797565b34801561054557600080fd5b5061024c610554366004612a57565b6117c4565b34801561056557600080fd5b5061024c61057436600461248c565b6118dd565b34801561058557600080fd5b5061024c610594366004612a90565b611939565b3480156105a557600080fd5b506004546102d2565b3480156105ba57600080fd5b5061034e6105c9366004612997565b611b0e565b3480156105da57600080fd5b5061024c6105e936600461248c565b611be7565b3480156105fa57600080fd5b506102d2611c34565b34801561060f57600080fd5b5061024c61061e366004612adb565b611c8b565b34801561062f57600080fd5b5061034e604051806040016040528060058152602001640312e332e360dc1b81525081565b61065c611de1565b6001600160a01b0382161580159061067e57506001600160a01b038216600114155b801561069357506001600160a01b0382163014155b6106b85760405162461bcd60e51b81526004016106af90612b1c565b60405180910390fd5b6001600160a01b0382811660009081526002602052604090205416156106f05760405162461bcd60e51b81526004016106af90612b3b565b60026020527fe90b7bceb6e7df5418fb78d8ee546e97c83a08bbccc01a0644d599ccd2a7c2e080546001600160a01b038481166000818152604081208054939094166001600160a01b03199384161790935560018352835490911617909155600380549161075d83612b70565b91905055507f9465fa0c962cc76958e6373a993326400c1c94f8be2fe3a952adfa7f60b2ea26826040516107919190612b8b565b60405180910390a180600454146107ab576107ab81610f3a565b5050565b6107ba816041611e1a565b825110156107f25760405162461bcd60e51b8152602060048201526005602482015264047533032360dc1b60448201526064016106af565b6000808060008060005b86811015610c0b576041818102890160208101516040820151919092015160ff1695509093509150836109c9579193508391610839876041611e1a565b8210156108705760405162461bcd60e51b8152602060048201526005602482015264475330323160d81b60448201526064016106af565b875161087d836020611e53565b11156108b35760405162461bcd60e51b815260206004820152600560248201526423a998191960d91b60448201526064016106af565b6020828901810151895190916108d69083906108d0908790611e53565b90611e53565b111561090c5760405162461bcd60e51b8152602060048201526005602482015264475330323360d81b60448201526064016106af565b6040516320c13b0b60e01b8082528a8501602001916001600160a01b038916906320c13b0b90610942908f908690600401612b9f565b602060405180830381865afa15801561095f573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906109839190612bc4565b6001600160e01b031916146109c25760405162461bcd60e51b815260206004820152600560248201526411d4cc0c8d60da1b60448201526064016106af565b5050610b71565b8360ff1660011415610a4c579193508391336001600160a01b0384161480610a1357506001600160a01b03851660009081526008602090815260408083208d845290915290205415155b610a475760405162461bcd60e51b8152602060048201526005602482015264475330323560d81b60448201526064016106af565b610b71565b601e8460ff161115610b11576040517f19457468657265756d205369676e6564204d6573736167653a0a3332000000006020820152603c81018b9052600190605c0160405160208183030381529060405280519060200120600486610ab19190612bee565b6040805160008152602081018083529390935260ff90911690820152606081018590526080810184905260a0016020604051602081039080840390855afa158015610b00573d6000803e3d6000fd5b505050602060405103519450610b71565b6040805160008152602081018083528c905260ff861691810191909152606081018490526080810183905260019060a0016020604051602081039080840390855afa158015610b64573d6000803e3d6000fd5b5050506020604051035194505b856001600160a01b0316856001600160a01b0316118015610bab57506001600160a01b038581166000908152600260205260409020541615155b8015610bc157506001600160a01b038516600114155b610bf55760405162461bcd60e51b815260206004820152600560248201526423a998191b60d91b60448201526064016106af565b8495508080610c0390612b70565b9150506107fc565b50505050505050505050565b600060016001600160a01b03831614801590610c4c57506001600160a01b038281166000908152600160205260409020541615155b92915050565b60006001600160a01b038216600114801590610c4c5750506001600160a01b0390811660009081526002602052604090205416151590565b600033600114801590610cb45750336000908152600160205260409020546001600160a01b031615155b610ce85760405162461bcd60e51b815260206004820152600560248201526411d4cc4c0d60da1b60448201526064016106af565b610cf5858585855a611e6f565b90508015610d2d5760405133907f6895c13664aa4f67288b25d7a21d7aaa34916e355fb9b6fae0a139a9085becb890600090a2610d59565b60405133907facd2c8702804128fdb0db2bb49f6d127dd0181c13fd45dbfe16de0930e2bd37590600090a25b949350505050565b60006060610d7186868686610c8a565b915060405160203d0181016040523d81523d6000602083013e8091505094509492505050565b60606000610da6836020612c11565b6001600160401b03811115610dbd57610dbd612376565b6040519080825280601f01601f191660200182016040528015610de7576020820181803683370190505b50905060005b83811015610e14578481015460208083028401015280610e0c81612b70565b915050610ded565b509392505050565b610e24611de1565b6001600160a01b03811615801590610e4657506001600160a01b038116600114155b610e625760405162461bcd60e51b81526004016106af90612c30565b6001600160a01b038181166000908152600160205260409020541615610eb25760405162461bcd60e51b815260206004820152600560248201526423a998981960d91b60448201526064016106af565b60016020819052600080516020612f1383398151915280546001600160a01b03848116600081815260408082208054949095166001600160a01b031994851617909455949094528254169092179055517fecdf3a3effea5783a3c4c2140e677577666428d44ed9d474a0b3a4c9943f844090610f2f908390612b8b565b60405180910390a150565b610f42611de1565b600354811115610f645760405162461bcd60e51b81526004016106af90612c4f565b6001811015610f855760405162461bcd60e51b81526004016106af90612c6e565b60048190556040518181527f610f7ff2b304ae8903c3de74c60c6ab1f7d6226b3f52c5161905bb5ad4039c9390602001610f2f565b6000806000610fd48e8e8e8e8e8e8e8e8e8e600554611b0e565b600580549192506000610fe683612b70565b9091555050805160208201209150610fff828286611303565b50600061102a7f4a204f620c8c5ccdca3fd54d003badd85ba500436a431f0cbda4f558c93c34c85490565b90506001600160a01b038116156110b057806001600160a01b03166375f0bb528f8f8f8f8f8f8f8f8f8f8f336040518d63ffffffff1660e01b815260040161107d9c9b9a99989796959493929190612cc5565b600060405180830381600087803b15801561109757600080fd5b505af11580156110ab573d6000803e3d6000fd5b505050505b6110dc6110bf8a6109c4612d8a565b603f6110cc8c6040612c11565b6110d69190612da2565b90611eb7565b6110e8906101f4612d8a565b5a101561111f5760405162461bcd60e51b8152602060048201526005602482015264047533031360dc1b60448201526064016106af565b60005a90506111908f8f8f8f8080601f016020809104026020016040519081016040528093929190818152602001838380828437600081840152601f19601f820116905080830192505050505050508e8c60001461117d578e611e6f565b6109c45a61118b9190612dc4565b611e6f565b935061119d5a8290611ece565b905083806111aa57508915155b806111b457508715155b6111e85760405162461bcd60e51b8152602060048201526005602482015264475330313360d81b60448201526064016106af565b60008815611200576111fd828b8b8b8b611ee9565b90505b84156112445760408051858152602081018390527f442e715f626346e8c54381002da614f62bee8d27386535b2521ec8540898556e910160405180910390a161127e565b60408051858152602081018390527f23428b18acfb3ea64b08dc0c1d296ea9c09702c09083ca5272e64d115b687d23910160405180910390a15b50506001600160a01b038116156112f257604051631264e26d60e31b81526004810183905283151560248201526001600160a01b03821690639327136890604401600060405180830381600087803b1580156112d957600080fd5b505af11580156112ed573d6000803e3d6000fd5b505050505b50509b9a5050505050505050505050565b6004548061133b5760405162461bcd60e51b8152602060048201526005602482015264475330303160d81b60448201526064016106af565b611347848484846107af565b50505050565b606060006003546001600160401b0381111561136b5761136b612376565b604051908082528060200260200182016040528015611394578160200160208202803683370190505b506001600090815260026020527fe90b7bceb6e7df5418fb78d8ee546e97c83a08bbccc01a0644d599ccd2a7c2e054919250906001600160a01b03165b6001600160a01b03811660011461143557808383815181106113f5576113f5612ddb565b6001600160a01b0392831660209182029290920181019190915291811660009081526002909252604090912054168161142d81612b70565b9250506113d1565b509092915050565b600080825160208401855af480600052503d6020523d600060403e60403d016000fd5b61149e8a8a808060200260200160405190810160405280939291908181526020018383602002808284376000920191909152508c9250611fef915050565b6001600160a01b038416156114c3576114c384600080516020612f3383398151915255565b6115038787878080601f0160208091040260200160405190810160405280939291908181526020018383808284376000920191909152506121bd92505050565b811561151a5761151882600060018685611ee9565b505b336001600160a01b03167f141df868a6331af528e38c83b7aa03edc19be66e37ae67f9285bf4f8e3c6a1a88b8b8b8b8960405161155b959493929190612df1565b60405180910390a250505050505050505050565b6000805a90506115b8878787878080601f01602080910402602001604051908101604052809392919081815260200183838082843760009201919091525089925050505a611e6f565b6115c157600080fd5b60005a6115ce9083612dc4565b9050806040516020016115e391815260200190565b60408051601f198184030181529082905262461bcd60e51b82526106af916004016125ab565b60606000826001600160401b0381111561162557611625612376565b60405190808252806020026020018201604052801561164e578160200160208202803683370190505b506001600160a01b0380861660009081526001602052604081205492945091165b6001600160a01b0381161580159061169157506001600160a01b038116600114155b801561169c57508482105b156116f457808483815181106116b4576116b4612ddb565b6001600160a01b039283166020918202929092018101919091529181166000908152600190925260409091205416816116ec81612b70565b92505061166f565b908352919491935090915050565b336000908152600260205260409020546001600160a01b031661174f5760405162461bcd60e51b8152602060048201526005602482015264047533033360dc1b60448201526064016106af565b336000818152600860209081526040808320858452909152808220600190555183917ff2a0eb156472d1440255b0d7c1e19cc07115d1051fe605b0dce69acfec884d9c91a350565b60006117ac8c8c8c8c8c8c8c8c8c8c8c611b0e565b8051906020012090509b9a5050505050505050505050565b6117cc611de1565b6001600160a01b038116158015906117ee57506001600160a01b038116600114155b61180a5760405162461bcd60e51b81526004016106af90612c30565b6001600160a01b0382811660009081526001602052604090205481169082161461185e5760405162461bcd60e51b8152602060048201526005602482015264475331303360d81b60448201526064016106af565b6001600160a01b03818116600081815260016020526040808220805487861684528284208054919096166001600160a01b0319918216179095559290915281549092169055517faab4fa2b463f581b2b32cb3b7e3b704b9ce37cc209b5fb4d77e593ace4054276906118d1908390612b8b565b60405180910390a15050565b6118e5611de1565b7f4a204f620c8c5ccdca3fd54d003badd85ba500436a431f0cbda4f558c93c34c88181556040517f1151116914515bc0891ff9047a6cb32cf902546f83066499bcf8ba33d2353fa2906118d1908490612b8b565b611941611de1565b6001600160a01b0381161580159061196357506001600160a01b038116600114155b801561197857506001600160a01b0381163014155b6119945760405162461bcd60e51b81526004016106af90612b1c565b6001600160a01b0381811660009081526002602052604090205416156119cc5760405162461bcd60e51b81526004016106af90612b3b565b6001600160a01b038216158015906119ee57506001600160a01b038216600114155b611a0a5760405162461bcd60e51b81526004016106af90612b1c565b6001600160a01b03838116600090815260026020526040902054811690831614611a465760405162461bcd60e51b81526004016106af90612e5d565b6001600160a01b03828116600081815260026020526040808220805486861680855283852080549288166001600160a01b03199384161790559589168452828420805482169096179095559290915281549092169055517ff8d49fc529812e9a7c5c50e69c20f0dccc0db8fa95c98bc58cc9a4f1c1299eaf90611aca908490612b8b565b60405180910390a17f9465fa0c962cc76958e6373a993326400c1c94f8be2fe3a952adfa7f60b2ea2681604051611b019190612b8b565b60405180910390a1505050565b606060007fbb8310d486368db6bd6f849402fdd73ad53d316b5a4b2644ad6efe0f941286d860001b8d8d8d8d604051611b48929190612e7c565b604051908190038120611b6e949392918e908e908e908e908e908e908e90602001612e8c565b60408051601f1981840301815291905280516020909101209050601960f81b600160f81b611b9a611c34565b6040516001600160f81b031993841660208201529290911660218301526022820152604281018290526062016040516020818303038152906040529150509b9a5050505050505050505050565b611bef611de1565b611c0581600080516020612f3383398151915255565b7f5ac6c46c93c8d0e53714ba3b53db3e7c046da994313d7ed0d192028bc7c228b081604051610f2f9190612b8b565b60007f47e79534a245952e8b16893a336b85a3d9ea9fa8c573f3d803afb92a794692184660408051602081019390935282015230606082015260800160405160208183030381529060405280519060200120905090565b611c93611de1565b806001600354611ca39190612dc4565b1015611cc15760405162461bcd60e51b81526004016106af90612c4f565b6001600160a01b03821615801590611ce357506001600160a01b038216600114155b611cff5760405162461bcd60e51b81526004016106af90612b1c565b6001600160a01b03838116600090815260026020526040902054811690831614611d3b5760405162461bcd60e51b81526004016106af90612e5d565b6001600160a01b03828116600081815260026020526040808220805488861684529183208054929095166001600160a01b03199283161790945591815282549091169091556003805491611d8e83612efb565b91905055507ff8d49fc529812e9a7c5c50e69c20f0dccc0db8fa95c98bc58cc9a4f1c1299eaf82604051611dc29190612b8b565b60405180910390a18060045414611ddc57611ddc81610f3a565b505050565b333014611e185760405162461bcd60e51b8152602060048201526005602482015264475330333160d81b60448201526064016106af565b565b600082611e2957506000610c4c565b6000611e358385612c11565b905082611e428583612da2565b14611e4c57600080fd5b9392505050565b600080611e608385612d8a565b905083811015611e4c57600080fd5b60006001836001811115611e8557611e85612c8d565b1415611e9e576000808551602087018986f49050611eae565b600080855160208701888a87f190505b95945050505050565b600081831015611ec75781611e4c565b5090919050565b600082821115611edd57600080fd5b6000610d598385612dc4565b6000806001600160a01b03831615611f015782611f03565b325b90506001600160a01b038416611f9657611f353a8610611f23573a611f25565b855b611f2f8989611e53565b90611e1a565b6040519092506001600160a01b0382169083156108fc029084906000818181858888f19350505050611f915760405162461bcd60e51b8152602060048201526005602482015264475330313160d81b60448201526064016106af565b611fe5565b611fa485611f2f8989611e53565b9150611fb1848284612293565b611fe55760405162461bcd60e51b815260206004820152600560248201526423a998189960d91b60448201526064016106af565b5095945050505050565b600454156120275760405162461bcd60e51b8152602060048201526005602482015264047533230360dc1b60448201526064016106af565b81518111156120485760405162461bcd60e51b81526004016106af90612c4f565b60018110156120695760405162461bcd60e51b81526004016106af90612c6e565b600160005b835181101561218a57600084828151811061208b5761208b612ddb565b6020026020010151905060006001600160a01b0316816001600160a01b0316141580156120c257506001600160a01b038116600114155b80156120d757506001600160a01b0381163014155b80156120f55750806001600160a01b0316836001600160a01b031614155b6121115760405162461bcd60e51b81526004016106af90612b1c565b6001600160a01b0381811660009081526002602052604090205416156121495760405162461bcd60e51b81526004016106af90612b3b565b6001600160a01b03928316600090815260026020526040902080546001600160a01b031916938216939093179092558061218281612b70565b91505061206e565b506001600160a01b0316600090815260026020526040902080546001600160a01b03191660011790559051600355600455565b60016000819052602052600080516020612f13833981519152546001600160a01b0316156122155760405162461bcd60e51b8152602060048201526005602482015264047533130360dc1b60448201526064016106af565b600160008190526020819052600080516020612f1383398151915280546001600160a01b03191690911790556001600160a01b038216156107ab5761225f8260008360015a611e6f565b6107ab5760405162461bcd60e51b8152602060048201526005602482015264047533030360dc1b60448201526064016106af565b604080516001600160a01b03841660248201526044808201849052825180830390910181526064909101909152602080820180516001600160e01b031663a9059cbb60e01b1781528251600093929184919082896127105a03f13d8015612305576020811461230d5760009350612318565b819350612318565b600051158215171593505b5050509392505050565b6001600160a01b038116811461233757600080fd5b50565b803561234581612322565b919050565b6000806040838503121561235d57600080fd5b823561236881612322565b946020939093013593505050565b634e487b7160e01b600052604160045260246000fd5b600082601f83011261239d57600080fd5b81356001600160401b03808211156123b7576123b7612376565b604051601f8301601f19908116603f011681019082821181831017156123df576123df612376565b816040528381528660208588010111156123f857600080fd5b836020870160208301376000602085830101528094505050505092915050565b6000806000806080858703121561242e57600080fd5b8435935060208501356001600160401b038082111561244c57600080fd5b6124588883890161238c565b9450604087013591508082111561246e57600080fd5b5061247b8782880161238c565b949793965093946060013593505050565b60006020828403121561249e57600080fd5b8135611e4c81612322565b80356002811061234557600080fd5b600080600080608085870312156124ce57600080fd5b84356124d981612322565b93506020850135925060408501356001600160401b038111156124fb57600080fd5b6125078782880161238c565b925050612516606086016124a9565b905092959194509250565b6000815180845260005b818110156125475760208185018101518683018201520161252b565b81811115612559576000602083870101525b50601f01601f19169290920160200192915050565b8215158152604060208201526000610d596040830184612521565b6000806040838503121561259c57600080fd5b50508035926020909101359150565b602081526000611e4c6020830184612521565b6000602082840312156125d057600080fd5b5035919050565b60008083601f8401126125e957600080fd5b5081356001600160401b0381111561260057600080fd5b60208301915083602082850101111561261857600080fd5b9250929050565b60008060008060008060008060008060006101408c8e03121561264157600080fd5b61264a8c61233a565b9a5060208c013599506001600160401b038060408e0135111561266c57600080fd5b61267c8e60408f01358f016125d7565b909a50985061268d60608e016124a9565b975060808d0135965060a08d0135955060c08d013594506126b060e08e0161233a565b93506126bf6101008e0161233a565b9250806101208e013511156126d357600080fd5b506126e58d6101208e01358e0161238c565b90509295989b509295989b9093969950565b60008060006060848603121561270c57600080fd5b8335925060208401356001600160401b038082111561272a57600080fd5b6127368783880161238c565b9350604086013591508082111561274c57600080fd5b506127598682870161238c565b9150509250925092565b600081518084526020808501945080840160005b8381101561279c5781516001600160a01b031687529582019590820190600101612777565b509495945050505050565b602081526000611e4c6020830184612763565b600080604083850312156127cd57600080fd5b82356127d881612322565b915060208301356001600160401b038111156127f357600080fd5b6127ff8582860161238c565b9150509250929050565b6000806000806000806000806000806101008b8d03121561282957600080fd5b8a356001600160401b038082111561284057600080fd5b818d0191508d601f83011261285457600080fd5b81358181111561286357600080fd5b8e60208260051b850101111561287857600080fd5b60208381019d50909b508d0135995061289360408e0161233a565b985060608d01359150808211156128a957600080fd5b506128b68d828e016125d7565b90975095506128c9905060808c0161233a565b93506128d760a08c0161233a565b925060c08b013591506128ec60e08c0161233a565b90509295989b9194979a5092959850565b60008060008060006080868803121561291557600080fd5b853561292081612322565b94506020860135935060408601356001600160401b0381111561294257600080fd5b61294e888289016125d7565b90945092506129619050606087016124a9565b90509295509295909350565b6040815260006129806040830185612763565b905060018060a01b03831660208301529392505050565b60008060008060008060008060008060006101408c8e0312156129b957600080fd5b8b356129c481612322565b9a5060208c0135995060408c01356001600160401b038111156129e657600080fd5b6129f28e828f016125d7565b909a509850612a05905060608d016124a9565b965060808c0135955060a08c0135945060c08c0135935060e08c0135612a2a81612322565b92506101008c0135612a3b81612322565b809250506101208c013590509295989b509295989b9093969950565b60008060408385031215612a6a57600080fd5b8235612a7581612322565b91506020830135612a8581612322565b809150509250929050565b600080600060608486031215612aa557600080fd5b8335612ab081612322565b92506020840135612ac081612322565b91506040840135612ad081612322565b809150509250925092565b600080600060608486031215612af057600080fd5b8335612afb81612322565b92506020840135612b0b81612322565b929592945050506040919091013590565b602080825260059082015264475332303360d81b604082015260600190565b60208082526005908201526411d4cc8c0d60da1b604082015260600190565b634e487b7160e01b600052601160045260246000fd5b6000600019821415612b8457612b84612b5a565b5060010190565b6001600160a01b0391909116815260200190565b604081526000612bb26040830185612521565b8281036020840152611eae8185612521565b600060208284031215612bd657600080fd5b81516001600160e01b031981168114611e4c57600080fd5b600060ff821660ff841680821015612c0857612c08612b5a565b90039392505050565b6000816000190483118215151615612c2b57612c2b612b5a565b500290565b602080825260059082015264475331303160d81b604082015260600190565b602080825260059082015264475332303160d81b604082015260600190565b60208082526005908201526423a999181960d91b604082015260600190565b634e487b7160e01b600052602160045260246000fd5b60028110612cc157634e487b7160e01b600052602160045260246000fd5b9052565b6001600160a01b038d168152602081018c90526101606040820181905281018a905260006101808b8d828501376000838d01820152601f8c01601f19168301612d11606085018d612ca3565b8a60808501528960a08501528860c0850152612d3860e08501896001600160a01b03169052565b6001600160a01b0387166101008501528184820301610120850152612d5f82820187612521565b92505050612d796101408301846001600160a01b03169052565b9d9c50505050505050505050505050565b60008219821115612d9d57612d9d612b5a565b500190565b600082612dbf57634e487b7160e01b600052601260045260246000fd5b500490565b600082821015612dd657612dd6612b5a565b500390565b634e487b7160e01b600052603260045260246000fd5b6080808252810185905260008660a08301825b88811015612e34578235612e1781612322565b6001600160a01b0316825260209283019290910190600101612e04565b50602084019690965250506001600160a01b039283166040820152911660609091015292915050565b602080825260059082015264475332303560d81b604082015260600190565b8183823760009101908152919050565b8b81526001600160a01b038b81166020830152604082018b9052606082018a9052610160820190612ec0608084018b612ca3565b60a083019890985260c082019690965260e0810194909452918516610100840152909316610120820152610140019190915295945050505050565b600081612f0a57612f0a612b5a565b50600019019056fecc69885fda6bcc1a4ace058b4a62bf5e179ea78fd58a1ccd71c22cc9b688792f6c9a6c4a39284e37ed1cf53d337577d14212a4870fb976a4366c693b939918d5a2646970667358221220e6c4a6c0e116167001911abcc813bc152a43afe83ce0b622c8e958ac88cf4a7064736f6c634300080c0033",
+  "deployedBytecode": "0x60806040526004361061019c5760003560e01c8063affed0e0116100e2578063e19a9dd911610085578063e19a9dd914610559578063e318b52b14610579578063e75235b814610599578063e86637db146105ae578063f08a0323146105ce578063f698da25146105ee578063f8dc5dd914610603578063ffa1ad7414610623576101d8565b8063affed0e014610455578063b4faba091461046b578063b63e800d1461048b578063c4ca3a9c146104ab578063cc2f8452146104cb578063d4d9bdcd146104f9578063d8d11f7814610519578063e009cfde14610539576101d8565b80635624b25b1161014a5780635624b25b1461032e5780635ae6bd371461035b578063610b592514610388578063694e80c3146103a85780636a761202146103c85780637d832974146103db578063934f3a1114610413578063a0e67e2b14610433576101d8565b80630d582f131461022c57806312fb68e01461024e5780632d9ad53d1461026e5780632f54bf6e146102a35780633408e470146102c3578063468721a7146102e05780635229073f14610300576101d8565b366101d85760405134815233907f3d0ce9bfc3ed7d6862dbb28b2dea94561fe714a1b4d019aa8af39730d1ad7c3d9060200160405180910390a2005b3480156101e457600080fd5b50600080516020612f338339815191528054806101fd57005b36600080373360601b365260008060143601600080855af190503d6000803e80610226573d6000fd5b503d6000f35b34801561023857600080fd5b5061024c61024736600461234a565b610654565b005b34801561025a57600080fd5b5061024c610269366004612418565b6107af565b34801561027a57600080fd5b5061028e61028936600461248c565b610c17565b60405190151581526020015b60405180910390f35b3480156102af57600080fd5b5061028e6102be36600461248c565b610c52565b3480156102cf57600080fd5b50465b60405190815260200161029a565b3480156102ec57600080fd5b5061028e6102fb3660046124b8565b610c8a565b34801561030c57600080fd5b5061032061031b3660046124b8565b610d61565b60405161029a92919061256e565b34801561033a57600080fd5b5061034e610349366004612589565b610d97565b60405161029a91906125ab565b34801561036757600080fd5b506102d26103763660046125be565b60076020526000908152604090205481565b34801561039457600080fd5b5061024c6103a336600461248c565b610e1c565b3480156103b457600080fd5b5061024c6103c33660046125be565b610f3a565b61028e6103d636600461261f565b610fba565b3480156103e757600080fd5b506102d26103f636600461234a565b600860209081526000928352604080842090915290825290205481565b34801561041f57600080fd5b5061024c61042e3660046126f7565b611303565b34801561043f57600080fd5b5061044861134d565b60405161029a91906127a7565b34801561046157600080fd5b506102d260055481565b34801561047757600080fd5b5061024c6104863660046127ba565b61143d565b34801561049757600080fd5b5061024c6104a6366004612809565b611460565b3480156104b757600080fd5b506102d26104c63660046128fd565b61156f565b3480156104d757600080fd5b506104eb6104e636600461234a565b611609565b60405161029a92919061296d565b34801561050557600080fd5b5061024c6105143660046125be565b611702565b34801561052557600080fd5b506102d2610534366004612997565b611797565b34801561054557600080fd5b5061024c610554366004612a57565b6117c4565b34801561056557600080fd5b5061024c61057436600461248c565b6118dd565b34801561058557600080fd5b5061024c610594366004612a90565b611939565b3480156105a557600080fd5b506004546102d2565b3480156105ba57600080fd5b5061034e6105c9366004612997565b611b0e565b3480156105da57600080fd5b5061024c6105e936600461248c565b611be7565b3480156105fa57600080fd5b506102d2611c34565b34801561060f57600080fd5b5061024c61061e366004612adb565b611c8b565b34801561062f57600080fd5b5061034e604051806040016040528060058152602001640312e332e360dc1b81525081565b61065c611de1565b6001600160a01b0382161580159061067e57506001600160a01b038216600114155b801561069357506001600160a01b0382163014155b6106b85760405162461bcd60e51b81526004016106af90612b1c565b60405180910390fd5b6001600160a01b0382811660009081526002602052604090205416156106f05760405162461bcd60e51b81526004016106af90612b3b565b60026020527fe90b7bceb6e7df5418fb78d8ee546e97c83a08bbccc01a0644d599ccd2a7c2e080546001600160a01b038481166000818152604081208054939094166001600160a01b03199384161790935560018352835490911617909155600380549161075d83612b70565b91905055507f9465fa0c962cc76958e6373a993326400c1c94f8be2fe3a952adfa7f60b2ea26826040516107919190612b8b565b60405180910390a180600454146107ab576107ab81610f3a565b5050565b6107ba816041611e1a565b825110156107f25760405162461bcd60e51b8152602060048201526005602482015264047533032360dc1b60448201526064016106af565b6000808060008060005b86811015610c0b576041818102890160208101516040820151919092015160ff1695509093509150836109c9579193508391610839876041611e1a565b8210156108705760405162461bcd60e51b8152602060048201526005602482015264475330323160d81b60448201526064016106af565b875161087d836020611e53565b11156108b35760405162461bcd60e51b815260206004820152600560248201526423a998191960d91b60448201526064016106af565b6020828901810151895190916108d69083906108d0908790611e53565b90611e53565b111561090c5760405162461bcd60e51b8152602060048201526005602482015264475330323360d81b60448201526064016106af565b6040516320c13b0b60e01b8082528a8501602001916001600160a01b038916906320c13b0b90610942908f908690600401612b9f565b602060405180830381865afa15801561095f573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906109839190612bc4565b6001600160e01b031916146109c25760405162461bcd60e51b815260206004820152600560248201526411d4cc0c8d60da1b60448201526064016106af565b5050610b71565b8360ff1660011415610a4c579193508391336001600160a01b0384161480610a1357506001600160a01b03851660009081526008602090815260408083208d845290915290205415155b610a475760405162461bcd60e51b8152602060048201526005602482015264475330323560d81b60448201526064016106af565b610b71565b601e8460ff161115610b11576040517f19457468657265756d205369676e6564204d6573736167653a0a3332000000006020820152603c81018b9052600190605c0160405160208183030381529060405280519060200120600486610ab19190612bee565b6040805160008152602081018083529390935260ff90911690820152606081018590526080810184905260a0016020604051602081039080840390855afa158015610b00573d6000803e3d6000fd5b505050602060405103519450610b71565b6040805160008152602081018083528c905260ff861691810191909152606081018490526080810183905260019060a0016020604051602081039080840390855afa158015610b64573d6000803e3d6000fd5b5050506020604051035194505b856001600160a01b0316856001600160a01b0316118015610bab57506001600160a01b038581166000908152600260205260409020541615155b8015610bc157506001600160a01b038516600114155b610bf55760405162461bcd60e51b815260206004820152600560248201526423a998191b60d91b60448201526064016106af565b8495508080610c0390612b70565b9150506107fc565b50505050505050505050565b600060016001600160a01b03831614801590610c4c57506001600160a01b038281166000908152600160205260409020541615155b92915050565b60006001600160a01b038216600114801590610c4c5750506001600160a01b0390811660009081526002602052604090205416151590565b600033600114801590610cb45750336000908152600160205260409020546001600160a01b031615155b610ce85760405162461bcd60e51b815260206004820152600560248201526411d4cc4c0d60da1b60448201526064016106af565b610cf5858585855a611e6f565b90508015610d2d5760405133907f6895c13664aa4f67288b25d7a21d7aaa34916e355fb9b6fae0a139a9085becb890600090a2610d59565b60405133907facd2c8702804128fdb0db2bb49f6d127dd0181c13fd45dbfe16de0930e2bd37590600090a25b949350505050565b60006060610d7186868686610c8a565b915060405160203d0181016040523d81523d6000602083013e8091505094509492505050565b60606000610da6836020612c11565b6001600160401b03811115610dbd57610dbd612376565b6040519080825280601f01601f191660200182016040528015610de7576020820181803683370190505b50905060005b83811015610e14578481015460208083028401015280610e0c81612b70565b915050610ded565b509392505050565b610e24611de1565b6001600160a01b03811615801590610e4657506001600160a01b038116600114155b610e625760405162461bcd60e51b81526004016106af90612c30565b6001600160a01b038181166000908152600160205260409020541615610eb25760405162461bcd60e51b815260206004820152600560248201526423a998981960d91b60448201526064016106af565b60016020819052600080516020612f1383398151915280546001600160a01b03848116600081815260408082208054949095166001600160a01b031994851617909455949094528254169092179055517fecdf3a3effea5783a3c4c2140e677577666428d44ed9d474a0b3a4c9943f844090610f2f908390612b8b565b60405180910390a150565b610f42611de1565b600354811115610f645760405162461bcd60e51b81526004016106af90612c4f565b6001811015610f855760405162461bcd60e51b81526004016106af90612c6e565b60048190556040518181527f610f7ff2b304ae8903c3de74c60c6ab1f7d6226b3f52c5161905bb5ad4039c9390602001610f2f565b6000806000610fd48e8e8e8e8e8e8e8e8e8e600554611b0e565b600580549192506000610fe683612b70565b9091555050805160208201209150610fff828286611303565b50600061102a7f4a204f620c8c5ccdca3fd54d003badd85ba500436a431f0cbda4f558c93c34c85490565b90506001600160a01b038116156110b057806001600160a01b03166375f0bb528f8f8f8f8f8f8f8f8f8f8f336040518d63ffffffff1660e01b815260040161107d9c9b9a99989796959493929190612cc5565b600060405180830381600087803b15801561109757600080fd5b505af11580156110ab573d6000803e3d6000fd5b505050505b6110dc6110bf8a6109c4612d8a565b603f6110cc8c6040612c11565b6110d69190612da2565b90611eb7565b6110e8906101f4612d8a565b5a101561111f5760405162461bcd60e51b8152602060048201526005602482015264047533031360dc1b60448201526064016106af565b60005a90506111908f8f8f8f8080601f016020809104026020016040519081016040528093929190818152602001838380828437600081840152601f19601f820116905080830192505050505050508e8c60001461117d578e611e6f565b6109c45a61118b9190612dc4565b611e6f565b935061119d5a8290611ece565b905083806111aa57508915155b806111b457508715155b6111e85760405162461bcd60e51b8152602060048201526005602482015264475330313360d81b60448201526064016106af565b60008815611200576111fd828b8b8b8b611ee9565b90505b84156112445760408051858152602081018390527f442e715f626346e8c54381002da614f62bee8d27386535b2521ec8540898556e910160405180910390a161127e565b60408051858152602081018390527f23428b18acfb3ea64b08dc0c1d296ea9c09702c09083ca5272e64d115b687d23910160405180910390a15b50506001600160a01b038116156112f257604051631264e26d60e31b81526004810183905283151560248201526001600160a01b03821690639327136890604401600060405180830381600087803b1580156112d957600080fd5b505af11580156112ed573d6000803e3d6000fd5b505050505b50509b9a5050505050505050505050565b6004548061133b5760405162461bcd60e51b8152602060048201526005602482015264475330303160d81b60448201526064016106af565b611347848484846107af565b50505050565b606060006003546001600160401b0381111561136b5761136b612376565b604051908082528060200260200182016040528015611394578160200160208202803683370190505b506001600090815260026020527fe90b7bceb6e7df5418fb78d8ee546e97c83a08bbccc01a0644d599ccd2a7c2e054919250906001600160a01b03165b6001600160a01b03811660011461143557808383815181106113f5576113f5612ddb565b6001600160a01b0392831660209182029290920181019190915291811660009081526002909252604090912054168161142d81612b70565b9250506113d1565b509092915050565b600080825160208401855af480600052503d6020523d600060403e60403d016000fd5b61149e8a8a808060200260200160405190810160405280939291908181526020018383602002808284376000920191909152508c9250611fef915050565b6001600160a01b038416156114c3576114c384600080516020612f3383398151915255565b6115038787878080601f0160208091040260200160405190810160405280939291908181526020018383808284376000920191909152506121bd92505050565b811561151a5761151882600060018685611ee9565b505b336001600160a01b03167f141df868a6331af528e38c83b7aa03edc19be66e37ae67f9285bf4f8e3c6a1a88b8b8b8b8960405161155b959493929190612df1565b60405180910390a250505050505050505050565b6000805a90506115b8878787878080601f01602080910402602001604051908101604052809392919081815260200183838082843760009201919091525089925050505a611e6f565b6115c157600080fd5b60005a6115ce9083612dc4565b9050806040516020016115e391815260200190565b60408051601f198184030181529082905262461bcd60e51b82526106af916004016125ab565b60606000826001600160401b0381111561162557611625612376565b60405190808252806020026020018201604052801561164e578160200160208202803683370190505b506001600160a01b0380861660009081526001602052604081205492945091165b6001600160a01b0381161580159061169157506001600160a01b038116600114155b801561169c57508482105b156116f457808483815181106116b4576116b4612ddb565b6001600160a01b039283166020918202929092018101919091529181166000908152600190925260409091205416816116ec81612b70565b92505061166f565b908352919491935090915050565b336000908152600260205260409020546001600160a01b031661174f5760405162461bcd60e51b8152602060048201526005602482015264047533033360dc1b60448201526064016106af565b336000818152600860209081526040808320858452909152808220600190555183917ff2a0eb156472d1440255b0d7c1e19cc07115d1051fe605b0dce69acfec884d9c91a350565b60006117ac8c8c8c8c8c8c8c8c8c8c8c611b0e565b8051906020012090509b9a5050505050505050505050565b6117cc611de1565b6001600160a01b038116158015906117ee57506001600160a01b038116600114155b61180a5760405162461bcd60e51b81526004016106af90612c30565b6001600160a01b0382811660009081526001602052604090205481169082161461185e5760405162461bcd60e51b8152602060048201526005602482015264475331303360d81b60448201526064016106af565b6001600160a01b03818116600081815260016020526040808220805487861684528284208054919096166001600160a01b0319918216179095559290915281549092169055517faab4fa2b463f581b2b32cb3b7e3b704b9ce37cc209b5fb4d77e593ace4054276906118d1908390612b8b565b60405180910390a15050565b6118e5611de1565b7f4a204f620c8c5ccdca3fd54d003badd85ba500436a431f0cbda4f558c93c34c88181556040517f1151116914515bc0891ff9047a6cb32cf902546f83066499bcf8ba33d2353fa2906118d1908490612b8b565b611941611de1565b6001600160a01b0381161580159061196357506001600160a01b038116600114155b801561197857506001600160a01b0381163014155b6119945760405162461bcd60e51b81526004016106af90612b1c565b6001600160a01b0381811660009081526002602052604090205416156119cc5760405162461bcd60e51b81526004016106af90612b3b565b6001600160a01b038216158015906119ee57506001600160a01b038216600114155b611a0a5760405162461bcd60e51b81526004016106af90612b1c565b6001600160a01b03838116600090815260026020526040902054811690831614611a465760405162461bcd60e51b81526004016106af90612e5d565b6001600160a01b03828116600081815260026020526040808220805486861680855283852080549288166001600160a01b03199384161790559589168452828420805482169096179095559290915281549092169055517ff8d49fc529812e9a7c5c50e69c20f0dccc0db8fa95c98bc58cc9a4f1c1299eaf90611aca908490612b8b565b60405180910390a17f9465fa0c962cc76958e6373a993326400c1c94f8be2fe3a952adfa7f60b2ea2681604051611b019190612b8b565b60405180910390a1505050565b606060007fbb8310d486368db6bd6f849402fdd73ad53d316b5a4b2644ad6efe0f941286d860001b8d8d8d8d604051611b48929190612e7c565b604051908190038120611b6e949392918e908e908e908e908e908e908e90602001612e8c565b60408051601f1981840301815291905280516020909101209050601960f81b600160f81b611b9a611c34565b6040516001600160f81b031993841660208201529290911660218301526022820152604281018290526062016040516020818303038152906040529150509b9a5050505050505050505050565b611bef611de1565b611c0581600080516020612f3383398151915255565b7f5ac6c46c93c8d0e53714ba3b53db3e7c046da994313d7ed0d192028bc7c228b081604051610f2f9190612b8b565b60007f47e79534a245952e8b16893a336b85a3d9ea9fa8c573f3d803afb92a794692184660408051602081019390935282015230606082015260800160405160208183030381529060405280519060200120905090565b611c93611de1565b806001600354611ca39190612dc4565b1015611cc15760405162461bcd60e51b81526004016106af90612c4f565b6001600160a01b03821615801590611ce357506001600160a01b038216600114155b611cff5760405162461bcd60e51b81526004016106af90612b1c565b6001600160a01b03838116600090815260026020526040902054811690831614611d3b5760405162461bcd60e51b81526004016106af90612e5d565b6001600160a01b03828116600081815260026020526040808220805488861684529183208054929095166001600160a01b03199283161790945591815282549091169091556003805491611d8e83612efb565b91905055507ff8d49fc529812e9a7c5c50e69c20f0dccc0db8fa95c98bc58cc9a4f1c1299eaf82604051611dc29190612b8b565b60405180910390a18060045414611ddc57611ddc81610f3a565b505050565b333014611e185760405162461bcd60e51b8152602060048201526005602482015264475330333160d81b60448201526064016106af565b565b600082611e2957506000610c4c565b6000611e358385612c11565b905082611e428583612da2565b14611e4c57600080fd5b9392505050565b600080611e608385612d8a565b905083811015611e4c57600080fd5b60006001836001811115611e8557611e85612c8d565b1415611e9e576000808551602087018986f49050611eae565b600080855160208701888a87f190505b95945050505050565b600081831015611ec75781611e4c565b5090919050565b600082821115611edd57600080fd5b6000610d598385612dc4565b6000806001600160a01b03831615611f015782611f03565b325b90506001600160a01b038416611f9657611f353a8610611f23573a611f25565b855b611f2f8989611e53565b90611e1a565b6040519092506001600160a01b0382169083156108fc029084906000818181858888f19350505050611f915760405162461bcd60e51b8152602060048201526005602482015264475330313160d81b60448201526064016106af565b611fe5565b611fa485611f2f8989611e53565b9150611fb1848284612293565b611fe55760405162461bcd60e51b815260206004820152600560248201526423a998189960d91b60448201526064016106af565b5095945050505050565b600454156120275760405162461bcd60e51b8152602060048201526005602482015264047533230360dc1b60448201526064016106af565b81518111156120485760405162461bcd60e51b81526004016106af90612c4f565b60018110156120695760405162461bcd60e51b81526004016106af90612c6e565b600160005b835181101561218a57600084828151811061208b5761208b612ddb565b6020026020010151905060006001600160a01b0316816001600160a01b0316141580156120c257506001600160a01b038116600114155b80156120d757506001600160a01b0381163014155b80156120f55750806001600160a01b0316836001600160a01b031614155b6121115760405162461bcd60e51b81526004016106af90612b1c565b6001600160a01b0381811660009081526002602052604090205416156121495760405162461bcd60e51b81526004016106af90612b3b565b6001600160a01b03928316600090815260026020526040902080546001600160a01b031916938216939093179092558061218281612b70565b91505061206e565b506001600160a01b0316600090815260026020526040902080546001600160a01b03191660011790559051600355600455565b60016000819052602052600080516020612f13833981519152546001600160a01b0316156122155760405162461bcd60e51b8152602060048201526005602482015264047533130360dc1b60448201526064016106af565b600160008190526020819052600080516020612f1383398151915280546001600160a01b03191690911790556001600160a01b038216156107ab5761225f8260008360015a611e6f565b6107ab5760405162461bcd60e51b8152602060048201526005602482015264047533030360dc1b60448201526064016106af565b604080516001600160a01b03841660248201526044808201849052825180830390910181526064909101909152602080820180516001600160e01b031663a9059cbb60e01b1781528251600093929184919082896127105a03f13d8015612305576020811461230d5760009350612318565b819350612318565b600051158215171593505b5050509392505050565b6001600160a01b038116811461233757600080fd5b50565b803561234581612322565b919050565b6000806040838503121561235d57600080fd5b823561236881612322565b946020939093013593505050565b634e487b7160e01b600052604160045260246000fd5b600082601f83011261239d57600080fd5b81356001600160401b03808211156123b7576123b7612376565b604051601f8301601f19908116603f011681019082821181831017156123df576123df612376565b816040528381528660208588010111156123f857600080fd5b836020870160208301376000602085830101528094505050505092915050565b6000806000806080858703121561242e57600080fd5b8435935060208501356001600160401b038082111561244c57600080fd5b6124588883890161238c565b9450604087013591508082111561246e57600080fd5b5061247b8782880161238c565b949793965093946060013593505050565b60006020828403121561249e57600080fd5b8135611e4c81612322565b80356002811061234557600080fd5b600080600080608085870312156124ce57600080fd5b84356124d981612322565b93506020850135925060408501356001600160401b038111156124fb57600080fd5b6125078782880161238c565b925050612516606086016124a9565b905092959194509250565b6000815180845260005b818110156125475760208185018101518683018201520161252b565b81811115612559576000602083870101525b50601f01601f19169290920160200192915050565b8215158152604060208201526000610d596040830184612521565b6000806040838503121561259c57600080fd5b50508035926020909101359150565b602081526000611e4c6020830184612521565b6000602082840312156125d057600080fd5b5035919050565b60008083601f8401126125e957600080fd5b5081356001600160401b0381111561260057600080fd5b60208301915083602082850101111561261857600080fd5b9250929050565b60008060008060008060008060008060006101408c8e03121561264157600080fd5b61264a8c61233a565b9a5060208c013599506001600160401b038060408e0135111561266c57600080fd5b61267c8e60408f01358f016125d7565b909a50985061268d60608e016124a9565b975060808d0135965060a08d0135955060c08d013594506126b060e08e0161233a565b93506126bf6101008e0161233a565b9250806101208e013511156126d357600080fd5b506126e58d6101208e01358e0161238c565b90509295989b509295989b9093969950565b60008060006060848603121561270c57600080fd5b8335925060208401356001600160401b038082111561272a57600080fd5b6127368783880161238c565b9350604086013591508082111561274c57600080fd5b506127598682870161238c565b9150509250925092565b600081518084526020808501945080840160005b8381101561279c5781516001600160a01b031687529582019590820190600101612777565b509495945050505050565b602081526000611e4c6020830184612763565b600080604083850312156127cd57600080fd5b82356127d881612322565b915060208301356001600160401b038111156127f357600080fd5b6127ff8582860161238c565b9150509250929050565b6000806000806000806000806000806101008b8d03121561282957600080fd5b8a356001600160401b038082111561284057600080fd5b818d0191508d601f83011261285457600080fd5b81358181111561286357600080fd5b8e60208260051b850101111561287857600080fd5b60208381019d50909b508d0135995061289360408e0161233a565b985060608d01359150808211156128a957600080fd5b506128b68d828e016125d7565b90975095506128c9905060808c0161233a565b93506128d760a08c0161233a565b925060c08b013591506128ec60e08c0161233a565b90509295989b9194979a5092959850565b60008060008060006080868803121561291557600080fd5b853561292081612322565b94506020860135935060408601356001600160401b0381111561294257600080fd5b61294e888289016125d7565b90945092506129619050606087016124a9565b90509295509295909350565b6040815260006129806040830185612763565b905060018060a01b03831660208301529392505050565b60008060008060008060008060008060006101408c8e0312156129b957600080fd5b8b356129c481612322565b9a5060208c0135995060408c01356001600160401b038111156129e657600080fd5b6129f28e828f016125d7565b909a509850612a05905060608d016124a9565b965060808c0135955060a08c0135945060c08c0135935060e08c0135612a2a81612322565b92506101008c0135612a3b81612322565b809250506101208c013590509295989b509295989b9093969950565b60008060408385031215612a6a57600080fd5b8235612a7581612322565b91506020830135612a8581612322565b809150509250929050565b600080600060608486031215612aa557600080fd5b8335612ab081612322565b92506020840135612ac081612322565b91506040840135612ad081612322565b809150509250925092565b600080600060608486031215612af057600080fd5b8335612afb81612322565b92506020840135612b0b81612322565b929592945050506040919091013590565b602080825260059082015264475332303360d81b604082015260600190565b60208082526005908201526411d4cc8c0d60da1b604082015260600190565b634e487b7160e01b600052601160045260246000fd5b6000600019821415612b8457612b84612b5a565b5060010190565b6001600160a01b0391909116815260200190565b604081526000612bb26040830185612521565b8281036020840152611eae8185612521565b600060208284031215612bd657600080fd5b81516001600160e01b031981168114611e4c57600080fd5b600060ff821660ff841680821015612c0857612c08612b5a565b90039392505050565b6000816000190483118215151615612c2b57612c2b612b5a565b500290565b602080825260059082015264475331303160d81b604082015260600190565b602080825260059082015264475332303160d81b604082015260600190565b60208082526005908201526423a999181960d91b604082015260600190565b634e487b7160e01b600052602160045260246000fd5b60028110612cc157634e487b7160e01b600052602160045260246000fd5b9052565b6001600160a01b038d168152602081018c90526101606040820181905281018a905260006101808b8d828501376000838d01820152601f8c01601f19168301612d11606085018d612ca3565b8a60808501528960a08501528860c0850152612d3860e08501896001600160a01b03169052565b6001600160a01b0387166101008501528184820301610120850152612d5f82820187612521565b92505050612d796101408301846001600160a01b03169052565b9d9c50505050505050505050505050565b60008219821115612d9d57612d9d612b5a565b500190565b600082612dbf57634e487b7160e01b600052601260045260246000fd5b500490565b600082821015612dd657612dd6612b5a565b500390565b634e487b7160e01b600052603260045260246000fd5b6080808252810185905260008660a08301825b88811015612e34578235612e1781612322565b6001600160a01b0316825260209283019290910190600101612e04565b50602084019690965250506001600160a01b039283166040820152911660609091015292915050565b602080825260059082015264475332303560d81b604082015260600190565b8183823760009101908152919050565b8b81526001600160a01b038b81166020830152604082018b9052606082018a9052610160820190612ec0608084018b612ca3565b60a083019890985260c082019690965260e0810194909452918516610100840152909316610120820152610140019190915295945050505050565b600081612f0a57612f0a612b5a565b50600019019056fecc69885fda6bcc1a4ace058b4a62bf5e179ea78fd58a1ccd71c22cc9b688792f6c9a6c4a39284e37ed1cf53d337577d14212a4870fb976a4366c693b939918d5a2646970667358221220e6c4a6c0e116167001911abcc813bc152a43afe83ce0b622c8e958ac88cf4a7064736f6c634300080c0033",
+  "devdoc": {
+    "author": "Stefan George - <stefan@gnosis.io>Richard Meissner - <richard@gnosis.io>",
+    "kind": "dev",
+    "methods": {
+      "addOwnerWithThreshold(address,uint256)": {
+        "details": "Allows to add a new owner to the Safe and update the threshold at the same time.      This can only be done via a Safe transaction.",
+        "params": {
+          "_threshold": "New threshold.",
+          "owner": "New owner address."
+        }
+      },
+      "approveHash(bytes32)": {
+        "details": "Marks a hash as approved. This can be used to validate a hash that is used by a signature.",
+        "params": {
+          "hashToApprove": "The hash that should be marked as approved for signatures that are verified by this contract."
+        }
+      },
+      "changeThreshold(uint256)": {
+        "details": "Allows to update the number of required confirmations by Safe owners.      This can only be done via a Safe transaction.",
+        "params": {
+          "_threshold": "New threshold."
+        }
+      },
+      "checkNSignatures(bytes32,bytes,bytes,uint256)": {
+        "details": "Checks whether the signature provided is valid for the provided data, hash. Will revert otherwise.",
+        "params": {
+          "data": "That should be signed (this is passed to an external validator contract)",
+          "dataHash": "Hash of the data (could be either a message hash or transaction hash)",
+          "requiredSignatures": "Amount of required valid signatures.",
+          "signatures": "Signature data that should be verified. Can be ECDSA signature, contract signature (EIP-1271) or approved hash."
+        }
+      },
+      "checkSignatures(bytes32,bytes,bytes)": {
+        "details": "Checks whether the signature provided is valid for the provided data, hash. Will revert otherwise.",
+        "params": {
+          "data": "That should be signed (this is passed to an external validator contract)",
+          "dataHash": "Hash of the data (could be either a message hash or transaction hash)",
+          "signatures": "Signature data that should be verified. Can be ECDSA signature, contract signature (EIP-1271) or approved hash."
+        }
+      },
+      "disableModule(address,address)": {
+        "details": "Allows to remove a module from the whitelist.      This can only be done via a Safe transaction.",
+        "params": {
+          "module": "Module to be removed.",
+          "prevModule": "Module that pointed to the module to be removed in the linked list"
+        }
+      },
+      "enableModule(address)": {
+        "details": "Allows to add a module to the whitelist.      This can only be done via a Safe transaction.",
+        "params": {
+          "module": "Module to be whitelisted."
+        }
+      },
+      "encodeTransactionData(address,uint256,bytes,uint8,uint256,uint256,uint256,address,address,uint256)": {
+        "details": "Returns the bytes that are hashed to be signed by owners.",
+        "params": {
+          "_nonce": "Transaction nonce.",
+          "baseGas": "Gas costs for that are independent of the transaction execution(e.g. base transaction fee, signature check, payment of the refund)",
+          "data": "Data payload.",
+          "gasPrice": "Maximum gas price that should be used for this transaction.",
+          "gasToken": "Token address (or 0 if ETH) that is used for the payment.",
+          "operation": "Operation type.",
+          "refundReceiver": "Address of receiver of gas payment (or 0 if tx.origin).",
+          "safeTxGas": "Gas that should be used for the safe transaction.",
+          "to": "Destination address.",
+          "value": "Ether value."
+        },
+        "returns": {
+          "_0": "Transaction hash bytes."
+        }
+      },
+      "execTransaction(address,uint256,bytes,uint8,uint256,uint256,uint256,address,address,bytes)": {
+        "details": "Allows to execute a Safe transaction confirmed by required number of owners and then pays the account that submitted the transaction.      Note: The fees are always transferred, even if the user transaction fails.",
+        "params": {
+          "baseGas": "Gas costs that are independent of the transaction execution(e.g. base transaction fee, signature check, payment of the refund)",
+          "data": "Data payload of Safe transaction.",
+          "gasPrice": "Gas price that should be used for the payment calculation.",
+          "gasToken": "Token address (or 0 if ETH) that is used for the payment.",
+          "operation": "Operation type of Safe transaction.",
+          "refundReceiver": "Address of receiver of gas payment (or 0 if tx.origin).",
+          "safeTxGas": "Gas that should be used for the Safe transaction.",
+          "signatures": "Packed signature data ({bytes32 r}{bytes32 s}{uint8 v})",
+          "to": "Destination address of Safe transaction.",
+          "value": "Ether value of Safe transaction."
+        }
+      },
+      "execTransactionFromModule(address,uint256,bytes,uint8)": {
+        "details": "Allows a Module to execute a Safe transaction without any further confirmations.",
+        "params": {
+          "data": "Data payload of module transaction.",
+          "operation": "Operation type of module transaction.",
+          "to": "Destination address of module transaction.",
+          "value": "Ether value of module transaction."
+        }
+      },
+      "execTransactionFromModuleReturnData(address,uint256,bytes,uint8)": {
+        "details": "Allows a Module to execute a Safe transaction without any further confirmations and return data",
+        "params": {
+          "data": "Data payload of module transaction.",
+          "operation": "Operation type of module transaction.",
+          "to": "Destination address of module transaction.",
+          "value": "Ether value of module transaction."
+        }
+      },
+      "getChainId()": {
+        "details": "Returns the chain id used by this contract."
+      },
+      "getModulesPaginated(address,uint256)": {
+        "details": "Returns array of modules.",
+        "params": {
+          "pageSize": "Maximum number of modules that should be returned.",
+          "start": "Start of the page."
+        },
+        "returns": {
+          "array": "Array of modules.",
+          "next": "Start of the next page."
+        }
+      },
+      "getOwners()": {
+        "details": "Returns array of owners.",
+        "returns": {
+          "_0": "Array of Safe owners."
+        }
+      },
+      "getStorageAt(uint256,uint256)": {
+        "details": "Reads `length` bytes of storage in the currents contract",
+        "params": {
+          "length": "- the number of words (32 bytes) of data to read",
+          "offset": "- the offset in the current contract's storage in words to start reading from"
+        },
+        "returns": {
+          "_0": "the bytes that were read."
+        }
+      },
+      "getTransactionHash(address,uint256,bytes,uint8,uint256,uint256,uint256,address,address,uint256)": {
+        "details": "Returns hash to be signed by owners.",
+        "params": {
+          "_nonce": "Transaction nonce.",
+          "baseGas": "Gas costs for data used to trigger the safe transaction.",
+          "data": "Data payload.",
+          "gasPrice": "Maximum gas price that should be used for this transaction.",
+          "gasToken": "Token address (or 0 if ETH) that is used for the payment.",
+          "operation": "Operation type.",
+          "refundReceiver": "Address of receiver of gas payment (or 0 if tx.origin).",
+          "safeTxGas": "Fas that should be used for the safe transaction.",
+          "to": "Destination address.",
+          "value": "Ether value."
+        },
+        "returns": {
+          "_0": "Transaction hash."
+        }
+      },
+      "isModuleEnabled(address)": {
+        "details": "Returns if an module is enabled",
+        "returns": {
+          "_0": "True if the module is enabled"
+        }
+      },
+      "removeOwner(address,address,uint256)": {
+        "details": "Allows to remove an owner from the Safe and update the threshold at the same time.      This can only be done via a Safe transaction.",
+        "params": {
+          "_threshold": "New threshold.",
+          "owner": "Owner address to be removed.",
+          "prevOwner": "Owner that pointed to the owner to be removed in the linked list"
+        }
+      },
+      "requiredTxGas(address,uint256,bytes,uint8)": {
+        "details": "Allows to estimate a Safe transaction.      This method is only meant for estimation purpose, therefore the call will always revert and encode the result in the revert data.      Since the `estimateGas` function includes refunds, call this method to get an estimated of the costs that are deducted from the safe with `execTransaction`",
+        "params": {
+          "data": "Data payload of Safe transaction.",
+          "operation": "Operation type of Safe transaction.",
+          "to": "Destination address of Safe transaction.",
+          "value": "Ether value of Safe transaction."
+        },
+        "returns": {
+          "_0": "Estimate without refunds and overhead fees (base transaction and payload data gas costs)."
+        }
+      },
+      "setFallbackHandler(address)": {
+        "details": "Allows to add a contract to handle fallback calls.      Only fallback calls without value and with data will be forwarded.      This can only be done via a Safe transaction.",
+        "params": {
+          "handler": "contract to handle fallbacks calls."
+        }
+      },
+      "setGuard(address)": {
+        "details": "Set a guard that checks transactions before execution",
+        "params": {
+          "guard": "The address of the guard to be used or the 0 address to disable the guard"
+        }
+      },
+      "setup(address[],uint256,address,bytes,address,address,uint256,address)": {
+        "details": "Setup function sets initial storage of contract.",
+        "params": {
+          "_owners": "List of Safe owners.",
+          "_threshold": "Number of required confirmations for a Safe transaction.",
+          "data": "Data payload for optional delegate call.",
+          "fallbackHandler": "Handler for fallback calls to this contract",
+          "payment": "Value that should be paid",
+          "paymentReceiver": "Adddress that should receive the payment (or 0 if tx.origin)",
+          "paymentToken": "Token that should be used for the payment (0 is ETH)",
+          "to": "Contract address for optional delegate call."
+        }
+      },
+      "simulateAndRevert(address,bytes)": {
+        "details": "Performs a delegetecall on a targetContract in the context of self. Internally reverts execution to avoid side effects (making it static). This method reverts with data equal to `abi.encode(bool(success), bytes(response))`. Specifically, the `returndata` after a call to this method will be: `success:bool || response.length:uint256 || response:bytes`.",
+        "params": {
+          "calldataPayload": "Calldata that should be sent to the target contract (encoded method name and arguments).",
+          "targetContract": "Address of the contract containing the code to execute."
+        }
+      },
+      "swapOwner(address,address,address)": {
+        "details": "Allows to swap/replace an owner from the Safe with another address.      This can only be done via a Safe transaction.",
+        "params": {
+          "newOwner": "New owner address.",
+          "oldOwner": "Owner address to be replaced.",
+          "prevOwner": "Owner that pointed to the owner to be replaced in the linked list"
+        }
+      }
+    },
+    "title": "Gnosis Safe - A multisignature wallet with support for confirmations using signed messages based on ERC191.",
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {
+      "addOwnerWithThreshold(address,uint256)": {
+        "notice": "Adds the owner `owner` to the Safe and updates the threshold to `_threshold`."
+      },
+      "changeThreshold(uint256)": {
+        "notice": "Changes the threshold of the Safe to `_threshold`."
+      },
+      "disableModule(address,address)": {
+        "notice": "Disables the module `module` for the Safe."
+      },
+      "enableModule(address)": {
+        "notice": "Enables the module `module` for the Safe."
+      },
+      "removeOwner(address,address,uint256)": {
+        "notice": "Removes the owner `owner` from the Safe and updates the threshold to `_threshold`."
+      },
+      "requiredTxGas(address,uint256,bytes,uint8)": {
+        "notice": "Deprecated in favor of common/StorageAccessible.sol and will be removed in next version."
+      },
+      "swapOwner(address,address,address)": {
+        "notice": "Replaces the owner `oldOwner` in the Safe with `newOwner`."
+      }
+    },
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 2098,
+        "contract": "@gnosis.pm/safe-contracts/contracts/GnosisSafe.sol:GnosisSafe",
+        "label": "singleton",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_address"
+      },
+      {
+        "astId": 1149,
+        "contract": "@gnosis.pm/safe-contracts/contracts/GnosisSafe.sol:GnosisSafe",
+        "label": "modules",
+        "offset": 0,
+        "slot": "1",
+        "type": "t_mapping(t_address,t_address)"
+      },
+      {
+        "astId": 1508,
+        "contract": "@gnosis.pm/safe-contracts/contracts/GnosisSafe.sol:GnosisSafe",
+        "label": "owners",
+        "offset": 0,
+        "slot": "2",
+        "type": "t_mapping(t_address,t_address)"
+      },
+      {
+        "astId": 1510,
+        "contract": "@gnosis.pm/safe-contracts/contracts/GnosisSafe.sol:GnosisSafe",
+        "label": "ownerCount",
+        "offset": 0,
+        "slot": "3",
+        "type": "t_uint256"
+      },
+      {
+        "astId": 1512,
+        "contract": "@gnosis.pm/safe-contracts/contracts/GnosisSafe.sol:GnosisSafe",
+        "label": "threshold",
+        "offset": 0,
+        "slot": "4",
+        "type": "t_uint256"
+      },
+      {
+        "astId": 82,
+        "contract": "@gnosis.pm/safe-contracts/contracts/GnosisSafe.sol:GnosisSafe",
+        "label": "nonce",
+        "offset": 0,
+        "slot": "5",
+        "type": "t_uint256"
+      },
+      {
+        "astId": 84,
+        "contract": "@gnosis.pm/safe-contracts/contracts/GnosisSafe.sol:GnosisSafe",
+        "label": "_deprecatedDomainSeparator",
+        "offset": 0,
+        "slot": "6",
+        "type": "t_bytes32"
+      },
+      {
+        "astId": 88,
+        "contract": "@gnosis.pm/safe-contracts/contracts/GnosisSafe.sol:GnosisSafe",
+        "label": "signedMessages",
+        "offset": 0,
+        "slot": "7",
+        "type": "t_mapping(t_bytes32,t_uint256)"
+      },
+      {
+        "astId": 94,
+        "contract": "@gnosis.pm/safe-contracts/contracts/GnosisSafe.sol:GnosisSafe",
+        "label": "approvedHashes",
+        "offset": 0,
+        "slot": "8",
+        "type": "t_mapping(t_address,t_mapping(t_bytes32,t_uint256))"
+      }
+    ],
+    "types": {
+      "t_address": {
+        "encoding": "inplace",
+        "label": "address",
+        "numberOfBytes": "20"
+      },
+      "t_bytes32": {
+        "encoding": "inplace",
+        "label": "bytes32",
+        "numberOfBytes": "32"
+      },
+      "t_mapping(t_address,t_address)": {
+        "encoding": "mapping",
+        "key": "t_address",
+        "label": "mapping(address => address)",
+        "numberOfBytes": "32",
+        "value": "t_address"
+      },
+      "t_mapping(t_address,t_mapping(t_bytes32,t_uint256))": {
+        "encoding": "mapping",
+        "key": "t_address",
+        "label": "mapping(address => mapping(bytes32 => uint256))",
+        "numberOfBytes": "32",
+        "value": "t_mapping(t_bytes32,t_uint256)"
+      },
+      "t_mapping(t_bytes32,t_uint256)": {
+        "encoding": "mapping",
+        "key": "t_bytes32",
+        "label": "mapping(bytes32 => uint256)",
+        "numberOfBytes": "32",
+        "value": "t_uint256"
+      },
+      "t_uint256": {
+        "encoding": "inplace",
+        "label": "uint256",
+        "numberOfBytes": "32"
+      }
+    }
+  }
+}

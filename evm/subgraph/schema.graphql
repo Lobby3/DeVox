@@ -1,0 +1,27 @@
+type Campaign @entity {
+  id: ID!
+  target: BigInt!
+  total: BigInt!
+  name: String!
+  donations: [Donation]! @derivedFrom(field: "donationIDs")
+}
+
+type Donation @entity {
+  id: ID!
+  amount: BigInt!
+  token: address!
+  campaign: Campaign! @derivedFrom(field: "campaignID")
+  user: User! @derivedFrom(field: "userID")
+  message: String
+}
+
+type User @entity {
+  "user ID is an Ethereum address"
+  id: ID!
+  donations: [Donation]! @derivedFrom(field: "donationIDs")
+  name: String!
+  email: String
+  address: String
+  phone: String
+  zip: String!
+}
