@@ -1,6 +1,6 @@
 "use client";
 
-import { Text } from "@chakra-ui/react";
+import { Center, Heading } from "@chakra-ui/react";
 
 export default async function Index() {
   /*
@@ -8,5 +8,9 @@ export default async function Index() {
    *
    * Note: The corresponding styles are in the ./index.scss file.
    */
-  return <Text>DEVOX BODY</Text>;
+  return (
+    <Center mt={10}>
+      <Heading>UNDER CONSTRUCTION</Heading>
+    </Center>
+  );
 }

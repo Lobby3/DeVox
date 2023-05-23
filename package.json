@@ -13,6 +13,7 @@
     "@emotion/styled": "^11.11.0",
     "@fontsource/antonio": "^5.0.1",
     "@fontsource/pt-serif": "^5.0.1",
+    "@heroicons/react": "^2.0.18",
     "formik": "^2.2.9",
     "framer-motion": "^10.12.12",
     "magic-sdk": "^17.1.6",

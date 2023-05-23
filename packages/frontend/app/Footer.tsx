@@ -2,6 +2,7 @@ import { Flex, Heading, Text, VStack } from "@chakra-ui/react";
 import Image from "next/image";
 import React from "react";
 
+import Logo from "../assets/logo.svg";
 import { headerBackground } from "../styles/colors";
 
 export const Footer = () => {
@@ -16,7 +17,7 @@ export const Footer = () => {
         width="50%"
         spacing={8}
       >
-        <Image src={"logo.svg"} alt="logo" width={80} height={80} />
+        <Image src={Logo} alt="logo" width={80} height={80} />
         <Heading textTransform="uppercase">
           We believe people deserve more robust opportunities to voice their
           opinions and advocate their beliefs.
