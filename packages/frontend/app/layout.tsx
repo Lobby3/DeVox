@@ -1,7 +1,9 @@
 "use client";
 
+import { Footer } from "./Footer";
 import { Header } from "./Header";
 import "./global.css";
+import "./page.module.scss";
 import { Providers } from "./providers";
 
 // export const metadata = {
@@ -16,10 +18,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
+      <body className="body">
         <Providers>
           <Header />
           <main>{children}</main>
+          <Footer />
         </Providers>
       </body>
     </html>
