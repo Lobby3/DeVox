@@ -8,7 +8,10 @@ import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";
 
+import "./interfaces/IBaalToken.sol";
 import "./BaalV1.sol";
+
+import "hardhat/console.sol";
 
 contract BaalSummonerV1 is Initializable, OwnableUpgradeable, UUPSUpgradeable {
     // when some of the init addresses are updated
@@ -241,10 +244,8 @@ contract BaalSummonerV1 is Initializable, OwnableUpgradeable, UUPSUpgradeable {
     ) internal returns (address) {
         uint256 existingAddrs; // 1 tokens, 2 safe, 3 both
         (
-            string
-                memory _name /*_name Name for erc20 `shares` accounting, empty if token */,
-            string
-                memory _symbol /*_symbol Symbol for erc20 `shares` accounting, empty if token*/,
+            string memory _name /*_name Name for erc20 `shares` accounting, empty if token */,
+            string memory _symbol /*_symbol Symbol for erc20 `shares` accounting, empty if token*/,
             address _safeAddr /*address of safe, 0 addr if new*/,
             address _forwarder /*Trusted forwarder address for meta-transactions (EIP 2771), 0 addr if initially disabled*/,
             address _lootToken /*predeployed loot token, 0 addr if new*/,
@@ -295,6 +296,7 @@ contract BaalSummonerV1 is Initializable, OwnableUpgradeable, UUPSUpgradeable {
             _forwarder,
             _initializationMultisendData
         );
+
         // can run the actions now because we have a baal
         _baal.setUp(_initializer);
 
