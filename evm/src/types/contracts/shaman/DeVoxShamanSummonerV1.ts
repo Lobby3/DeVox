@@ -36,7 +36,7 @@ export interface DeVoxShamanSummonerV1Interface extends utils.Interface {
     "owner()": FunctionFragment;
     "proxiableUUID()": FunctionFragment;
     "renounceOwnership()": FunctionFragment;
-    "summonDeVoxShaman(address,address,uint256,uint256,uint256,uint256)": FunctionFragment;
+    "summonDeVoxShaman(address,address,uint256,uint256,uint256)": FunctionFragment;
     "template()": FunctionFragment;
     "transferOwnership(address)": FunctionFragment;
     "updateVersion()": FunctionFragment;
@@ -78,7 +78,6 @@ export interface DeVoxShamanSummonerV1Interface extends utils.Interface {
     values: [
       PromiseOrValue<string>,
       PromiseOrValue<string>,
-      PromiseOrValue<BigNumberish>,
       PromiseOrValue<BigNumberish>,
       PromiseOrValue<BigNumberish>,
       PromiseOrValue<BigNumberish>
@@ -194,9 +193,9 @@ export interface SummonCompleteEventObject {
   baal: string;
   shaman: string;
   token: string;
+  id: BigNumber;
   pricePerUnit: BigNumber;
-  lootPerUnit: BigNumber;
-  sharesPerMember: BigNumber;
+  tokensPerUnit: BigNumber;
   target: BigNumber;
 }
 export type SummonCompleteEvent = TypedEvent<
@@ -257,8 +256,7 @@ export interface DeVoxShamanSummonerV1 extends BaseContract {
       _moloch: PromiseOrValue<string>,
       _token: PromiseOrValue<string>,
       _pricePerUnit: PromiseOrValue<BigNumberish>,
-      _lootPerUnit: PromiseOrValue<BigNumberish>,
-      _sharesPerMember: PromiseOrValue<BigNumberish>,
+      _tokensPerUnit: PromiseOrValue<BigNumberish>,
       _target: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
@@ -305,8 +303,7 @@ export interface DeVoxShamanSummonerV1 extends BaseContract {
     _moloch: PromiseOrValue<string>,
     _token: PromiseOrValue<string>,
     _pricePerUnit: PromiseOrValue<BigNumberish>,
-    _lootPerUnit: PromiseOrValue<BigNumberish>,
-    _sharesPerMember: PromiseOrValue<BigNumberish>,
+    _tokensPerUnit: PromiseOrValue<BigNumberish>,
     _target: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
@@ -351,8 +348,7 @@ export interface DeVoxShamanSummonerV1 extends BaseContract {
       _moloch: PromiseOrValue<string>,
       _token: PromiseOrValue<string>,
       _pricePerUnit: PromiseOrValue<BigNumberish>,
-      _lootPerUnit: PromiseOrValue<BigNumberish>,
-      _sharesPerMember: PromiseOrValue<BigNumberish>,
+      _tokensPerUnit: PromiseOrValue<BigNumberish>,
       _target: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<string>;
@@ -413,18 +409,18 @@ export interface DeVoxShamanSummonerV1 extends BaseContract {
       baal?: PromiseOrValue<string> | null,
       shaman?: null,
       token?: null,
+      id?: null,
       pricePerUnit?: null,
-      lootPerUnit?: null,
-      sharesPerMember?: null,
+      tokensPerUnit?: null,
       target?: null
     ): SummonCompleteEventFilter;
     SummonComplete(
       baal?: PromiseOrValue<string> | null,
       shaman?: null,
       token?: null,
+      id?: null,
       pricePerUnit?: null,
-      lootPerUnit?: null,
-      sharesPerMember?: null,
+      tokensPerUnit?: null,
       target?: null
     ): SummonCompleteEventFilter;
 
@@ -454,8 +450,7 @@ export interface DeVoxShamanSummonerV1 extends BaseContract {
       _moloch: PromiseOrValue<string>,
       _token: PromiseOrValue<string>,
       _pricePerUnit: PromiseOrValue<BigNumberish>,
-      _lootPerUnit: PromiseOrValue<BigNumberish>,
-      _sharesPerMember: PromiseOrValue<BigNumberish>,
+      _tokensPerUnit: PromiseOrValue<BigNumberish>,
       _target: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
@@ -503,8 +498,7 @@ export interface DeVoxShamanSummonerV1 extends BaseContract {
       _moloch: PromiseOrValue<string>,
       _token: PromiseOrValue<string>,
       _pricePerUnit: PromiseOrValue<BigNumberish>,
-      _lootPerUnit: PromiseOrValue<BigNumberish>,
-      _sharesPerMember: PromiseOrValue<BigNumberish>,
+      _tokensPerUnit: PromiseOrValue<BigNumberish>,
       _target: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;

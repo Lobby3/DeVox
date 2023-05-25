@@ -6,7 +6,7 @@
 import type {
   IERC20PermitUpgradeable,
   IERC20PermitUpgradeableInterface,
-} from "../../../../../../../@openzeppelin/contracts-upgradeable/token/ERC20/extensions/draft-IERC20PermitUpgradeable.sol/IERC20PermitUpgradeable";
+} from "../../../../../../@openzeppelin/contracts-upgradeable/token/ERC20/extensions/IERC20PermitUpgradeable";
 import type { Provider } from "@ethersproject/providers";
 import { Contract, Signer, utils } from "ethers";
 

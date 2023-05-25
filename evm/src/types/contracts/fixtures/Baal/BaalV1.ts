@@ -37,6 +37,7 @@ export interface BaalV1Interface extends utils.Interface {
     "burnLoot(address[],uint256[])": FunctionFragment;
     "burnShares(address[],uint256[])": FunctionFragment;
     "cancelProposal(uint32)": FunctionFragment;
+    "eip712Domain()": FunctionFragment;
     "encodeMultisend(bytes[],address)": FunctionFragment;
     "executeAsBaal(address,uint256,bytes)": FunctionFragment;
     "getGuard()": FunctionFragment;
@@ -53,7 +54,6 @@ export interface BaalV1Interface extends utils.Interface {
     "lockAdmin()": FunctionFragment;
     "lockGovernor()": FunctionFragment;
     "lockManager()": FunctionFragment;
-    "lockRagequit()": FunctionFragment;
     "lootToken()": FunctionFragment;
     "managerLock()": FunctionFragment;
     "memberVoted(address,uint32)": FunctionFragment;
@@ -68,7 +68,6 @@ export interface BaalV1Interface extends utils.Interface {
     "proposals(uint256)": FunctionFragment;
     "quorumPercent()": FunctionFragment;
     "ragequit(address,uint256,uint256,address[])": FunctionFragment;
-    "ragequitLock()": FunctionFragment;
     "renounceOwnership()": FunctionFragment;
     "setAdminConfig(bool,bool)": FunctionFragment;
     "setAvatar(address)": FunctionFragment;
@@ -104,6 +103,7 @@ export interface BaalV1Interface extends utils.Interface {
       | "burnLoot"
       | "burnShares"
       | "cancelProposal"
+      | "eip712Domain"
       | "encodeMultisend"
       | "executeAsBaal"
       | "getGuard"
@@ -120,7 +120,6 @@ export interface BaalV1Interface extends utils.Interface {
       | "lockAdmin"
       | "lockGovernor"
       | "lockManager"
-      | "lockRagequit"
       | "lootToken"
       | "managerLock"
       | "memberVoted"
@@ -135,7 +134,6 @@ export interface BaalV1Interface extends utils.Interface {
       | "proposals"
       | "quorumPercent"
       | "ragequit"
-      | "ragequitLock"
       | "renounceOwnership"
       | "setAdminConfig"
       | "setAvatar"
@@ -177,6 +175,10 @@ export interface BaalV1Interface extends utils.Interface {
   encodeFunctionData(
     functionFragment: "cancelProposal",
     values: [PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "eip712Domain",
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "encodeMultisend",
@@ -237,10 +239,6 @@ export interface BaalV1Interface extends utils.Interface {
     functionFragment: "lockManager",
     values?: undefined
   ): string;
-  encodeFunctionData(
-    functionFragment: "lockRagequit",
-    values?: undefined
-  ): string;
   encodeFunctionData(functionFragment: "lootToken", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "managerLock",
@@ -295,10 +293,6 @@ export interface BaalV1Interface extends utils.Interface {
       PromiseOrValue<BigNumberish>,
       PromiseOrValue<string>[]
     ]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "ragequitLock",
-    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "renounceOwnership",
@@ -422,6 +416,10 @@ export interface BaalV1Interface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
+    functionFragment: "eip712Domain",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
     functionFragment: "encodeMultisend",
     data: BytesLike
   ): Result;
@@ -467,10 +465,6 @@ export interface BaalV1Interface extends utils.Interface {
     functionFragment: "lockManager",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(
-    functionFragment: "lockRagequit",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(functionFragment: "lootToken", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "managerLock",
@@ -509,10 +503,6 @@ export interface BaalV1Interface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "ragequit", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "ragequitLock",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(
     functionFragment: "renounceOwnership",
     data: BytesLike
@@ -593,12 +583,12 @@ export interface BaalV1Interface extends utils.Interface {
     "AvatarSet(address,address)": EventFragment;
     "CancelProposal(uint256)": EventFragment;
     "ChangedGuard(address)": EventFragment;
+    "EIP712DomainChanged()": EventFragment;
     "GovernanceConfigSet(uint32,uint32,uint256,uint256,uint256,uint256)": EventFragment;
     "Initialized(uint8)": EventFragment;
     "LockAdmin(bool)": EventFragment;
     "LockGovernor(bool)": EventFragment;
     "LockManager(bool)": EventFragment;
-    "LockRagequit(bool)": EventFragment;
     "LootPaused(bool)": EventFragment;
     "OwnershipTransferred(address,address)": EventFragment;
     "ProcessProposal(uint256,bool,bool)": EventFragment;
@@ -617,12 +607,12 @@ export interface BaalV1Interface extends utils.Interface {
   getEvent(nameOrSignatureOrTopic: "AvatarSet"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "CancelProposal"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "ChangedGuard"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "EIP712DomainChanged"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "GovernanceConfigSet"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "Initialized"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "LockAdmin"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "LockGovernor"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "LockManager"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "LockRagequit"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "LootPaused"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "OwnershipTransferred"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "ProcessProposal"): EventFragment;
@@ -674,6 +664,15 @@ export type ChangedGuardEvent = TypedEvent<[string], ChangedGuardEventObject>;
 
 export type ChangedGuardEventFilter = TypedEventFilter<ChangedGuardEvent>;
 
+export interface EIP712DomainChangedEventObject {}
+export type EIP712DomainChangedEvent = TypedEvent<
+  [],
+  EIP712DomainChangedEventObject
+>;
+
+export type EIP712DomainChangedEventFilter =
+  TypedEventFilter<EIP712DomainChangedEvent>;
+
 export interface GovernanceConfigSetEventObject {
   voting: number;
   grace: number;
@@ -717,13 +716,6 @@ export interface LockManagerEventObject {
 export type LockManagerEvent = TypedEvent<[boolean], LockManagerEventObject>;
 
 export type LockManagerEventFilter = TypedEventFilter<LockManagerEvent>;
-
-export interface LockRagequitEventObject {
-  ragequitLock: boolean;
-}
-export type LockRagequitEvent = TypedEvent<[boolean], LockRagequitEventObject>;
-
-export type LockRagequitEventFilter = TypedEventFilter<LockRagequitEvent>;
 
 export interface LootPausedEventObject {
   paused: boolean;
@@ -942,6 +934,20 @@ export interface BaalV1 extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
+    eip712Domain(
+      overrides?: CallOverrides
+    ): Promise<
+      [string, string, string, BigNumber, string, string, BigNumber[]] & {
+        fields: string;
+        name: string;
+        version: string;
+        chainId: BigNumber;
+        verifyingContract: string;
+        salt: string;
+        extensions: BigNumber[];
+      }
+    >;
+
     encodeMultisend(
       _calls: PromiseOrValue<BytesLike>[],
       _target: PromiseOrValue<string>,
@@ -1004,10 +1010,6 @@ export interface BaalV1 extends BaseContract {
     ): Promise<ContractTransaction>;
 
     lockManager(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
-
-    lockRagequit(
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
@@ -1093,8 +1095,6 @@ export interface BaalV1 extends BaseContract {
       tokens: PromiseOrValue<string>[],
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
-
-    ragequitLock(overrides?: CallOverrides): Promise<[boolean]>;
 
     renounceOwnership(
       overrides?: Overrides & { from?: PromiseOrValue<string> }
@@ -1233,6 +1233,20 @@ export interface BaalV1 extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
+  eip712Domain(
+    overrides?: CallOverrides
+  ): Promise<
+    [string, string, string, BigNumber, string, string, BigNumber[]] & {
+      fields: string;
+      name: string;
+      version: string;
+      chainId: BigNumber;
+      verifyingContract: string;
+      salt: string;
+      extensions: BigNumber[];
+    }
+  >;
+
   encodeMultisend(
     _calls: PromiseOrValue<BytesLike>[],
     _target: PromiseOrValue<string>,
@@ -1295,10 +1309,6 @@ export interface BaalV1 extends BaseContract {
   ): Promise<ContractTransaction>;
 
   lockManager(
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
-
-  lockRagequit(
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
@@ -1384,8 +1394,6 @@ export interface BaalV1 extends BaseContract {
     tokens: PromiseOrValue<string>[],
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
-
-  ragequitLock(overrides?: CallOverrides): Promise<boolean>;
 
   renounceOwnership(
     overrides?: Overrides & { from?: PromiseOrValue<string> }
@@ -1524,6 +1532,20 @@ export interface BaalV1 extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    eip712Domain(
+      overrides?: CallOverrides
+    ): Promise<
+      [string, string, string, BigNumber, string, string, BigNumber[]] & {
+        fields: string;
+        name: string;
+        version: string;
+        chainId: BigNumber;
+        verifyingContract: string;
+        salt: string;
+        extensions: BigNumber[];
+      }
+    >;
+
     encodeMultisend(
       _calls: PromiseOrValue<BytesLike>[],
       _target: PromiseOrValue<string>,
@@ -1582,8 +1604,6 @@ export interface BaalV1 extends BaseContract {
     lockGovernor(overrides?: CallOverrides): Promise<void>;
 
     lockManager(overrides?: CallOverrides): Promise<void>;
-
-    lockRagequit(overrides?: CallOverrides): Promise<void>;
 
     lootToken(overrides?: CallOverrides): Promise<string>;
 
@@ -1667,8 +1687,6 @@ export interface BaalV1 extends BaseContract {
       tokens: PromiseOrValue<string>[],
       overrides?: CallOverrides
     ): Promise<void>;
-
-    ragequitLock(overrides?: CallOverrides): Promise<boolean>;
 
     renounceOwnership(overrides?: CallOverrides): Promise<void>;
 
@@ -1815,6 +1833,9 @@ export interface BaalV1 extends BaseContract {
     "ChangedGuard(address)"(guard?: null): ChangedGuardEventFilter;
     ChangedGuard(guard?: null): ChangedGuardEventFilter;
 
+    "EIP712DomainChanged()"(): EIP712DomainChangedEventFilter;
+    EIP712DomainChanged(): EIP712DomainChangedEventFilter;
+
     "GovernanceConfigSet(uint32,uint32,uint256,uint256,uint256,uint256)"(
       voting?: null,
       grace?: null,
@@ -1843,9 +1864,6 @@ export interface BaalV1 extends BaseContract {
 
     "LockManager(bool)"(managerLock?: null): LockManagerEventFilter;
     LockManager(managerLock?: null): LockManagerEventFilter;
-
-    "LockRagequit(bool)"(ragequitLock?: null): LockRagequitEventFilter;
-    LockRagequit(ragequitLock?: null): LockRagequitEventFilter;
 
     "LootPaused(bool)"(paused?: null): LootPausedEventFilter;
     LootPaused(paused?: null): LootPausedEventFilter;
@@ -2012,6 +2030,8 @@ export interface BaalV1 extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
+    eip712Domain(overrides?: CallOverrides): Promise<BigNumber>;
+
     encodeMultisend(
       _calls: PromiseOrValue<BytesLike>[],
       _target: PromiseOrValue<string>,
@@ -2077,10 +2097,6 @@ export interface BaalV1 extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
-    lockRagequit(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
-
     lootToken(overrides?: CallOverrides): Promise<BigNumber>;
 
     managerLock(overrides?: CallOverrides): Promise<BigNumber>;
@@ -2133,8 +2149,6 @@ export interface BaalV1 extends BaseContract {
       tokens: PromiseOrValue<string>[],
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
-
-    ragequitLock(overrides?: CallOverrides): Promise<BigNumber>;
 
     renounceOwnership(
       overrides?: Overrides & { from?: PromiseOrValue<string> }
@@ -2274,6 +2288,8 @@ export interface BaalV1 extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
+    eip712Domain(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
     encodeMultisend(
       _calls: PromiseOrValue<BytesLike>[],
       _target: PromiseOrValue<string>,
@@ -2341,10 +2357,6 @@ export interface BaalV1 extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
-    lockRagequit(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
-
     lootToken(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     managerLock(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -2399,8 +2411,6 @@ export interface BaalV1 extends BaseContract {
       tokens: PromiseOrValue<string>[],
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
-
-    ragequitLock(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     renounceOwnership(
       overrides?: Overrides & { from?: PromiseOrValue<string> }

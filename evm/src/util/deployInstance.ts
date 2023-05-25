@@ -19,20 +19,20 @@ export const deployInstance = async (
     const [deployer] = await ethers.getSigners();
     const { deploy } = deployments;
 
-    const instance = await deploy(contractName, {
+    const result = await deploy(contractName, {
       from: deployer.address,
       args,
       log: true
     });
 
-    const artifact = await deployments.getExtendedArtifact(contractName);
-    const instanceDeployments = {
-      address: instance.address,
-      ...artifact,
-    };
+    // const artifact = await deployments.getExtendedArtifact(contractName);
+    // const instanceDeployments = {
+    //   address: result.address,
+    //   ...artifact,
+    // };
 
-    await save(contractName, instanceDeployments);
+    // await save(contractName, instanceDeployments);
 
-    return instance;
+    return result;
   }
 };

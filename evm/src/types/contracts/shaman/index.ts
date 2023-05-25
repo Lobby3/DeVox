@@ -3,3 +3,4 @@
 /* eslint-disable */
 export type { DeVoxShamanSummonerV1 } from "./DeVoxShamanSummonerV1";
 export type { DeVoxShamanV1 } from "./DeVoxShamanV1";
+export type { IShaman } from "./IShaman";

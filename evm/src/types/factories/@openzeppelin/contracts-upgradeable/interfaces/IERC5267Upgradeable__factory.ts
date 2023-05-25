@@ -4,9 +4,9 @@
 
 /* eslint-disable */
 import type {
-  EIP712Upgradeable,
-  EIP712UpgradeableInterface,
-} from "../../../../../@openzeppelin/contracts-upgradeable/utils/cryptography/EIP712Upgradeable";
+  IERC5267Upgradeable,
+  IERC5267UpgradeableInterface,
+} from "../../../../@openzeppelin/contracts-upgradeable/interfaces/IERC5267Upgradeable";
 import type { Provider } from "@ethersproject/providers";
 import { Contract, Signer, utils } from "ethers";
 
@@ -15,19 +15,6 @@ const _abi = [
     anonymous: false,
     inputs: [],
     name: "EIP712DomainChanged",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "uint8",
-        name: "version",
-        type: "uint8",
-      },
-    ],
-    name: "Initialized",
     type: "event",
   },
   {
@@ -75,15 +62,15 @@ const _abi = [
   },
 ] as const;
 
-export class EIP712Upgradeable__factory {
+export class IERC5267Upgradeable__factory {
   static readonly abi = _abi;
-  static createInterface(): EIP712UpgradeableInterface {
-    return new utils.Interface(_abi) as EIP712UpgradeableInterface;
+  static createInterface(): IERC5267UpgradeableInterface {
+    return new utils.Interface(_abi) as IERC5267UpgradeableInterface;
   }
   static connect(
     address: string,
     signerOrProvider: Signer | Provider
-  ): EIP712Upgradeable {
-    return new Contract(address, _abi, signerOrProvider) as EIP712Upgradeable;
+  ): IERC5267Upgradeable {
+    return new Contract(address, _abi, signerOrProvider) as IERC5267Upgradeable;
   }
 }

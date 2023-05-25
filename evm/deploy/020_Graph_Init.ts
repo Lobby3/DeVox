@@ -1,6 +1,6 @@
 // import fs from "fs";
-// import { DeployFunction } from "hardhat-deploy/types";
-// import { HardhatRuntimeEnvironment } from "hardhat/types";
+import { DeployFunction } from "hardhat-deploy/types";
+import { HardhatRuntimeEnvironment } from "hardhat/types";
 
 // import {
 //   Baal,
@@ -47,14 +47,14 @@
 //   await runTask("add", contractName, hre);
 // };
 
-// const deploy: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
+const deploy: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
 //   await init(DeVoxShaman, hre);
 //   await add(DeVoxShamanSummoner, hre);
 //   await add(Baal, hre);
 //   await add(BaalSummoner, hre);
 //   await add(BaalAdvTokenSummoner, hre);
 //   await add(BaalAndVaultSummoner, hre);
-// };
+};
 
-// export default deploy;
-// deploy.tags = ["graph", "local", "staging"];
+export default deploy;
+deploy.tags = ["graph", "local", "staging"];
