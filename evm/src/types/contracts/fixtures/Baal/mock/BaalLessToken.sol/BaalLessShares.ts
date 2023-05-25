@@ -57,6 +57,7 @@ export interface BaalLessSharesInterface extends utils.Interface {
     "delegateBySig(address,uint256,uint256,uint8,bytes32,bytes32)": FunctionFragment;
     "delegates(address)": FunctionFragment;
     "delegationNonces(address)": FunctionFragment;
+    "eip712Domain()": FunctionFragment;
     "getCheckpoint(address,uint256)": FunctionFragment;
     "getPastVotes(address,uint256)": FunctionFragment;
     "getVotes(address)": FunctionFragment;
@@ -96,6 +97,7 @@ export interface BaalLessSharesInterface extends utils.Interface {
       | "delegateBySig"
       | "delegates"
       | "delegationNonces"
+      | "eip712Domain"
       | "getCheckpoint"
       | "getPastVotes"
       | "getVotes"
@@ -172,6 +174,10 @@ export interface BaalLessSharesInterface extends utils.Interface {
   encodeFunctionData(
     functionFragment: "delegationNonces",
     values: [PromiseOrValue<string>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "eip712Domain",
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "getCheckpoint",
@@ -288,6 +294,10 @@ export interface BaalLessSharesInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
+    functionFragment: "eip712Domain",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
     functionFragment: "getCheckpoint",
     data: BytesLike
   ): Result;
@@ -346,6 +356,7 @@ export interface BaalLessSharesInterface extends utils.Interface {
     "BeaconUpgraded(address)": EventFragment;
     "DelegateChanged(address,address,address)": EventFragment;
     "DelegateVotesChanged(address,uint256,uint256)": EventFragment;
+    "EIP712DomainChanged()": EventFragment;
     "Initialized(uint8)": EventFragment;
     "OwnershipTransferred(address,address)": EventFragment;
     "Transfer(address,address,uint256)": EventFragment;
@@ -357,6 +368,7 @@ export interface BaalLessSharesInterface extends utils.Interface {
   getEvent(nameOrSignatureOrTopic: "BeaconUpgraded"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "DelegateChanged"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "DelegateVotesChanged"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "EIP712DomainChanged"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "Initialized"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "OwnershipTransferred"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "Transfer"): EventFragment;
@@ -420,6 +432,15 @@ export type DelegateVotesChangedEvent = TypedEvent<
 
 export type DelegateVotesChangedEventFilter =
   TypedEventFilter<DelegateVotesChangedEvent>;
+
+export interface EIP712DomainChangedEventObject {}
+export type EIP712DomainChangedEvent = TypedEvent<
+  [],
+  EIP712DomainChangedEventObject
+>;
+
+export type EIP712DomainChangedEventFilter =
+  TypedEventFilter<EIP712DomainChangedEvent>;
 
 export interface InitializedEventObject {
   version: number;
@@ -553,6 +574,20 @@ export interface BaalLessShares extends BaseContract {
       arg0: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
+
+    eip712Domain(
+      overrides?: CallOverrides
+    ): Promise<
+      [string, string, string, BigNumber, string, string, BigNumber[]] & {
+        fields: string;
+        name: string;
+        version: string;
+        chainId: BigNumber;
+        verifyingContract: string;
+        salt: string;
+        extensions: BigNumber[];
+      }
+    >;
 
     getCheckpoint(
       delegatee: PromiseOrValue<string>,
@@ -725,6 +760,20 @@ export interface BaalLessShares extends BaseContract {
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
+  eip712Domain(
+    overrides?: CallOverrides
+  ): Promise<
+    [string, string, string, BigNumber, string, string, BigNumber[]] & {
+      fields: string;
+      name: string;
+      version: string;
+      chainId: BigNumber;
+      verifyingContract: string;
+      salt: string;
+      extensions: BigNumber[];
+    }
+  >;
+
   getCheckpoint(
     delegatee: PromiseOrValue<string>,
     nCheckpoints: PromiseOrValue<BigNumberish>,
@@ -896,6 +945,20 @@ export interface BaalLessShares extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    eip712Domain(
+      overrides?: CallOverrides
+    ): Promise<
+      [string, string, string, BigNumber, string, string, BigNumber[]] & {
+        fields: string;
+        name: string;
+        version: string;
+        chainId: BigNumber;
+        verifyingContract: string;
+        salt: string;
+        extensions: BigNumber[];
+      }
+    >;
+
     getCheckpoint(
       delegatee: PromiseOrValue<string>,
       nCheckpoints: PromiseOrValue<BigNumberish>,
@@ -1047,6 +1110,9 @@ export interface BaalLessShares extends BaseContract {
       newBalance?: null
     ): DelegateVotesChangedEventFilter;
 
+    "EIP712DomainChanged()"(): EIP712DomainChangedEventFilter;
+    EIP712DomainChanged(): EIP712DomainChangedEventFilter;
+
     "Initialized(uint8)"(version?: null): InitializedEventFilter;
     Initialized(version?: null): InitializedEventFilter;
 
@@ -1144,6 +1210,8 @@ export interface BaalLessShares extends BaseContract {
       arg0: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
+
+    eip712Domain(overrides?: CallOverrides): Promise<BigNumber>;
 
     getCheckpoint(
       delegatee: PromiseOrValue<string>,
@@ -1314,6 +1382,8 @@ export interface BaalLessShares extends BaseContract {
       arg0: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
+
+    eip712Domain(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     getCheckpoint(
       delegatee: PromiseOrValue<string>,

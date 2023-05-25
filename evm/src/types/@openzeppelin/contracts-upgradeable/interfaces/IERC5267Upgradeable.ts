@@ -8,7 +8,7 @@ import type {
   TypedEvent,
   TypedListener,
   OnEvent,
-} from "../../../../common";
+} from "../../../common";
 import type {
   FunctionFragment,
   Result,
@@ -25,7 +25,7 @@ import type {
   utils,
 } from "ethers";
 
-export interface EIP712UpgradeableInterface extends utils.Interface {
+export interface IERC5267UpgradeableInterface extends utils.Interface {
   functions: {
     "eip712Domain()": FunctionFragment;
   };
@@ -44,11 +44,9 @@ export interface EIP712UpgradeableInterface extends utils.Interface {
 
   events: {
     "EIP712DomainChanged()": EventFragment;
-    "Initialized(uint8)": EventFragment;
   };
 
   getEvent(nameOrSignatureOrTopic: "EIP712DomainChanged"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "Initialized"): EventFragment;
 }
 
 export interface EIP712DomainChangedEventObject {}
@@ -60,19 +58,12 @@ export type EIP712DomainChangedEvent = TypedEvent<
 export type EIP712DomainChangedEventFilter =
   TypedEventFilter<EIP712DomainChangedEvent>;
 
-export interface InitializedEventObject {
-  version: number;
-}
-export type InitializedEvent = TypedEvent<[number], InitializedEventObject>;
-
-export type InitializedEventFilter = TypedEventFilter<InitializedEvent>;
-
-export interface EIP712Upgradeable extends BaseContract {
+export interface IERC5267Upgradeable extends BaseContract {
   connect(signerOrProvider: Signer | Provider | string): this;
   attach(addressOrName: string): this;
   deployed(): Promise<this>;
 
-  interface: EIP712UpgradeableInterface;
+  interface: IERC5267UpgradeableInterface;
 
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,
@@ -142,9 +133,6 @@ export interface EIP712Upgradeable extends BaseContract {
   filters: {
     "EIP712DomainChanged()"(): EIP712DomainChangedEventFilter;
     EIP712DomainChanged(): EIP712DomainChangedEventFilter;
-
-    "Initialized(uint8)"(version?: null): InitializedEventFilter;
-    Initialized(version?: null): InitializedEventFilter;
   };
 
   estimateGas: {

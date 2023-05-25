@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
-pragma solidity ^0.8.7;
+pragma solidity ^0.8.12;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
@@ -7,22 +7,22 @@ import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/security/ReentrancyGuardUpgradeable.sol";
 import "@openzeppelin/contracts/proxy/Clones.sol";
-import "../fixtures/Baal/interfaces/IBaal.sol";
 
-/// @notice Shamom administers the cookie jar
+import "../fixtures/Baal/interfaces/IBaal.sol";
+import "../lib/FixedPointMathLib.sol";
+import "./IShaman.sol";
+
+import "hardhat/console.sol";
+
+/// @notice Shaman contract for Baal v3 DAOhaus
+/// @dev This contract is used to issue voting shares (quadratic) and loot (1:1) for donations
 contract DeVoxShamanV1 is
     Initializable,
     OwnableUpgradeable,
     ReentrancyGuardUpgradeable,
-    UUPSUpgradeable
+    UUPSUpgradeable,
+    IShaman
 {
-    /*  shaman should
-     *  - limit donating users to 1 voting share each
-     *  - allow more than one donation; still max 1 v.s. ea.
-     *
-     *
-     */
-
     enum TokenType {
         LOOT,
         SHARES
@@ -36,9 +36,9 @@ contract DeVoxShamanV1 is
 
     IBaal public baal;
     IERC20 public token;
+    uint256 public id;
     uint256 public pricePerUnit;
-    uint256 public lootPerUnit;
-    uint256 public sharesPerMember;
+    uint256 public tokensPerUnit;
     uint256 public target;
 
     /// @notice Last cookie claims made by members
@@ -52,6 +52,7 @@ contract DeVoxShamanV1 is
     /// @notice emitted when a donation is received
     /// @param contributorAddress wallet sending the donation
     /// @param baal DAO contract address
+    /// @param id campaign id
     /// @param amount amount donated
     /// @param total total donated from this wallet
     /// @param target campaign target amount
@@ -62,6 +63,7 @@ contract DeVoxShamanV1 is
     event DonationReceived(
         address indexed contributorAddress,
         address baal,
+        uint256 id,
         uint256 amount,
         uint256 total,
         uint256 target,
@@ -72,9 +74,10 @@ contract DeVoxShamanV1 is
     );
 
     /// @notice emitted when campaign target is updated
+    /// @param id campaign id
     /// @param target campaign target amount
     /// @param balance current campaign balance
-    event TargetUpdated(uint256 target, uint256 balance);
+    event TargetUpdated(uint256 id, uint256 target, uint256 balance);
 
     /*******************
      * DEPLOY
@@ -90,29 +93,31 @@ contract DeVoxShamanV1 is
     function initialize(
         address _moloch,
         address payable _token,
+        uint256 _id,
         uint256 _pricePerUnit,
-        uint256 _lootPerUnit,
-        uint256 _sharesPerMember,
+        uint256 _tokensPerUnit,
         uint256 _target
-    ) public initializer {
+    ) external initializer returns(bool) {
         __Ownable_init();
         __UUPSUpgradeable_init();
 
         baal = IBaal(_moloch);
         token = IERC20(_token);
+        id = _id;
         pricePerUnit = _pricePerUnit;
-        lootPerUnit = _lootPerUnit;
-        sharesPerMember = _sharesPerMember;
+        tokensPerUnit = _tokensPerUnit;
         target = _target;
-    }
 
-    /// @notice Grant membership to the specified address
-    /// @param applicant New member address
-    // function grantMembership(
-    //     address applicant
-    // ) external onlyRole(DEFAULT_ADMIN_ROLE) {
-    //     _grantRole(MEMBER_ROLE, applicant);
-    // }
+        console.log("DeVoxShamanV1 initialized at: %s", address(this));
+        console.log(
+            "DeVoxShamanV1 params: pricePerUnit %d, tokensPerUnit %d, target %d",
+            pricePerUnit,
+            tokensPerUnit,
+            target
+        );
+
+        return true;
+    }
 
     /// @notice Make a donation
     /// @param _value amount donated
@@ -120,12 +125,10 @@ contract DeVoxShamanV1 is
     function donate(
         uint256 _value,
         string calldata _message
-    ) public nonReentrant {
+    ) external nonReentrant {
         require(address(baal) != address(0), "!init");
         require(baal.isManager(address(this)), "Shaman not manager");
         require(_value % pricePerUnit == 0, "invalid amount"); // require value as multiple of units
-
-        uint256 numUnits = _value / pricePerUnit;
 
         // send to DAO
         require(
@@ -133,22 +136,20 @@ contract DeVoxShamanV1 is
             "Transfer failed"
         );
 
-        uint256 lootIssued = (numUnits * lootPerUnit);
+        uint256 lootIssued = _lootToIssue(_value);
         _mintTokens(msg.sender, lootIssued, TokenType.LOOT);
 
-        uint256 total = donations[msg.sender];
-        uint256 sharesIssued;
-        if (total == 0) {
-            sharesIssued = sharesPerMember;
-            _mintTokens(msg.sender, sharesIssued, TokenType.SHARES);
-        }
+        uint256 sharesIssued = _sharesToIssue(_value);
+        _mintTokens(msg.sender, sharesIssued, TokenType.SHARES);
 
+        uint256 total = donations[msg.sender];
         total = total + _value;
         donations[msg.sender] = total;
 
         emit DonationReceived(
             msg.sender,
             address(baal),
+            id,
             _value,
             total,
             target,
@@ -159,16 +160,35 @@ contract DeVoxShamanV1 is
         );
     }
 
+    /// @notice Calculate the amount of loot to issue for a given donation
+    function _lootToIssue(
+        uint256 _value
+    ) internal view virtual returns (uint256) {
+        return (_value / pricePerUnit) * tokensPerUnit;
+    }
+
+    /// @notice Calculate the amount of shares to issue for a given donation
+    /// @dev Use a square root function to give a Quadratic Voting effect
+    function _sharesToIssue(
+        uint256 _value
+    ) internal view virtual returns (uint256) {
+        return (FixedPointMathLib.sqrt(_value) / pricePerUnit) * tokensPerUnit;
+    }
+
+    /// @notice Mint tokens for a given address
+    /// @param to Recipient of tokens
+    /// @param amount Amount of tokens to mint
+    /// @param _tokenType Shares or Loot
     function _mintTokens(
         address to,
-        uint256 lootToGive,
+        uint256 amount,
         TokenType _tokenType
     ) private {
         address[] memory _receivers = new address[](1);
         _receivers[0] = to;
 
         uint256[] memory _amounts = new uint256[](1);
-        _amounts[0] = lootToGive;
+        _amounts[0] = amount;
 
         if (_tokenType == TokenType.SHARES) {
             baal.mintShares(_receivers, _amounts);
