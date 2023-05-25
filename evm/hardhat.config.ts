@@ -1,4 +1,5 @@
 // import "@graphprotocol/hardhat-graph";
+import "@graphprotocol/hardhat-graph";
 import "@nomiclabs/hardhat-ethers";
 import "@nomiclabs/hardhat-etherscan";
 import "@nomiclabs/hardhat-waffle";
@@ -13,7 +14,6 @@ import "hardhat-gas-reporter";
 import { HardhatUserConfig } from "hardhat/config";
 import { resolve } from "path";
 import "solidity-coverage";
-import "@graphprotocol/hardhat-graph";
 
 // You need to export an object to set up your config
 // Go to https://hardhat.org/config/ to learn more
@@ -155,6 +155,11 @@ const config: HardhatUserConfig = {
   typechain: {
     outDir: "src/types",
     target: "ethers-v5",
+  },
+  namedAccounts: {
+    deployer: 0,
+    user: 1,
+    anon: 9,
   },
 };
 
