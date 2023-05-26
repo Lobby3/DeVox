@@ -1,10 +1,11 @@
 type Campaign @entity {
-  "Campaign id is an Ethereum address"
-  id: Bytes!
+  id: ID!
+  baalAddress: Bytes!
+  shamanAddress: Bytes!
+  tokenAddress: Bytes!
+  name: String!
   target: BigInt!
   total: BigInt!
-  token: Bytes!
-  name: String!
   donations: [Donation!]! @derivedFrom(field: "campaign")
   messages: [Message!]! @derivedFrom(field: "campaign")
 }
