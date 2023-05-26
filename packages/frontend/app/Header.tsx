@@ -68,7 +68,7 @@ export const Header = () => {
             </Link>
           ))}
         </HStack>
-        <ConnectButton />
+        <ConnectButton showWalletButton />
       </Flex>
     </Flex>
   );

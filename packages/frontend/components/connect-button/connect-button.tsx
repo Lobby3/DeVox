@@ -1,53 +1,99 @@
-import { Button } from "@chakra-ui/react";
+import { Button, HStack } from "@chakra-ui/react";
+import { useWeb3React } from "@web3-react/core";
+import { Connector } from "@web3-react/types";
 import * as React from "react";
+import { useEffect, useState } from "react";
+import { MagicConnect } from "web3-react-magic";
 
-import { useMagicWallet } from "../../app/magic-wallet-context";
 import { formatAddress } from "../../utils/formatting";
 
-export interface ConnectButtonProps {}
+export interface ConnectButtonProps {
+  showWalletButton?: boolean;
+}
 
-export function ConnectButton(props: ConnectButtonProps) {
-  const { address, connect, connected, disconnect, isMagicReady, connecting } =
-    useMagicWallet();
+export function ConnectButton({
+  showWalletButton = false,
+}: ConnectButtonProps) {
+  const { isActive, account, connector, isActivating } = useWeb3React();
+  const [showButton, setShowButton] = useState(false);
 
-  const onClickButton = async () => {
-    if (connected) {
-      await disconnect();
-    } else {
-      await connect();
+  const handleConnect = async (connector: Connector) => {
+    try {
+      await connector.activate();
+    } catch (error) {
+      console.error(error);
     }
   };
 
+  const handleDisconnect = async () => {
+    try {
+      if (connector?.deactivate) {
+        void connector.deactivate();
+      } else {
+        void connector.resetState();
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleOpenWallet = async () => {
+    if (connector instanceof MagicConnect) {
+      await connector.magic?.wallet.showUI();
+    }
+  };
+
+  const checkWalletType = async () => {
+    if (connector instanceof MagicConnect) {
+      const walletInfo = await connector.magic?.wallet.getInfo();
+
+      const isMagicWallet = walletInfo?.walletType === "magic";
+
+      setShowButton(isMagicWallet);
+    }
+  };
+
+  useEffect(() => {
+    checkWalletType();
+  }, [handleConnect]);
+
   const getButtonMessage = () => {
-    if (!isMagicReady) {
+    if (isActivating) {
       return "Loading...";
     }
 
-    if (connecting) {
-      return "Connecting...";
+    // if (connector) {
+    //   return "Connecting...";
+    // }
+
+    if (account) {
+      return formatAddress(account);
     }
 
-    if (address) {
-      return formatAddress(address);
-    }
-
-    if (connected) {
+    if (isActive) {
       return "Disconnect";
     }
 
-    if (!connected) {
+    if (!isActive) {
       return "Connect";
     }
   };
 
   return (
-    <Button
-      variant={connected ? "solid" : "outline"}
-      disabled={!isMagicReady}
-      onClick={onClickButton}
-    >
-      {getButtonMessage()}
-    </Button>
+    <HStack>
+      <Button
+        variant={isActive ? "solid" : "outline"}
+        disabled={isActivating}
+        onClick={isActive ? handleDisconnect : () => handleConnect(connector)}
+      >
+        {getButtonMessage()}
+      </Button>
+      {showWalletButton && showButton ? (
+        <Button variant={"solid"} onClick={handleOpenWallet}>
+          Wallet
+        </Button>
+      ) : null}
+    </HStack>
   );
 }
 
