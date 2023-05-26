@@ -8,12 +8,10 @@ import BodyContainer from "../../components/body-container/body-container";
 
 export interface AboutUsProps {}
 
-export function AboutUs(props: AboutUsProps) {
+export default async function Index(props: AboutUsProps) {
   return (
     <BodyContainer>
       <Heading>ABOUT US - UNDER CONSTRUCTION</Heading>
     </BodyContainer>
   );
 }
-
-export default AboutUs;

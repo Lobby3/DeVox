@@ -21,7 +21,7 @@ export default function RootLayout({
       <body className="body">
         <Providers>
           <Header />
-          <main>{children}</main>
+          <main style={{ maxWidth: "100vw" }}>{children}</main>
           <Footer />
         </Providers>
       </body>

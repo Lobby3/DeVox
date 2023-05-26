@@ -35,6 +35,8 @@ export default async function Index({
     );
   }
 
+  const progressValue = (campaign.total / campaign.target) * 100;
+
   return (
     <BodyContainer>
       <Grid width="100%" templateColumns={"repeat(4, 1fr)"}>
@@ -52,7 +54,7 @@ export default async function Index({
                 ${campaign.total}/{campaign.target}
               </Heading>
               <Box width="200px" mr={2}>
-                <Progress colorScheme="devoxSuccess" value={80} />
+                <Progress colorScheme="devoxSuccess" value={progressValue} />
               </Box>
               <CircleStackIcon height={20} width={20} />
             </Flex>

@@ -4,7 +4,7 @@ import { PropsWithChildren } from "react";
 
 export function BodyContainer({ children }: PropsWithChildren) {
   return (
-    <Center width="100vw">
+    <Center>
       <Flex maxWidth="1360px" padding="80px 44px" width="100%">
         {children}
       </Flex>

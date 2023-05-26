@@ -2,6 +2,7 @@ import { Flex, HStack, Heading } from "@chakra-ui/react";
 import {
   ChatBubbleBottomCenterTextIcon,
   FaceSmileIcon,
+  GlobeAsiaAustraliaIcon,
 } from "@heroicons/react/20/solid";
 import Image from "next/image";
 import Link from "next/link";
@@ -12,6 +13,11 @@ import ConnectButton from "../components/connect-button/connect-button";
 import { headerBackground } from "../styles/colors";
 
 const headerLinks = {
+  discover: {
+    label: "Discover",
+    href: "/",
+    icon: GlobeAsiaAustraliaIcon,
+  },
   create: {
     label: "Create campaign",
     href: "/create",
