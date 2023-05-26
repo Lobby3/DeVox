@@ -67,7 +67,7 @@ export const defaultGovernanceSettings: GovernanceSettings = {
 };
 
 export const defaultSummonArgs: DeVoxShamanSummonArgs = {
-  pricePerUnit: "1",
+  pricePerUnit: ethers.utils.parseUnits("1", "ether"),
   tokensPerUnit: "100",
   target: "100000",
 };
