@@ -1,4 +1,8 @@
 import {
+  Alert,
+  AlertDialogBody,
+  AlertIcon,
+  AlertTitle,
   Button,
   FormControl,
   FormHelperText,
@@ -9,6 +13,7 @@ import {
   Textarea,
   VStack,
 } from "@chakra-ui/react";
+import { useWeb3React } from "@web3-react/core";
 import { Form, Formik } from "formik";
 import Link from "next/link";
 import React from "react";
@@ -19,6 +24,7 @@ import BodyContainer from "../body-container/body-container";
 export interface CreateCampaignFormProps {}
 
 export function CreateCampaignForm(props: CreateCampaignFormProps) {
+  const { isActive } = useWeb3React();
   return (
     <BodyContainer>
       <Formik
@@ -49,99 +55,124 @@ export function CreateCampaignForm(props: CreateCampaignFormProps) {
           handleSubmit,
           isSubmitting,
           /* and other goodies */
-        }) => (
-          <Form onSubmit={handleSubmit} style={{ width: "50%" }}>
-            <VStack
-              spacing={8}
-              sx={{ fontFamily: "Inter" }}
-              alignItems={"flex-start"}
-            >
-              <Heading textTransform="uppercase">Create a new campaign</Heading>
-              <FormControl>
-                <FormLabel textTransform={"uppercase"}>
-                  Title of campaign
-                </FormLabel>
-                <Input
-                  type="text"
-                  name="title"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.title}
-                />
-                <FormHelperText>The title of the campaign</FormHelperText>
-                {errors.title && touched.title && errors.title}
-              </FormControl>
-              <FormControl>
-                <FormLabel textTransform={"uppercase"}>Goal to reach</FormLabel>
-                <Input
-                  width={200}
-                  type="number"
-                  name="targetAmount"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.targetAmount}
-                />
-                {errors.targetAmount &&
-                  touched.targetAmount &&
-                  errors.targetAmount}
-                <FormHelperText>
-                  The target amount of the campaign
-                </FormHelperText>
-              </FormControl>
-              <FormControl>
-                <FormLabel textTransform={"uppercase"}>Description</FormLabel>
-                <Textarea
-                  name="description"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.description}
-                />
-                {errors.description &&
-                  touched.description &&
-                  errors.description}
-                <FormHelperText>The description of the campaign</FormHelperText>
-              </FormControl>
-              <FormControl>
-                <FormLabel textTransform={"uppercase"}>
-                  Campaign image
-                </FormLabel>
-                <Input
-                  name="image"
-                  onChange={handleChange}
-                  type="file"
-                  sx={{
-                    "::file-selector-button": {
-                      height: 10,
-                      padding: 0,
-                      mr: 4,
-                      background: "none",
-                      border: "none",
-                      fontWeight: "bold",
-                    },
-                  }}
-                />
-                <FormHelperText>
-                  The image that will be show with your campaign
-                </FormHelperText>
-              </FormControl>
+        }) => {
+          const disabled = isSubmitting || !isActive;
+          return (
+            <Form onSubmit={handleSubmit} style={{ width: "50%" }}>
+              <VStack
+                spacing={8}
+                sx={{ fontFamily: "Inter" }}
+                alignItems={"flex-start"}
+              >
+                {!isActive ? (
+                  <Alert status="error">
+                    <AlertIcon />
+                    <AlertTitle>
+                      Please connect your wallet to start a campaign.
+                    </AlertTitle>
+                  </Alert>
+                ) : null}
+                <Heading textTransform="uppercase">
+                  Start a new campaign
+                </Heading>
+                <FormControl>
+                  <FormLabel textTransform={"uppercase"}>
+                    Title of campaign
+                  </FormLabel>
+                  <Input
+                    disabled={disabled}
+                    type="text"
+                    name="title"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.title}
+                  />
+                  <FormHelperText>The title of the campaign</FormHelperText>
+                  {errors.title && touched.title && errors.title}
+                </FormControl>
+                <FormControl>
+                  <FormLabel textTransform={"uppercase"}>
+                    Goal to reach
+                  </FormLabel>
+                  <Input
+                    disabled={disabled}
+                    width={200}
+                    type="number"
+                    name="targetAmount"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.targetAmount}
+                  />
+                  {errors.targetAmount &&
+                    touched.targetAmount &&
+                    errors.targetAmount}
+                  <FormHelperText>
+                    The target amount of the campaign
+                  </FormHelperText>
+                </FormControl>
+                <FormControl>
+                  <FormLabel textTransform={"uppercase"}>Description</FormLabel>
+                  <Textarea
+                    disabled={disabled}
+                    name="description"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.description}
+                  />
+                  {errors.description &&
+                    touched.description &&
+                    errors.description}
+                  <FormHelperText>
+                    The description of the campaign
+                  </FormHelperText>
+                </FormControl>
+                <FormControl>
+                  <FormLabel textTransform={"uppercase"}>
+                    Campaign image
+                  </FormLabel>
+                  <Input
+                    disabled={disabled}
+                    name="image"
+                    onChange={handleChange}
+                    type="file"
+                    sx={{
+                      "::file-selector-button": {
+                        height: 10,
+                        padding: 0,
+                        mr: 4,
+                        background: "none",
+                        border: "none",
+                        fontWeight: "bold",
+                      },
+                    }}
+                  />
+                  <FormHelperText>
+                    The image that will be show with your campaign
+                  </FormHelperText>
+                </FormControl>
 
-              <HStack>
-                <Link href={"/"}>
-                  <Button textTransform={"uppercase"} variant={"outline"}>
-                    Cancel
+                <HStack>
+                  <Link href={"/"}>
+                    <Button
+                      isDisabled={disabled}
+                      textTransform={"uppercase"}
+                      variant={"outline"}
+                    >
+                      Cancel
+                    </Button>
+                  </Link>
+                  <Button
+                    textTransform={"uppercase"}
+                    type="submit"
+                    isDisabled={disabled}
+                  >
+                    Start campaign
                   </Button>
-                </Link>
-                <Button
-                  textTransform={"uppercase"}
-                  type="submit"
-                  disabled={isSubmitting}
-                >
-                  Start campaign
-                </Button>
-              </HStack>
-            </VStack>
-          </Form>
-        )}
+                </HStack>
+              </VStack>
+            </Form>
+          );
+        }}
       </Formik>
     </BodyContainer>
   );
