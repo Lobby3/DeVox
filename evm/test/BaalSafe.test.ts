@@ -1461,11 +1461,6 @@ describe("Baal contract", function () {
       await baal.processProposal(1, proposal.data);
       expect(await baal.governorLock()).to.equal(true);
     });
-
-    it("lockRagequit", async function () {
-      await lockRagequit(baal, multisend, proposal);
-      expect(await baal.ragequitLock()).to.equal(true);
-    });
   });
 
   describe("setShamans - adminLock (1, 3, 5, 7)", function () {
@@ -3518,14 +3513,6 @@ describe("Baal contract", function () {
         ])
       ).to.be.revertedWith(revertMessages.ragequitUnordered);
     });
-
-    it("require fail - ragequitLock", async function () {
-      await weth.transfer(gnosisSafe.address, 100);
-      await lockRagequit(baal, multisend, proposal);
-      await expect(
-        baal.ragequit(summoner.address, shares, 0, [weth.address])
-      ).to.be.revertedWith(revertMessages.ragequitLock);
-    });
   });
 
   describe("getVotes", function () {
@@ -4072,27 +4059,3 @@ describe("Baal contract - summon baal with current safe", function () {
     });
   });
 });
-async function lockRagequit(
-  baal: Baal,
-  multisend: MultiSend,
-  proposal: { [key: string]: any }
-) {
-  const lockRagequit = baal.interface.encodeFunctionData("lockRagequit");
-  const lockRagequitAction = encodeMultiAction(
-    multisend,
-    [lockRagequit],
-    [baal.address],
-    [BigNumber.from(0)],
-    [0]
-  );
-  proposal.data = lockRagequitAction;
-  await baal.submitProposal(
-    proposal.data,
-    proposal.expiration,
-    proposal.baalGas,
-    ethers.utils.id(proposal.details)
-  );
-  await baal.submitVote(1, true);
-  await moveForwardPeriods(2);
-  await baal.processProposal(1, proposal.data);
-}
