@@ -1,5 +1,6 @@
 import { Flex, Heading, Text, VStack } from "@chakra-ui/react";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 import Logo from "../assets/logo.svg";
@@ -9,7 +10,6 @@ export const Footer = () => {
   return (
     <Flex as="footer" marginTop="auto" backgroundColor={headerBackground}>
       <VStack
-        mr="auto"
         flexDirection="column"
         alignItems="flex-start"
         p="80px"
@@ -24,7 +24,25 @@ export const Footer = () => {
         </Heading>
         <Text>© DeVox 2023</Text>
       </VStack>
-      <div>DEVOX FOOTER</div>
+      <VStack
+        justifyContent={"center"}
+        alignItems={"flex-start"}
+        color={"white"}
+        fontSize={"xl"}
+      >
+        <Link href={"/"}>
+          <Text fontFamily={"Inter"}>Discover</Text>
+        </Link>
+        <Link href={"/create"}>
+          <Text fontFamily={"Inter"}>Start a Campaign</Text>
+        </Link>
+        <Link href={"/about-us"}>
+          <Text fontFamily={"Inter"}>About Us</Text>
+        </Link>
+        <Text fontFamily={"Inter"}>Terms of Services</Text>
+        <Text fontFamily={"Inter"}>Privacy Policy</Text>
+        <Text fontFamily={"Inter"}>Affiliate Program</Text>
+      </VStack>
     </Flex>
   );
 };
