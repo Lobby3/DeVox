@@ -3,15 +3,17 @@ import {
   FormControl,
   FormHelperText,
   FormLabel,
+  HStack,
+  Heading,
   Input,
   Textarea,
   VStack,
 } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
+import Link from "next/link";
 import React from "react";
 
 import BodyContainer from "../body-container/body-container";
-import styles from "./create-campaign-form.module.css";
 
 /* eslint-disable-next-line */
 export interface CreateCampaignFormProps {}
@@ -20,7 +22,12 @@ export function CreateCampaignForm(props: CreateCampaignFormProps) {
   return (
     <BodyContainer>
       <Formik
-        initialValues={{ title: "", description: "", targetAmount: 0 }}
+        initialValues={{
+          title: "",
+          description: "",
+          targetAmount: 0,
+          image: null as File | null,
+        }}
         validate={(values) => {
           const errors = {};
 
@@ -43,10 +50,17 @@ export function CreateCampaignForm(props: CreateCampaignFormProps) {
           isSubmitting,
           /* and other goodies */
         }) => (
-          <Form onSubmit={handleSubmit} style={{ width: "100%" }}>
-            <VStack spacing={8}>
+          <Form onSubmit={handleSubmit} style={{ width: "50%" }}>
+            <VStack
+              spacing={8}
+              sx={{ fontFamily: "Inter" }}
+              alignItems={"flex-start"}
+            >
+              <Heading textTransform="uppercase">Create a new campaign</Heading>
               <FormControl>
-                <FormLabel>Title</FormLabel>
+                <FormLabel textTransform={"uppercase"}>
+                  Title of campaign
+                </FormLabel>
                 <Input
                   type="text"
                   name="title"
@@ -58,21 +72,9 @@ export function CreateCampaignForm(props: CreateCampaignFormProps) {
                 {errors.title && touched.title && errors.title}
               </FormControl>
               <FormControl>
-                <FormLabel>Description</FormLabel>
-                <Textarea
-                  name="description"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.description}
-                />
-                {errors.description &&
-                  touched.description &&
-                  errors.description}
-                <FormHelperText>The description of the campaign</FormHelperText>
-              </FormControl>
-              <FormControl>
-                <FormLabel>Goal to reach</FormLabel>
+                <FormLabel textTransform={"uppercase"}>Goal to reach</FormLabel>
                 <Input
+                  width={200}
                   type="number"
                   name="targetAmount"
                   onChange={handleChange}
@@ -86,9 +88,57 @@ export function CreateCampaignForm(props: CreateCampaignFormProps) {
                   The target amount of the campaign
                 </FormHelperText>
               </FormControl>
-              <Button type="submit" disabled={isSubmitting}>
-                Create
-              </Button>
+              <FormControl>
+                <FormLabel textTransform={"uppercase"}>Description</FormLabel>
+                <Textarea
+                  name="description"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.description}
+                />
+                {errors.description &&
+                  touched.description &&
+                  errors.description}
+                <FormHelperText>The description of the campaign</FormHelperText>
+              </FormControl>
+              <FormControl>
+                <FormLabel textTransform={"uppercase"}>
+                  Campaign image
+                </FormLabel>
+                <Input
+                  name="image"
+                  onChange={handleChange}
+                  type="file"
+                  sx={{
+                    "::file-selector-button": {
+                      height: 10,
+                      padding: 0,
+                      mr: 4,
+                      background: "none",
+                      border: "none",
+                      fontWeight: "bold",
+                    },
+                  }}
+                />
+                <FormHelperText>
+                  The image that will be show with your campaign
+                </FormHelperText>
+              </FormControl>
+
+              <HStack>
+                <Link href={"/"}>
+                  <Button textTransform={"uppercase"} variant={"outline"}>
+                    Cancel
+                  </Button>
+                </Link>
+                <Button
+                  textTransform={"uppercase"}
+                  type="submit"
+                  disabled={isSubmitting}
+                >
+                  Start campaign
+                </Button>
+              </HStack>
             </VStack>
           </Form>
         )}
