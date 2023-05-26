@@ -1,4 +1,4 @@
-import { Grid } from "@chakra-ui/react";
+import { Grid, GridItem, SimpleGrid } from "@chakra-ui/react";
 
 import { Campaign } from "../../types/Campaign";
 import CampaignTile from "../campaign-tile/campaign-tile";
@@ -10,11 +10,13 @@ export interface CampaignGridViewProps {
 
 export function CampaignGridView({ campaigns }: CampaignGridViewProps) {
   return (
-    <Grid templateColumns="repeat(3, 1fr)" gap={6} width="100%">
+    <SimpleGrid gap={6} width="100%" minChildWidth={"340px"}>
       {campaigns.map((campaign) => (
-        <CampaignTile key={campaign.id} campaign={campaign} />
+        <GridItem key={campaign.id}>
+          <CampaignTile campaign={campaign} />
+        </GridItem>
       ))}
-    </Grid>
+    </SimpleGrid>
   );
 }
 

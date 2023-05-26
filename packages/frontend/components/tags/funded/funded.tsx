@@ -5,12 +5,12 @@ export interface FundedProps {}
 
 export function Funded() {
   return (
-    <Tag backgroundColor="success.200" borderRadius={0}>
-      <Text color="success.600">•</Text>
+    <Tag backgroundColor="devoxSuccess.200" borderRadius={"none"}>
+      <Text color="devoxSuccess.600">•</Text>
       <TagLabel
         fontFamily={"'Antonio', sans-serif"}
         ml={2}
-        color="success.800"
+        color="devoxSuccess.800"
         textTransform="uppercase"
       >
         Funded

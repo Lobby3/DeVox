@@ -21,6 +21,18 @@ const Button = defineStyleConfig({
   },
 });
 
+const Tag = defineStyleConfig({
+  baseStyle: {},
+  defaultProps: {
+    size: "lg",
+  },
+  variants: {
+    subtle: {
+      borderRadius: "none",
+    },
+  },
+});
+
 export const theme = extendTheme({
   fonts: {
     heading: "'Antonio', sans-serif",
@@ -28,7 +40,7 @@ export const theme = extendTheme({
   },
   textStyles: {},
   colors: {
-    success: {
+    devoxSuccess: {
       200: "#D9F9E6",
       600: "#53B483",
       800: "#2F7657",
@@ -36,5 +48,6 @@ export const theme = extendTheme({
   },
   components: {
     Button,
+    Tag,
   },
 });

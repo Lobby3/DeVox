@@ -18,6 +18,7 @@ export function CampaignTile({ campaign }: CampaignTileProps) {
       padding={8}
       borderColor={headerBackground}
       borderWidth={"1px"}
+      height="100%"
     >
       <Image
         src={campaign.imageUrl}
@@ -34,6 +35,7 @@ export function CampaignTile({ campaign }: CampaignTileProps) {
           <Button
             rightIcon={<ArrowRightIcon height={20} />}
             variant={"outline"}
+            maxWidth="100%"
           >
             Donate Now To Participate
           </Button>
