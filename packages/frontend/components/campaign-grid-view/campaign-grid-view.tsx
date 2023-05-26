@@ -1,4 +1,4 @@
-import { Grid, GridItem, SimpleGrid } from "@chakra-ui/react";
+import { GridItem, SimpleGrid } from "@chakra-ui/react";
 
 import { Campaign } from "../../types/Campaign";
 import CampaignTile from "../campaign-tile/campaign-tile";

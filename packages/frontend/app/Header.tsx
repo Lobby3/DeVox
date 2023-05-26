@@ -1,5 +1,8 @@
-import { Flex, HStack, Heading, Text } from "@chakra-ui/react";
-import { ChatBubbleBottomCenterTextIcon } from "@heroicons/react/20/solid";
+import { Flex, HStack, Heading } from "@chakra-ui/react";
+import {
+  ChatBubbleBottomCenterTextIcon,
+  FaceSmileIcon,
+} from "@heroicons/react/20/solid";
 import Image from "next/image";
 import Link from "next/link";
 import * as React from "react";
@@ -13,6 +16,11 @@ const headerLinks = {
     label: "Create campaign",
     href: "/create",
     icon: ChatBubbleBottomCenterTextIcon,
+  },
+  aboutUs: {
+    label: "About Us",
+    href: "/about-us",
+    icon: FaceSmileIcon,
   },
 };
 
@@ -38,7 +46,7 @@ export const Header = () => {
         </Link>
       </Flex>
       <Flex>
-        <HStack mr={4}>
+        <HStack spacing={4} mr={4}>
           {Object.values(headerLinks).map((link) => (
             <Link href={link.href} key={link.href}>
               <Flex alignItems="center">
@@ -48,9 +56,14 @@ export const Header = () => {
                   width={20}
                   style={{ marginTop: 2 }}
                 />
-                <Text ml={2} color="gray.300">
+                <Heading
+                  size={"sm"}
+                  ml={1}
+                  color="gray.300"
+                  fontFamily={"Inter"}
+                >
                   {link.label}
-                </Text>
+                </Heading>
               </Flex>
             </Link>
           ))}

@@ -14,6 +14,7 @@ const mockCampaignData: Campaign[] = [
     total: 2000,
     imageUrl:
       "https://randomwordgenerator.com/img/picture-generator/57e8dc4a4250a814f1dc8460962e33791c3ad6e04e50744172287ed3944ec5_640.jpg",
+    numberOfSigners: 252,
   },
   {
     id: "mock-id-2",
@@ -27,6 +28,7 @@ const mockCampaignData: Campaign[] = [
     total: 2000,
     imageUrl:
       "https://randomwordgenerator.com/img/picture-generator/53e4d2424d53aa14f1dc8460962e33791c3ad6e04e507440722d7cd3924cc2_640.jpg",
+    numberOfSigners: 252,
   },
   {
     id: "mock-id-3",
@@ -40,6 +42,7 @@ const mockCampaignData: Campaign[] = [
     total: 2000,
     imageUrl:
       "https://randomwordgenerator.com/img/picture-generator/57e9d04b4a5aaf14f1dc8460962e33791c3ad6e04e507440722d72d09245c7_640.jpg",
+    numberOfSigners: 252,
   },
   {
     id: "mock-id-4",
@@ -54,6 +57,7 @@ const mockCampaignData: Campaign[] = [
     total: 2000,
     imageUrl:
       "https://randomwordgenerator.com/img/picture-generator/57e9d247435bac14f1dc8460962e33791c3ad6e04e507440742a7ed09244c2_640.jpg",
+    numberOfSigners: 252,
   },
   {
     id: "mock-id-5",
@@ -67,12 +71,12 @@ const mockCampaignData: Campaign[] = [
     total: 2000,
     imageUrl:
       "https://randomwordgenerator.com/img/picture-generator/57e7dc4b4c5ba914f1dc8460962e33791c3ad6e04e5074417c2f7dd5904cc0_640.jpg",
+    numberOfSigners: 252,
   },
 ];
 
 export const useCampaignInfo = (campaignId: string) => {
-  console.log("campaignId", campaignId);
-  return mockCampaignData[0];
+  return mockCampaignData.find((campaign) => campaign.id === campaignId);
 };
 
 export const useListCampaigns = () => {

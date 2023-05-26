@@ -45,10 +45,10 @@ export const MagicWalletProvider = ({ children }: React.PropsWithChildren) => {
       setConnecting(true);
       const accounts = await magic?.wallet.connectWithUI();
       setConnected(true);
-      const loginAddress = await magic?.user
-        .getInfo()
-        .then((info) => info?.publicAddress);
-      setAddress(loginAddress);
+      const loginAddress = await magic?.user.getInfo().then((info) => {
+        const a = info?.publicAddress;
+        setAddress(a);
+      });
       toast({
         title: `Connected as ${accounts?.[0]}`,
         status: "success",

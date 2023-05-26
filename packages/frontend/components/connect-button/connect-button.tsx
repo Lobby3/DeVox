@@ -2,6 +2,7 @@ import { Button } from "@chakra-ui/react";
 import * as React from "react";
 
 import { useMagicWallet } from "../../app/magic-wallet-context";
+import { formatAddress } from "../../utils/formatting";
 
 export interface ConnectButtonProps {}
 
@@ -27,7 +28,7 @@ export function ConnectButton(props: ConnectButtonProps) {
     }
 
     if (address) {
-      return address;
+      return formatAddress(address);
     }
 
     if (connected) {
@@ -40,7 +41,11 @@ export function ConnectButton(props: ConnectButtonProps) {
   };
 
   return (
-    <Button disabled={!isMagicReady} onClick={onClickButton}>
+    <Button
+      variant={connected ? "solid" : "outline"}
+      disabled={!isMagicReady}
+      onClick={onClickButton}
+    >
       {getButtonMessage()}
     </Button>
   );
