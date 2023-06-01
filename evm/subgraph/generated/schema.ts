@@ -12,9 +12,9 @@ import {
 } from "@graphprotocol/graph-ts";
 
 export class Campaign extends Entity {
-  constructor(id: Bytes) {
+  constructor(id: string) {
     super();
-    this.set("id", Value.fromBytes(id));
+    this.set("id", Value.fromString(id));
   }
 
   save(): void {
@@ -22,25 +22,36 @@ export class Campaign extends Entity {
     assert(id != null, "Cannot save Campaign entity without an ID");
     if (id) {
       assert(
-        id.kind == ValueKind.BYTES,
-        `Entities of type Campaign must have an ID of type Bytes but the id '${id.displayData()}' is of type ${id.displayKind()}`
+        id.kind == ValueKind.STRING,
+        `Entities of type Campaign must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
-      store.set("Campaign", id.toBytes().toHexString(), this);
+      store.set("Campaign", id.toString(), this);
     }
   }
 
-  static loadInBlock(id: Bytes): Campaign | null {
-    return changetype<Campaign | null>(
-      store.get_in_block("Campaign", id.toHexString())
-    );
+  static loadInBlock(id: string): Campaign | null {
+    return changetype<Campaign | null>(store.get_in_block("Campaign", id));
   }
 
-  static load(id: Bytes): Campaign | null {
-    return changetype<Campaign | null>(store.get("Campaign", id.toHexString()));
+  static load(id: string): Campaign | null {
+    return changetype<Campaign | null>(store.get("Campaign", id));
   }
 
-  get id(): Bytes {
+  get id(): string {
     let value = this.get("id");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get baalAddress(): Bytes {
+    let value = this.get("baalAddress");
     if (!value || value.kind == ValueKind.NULL) {
       throw new Error("Cannot return null for a required field.");
     } else {
@@ -48,8 +59,73 @@ export class Campaign extends Entity {
     }
   }
 
-  set id(value: Bytes) {
-    this.set("id", Value.fromBytes(value));
+  set baalAddress(value: Bytes) {
+    this.set("baalAddress", Value.fromBytes(value));
+  }
+
+  get shamanAddress(): Bytes {
+    let value = this.get("shamanAddress");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set shamanAddress(value: Bytes) {
+    this.set("shamanAddress", Value.fromBytes(value));
+  }
+
+  get tokenAddress(): Bytes {
+    let value = this.get("tokenAddress");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set tokenAddress(value: Bytes) {
+    this.set("tokenAddress", Value.fromBytes(value));
+  }
+
+  get name(): string {
+    let value = this.get("name");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
+  }
+
+  set name(value: string) {
+    this.set("name", Value.fromString(value));
+  }
+
+  get pricePerUnit(): BigInt {
+    let value = this.get("pricePerUnit");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set pricePerUnit(value: BigInt) {
+    this.set("pricePerUnit", Value.fromBigInt(value));
+  }
+
+  get tokensPerUnit(): BigInt {
+    let value = this.get("tokensPerUnit");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set tokensPerUnit(value: BigInt) {
+    this.set("tokensPerUnit", Value.fromBigInt(value));
   }
 
   get target(): BigInt {
@@ -76,32 +152,6 @@ export class Campaign extends Entity {
 
   set total(value: BigInt) {
     this.set("total", Value.fromBigInt(value));
-  }
-
-  get token(): Bytes {
-    let value = this.get("token");
-    if (!value || value.kind == ValueKind.NULL) {
-      throw new Error("Cannot return null for a required field.");
-    } else {
-      return value.toBytes();
-    }
-  }
-
-  set token(value: Bytes) {
-    this.set("token", Value.fromBytes(value));
-  }
-
-  get name(): string {
-    let value = this.get("name");
-    if (!value || value.kind == ValueKind.NULL) {
-      throw new Error("Cannot return null for a required field.");
-    } else {
-      return value.toString();
-    }
-  }
-
-  set name(value: string) {
-    this.set("name", Value.fromString(value));
   }
 
   get donations(): Array<string> {
@@ -175,17 +225,17 @@ export class Donation extends Entity {
     this.set("amount", Value.fromBigInt(value));
   }
 
-  get campaign(): Bytes {
+  get campaign(): string {
     let value = this.get("campaign");
     if (!value || value.kind == ValueKind.NULL) {
       throw new Error("Cannot return null for a required field.");
     } else {
-      return value.toBytes();
+      return value.toString();
     }
   }
 
-  set campaign(value: Bytes) {
-    this.set("campaign", Value.fromBytes(value));
+  set campaign(value: string) {
+    this.set("campaign", Value.fromString(value));
   }
 
   get user(): Bytes {
@@ -284,17 +334,17 @@ export class Message extends Entity {
     this.set("user", Value.fromBytes(value));
   }
 
-  get campaign(): Bytes {
+  get campaign(): string {
     let value = this.get("campaign");
     if (!value || value.kind == ValueKind.NULL) {
       throw new Error("Cannot return null for a required field.");
     } else {
-      return value.toBytes();
+      return value.toString();
     }
   }
 
-  set campaign(value: Bytes) {
-    this.set("campaign", Value.fromBytes(value));
+  set campaign(value: string) {
+    this.set("campaign", Value.fromString(value));
   }
 }
 
@@ -355,5 +405,18 @@ export class User extends Entity {
     } else {
       return value.toStringArray();
     }
+  }
+
+  get metadata(): Bytes {
+    let value = this.get("metadata");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set metadata(value: Bytes) {
+    this.set("metadata", Value.fromBytes(value));
   }
 }

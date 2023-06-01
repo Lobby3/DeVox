@@ -112,12 +112,6 @@
         "internalType": "uint256",
         "name": "target",
         "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "string",
-        "name": "name",
-        "type": "string"
       }
     ],
     "name": "SummonComplete",
@@ -208,11 +202,6 @@
         "internalType": "uint256",
         "name": "_target",
         "type": "uint256"
-      },
-      {
-        "internalType": "string",
-        "name": "_name",
-        "type": "string"
       }
     ],
     "name": "summonDeVoxShaman",

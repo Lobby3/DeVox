@@ -71,32 +71,36 @@ export class DonationReceived__Params {
     return this._event.parameters[1].value.toAddress();
   }
 
-  get amount(): BigInt {
+  get id(): BigInt {
     return this._event.parameters[2].value.toBigInt();
   }
 
-  get total(): BigInt {
+  get amount(): BigInt {
     return this._event.parameters[3].value.toBigInt();
   }
 
-  get target(): BigInt {
+  get total(): BigInt {
     return this._event.parameters[4].value.toBigInt();
   }
 
-  get balance(): BigInt {
+  get target(): BigInt {
     return this._event.parameters[5].value.toBigInt();
   }
 
-  get lootIssued(): BigInt {
+  get balance(): BigInt {
     return this._event.parameters[6].value.toBigInt();
   }
 
-  get sharesIssued(): BigInt {
+  get lootIssued(): BigInt {
     return this._event.parameters[7].value.toBigInt();
   }
 
+  get sharesIssued(): BigInt {
+    return this._event.parameters[8].value.toBigInt();
+  }
+
   get message(): string {
-    return this._event.parameters[8].value.toString();
+    return this._event.parameters[9].value.toString();
   }
 }
 
@@ -153,12 +157,16 @@ export class TargetUpdated__Params {
     this._event = event;
   }
 
-  get target(): BigInt {
+  get id(): BigInt {
     return this._event.parameters[0].value.toBigInt();
   }
 
-  get balance(): BigInt {
+  get target(): BigInt {
     return this._event.parameters[1].value.toBigInt();
+  }
+
+  get balance(): BigInt {
+    return this._event.parameters[2].value.toBigInt();
   }
 }
 
@@ -177,6 +185,32 @@ export class Upgraded__Params {
 
   get implementation(): Address {
     return this._event.parameters[0].value.toAddress();
+  }
+}
+
+export class UserWhitelisted extends ethereum.Event {
+  get params(): UserWhitelisted__Params {
+    return new UserWhitelisted__Params(this);
+  }
+}
+
+export class UserWhitelisted__Params {
+  _event: UserWhitelisted;
+
+  constructor(event: UserWhitelisted) {
+    this._event = event;
+  }
+
+  get user(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+
+  get status(): boolean {
+    return this._event.parameters[1].value.toBoolean();
+  }
+
+  get metadata(): Bytes {
+    return this._event.parameters[2].value.toBytes();
   }
 }
 
@@ -242,14 +276,14 @@ export class DeVoxShamanV1 extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBigInt());
   }
 
-  lootPerUnit(): BigInt {
-    let result = super.call("lootPerUnit", "lootPerUnit():(uint256)", []);
+  id(): BigInt {
+    let result = super.call("id", "id():(uint256)", []);
 
     return result[0].toBigInt();
   }
 
-  try_lootPerUnit(): ethereum.CallResult<BigInt> {
-    let result = super.tryCall("lootPerUnit", "lootPerUnit():(uint256)", []);
+  try_id(): ethereum.CallResult<BigInt> {
+    let result = super.tryCall("id", "id():(uint256)", []);
     if (result.reverted) {
       return new ethereum.CallResult();
     }
@@ -306,29 +340,6 @@ export class DeVoxShamanV1 extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBytes());
   }
 
-  sharesPerMember(): BigInt {
-    let result = super.call(
-      "sharesPerMember",
-      "sharesPerMember():(uint256)",
-      []
-    );
-
-    return result[0].toBigInt();
-  }
-
-  try_sharesPerMember(): ethereum.CallResult<BigInt> {
-    let result = super.tryCall(
-      "sharesPerMember",
-      "sharesPerMember():(uint256)",
-      []
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBigInt());
-  }
-
   target(): BigInt {
     let result = super.call("target", "target():(uint256)", []);
 
@@ -357,6 +368,25 @@ export class DeVoxShamanV1 extends ethereum.SmartContract {
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toAddress());
+  }
+
+  tokensPerUnit(): BigInt {
+    let result = super.call("tokensPerUnit", "tokensPerUnit():(uint256)", []);
+
+    return result[0].toBigInt();
+  }
+
+  try_tokensPerUnit(): ethereum.CallResult<BigInt> {
+    let result = super.tryCall(
+      "tokensPerUnit",
+      "tokensPerUnit():(uint256)",
+      []
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBigInt());
   }
 
   version(): BigInt {
@@ -490,15 +520,15 @@ export class InitializeCall__Inputs {
     return this._call.inputValues[1].value.toAddress();
   }
 
-  get _pricePerUnit(): BigInt {
+  get _id(): BigInt {
     return this._call.inputValues[2].value.toBigInt();
   }
 
-  get _lootPerUnit(): BigInt {
+  get _pricePerUnit(): BigInt {
     return this._call.inputValues[3].value.toBigInt();
   }
 
-  get _sharesPerMember(): BigInt {
+  get _tokensPerUnit(): BigInt {
     return this._call.inputValues[4].value.toBigInt();
   }
 
@@ -687,6 +717,40 @@ export class UpgradeToAndCallCall__Outputs {
   _call: UpgradeToAndCallCall;
 
   constructor(call: UpgradeToAndCallCall) {
+    this._call = call;
+  }
+}
+
+export class WhitelistCall extends ethereum.Call {
+  get inputs(): WhitelistCall__Inputs {
+    return new WhitelistCall__Inputs(this);
+  }
+
+  get outputs(): WhitelistCall__Outputs {
+    return new WhitelistCall__Outputs(this);
+  }
+}
+
+export class WhitelistCall__Inputs {
+  _call: WhitelistCall;
+
+  constructor(call: WhitelistCall) {
+    this._call = call;
+  }
+
+  get _status(): boolean {
+    return this._call.inputValues[0].value.toBoolean();
+  }
+
+  get _metadata(): Bytes {
+    return this._call.inputValues[1].value.toBytes();
+  }
+}
+
+export class WhitelistCall__Outputs {
+  _call: WhitelistCall;
+
+  constructor(call: WhitelistCall) {
     this._call = call;
   }
 }

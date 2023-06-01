@@ -31,9 +31,10 @@ contract DeVoxShamanSummonerV1 is
     /// @param shaman Shaman contract address
     /// @param token ERC20 token address
     /// @param id Id of the campaign
-    /// @param pricePerUnit Raw amount of ERC20 required for 1 USD
-    /// @param tokensPerUnit Amount of tokens issued per 1 USD
-    /// @param target Target amount of USD to be raised
+    /// @param name Name of the campaign
+    /// @param pricePerUnit Raw amount of ERC20 required per accounting unit (USD)
+    /// @param tokensPerUnit Amount of tokens issued per accounting unit (USD)
+    /// @param target Target amount of accounting unit to be raised
     event SummonComplete(
         address indexed baal,
         address shaman,
@@ -41,7 +42,8 @@ contract DeVoxShamanSummonerV1 is
         uint256 id,
         uint256 pricePerUnit,
         uint256 tokensPerUnit,
-        uint256 target
+        uint256 target,
+        string name
     );
 
     /// @notice Contract constructor logic
@@ -63,7 +65,8 @@ contract DeVoxShamanSummonerV1 is
         address payable _token,
         uint256 _pricePerUnit,
         uint256 _tokensPerUnit,
-        uint256 _target
+        uint256 _target,
+        string memory _name
     ) public returns (address) {
         _id = _id + 1;
 
@@ -89,7 +92,8 @@ contract DeVoxShamanSummonerV1 is
             _id,
             _pricePerUnit,
             _tokensPerUnit,
-            _target
+            _target,
+            _name
         );
 
         return shaman;

@@ -1,6 +1,6 @@
 specVersion: 0.0.5
 schema:
-  file: ./schema.graphql
+  file: schema.graphql
 dataSources:
   - kind: ethereum
     name: BaalSummonerV1
@@ -24,7 +24,7 @@ dataSources:
         - Upgraded
       abis:
         - name: BaalSummonerV1
-          file: ./abis/BaalSummonerV1.json
+          file: BaalSummonerV1/abis/BaalSummonerV1.json
       eventHandlers:
         - event: BeaconUpgraded(indexed address)
           handler: handleBeaconUpgraded
@@ -44,7 +44,7 @@ dataSources:
           handler: handleSummonBaal
         - event: Upgraded(indexed address)
           handler: handleUpgraded
-      file: ./src/baal-summoner-v-1.ts
+      file: BaalSummonerV1/BaalSummonerV1.wasm
   - kind: ethereum
     name: DeVoxShamanSummonerV1
     network: hardhat
@@ -63,7 +63,7 @@ dataSources:
         - Upgraded
       abis:
         - name: DeVoxShamanSummonerV1
-          file: ./abis/DeVoxShamanSummonerV1.json
+          file: DeVoxShamanSummonerV1/abis/DeVoxShamanSummonerV1.json
       eventHandlers:
         - event: BeaconUpgraded(indexed address)
           handler: handleBeaconUpgraded
@@ -71,17 +71,16 @@ dataSources:
           handler: handleInitialized
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
-        - event: SummonComplete(indexed address,address,address,uint256,uint256,uint256,uint256,string)
+        - event: SummonComplete(indexed address,address,address,uint256,uint256,uint256,uint256)
           handler: handleSummonComplete
         - event: Upgraded(indexed address)
           handler: handleUpgraded
-      file: ./src/de-vox-shaman-summoner-v-1.ts
+      file: DeVoxShamanSummonerV1/DeVoxShamanSummonerV1.wasm
 templates:
   - kind: ethereum
     name: BaalV1
     network: hardhat
     source:
-      # address: "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9"
       abi: BaalV1
     mapping:
       kind: ethereum/events
@@ -112,7 +111,7 @@ templates:
         - TargetSet
       abis:
         - name: BaalV1
-          file: ./abis/BaalV1.json
+          file: BaalV1/abis/BaalV1.json
       eventHandlers:
         - event: Approval(indexed address,indexed address,uint256)
           handler: handleApproval
@@ -150,18 +149,18 @@ templates:
           handler: handleSharesPaused
         - event: SponsorProposal(indexed address,indexed uint256,indexed uint256)
           handler: handleSponsorProposal
-        - event: SubmitProposal(indexed uint256,indexed bytes32,uint256,bytes,uint256,uint256,bool,uint256,string)
+        - event: SubmitProposal(indexed uint256,indexed
+            bytes32,uint256,bytes,uint256,uint256,bool,uint256,string)
           handler: handleSubmitProposal
         - event: SubmitVote(indexed address,uint256,indexed uint256,indexed bool)
           handler: handleSubmitVote
         - event: TargetSet(indexed address,indexed address)
           handler: handleTargetSet
-      file: ./src/baal-v-1.ts
+      file: templates/BaalV1/BaalV1.wasm
   - kind: ethereum
     name: DeVoxShamanV1
     network: hardhat
     source:
-      # address: "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853"
       abi: DeVoxShamanV1
     mapping:
       kind: ethereum/events
@@ -176,13 +175,14 @@ templates:
         - Upgraded
       abis:
         - name: DeVoxShamanV1
-          file: ./abis/DeVoxShamanV1.json
+          file: DeVoxShamanV1/abis/DeVoxShamanV1.json
       eventHandlers:
         - event: AdminChanged(address,address)
           handler: handleAdminChanged
         - event: BeaconUpgraded(indexed address)
           handler: handleBeaconUpgraded
-        - event: DonationReceived(indexed address,address,uint256,uint256,uint256,uint256,uint256,uint256,uint256,string)
+        - event: DonationReceived(indexed
+            address,address,uint256,uint256,uint256,uint256,uint256,uint256,uint256,string)
           handler: handleDonationReceived
         - event: Initialized(uint8)
           handler: handleInitialized
@@ -192,4 +192,4 @@ templates:
           handler: handleUpgraded
         - event: UserWhitelisted(indexed address,bool,bytes)
           handler: handleUserWhitelisted
-      file: ./src/de-vox-shaman-v-1.ts
+      file: templates/DeVoxShamanV1/DeVoxShamanV1.wasm

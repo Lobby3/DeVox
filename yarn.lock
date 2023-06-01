@@ -2440,7 +2440,7 @@
     "@openzeppelin/contracts-upgradeable" "^4.8.1"
     ethers "^5.7.1"
 
-"@graphprotocol/graph-cli@^0.49.0":
+"@graphprotocol/graph-cli@0.49.0", "@graphprotocol/graph-cli@^0.49.0":
   version "0.49.0"
   resolved "https://registry.yarnpkg.com/@graphprotocol/graph-cli/-/graph-cli-0.49.0.tgz#bf516801ea3e479c96dbcc508f569e36bf0cb055"
   integrity sha512-UZsMTcTZN/EFT/1t8Z253ZtEZXqYQIWKbSox+Q6Fu4bzkK7LlKtoKKrOhxqMfSe2jewFKkCQkVWVC4tXoN+sVQ==
@@ -2471,6 +2471,20 @@
     web3-eth-abi "1.7.0"
     which "2.0.2"
     yaml "1.10.2"
+
+"@graphprotocol/graph-ts@0.29.1":
+  version "0.29.1"
+  resolved "https://registry.yarnpkg.com/@graphprotocol/graph-ts/-/graph-ts-0.29.1.tgz#8f8fb6815fc4a7470bb8aff8004f032a2639300b"
+  integrity sha512-GhAP2ijk3cTM0xBjoAFxEmdZbYl1BueCYqAGw5G7UyBX3EV8FWkvD5DMam6IkLGqXasBmelCFrROK3B5t6zVdg==
+  dependencies:
+    assemblyscript "0.19.10"
+
+"@graphprotocol/graph-ts@^0.27.0":
+  version "0.27.0"
+  resolved "https://registry.yarnpkg.com/@graphprotocol/graph-ts/-/graph-ts-0.27.0.tgz#948fe1716f6082964a01a63a19bcbf9ac44e06ff"
+  integrity sha512-r1SPDIZVQiGMxcY8rhFSM0y7d/xAbQf5vHMWUf59js1KgoyWpM6P3tczZqmQd7JTmeyNsDGIPzd9FeaxllsU4w==
+  dependencies:
+    assemblyscript "0.19.10"
 
 "@graphprotocol/graph-ts@^0.30.0":
   version "0.30.0"
@@ -5929,7 +5943,7 @@ assemblyscript@0.19.10:
     binaryen "101.0.0-nightly.20210723"
     long "^4.0.0"
 
-assemblyscript@0.19.23:
+assemblyscript@0.19.23, assemblyscript@^0.19.20:
   version "0.19.23"
   resolved "https://registry.yarnpkg.com/assemblyscript/-/assemblyscript-0.19.23.tgz#16ece69f7f302161e2e736a0f6a474e6db72134c"
   integrity sha512-fwOQNZVTMga5KRsfY80g7cpOl4PsFQczMwHzdtgoqLXaYhkhavufKb0sB0l3T1DUxpAufA0KNhlbpuuhZUwxMA==
@@ -12039,6 +12053,22 @@ match-all@^1.2.6:
   resolved "https://registry.yarnpkg.com/match-all/-/match-all-1.2.6.tgz#66d276ad6b49655551e63d3a6ee53e8be0566f8d"
   integrity sha512-0EESkXiTkWzrQQntBu2uzKvLu6vVkUGz40nGPbSZuegcfE5UuSzNjLaIu76zJWuaT/2I3Z/8M06OlUOZLGwLlQ==
 
+matchstick-as@0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/matchstick-as/-/matchstick-as-0.5.0.tgz#cdafc1ef49d670b9cbe98e933bc2a5cb7c450aeb"
+  integrity sha512-4K619YDH+so129qt4RB4JCNxaFwJJYLXPc7drpG+/mIj86Cfzg6FKs/bA91cnajmS1CLHdhHl9vt6Kd6Oqvfkg==
+  dependencies:
+    "@graphprotocol/graph-ts" "^0.27.0"
+    assemblyscript "^0.19.20"
+    wabt "1.0.24"
+
+matchstick-as@^0.5.2:
+  version "0.5.2"
+  resolved "https://registry.yarnpkg.com/matchstick-as/-/matchstick-as-0.5.2.tgz#6a6dde02d1d939c32458bd67bac688891a07a34c"
+  integrity sha512-fb1OVphDKEvJY06Ue02Eh1CNncuW95vp6b8tNAP7UIqplICSLoU/zgN6U7ge7R0upsoO78C7CRi4EyK/7Jxz7g==
+  dependencies:
+    wabt "1.0.24"
+
 mcl-wasm@^0.7.1:
   version "0.7.9"
   resolved "https://registry.yarnpkg.com/mcl-wasm/-/mcl-wasm-0.7.9.tgz#c1588ce90042a8700c3b60e40efb339fc07ab87f"
@@ -16397,6 +16427,11 @@ w3c-xmlserializer@^4.0.0:
   integrity sha512-d+BFHzbiCx6zGfz0HyQ6Rg69w9k19nviJspaj4yNscGjrHu94sVP+aRm75yEbCh+r2/yR+7q6hux9LVtbuTGBw==
   dependencies:
     xml-name-validator "^4.0.0"
+
+wabt@1.0.24:
+  version "1.0.24"
+  resolved "https://registry.yarnpkg.com/wabt/-/wabt-1.0.24.tgz#c02e0b5b4503b94feaf4a30a426ef01c1bea7c6c"
+  integrity sha512-8l7sIOd3i5GWfTWciPL0+ff/FK/deVK2Q6FN+MPz4vfUcD78i2M/49XJTwF6aml91uIiuXJEsLKWMB2cw/mtKg==
 
 watchpack-chokidar2@^2.0.1:
   version "2.0.1"
