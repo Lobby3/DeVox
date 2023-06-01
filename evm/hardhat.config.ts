@@ -138,14 +138,6 @@ const config: HardhatUserConfig = {
       },
     ],
   },
-  // subgraph: {
-  //   name: "DeVox",
-  //   product: "subgraph-studio",
-  //   indexEvents: true,
-  // },
-  // paths: {
-  //   subgraph: "../packages/subgraph", // Defaults to './subgraph'
-  // },
   abiExporter: {
     path: "./abi",
     clear: true,

@@ -51,6 +51,7 @@ export interface DeVoxShamanV1Interface extends utils.Interface {
     "upgradeTo(address)": FunctionFragment;
     "upgradeToAndCall(address,bytes)": FunctionFragment;
     "version()": FunctionFragment;
+    "whitelist(bool,bytes)": FunctionFragment;
   };
 
   getFunction(
@@ -74,6 +75,7 @@ export interface DeVoxShamanV1Interface extends utils.Interface {
       | "upgradeTo"
       | "upgradeToAndCall"
       | "version"
+      | "whitelist"
   ): FunctionFragment;
 
   encodeFunctionData(functionFragment: "baal", values?: undefined): string;
@@ -141,6 +143,10 @@ export interface DeVoxShamanV1Interface extends utils.Interface {
     values: [PromiseOrValue<string>, PromiseOrValue<BytesLike>]
   ): string;
   encodeFunctionData(functionFragment: "version", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "whitelist",
+    values: [PromiseOrValue<boolean>, PromiseOrValue<BytesLike>]
+  ): string;
 
   decodeFunctionResult(functionFragment: "baal", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "donate", data: BytesLike): Result;
@@ -185,6 +191,7 @@ export interface DeVoxShamanV1Interface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "version", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "whitelist", data: BytesLike): Result;
 
   events: {
     "AdminChanged(address,address)": EventFragment;
@@ -194,6 +201,7 @@ export interface DeVoxShamanV1Interface extends utils.Interface {
     "OwnershipTransferred(address,address)": EventFragment;
     "TargetUpdated(uint256,uint256,uint256)": EventFragment;
     "Upgraded(address)": EventFragment;
+    "UserWhitelisted(address,bool,bytes)": EventFragment;
   };
 
   getEvent(nameOrSignatureOrTopic: "AdminChanged"): EventFragment;
@@ -203,6 +211,7 @@ export interface DeVoxShamanV1Interface extends utils.Interface {
   getEvent(nameOrSignatureOrTopic: "OwnershipTransferred"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "TargetUpdated"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "Upgraded"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "UserWhitelisted"): EventFragment;
 }
 
 export interface AdminChangedEventObject {
@@ -294,6 +303,18 @@ export interface UpgradedEventObject {
 export type UpgradedEvent = TypedEvent<[string], UpgradedEventObject>;
 
 export type UpgradedEventFilter = TypedEventFilter<UpgradedEvent>;
+
+export interface UserWhitelistedEventObject {
+  user: string;
+  status: boolean;
+  metadata: string;
+}
+export type UserWhitelistedEvent = TypedEvent<
+  [string, boolean, string],
+  UserWhitelistedEventObject
+>;
+
+export type UserWhitelistedEventFilter = TypedEventFilter<UserWhitelistedEvent>;
 
 export interface DeVoxShamanV1 extends BaseContract {
   connect(signerOrProvider: Signer | Provider | string): this;
@@ -393,6 +414,12 @@ export interface DeVoxShamanV1 extends BaseContract {
     ): Promise<ContractTransaction>;
 
     version(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    whitelist(
+      _status: PromiseOrValue<boolean>,
+      _metadata: PromiseOrValue<BytesLike>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
   };
 
   baal(overrides?: CallOverrides): Promise<string>;
@@ -467,6 +494,12 @@ export interface DeVoxShamanV1 extends BaseContract {
 
   version(overrides?: CallOverrides): Promise<BigNumber>;
 
+  whitelist(
+    _status: PromiseOrValue<boolean>,
+    _metadata: PromiseOrValue<BytesLike>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
   callStatic: {
     baal(overrides?: CallOverrides): Promise<string>;
 
@@ -493,7 +526,7 @@ export interface DeVoxShamanV1 extends BaseContract {
       _tokensPerUnit: PromiseOrValue<BigNumberish>,
       _target: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
-    ): Promise<boolean>;
+    ): Promise<void>;
 
     owner(overrides?: CallOverrides): Promise<string>;
 
@@ -533,6 +566,12 @@ export interface DeVoxShamanV1 extends BaseContract {
     ): Promise<void>;
 
     version(overrides?: CallOverrides): Promise<BigNumber>;
+
+    whitelist(
+      _status: PromiseOrValue<boolean>,
+      _metadata: PromiseOrValue<BytesLike>,
+      overrides?: CallOverrides
+    ): Promise<void>;
   };
 
   filters: {
@@ -606,6 +645,17 @@ export interface DeVoxShamanV1 extends BaseContract {
     Upgraded(
       implementation?: PromiseOrValue<string> | null
     ): UpgradedEventFilter;
+
+    "UserWhitelisted(address,bool,bytes)"(
+      user?: PromiseOrValue<string> | null,
+      status?: null,
+      metadata?: null
+    ): UserWhitelistedEventFilter;
+    UserWhitelisted(
+      user?: PromiseOrValue<string> | null,
+      status?: null,
+      metadata?: null
+    ): UserWhitelistedEventFilter;
   };
 
   estimateGas: {
@@ -680,6 +730,12 @@ export interface DeVoxShamanV1 extends BaseContract {
     ): Promise<BigNumber>;
 
     version(overrides?: CallOverrides): Promise<BigNumber>;
+
+    whitelist(
+      _status: PromiseOrValue<boolean>,
+      _metadata: PromiseOrValue<BytesLike>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
   };
 
   populateTransaction: {
@@ -754,5 +810,11 @@ export interface DeVoxShamanV1 extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     version(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    whitelist(
+      _status: PromiseOrValue<boolean>,
+      _metadata: PromiseOrValue<BytesLike>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
   };
 }

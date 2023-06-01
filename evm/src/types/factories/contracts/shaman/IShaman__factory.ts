@@ -63,13 +63,25 @@ const _abi = [
       },
     ],
     name: "initialize",
-    outputs: [
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
       {
         internalType: "bool",
-        name: "",
+        name: "_status",
         type: "bool",
       },
+      {
+        internalType: "bytes",
+        name: "_metadata",
+        type: "bytes",
+      },
     ],
+    name: "whitelist",
+    outputs: [],
     stateMutability: "nonpayable",
     type: "function",
   },

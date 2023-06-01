@@ -9,14 +9,12 @@ import setupTest, { defaultSummonArgs } from "./setup";
 use(solidity);
 
 describe(ContractNames.DeVoxShaman, function () {
-  it("should deploy with correct parameters", async function () {
+  it.only("should deploy with correct parameters", async function () {
     const {
       default: { shaman },
     } = await setupTest({ shamanArgs: defaultSummonArgs });
 
     const { pricePerUnit, tokensPerUnit, target } = defaultSummonArgs;
-
-    console.log("shaman.address: ", shaman.address);
 
     const shamanPricePerUnit = await shaman.pricePerUnit();
     expect(shamanPricePerUnit).to.equal(pricePerUnit, "pricePerUnit!");
@@ -28,34 +26,47 @@ describe(ContractNames.DeVoxShaman, function () {
     expect(shamanTokensPerUnit).to.equal(tokensPerUnit, "tokensPerUnit!");
   });
 
-  it("should mint shares & loot on donate", async function () {
+  it.only("should only allow whitelisted sender to donate", async function () {
     const {
-      deployer: { token: deployerToken },
+      user: { shaman },
+    } = await setupTest({ shamanArgs: defaultSummonArgs });
+
+    const amount = ethers.utils.parseUnits("100", "ether");
+    
+    await expect(shaman.donate(amount, "hello")).to.be.revertedWith(
+      "user not whitelisted"
+    );
+  });
+
+  it.only("should mint shares on donate", async function () {
+    const {
+      deployer: { token: deployerToken, safe },
       user: { address: userAddress, baal, loot, shaman, shares, token },
     } = await setupTest({ shamanArgs: defaultSummonArgs });
 
     const { pricePerUnit, tokensPerUnit, target } = defaultSummonArgs;
 
-    await deployerToken.transfer(
-      userAddress,
-      ethers.utils.parseUnits("10000.0", "ether")
-    );
+    await shaman.whitelist(true, ethers.utils.randomBytes(256));
 
-    console.log("shaman.address: ", shaman.address);
+    let total = BigNumber.from(0);
 
     const testDonate = async (donation: string) => {
       const amount = ethers.utils.parseUnits(donation, "ether");
+      await deployerToken.transfer(userAddress, amount);
       await token.approve(shaman.address, amount);
 
       const userBalanceBefore = await token.balanceOf(userAddress);
       const userSharesBefore = await shares.balanceOf(userAddress);
       const userLootBefore = await loot.balanceOf(userAddress);
-      const remainingBefore = BigNumber.from(target).sub(userLootBefore);
       const baalTotalLootBefore = await baal.totalLoot();
       const baalTotalSharesBefore = await baal.totalShares();
-      const newLoot = amount.div(pricePerUnit).mul(tokensPerUnit);
-      const newShares = sqrt(amount).div(pricePerUnit).mul(tokensPerUnit);
+      const newLoot = 0;
+      const sqrtAmount = sqrt(amount);
+      expect(sqrtAmount.mul(sqrtAmount)).to.equal(amount, "sqrt(amount)");
+      const newShares = sqrt(amount.div(pricePerUnit)).mul(tokensPerUnit);
       const msg = "hello";
+
+      total = total.add(amount);
 
       await expect(shaman.donate(amount, msg))
         .to.emit(shaman, "DonationReceived")
@@ -64,9 +75,9 @@ describe(ContractNames.DeVoxShaman, function () {
           baal.address,
           1, // devoxShamanId,
           amount,
-          amount,
+          total, // wallet total donated
           target,
-          remainingBefore.sub(amount),
+          total, // campaign total donated
           newLoot,
           newShares,
           msg
@@ -77,33 +88,32 @@ describe(ContractNames.DeVoxShaman, function () {
       const userSharesAfter = await shares.balanceOf(userAddress);
       const baalTotalLootAfter = await baal.totalLoot();
       const baalTotalSharesAfter = await baal.totalShares();
+      const campaignTotalDonated = await token.balanceOf(await baal.target());
 
-      expect(userLootAfter).to.equal(
-        userLootBefore.add(newLoot),
-        "s2LootAfter"
-      ); // donation * tokensPerUnit Loots
+      expect(userLootAfter).to.equal(userLootBefore.add(newLoot), "loot!"); // zero
       expect(userSharesAfter).to.equal(
         userSharesBefore.add(newShares),
-        "s2SharesAfter"
+        "shares!"
       ); // sqrt(donation) * tokensPerUnit Shares
       expect(userBalanceAfter).to.equal(
         userBalanceBefore.sub(amount),
-        "s2BalanceAfter"
+        "balance!"
       );
       expect(baalTotalLootAfter).to.equal(
         baalTotalLootBefore.add(newLoot),
-        "baalTotalSharesAfter"
+        "baalTotalLoot!"
       );
       expect(baalTotalSharesAfter).to.equal(
         baalTotalSharesBefore.add(userSharesAfter.sub(userSharesBefore)),
-        "baalTotalSharesAfter"
+        "baalTotalShares!"
       );
+      expect(campaignTotalDonated).to.equal(total, "campaignTotalDonated!");
     };
 
     await testDonate("1");
 
-    // await testDonate("100");
+    await testDonate("100");
 
-    // await testDonate("10000");
+    await testDonate("10000");
   });
 });

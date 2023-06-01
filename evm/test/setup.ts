@@ -69,7 +69,7 @@ export const defaultGovernanceSettings: GovernanceSettings = {
 export const defaultSummonArgs: DeVoxShamanSummonArgs = {
   pricePerUnit: ethers.utils.parseUnits("1", "ether"),
   tokensPerUnit: "100",
-  target: "100000",
+  target: ethers.utils.parseUnits("100000", "ether"),
 };
 
 async function blockTime() {
@@ -121,14 +121,14 @@ const summonDeVoxShaman = async function (
   baal: Baal,
   token: ERC20
 ) {
-  console.log(
-    "Summoning DeVoxShaman...",
-    baal.address,
-    token.address,
-    deVoxShamanArgs.pricePerUnit,
-    deVoxShamanArgs.tokensPerUnit,
-    deVoxShamanArgs.target
-  );
+  // console.log(
+  //   "Summoning DeVoxShaman...",
+  //   baal.address,
+  //   token.address,
+  //   deVoxShamanArgs.pricePerUnit,
+  //   deVoxShamanArgs.tokensPerUnit,
+  //   deVoxShamanArgs.target
+  // );
   const summondeVoxShaman = await deVoxShamanSummoner.summonDeVoxShaman(
     baal.address,
     token.address,
@@ -313,14 +313,11 @@ const setupTest = deployments.createFixture<
     ethers.constants.AddressZero
   );
 
-  // console.log("pre-summon Baal");
-
   const tx = await baalSummoner.summonBaal(
     encodedInitParams.initParams,
     encodedInitParams.initalizationActions,
     101
   );
-  // console.log("post-summon Baal");
   const addresses = await getNewBaalAddresses(tx);
 
   const baal = baalSingleton.attach(addresses.baal);
@@ -360,13 +357,11 @@ const setupTest = deployments.createFixture<
   //     baalGas: 0,
   //   };
 
-  // console.log("pre-fetch DeVoxShamanSummoner");
   const shamanSummoner: DeVoxShamanSummoner = await ethers.getContract(
     ContractNames.DeVoxShamanSummoner
   );
   expect(shamanSummoner.address).to.be.properAddress;
 
-  // console.log("pre-summon DeVoxShaman");
   const shaman: DeVoxShaman = await summonDeVoxShaman(
     shamanArgs,
     multisend,
@@ -375,7 +370,7 @@ const setupTest = deployments.createFixture<
     baal,
     tokenSingleton
   );
-  console.log("summoned DeVoxShaman at: ", shaman.address);
+  // console.log("summoned DeVoxShaman at: ", shaman.address);
 
   // Account config
   const setupAddress = async (address: string) => {
