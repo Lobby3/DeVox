@@ -7,12 +7,14 @@
   },
   "private": true,
   "dependencies": {
+    "@nx/devkit": "^16.3.0",
+    "@nx/workspace": "^16.3.0",
     "tslib": "^2.3.0"
   },
   "devDependencies": {
     "@nx/cypress": "16.0.3",
     "@nx/eslint-plugin": "16.0.3",
-    "@nx/js": "16.1.4",
+    "@nx/js": "^16.3.0",
     "@nx/linter": "16.0.3",
     "@nx/react": "^16.0.3",
     "@nx/vite": "16.0.3",

@@ -1,16 +1,16 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 pragma solidity ^0.8.12;
 
-import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
-import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
-import "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";
-import "@openzeppelin/contracts-upgradeable/security/ReentrancyGuardUpgradeable.sol";
-import "@openzeppelin/contracts/proxy/Clones.sol";
+import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import {OwnableUpgradeable} from "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
+import {Initializable} from "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
+import {UUPSUpgradeable} from "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";
+import {ReentrancyGuardUpgradeable} from "@openzeppelin/contracts-upgradeable/security/ReentrancyGuardUpgradeable.sol";
+import {Clones} from "@openzeppelin/contracts/proxy/Clones.sol";
 
-import "../fixtures/Baal/interfaces/IBaal.sol";
-import "../lib/FixedPointMathLib.sol";
-import "./IShaman.sol";
+import {IBaal} from "../fixtures/Baal/interfaces/IBaal.sol";
+import {FixedPointMathLib} from "../lib/FixedPointMathLib.sol";
+import {IShaman} from "./IShaman.sol";
 
 // import "hardhat/console.sol";
 
@@ -121,7 +121,10 @@ contract DeVoxShamanV1 is
     /// Whitelist a user, enabling them to join the DAO
     /// @param _status whitelist status
     /// @param _metadata user metadata
-    function whitelist(bool _status, bytes calldata _metadata) external override {
+    function whitelist(
+        bool _status,
+        bytes calldata _metadata
+    ) external override {
         require(
             _whitelist[msg.sender] != _status,
             "whitelist status unchanged"
