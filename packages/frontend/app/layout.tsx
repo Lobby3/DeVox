@@ -3,7 +3,6 @@
 import { Footer } from "./Footer";
 import { Header } from "./Header";
 import "./global.css";
-import "./page.module.scss";
 import { Providers } from "./providers";
 
 // export const metadata = {
