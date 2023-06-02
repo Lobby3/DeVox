@@ -28,7 +28,7 @@ jobs:
 
       - name: "Copy config"
         run: |
-          mv ./.env.github .env
+          mv ./evm/.env.github ./evm/.env
           echo "::debug::$(less .env)"
 
       - name: "Install the dependencies"
