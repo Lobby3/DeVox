@@ -31,10 +31,10 @@ contract DeVoxShamanSummonerV1 is
     /// @param shaman Shaman contract address
     /// @param token ERC20 token address
     /// @param id Id of the campaign
-    /// @param name Name of the campaign
     /// @param pricePerUnit Raw amount of ERC20 required per accounting unit (USD)
     /// @param tokensPerUnit Amount of tokens issued per accounting unit (USD)
     /// @param target Target amount of accounting unit to be raised
+    /// @param name Name of the campaign
     event SummonComplete(
         address indexed baal,
         address shaman,

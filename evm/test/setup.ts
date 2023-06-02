@@ -1,6 +1,7 @@
 import { expect } from "chai";
 import { BigNumber, BigNumberish, ContractTransaction } from "ethers";
 import { deployments, ethers } from "hardhat";
+import { d } from "vitest/dist/index-5aad25c1";
 
 import {
   Baal,
@@ -52,6 +53,7 @@ export type DeVoxShamanSummonArgs = {
   pricePerUnit: BigNumberish;
   tokensPerUnit: BigNumberish;
   target: BigNumberish;
+  name: string;
 };
 
 export const defaultGovernanceSettings: GovernanceSettings = {
@@ -70,6 +72,7 @@ export const defaultSummonArgs: DeVoxShamanSummonArgs = {
   pricePerUnit: ethers.utils.parseUnits("1", "ether"),
   tokensPerUnit: "100",
   target: ethers.utils.parseUnits("100000", "ether"),
+  name: "Sample Campaign",
 };
 
 async function blockTime() {
@@ -134,7 +137,8 @@ const summonDeVoxShaman = async function (
     token.address,
     deVoxShamanArgs.pricePerUnit,
     deVoxShamanArgs.tokensPerUnit,
-    deVoxShamanArgs.target
+    deVoxShamanArgs.target,
+    deVoxShamanArgs.name
   );
   const result = await summondeVoxShaman.wait();
   const events = result.events!;
