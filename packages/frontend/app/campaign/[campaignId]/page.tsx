@@ -2,22 +2,23 @@
 
 import {
   Box,
+  Button,
   Center,
   Flex,
-  Grid,
   GridItem,
+  HStack,
   Heading,
   Image,
   Progress,
+  SimpleGrid,
   Text,
   VStack,
 } from "@chakra-ui/react";
 import { CircleStackIcon, PencilSquareIcon } from "@heroicons/react/24/outline";
 import React from "react";
 
-import BodyContainer from "../../../components/body-container/body-container";
 import { useCampaignInfo } from "../../../hooks/campaign";
-import { lavender } from "../../../styles/colors";
+import { headerBackground, lavender } from "../../../styles/colors";
 
 export default async function Index({
   params,
@@ -38,31 +39,74 @@ export default async function Index({
   const progressValue = (campaign.total / campaign.target) * 100;
 
   return (
-    <BodyContainer>
-      <Grid width="100%" templateColumns={"repeat(4, 1fr)"}>
-        <GridItem colSpan={3}>
-          <VStack alignItems="flex-start" spacing={6}>
-            <Text>{campaign.shamanAddress}</Text>
-            <Image src={campaign.imageUrl} alt="" />
-            <Heading>{campaign.name}</Heading>
-            <Flex alignItems="center">
-              <PencilSquareIcon height="20px" width="20px" />
-              <Heading size={"sm"} ml={2} mr={12}>
-                {campaign.numberOfSigners} signers
-              </Heading>
-              <Heading size={"sm"} mr={2}>
-                ${campaign.total}/{campaign.target}
-              </Heading>
-              <Box width="200px" mr={2}>
-                <Progress colorScheme="devoxSuccess" value={progressValue} />
-              </Box>
-              <CircleStackIcon height={20} width={20} />
-            </Flex>
-            <Text>{campaign.description}</Text>
-          </VStack>
+    <>
+      <SimpleGrid columns={5} height={"100%"}>
+        <GridItem colSpan={3} p={"80px"}>
+          <Flex width={"100%"} justifyContent={"flex-end"}>
+            <VStack spacing={8} border={"1px solid black"} maxWidth={"960px"}>
+              <HStack
+                width={"100%"}
+                borderBottom={"1px solid black"}
+                marginLeft={"auto"}
+              >
+                <Image
+                  src={campaign.imageUrl}
+                  height="auto"
+                  width={"50%"}
+                  objectFit={"fill"}
+                />
+                <VStack
+                  px={"40px"}
+                  alignItems={"flex-start"}
+                  height={"100%"}
+                  justifyContent={"center"}
+                  spacing={6}
+                >
+                  <Heading size={"sm"}>{campaign.shamanAddress}</Heading>
+                  <Heading size={"xl"}>{campaign.name}</Heading>
+                  <Flex alignItems="center">
+                    <PencilSquareIcon height="20px" width="20px" />
+                    <Heading size={"sm"} ml={2} mr={12}>
+                      {campaign.numberOfSigners} signers
+                    </Heading>
+                  </Flex>
+                  <Flex alignItems={"center"}>
+                    <Heading size={"sm"} mr={2}>
+                      ${campaign.total}/{campaign.target}
+                    </Heading>
+                    <Box width="200px" mr={2}>
+                      <Progress
+                        colorScheme="devoxSuccess"
+                        value={progressValue}
+                      />
+                    </Box>
+                    <CircleStackIcon height={20} width={20} />
+                  </Flex>
+                </VStack>
+              </HStack>
+              <VStack
+                spacing={8}
+                alignItems={"flex-start"}
+                paddingX={"40px"}
+                paddingBottom={"40px"}
+              >
+                <HStack>
+                  <Button variant={"solid"}>Details</Button>
+                  <Button variant={"outline"}>Contributions</Button>
+                  <Button variant={"outline"}>Governance</Button>
+                </HStack>
+                <Text>{campaign.description}</Text>
+              </VStack>
+            </VStack>
+          </Flex>
         </GridItem>
-        <GridItem colSpan={1}>
-          <VStack width="fit-content" spacing={8}>
+        <GridItem
+          backgroundColor={headerBackground}
+          colSpan={2}
+          p={"80px"}
+          height={"100%"}
+        >
+          <VStack width="100%" spacing={8} alignItems={"flex-start"}>
             <CampaignInteractionButton
               onClick={() => console.log("Sign button clicked")}
               title="Sign"
@@ -80,8 +124,73 @@ export default async function Index({
             />
           </VStack>
         </GridItem>
-      </Grid>
-    </BodyContainer>
+      </SimpleGrid>
+      {/*<Flex width="100%" border={"1px solid black"} height={"680px"}>*/}
+      {/*  <Image*/}
+      {/*    src={campaign.imageUrl}*/}
+      {/*    height="680px"*/}
+      {/*    width={"50%"}*/}
+      {/*    objectFit={"cover"}*/}
+      {/*  />*/}
+      {/*  <VStack*/}
+      {/*    px={"40px"}*/}
+      {/*    alignItems={"flex-start"}*/}
+      {/*    height={"100%"}*/}
+      {/*    justifyContent={"center"}*/}
+      {/*    spacing={6}*/}
+      {/*  >*/}
+      {/*    <Heading size={"sm"}>{campaign.shamanAddress}</Heading>*/}
+      {/*    <Heading size={"xl"}>{campaign.name}</Heading>*/}
+      {/*    <Flex alignItems="center">*/}
+      {/*      <PencilSquareIcon height="20px" width="20px" />*/}
+      {/*      <Heading size={"sm"} ml={2} mr={12}>*/}
+      {/*        {campaign.numberOfSigners} signers*/}
+      {/*      </Heading>*/}
+      {/*    </Flex>*/}
+      {/*    <Flex alignItems={"center"}>*/}
+      {/*      <Heading size={"sm"} mr={2}>*/}
+      {/*        ${campaign.total}/{campaign.target}*/}
+      {/*      </Heading>*/}
+      {/*      <Box width="200px" mr={2}>*/}
+      {/*        <Progress colorScheme="devoxSuccess" value={progressValue} />*/}
+      {/*      </Box>*/}
+      {/*      <CircleStackIcon height={20} width={20} />*/}
+      {/*    </Flex>*/}
+      {/*    /!*<Text noOfLines={10}>{campaign.description}</Text>*!/*/}
+      {/*  </VStack>*/}
+      {/*</Flex>*/}
+      {/*<Box width={"100%"} backgroundColor={headerBackground}>*/}
+      {/*  <BodyContainer>*/}
+      {/*    <HStack width="100%" spacing={8}>*/}
+      {/*      <CampaignInteractionButton*/}
+      {/*        onClick={() => console.log("Sign button clicked")}*/}
+      {/*        title="Sign"*/}
+      {/*        icon={<PencilSquareIcon height="80px" width="80px" />}*/}
+      {/*        complete*/}
+      {/*        subtitle="You've signed"*/}
+      {/*      />*/}
+      {/*      <CampaignInteractionButton*/}
+      {/*        onClick={() => console.log("Sign button clicked")}*/}
+      {/*        title="Donate"*/}
+      {/*        subtitle="You have not donated"*/}
+      {/*        icon={*/}
+      {/*          <CircleStackIcon height="80px" width="80px" color={lavender} />*/}
+      {/*        }*/}
+      {/*      />*/}
+      {/*    </HStack>*/}
+      {/*  </BodyContainer>*/}
+      {/*</Box>*/}
+      {/*<BodyContainer>*/}
+      {/*  <VStack spacing={8} alignItems={"flex-start"}>*/}
+      {/*    <HStack>*/}
+      {/*      <Button variant={"solid"}>Details</Button>*/}
+      {/*      <Button variant={"outline"}>Contributions</Button>*/}
+      {/*      <Button variant={"outline"}>Governance</Button>*/}
+      {/*    </HStack>*/}
+      {/*    <Text>{campaign.description}</Text>*/}
+      {/*  </VStack>*/}
+      {/*</BodyContainer>*/}
+    </>
   );
 }
 
@@ -108,8 +217,9 @@ const CampaignInteractionButton = ({
       maxWidth={420}
       height={250}
       p="32px"
-      backgroundColor={complete ? lavender : "black"}
+      backgroundColor={complete ? lavender : headerBackground}
       justifyContent="center"
+      border={complete ? "none" : "1px solid white"}
       spacing={4}
     >
       <Heading textTransform={"uppercase"} color={complete ? "black" : "white"}>
