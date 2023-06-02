@@ -1,7 +1,6 @@
 import { expect } from "chai";
 import { BigNumber, BigNumberish, ContractTransaction } from "ethers";
 import { deployments, ethers } from "hardhat";
-import { d } from "vitest/dist/index-5aad25c1";
 
 import {
   Baal,
@@ -301,17 +300,19 @@ const setupTest = deployments.createFixture<
   );
   expect(safeSingleton.address).to.be.properAddress;
 
-  const deployerLoot = 500;
   const deployerShares = governanceSettings.SPONSOR_THRESHOLD * 2;
   const sharesPaused = false;
   const lootPaused = false;
+
+  const dead = "0x000000000000000000000000000000000000dEaD";
+  const deadLoot = 1000000000000000;
 
   const encodedInitParams = await getBaalParams(
     baalSingleton,
     governanceSettings,
     [sharesPaused, lootPaused],
     [[deployer], [deployerShares]],
-    [[deployer], [deployerLoot]],
+    [[dead], [deadLoot]],  // has the effect of disabling meaningful ragequit
     ethers.constants.AddressZero,
     ethers.constants.AddressZero,
     ethers.constants.AddressZero
