@@ -23,7 +23,7 @@ jobs:
       - name: "Install Node.js"
         uses: "actions/setup-node@v3"
         with:
-          cache: "yarn"
+          # cache: "yarn"
           node-version: "18"
 
       - name: "Copy config"
