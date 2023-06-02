@@ -1,5 +1,6 @@
 "use client";
 
+import { Footer } from "./Footer";
 import { Header } from "./Header";
 import "./global.css";
 import { Providers } from "./providers";
@@ -16,10 +17,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
+      <body className="body">
         <Providers>
           <Header />
-          <main>{children}</main>
+          <main style={{ maxWidth: "100vw", flexGrow: 1 }}>{children}</main>
+          <Footer />
         </Providers>
       </body>
     </html>
