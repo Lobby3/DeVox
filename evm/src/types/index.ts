@@ -82,6 +82,8 @@ export type { IERC1822ProxiableUpgradeable } from "./@openzeppelin/contracts-upg
 export { IERC1822ProxiableUpgradeable__factory } from "./factories/@openzeppelin/contracts-upgradeable/interfaces/draft-IERC1822Upgradeable.sol/IERC1822ProxiableUpgradeable__factory";
 export type { IERC1967Upgradeable } from "./@openzeppelin/contracts-upgradeable/interfaces/IERC1967Upgradeable";
 export { IERC1967Upgradeable__factory } from "./factories/@openzeppelin/contracts-upgradeable/interfaces/IERC1967Upgradeable__factory";
+export type { IERC5267Upgradeable } from "./@openzeppelin/contracts-upgradeable/interfaces/IERC5267Upgradeable";
+export { IERC5267Upgradeable__factory } from "./factories/@openzeppelin/contracts-upgradeable/interfaces/IERC5267Upgradeable__factory";
 export type { IBeaconUpgradeable } from "./@openzeppelin/contracts-upgradeable/proxy/beacon/IBeaconUpgradeable";
 export { IBeaconUpgradeable__factory } from "./factories/@openzeppelin/contracts-upgradeable/proxy/beacon/IBeaconUpgradeable__factory";
 export type { ERC1967UpgradeUpgradeable } from "./@openzeppelin/contracts-upgradeable/proxy/ERC1967/ERC1967UpgradeUpgradeable";
@@ -96,14 +98,14 @@ export type { ReentrancyGuardUpgradeable } from "./@openzeppelin/contracts-upgra
 export { ReentrancyGuardUpgradeable__factory } from "./factories/@openzeppelin/contracts-upgradeable/security/ReentrancyGuardUpgradeable__factory";
 export type { ERC20Upgradeable } from "./@openzeppelin/contracts-upgradeable/token/ERC20/ERC20Upgradeable";
 export { ERC20Upgradeable__factory } from "./factories/@openzeppelin/contracts-upgradeable/token/ERC20/ERC20Upgradeable__factory";
-export type { ERC20PermitUpgradeable } from "./@openzeppelin/contracts-upgradeable/token/ERC20/extensions/draft-ERC20PermitUpgradeable.sol/ERC20PermitUpgradeable";
-export { ERC20PermitUpgradeable__factory } from "./factories/@openzeppelin/contracts-upgradeable/token/ERC20/extensions/draft-ERC20PermitUpgradeable.sol/ERC20PermitUpgradeable__factory";
-export type { IERC20PermitUpgradeable } from "./@openzeppelin/contracts-upgradeable/token/ERC20/extensions/draft-IERC20PermitUpgradeable.sol/IERC20PermitUpgradeable";
-export { IERC20PermitUpgradeable__factory } from "./factories/@openzeppelin/contracts-upgradeable/token/ERC20/extensions/draft-IERC20PermitUpgradeable.sol/IERC20PermitUpgradeable__factory";
+export type { ERC20PermitUpgradeable } from "./@openzeppelin/contracts-upgradeable/token/ERC20/extensions/ERC20PermitUpgradeable";
+export { ERC20PermitUpgradeable__factory } from "./factories/@openzeppelin/contracts-upgradeable/token/ERC20/extensions/ERC20PermitUpgradeable__factory";
 export type { ERC20SnapshotUpgradeable } from "./@openzeppelin/contracts-upgradeable/token/ERC20/extensions/ERC20SnapshotUpgradeable";
 export { ERC20SnapshotUpgradeable__factory } from "./factories/@openzeppelin/contracts-upgradeable/token/ERC20/extensions/ERC20SnapshotUpgradeable__factory";
 export type { IERC20MetadataUpgradeable } from "./@openzeppelin/contracts-upgradeable/token/ERC20/extensions/IERC20MetadataUpgradeable";
 export { IERC20MetadataUpgradeable__factory } from "./factories/@openzeppelin/contracts-upgradeable/token/ERC20/extensions/IERC20MetadataUpgradeable__factory";
+export type { IERC20PermitUpgradeable } from "./@openzeppelin/contracts-upgradeable/token/ERC20/extensions/IERC20PermitUpgradeable";
+export { IERC20PermitUpgradeable__factory } from "./factories/@openzeppelin/contracts-upgradeable/token/ERC20/extensions/IERC20PermitUpgradeable__factory";
 export type { IERC20Upgradeable } from "./@openzeppelin/contracts-upgradeable/token/ERC20/IERC20Upgradeable";
 export { IERC20Upgradeable__factory } from "./factories/@openzeppelin/contracts-upgradeable/token/ERC20/IERC20Upgradeable__factory";
 export type { ContextUpgradeable } from "./@openzeppelin/contracts-upgradeable/utils/ContextUpgradeable";
@@ -170,3 +172,5 @@ export type { DeVoxShamanSummonerV1 } from "./contracts/shaman/DeVoxShamanSummon
 export { DeVoxShamanSummonerV1__factory } from "./factories/contracts/shaman/DeVoxShamanSummonerV1__factory";
 export type { DeVoxShamanV1 } from "./contracts/shaman/DeVoxShamanV1";
 export { DeVoxShamanV1__factory } from "./factories/contracts/shaman/DeVoxShamanV1__factory";
+export type { IShaman } from "./contracts/shaman/IShaman";
+export { IShaman__factory } from "./factories/contracts/shaman/IShaman__factory";

@@ -7,3 +7,4 @@ import type * as draftIerc1822UpgradeableSol from "./draft-IERC1822Upgradeable.s
 
 export type { draftIerc1822UpgradeableSol };
 export type { IERC1967Upgradeable } from "./IERC1967Upgradeable";
+export type { IERC5267Upgradeable } from "./IERC5267Upgradeable";

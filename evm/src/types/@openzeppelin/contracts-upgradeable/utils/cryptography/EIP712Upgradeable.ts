@@ -9,19 +9,56 @@ import type {
   TypedListener,
   OnEvent,
 } from "../../../../common";
-import type { EventFragment } from "@ethersproject/abi";
+import type {
+  FunctionFragment,
+  Result,
+  EventFragment,
+} from "@ethersproject/abi";
 import type { Listener, Provider } from "@ethersproject/providers";
-import type { BaseContract, Signer, utils } from "ethers";
+import type {
+  BaseContract,
+  BigNumber,
+  BytesLike,
+  CallOverrides,
+  PopulatedTransaction,
+  Signer,
+  utils,
+} from "ethers";
 
 export interface EIP712UpgradeableInterface extends utils.Interface {
-  functions: {};
+  functions: {
+    "eip712Domain()": FunctionFragment;
+  };
+
+  getFunction(nameOrSignatureOrTopic: "eip712Domain"): FunctionFragment;
+
+  encodeFunctionData(
+    functionFragment: "eip712Domain",
+    values?: undefined
+  ): string;
+
+  decodeFunctionResult(
+    functionFragment: "eip712Domain",
+    data: BytesLike
+  ): Result;
 
   events: {
+    "EIP712DomainChanged()": EventFragment;
     "Initialized(uint8)": EventFragment;
   };
 
+  getEvent(nameOrSignatureOrTopic: "EIP712DomainChanged"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "Initialized"): EventFragment;
 }
+
+export interface EIP712DomainChangedEventObject {}
+export type EIP712DomainChangedEvent = TypedEvent<
+  [],
+  EIP712DomainChangedEventObject
+>;
+
+export type EIP712DomainChangedEventFilter =
+  TypedEventFilter<EIP712DomainChangedEvent>;
 
 export interface InitializedEventObject {
   version: number;
@@ -56,16 +93,65 @@ export interface EIP712Upgradeable extends BaseContract {
   once: OnEvent<this>;
   removeListener: OnEvent<this>;
 
-  functions: {};
+  functions: {
+    eip712Domain(
+      overrides?: CallOverrides
+    ): Promise<
+      [string, string, string, BigNumber, string, string, BigNumber[]] & {
+        fields: string;
+        name: string;
+        version: string;
+        chainId: BigNumber;
+        verifyingContract: string;
+        salt: string;
+        extensions: BigNumber[];
+      }
+    >;
+  };
 
-  callStatic: {};
+  eip712Domain(
+    overrides?: CallOverrides
+  ): Promise<
+    [string, string, string, BigNumber, string, string, BigNumber[]] & {
+      fields: string;
+      name: string;
+      version: string;
+      chainId: BigNumber;
+      verifyingContract: string;
+      salt: string;
+      extensions: BigNumber[];
+    }
+  >;
+
+  callStatic: {
+    eip712Domain(
+      overrides?: CallOverrides
+    ): Promise<
+      [string, string, string, BigNumber, string, string, BigNumber[]] & {
+        fields: string;
+        name: string;
+        version: string;
+        chainId: BigNumber;
+        verifyingContract: string;
+        salt: string;
+        extensions: BigNumber[];
+      }
+    >;
+  };
 
   filters: {
+    "EIP712DomainChanged()"(): EIP712DomainChangedEventFilter;
+    EIP712DomainChanged(): EIP712DomainChangedEventFilter;
+
     "Initialized(uint8)"(version?: null): InitializedEventFilter;
     Initialized(version?: null): InitializedEventFilter;
   };
 
-  estimateGas: {};
+  estimateGas: {
+    eip712Domain(overrides?: CallOverrides): Promise<BigNumber>;
+  };
 
-  populateTransaction: {};
+  populateTransaction: {
+    eip712Domain(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+  };
 }

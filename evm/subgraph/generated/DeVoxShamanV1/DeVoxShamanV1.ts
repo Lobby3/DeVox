@@ -118,84 +118,6 @@ export class Initialized__Params {
   }
 }
 
-export class RoleAdminChanged extends ethereum.Event {
-  get params(): RoleAdminChanged__Params {
-    return new RoleAdminChanged__Params(this);
-  }
-}
-
-export class RoleAdminChanged__Params {
-  _event: RoleAdminChanged;
-
-  constructor(event: RoleAdminChanged) {
-    this._event = event;
-  }
-
-  get role(): Bytes {
-    return this._event.parameters[0].value.toBytes();
-  }
-
-  get previousAdminRole(): Bytes {
-    return this._event.parameters[1].value.toBytes();
-  }
-
-  get newAdminRole(): Bytes {
-    return this._event.parameters[2].value.toBytes();
-  }
-}
-
-export class RoleGranted extends ethereum.Event {
-  get params(): RoleGranted__Params {
-    return new RoleGranted__Params(this);
-  }
-}
-
-export class RoleGranted__Params {
-  _event: RoleGranted;
-
-  constructor(event: RoleGranted) {
-    this._event = event;
-  }
-
-  get role(): Bytes {
-    return this._event.parameters[0].value.toBytes();
-  }
-
-  get account(): Address {
-    return this._event.parameters[1].value.toAddress();
-  }
-
-  get sender(): Address {
-    return this._event.parameters[2].value.toAddress();
-  }
-}
-
-export class RoleRevoked extends ethereum.Event {
-  get params(): RoleRevoked__Params {
-    return new RoleRevoked__Params(this);
-  }
-}
-
-export class RoleRevoked__Params {
-  _event: RoleRevoked;
-
-  constructor(event: RoleRevoked) {
-    this._event = event;
-  }
-
-  get role(): Bytes {
-    return this._event.parameters[0].value.toBytes();
-  }
-
-  get account(): Address {
-    return this._event.parameters[1].value.toAddress();
-  }
-
-  get sender(): Address {
-    return this._event.parameters[2].value.toAddress();
-  }
-}
-
 export class TargetUpdated extends ethereum.Event {
   get params(): TargetUpdated__Params {
     return new TargetUpdated__Params(this);
@@ -209,12 +131,16 @@ export class TargetUpdated__Params {
     this._event = event;
   }
 
-  get target(): BigInt {
+  get id(): BigInt {
     return this._event.parameters[0].value.toBigInt();
   }
 
-  get balance(): BigInt {
+  get target(): BigInt {
     return this._event.parameters[1].value.toBigInt();
+  }
+
+  get balance(): BigInt {
+    return this._event.parameters[2].value.toBigInt();
   }
 }
 

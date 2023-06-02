@@ -1,11 +1,11 @@
 import { DeployFunction } from "hardhat-deploy/types";
 import { HardhatRuntimeEnvironment } from "hardhat/types";
 
-import { Loot, deployInstance } from "../src/util";
+import { ContractNames, deployInstance } from "../src/util";
 
 const deploy: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
-  await deployInstance(Loot, hre);
+  await deployInstance(ContractNames.Loot, hre);
 };
 
 export default deploy;
-deploy.tags = [Loot, "local", "staging"];
+deploy.tags = [ContractNames.Loot, "local", "staging"];

@@ -36,21 +36,22 @@ export interface DeVoxShamanV1Interface extends utils.Interface {
     "donate(uint256,string)": FunctionFragment;
     "donations(address)": FunctionFragment;
     "getTokenBalance()": FunctionFragment;
+    "id()": FunctionFragment;
     "initialize(address,address,uint256,uint256,uint256,uint256)": FunctionFragment;
-    "lootPerUnit()": FunctionFragment;
     "owner()": FunctionFragment;
     "pricePerUnit()": FunctionFragment;
     "proxiableUUID()": FunctionFragment;
     "renounceOwnership()": FunctionFragment;
     "setTarget(uint256)": FunctionFragment;
-    "sharesPerMember()": FunctionFragment;
     "target()": FunctionFragment;
     "token()": FunctionFragment;
+    "tokensPerUnit()": FunctionFragment;
     "transferOwnership(address)": FunctionFragment;
     "updateVersion()": FunctionFragment;
     "upgradeTo(address)": FunctionFragment;
     "upgradeToAndCall(address,bytes)": FunctionFragment;
     "version()": FunctionFragment;
+    "whitelist(bool,bytes)": FunctionFragment;
   };
 
   getFunction(
@@ -59,21 +60,22 @@ export interface DeVoxShamanV1Interface extends utils.Interface {
       | "donate"
       | "donations"
       | "getTokenBalance"
+      | "id"
       | "initialize"
-      | "lootPerUnit"
       | "owner"
       | "pricePerUnit"
       | "proxiableUUID"
       | "renounceOwnership"
       | "setTarget"
-      | "sharesPerMember"
       | "target"
       | "token"
+      | "tokensPerUnit"
       | "transferOwnership"
       | "updateVersion"
       | "upgradeTo"
       | "upgradeToAndCall"
       | "version"
+      | "whitelist"
   ): FunctionFragment;
 
   encodeFunctionData(functionFragment: "baal", values?: undefined): string;
@@ -89,6 +91,7 @@ export interface DeVoxShamanV1Interface extends utils.Interface {
     functionFragment: "getTokenBalance",
     values?: undefined
   ): string;
+  encodeFunctionData(functionFragment: "id", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "initialize",
     values: [
@@ -99,10 +102,6 @@ export interface DeVoxShamanV1Interface extends utils.Interface {
       PromiseOrValue<BigNumberish>,
       PromiseOrValue<BigNumberish>
     ]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "lootPerUnit",
-    values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
   encodeFunctionData(
@@ -121,12 +120,12 @@ export interface DeVoxShamanV1Interface extends utils.Interface {
     functionFragment: "setTarget",
     values: [PromiseOrValue<BigNumberish>]
   ): string;
-  encodeFunctionData(
-    functionFragment: "sharesPerMember",
-    values?: undefined
-  ): string;
   encodeFunctionData(functionFragment: "target", values?: undefined): string;
   encodeFunctionData(functionFragment: "token", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "tokensPerUnit",
+    values?: undefined
+  ): string;
   encodeFunctionData(
     functionFragment: "transferOwnership",
     values: [PromiseOrValue<string>]
@@ -144,6 +143,10 @@ export interface DeVoxShamanV1Interface extends utils.Interface {
     values: [PromiseOrValue<string>, PromiseOrValue<BytesLike>]
   ): string;
   encodeFunctionData(functionFragment: "version", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "whitelist",
+    values: [PromiseOrValue<boolean>, PromiseOrValue<BytesLike>]
+  ): string;
 
   decodeFunctionResult(functionFragment: "baal", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "donate", data: BytesLike): Result;
@@ -152,11 +155,8 @@ export interface DeVoxShamanV1Interface extends utils.Interface {
     functionFragment: "getTokenBalance",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "id", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "initialize", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "lootPerUnit",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "pricePerUnit",
@@ -171,12 +171,12 @@ export interface DeVoxShamanV1Interface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "setTarget", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "sharesPerMember",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(functionFragment: "target", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "token", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "tokensPerUnit",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "transferOwnership",
     data: BytesLike
@@ -191,15 +191,17 @@ export interface DeVoxShamanV1Interface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "version", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "whitelist", data: BytesLike): Result;
 
   events: {
     "AdminChanged(address,address)": EventFragment;
     "BeaconUpgraded(address)": EventFragment;
-    "DonationReceived(address,address,uint256,uint256,uint256,uint256,uint256,uint256,string)": EventFragment;
+    "DonationReceived(address,address,uint256,uint256,uint256,uint256,uint256,uint256,uint256,string)": EventFragment;
     "Initialized(uint8)": EventFragment;
     "OwnershipTransferred(address,address)": EventFragment;
-    "TargetUpdated(uint256,uint256)": EventFragment;
+    "TargetUpdated(uint256,uint256,uint256)": EventFragment;
     "Upgraded(address)": EventFragment;
+    "UserWhitelisted(address,bool,bytes)": EventFragment;
   };
 
   getEvent(nameOrSignatureOrTopic: "AdminChanged"): EventFragment;
@@ -209,6 +211,7 @@ export interface DeVoxShamanV1Interface extends utils.Interface {
   getEvent(nameOrSignatureOrTopic: "OwnershipTransferred"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "TargetUpdated"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "Upgraded"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "UserWhitelisted"): EventFragment;
 }
 
 export interface AdminChangedEventObject {
@@ -235,6 +238,7 @@ export type BeaconUpgradedEventFilter = TypedEventFilter<BeaconUpgradedEvent>;
 export interface DonationReceivedEventObject {
   contributorAddress: string;
   baal: string;
+  id: BigNumber;
   amount: BigNumber;
   total: BigNumber;
   target: BigNumber;
@@ -247,6 +251,7 @@ export type DonationReceivedEvent = TypedEvent<
   [
     string,
     string,
+    BigNumber,
     BigNumber,
     BigNumber,
     BigNumber,
@@ -281,11 +286,12 @@ export type OwnershipTransferredEventFilter =
   TypedEventFilter<OwnershipTransferredEvent>;
 
 export interface TargetUpdatedEventObject {
+  id: BigNumber;
   target: BigNumber;
   balance: BigNumber;
 }
 export type TargetUpdatedEvent = TypedEvent<
-  [BigNumber, BigNumber],
+  [BigNumber, BigNumber, BigNumber],
   TargetUpdatedEventObject
 >;
 
@@ -297,6 +303,18 @@ export interface UpgradedEventObject {
 export type UpgradedEvent = TypedEvent<[string], UpgradedEventObject>;
 
 export type UpgradedEventFilter = TypedEventFilter<UpgradedEvent>;
+
+export interface UserWhitelistedEventObject {
+  user: string;
+  status: boolean;
+  metadata: string;
+}
+export type UserWhitelistedEvent = TypedEvent<
+  [string, boolean, string],
+  UserWhitelistedEventObject
+>;
+
+export type UserWhitelistedEventFilter = TypedEventFilter<UserWhitelistedEvent>;
 
 export interface DeVoxShamanV1 extends BaseContract {
   connect(signerOrProvider: Signer | Provider | string): this;
@@ -342,17 +360,17 @@ export interface DeVoxShamanV1 extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
+    id(overrides?: CallOverrides): Promise<[BigNumber]>;
+
     initialize(
       _moloch: PromiseOrValue<string>,
       _token: PromiseOrValue<string>,
+      _id: PromiseOrValue<BigNumberish>,
       _pricePerUnit: PromiseOrValue<BigNumberish>,
-      _lootPerUnit: PromiseOrValue<BigNumberish>,
-      _sharesPerMember: PromiseOrValue<BigNumberish>,
+      _tokensPerUnit: PromiseOrValue<BigNumberish>,
       _target: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
-
-    lootPerUnit(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     owner(overrides?: CallOverrides): Promise<[string]>;
 
@@ -369,11 +387,11 @@ export interface DeVoxShamanV1 extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
-    sharesPerMember(overrides?: CallOverrides): Promise<[BigNumber]>;
-
     target(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     token(overrides?: CallOverrides): Promise<[string]>;
+
+    tokensPerUnit(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     transferOwnership(
       newOwner: PromiseOrValue<string>,
@@ -396,6 +414,12 @@ export interface DeVoxShamanV1 extends BaseContract {
     ): Promise<ContractTransaction>;
 
     version(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    whitelist(
+      _status: PromiseOrValue<boolean>,
+      _metadata: PromiseOrValue<BytesLike>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
   };
 
   baal(overrides?: CallOverrides): Promise<string>;
@@ -415,17 +439,17 @@ export interface DeVoxShamanV1 extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
+  id(overrides?: CallOverrides): Promise<BigNumber>;
+
   initialize(
     _moloch: PromiseOrValue<string>,
     _token: PromiseOrValue<string>,
+    _id: PromiseOrValue<BigNumberish>,
     _pricePerUnit: PromiseOrValue<BigNumberish>,
-    _lootPerUnit: PromiseOrValue<BigNumberish>,
-    _sharesPerMember: PromiseOrValue<BigNumberish>,
+    _tokensPerUnit: PromiseOrValue<BigNumberish>,
     _target: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
-
-  lootPerUnit(overrides?: CallOverrides): Promise<BigNumber>;
 
   owner(overrides?: CallOverrides): Promise<string>;
 
@@ -442,11 +466,11 @@ export interface DeVoxShamanV1 extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
-  sharesPerMember(overrides?: CallOverrides): Promise<BigNumber>;
-
   target(overrides?: CallOverrides): Promise<BigNumber>;
 
   token(overrides?: CallOverrides): Promise<string>;
+
+  tokensPerUnit(overrides?: CallOverrides): Promise<BigNumber>;
 
   transferOwnership(
     newOwner: PromiseOrValue<string>,
@@ -470,6 +494,12 @@ export interface DeVoxShamanV1 extends BaseContract {
 
   version(overrides?: CallOverrides): Promise<BigNumber>;
 
+  whitelist(
+    _status: PromiseOrValue<boolean>,
+    _metadata: PromiseOrValue<BytesLike>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
   callStatic: {
     baal(overrides?: CallOverrides): Promise<string>;
 
@@ -486,17 +516,17 @@ export interface DeVoxShamanV1 extends BaseContract {
 
     getTokenBalance(overrides?: CallOverrides): Promise<BigNumber>;
 
+    id(overrides?: CallOverrides): Promise<BigNumber>;
+
     initialize(
       _moloch: PromiseOrValue<string>,
       _token: PromiseOrValue<string>,
+      _id: PromiseOrValue<BigNumberish>,
       _pricePerUnit: PromiseOrValue<BigNumberish>,
-      _lootPerUnit: PromiseOrValue<BigNumberish>,
-      _sharesPerMember: PromiseOrValue<BigNumberish>,
+      _tokensPerUnit: PromiseOrValue<BigNumberish>,
       _target: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<void>;
-
-    lootPerUnit(overrides?: CallOverrides): Promise<BigNumber>;
 
     owner(overrides?: CallOverrides): Promise<string>;
 
@@ -511,11 +541,11 @@ export interface DeVoxShamanV1 extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    sharesPerMember(overrides?: CallOverrides): Promise<BigNumber>;
-
     target(overrides?: CallOverrides): Promise<BigNumber>;
 
     token(overrides?: CallOverrides): Promise<string>;
+
+    tokensPerUnit(overrides?: CallOverrides): Promise<BigNumber>;
 
     transferOwnership(
       newOwner: PromiseOrValue<string>,
@@ -536,6 +566,12 @@ export interface DeVoxShamanV1 extends BaseContract {
     ): Promise<void>;
 
     version(overrides?: CallOverrides): Promise<BigNumber>;
+
+    whitelist(
+      _status: PromiseOrValue<boolean>,
+      _metadata: PromiseOrValue<BytesLike>,
+      overrides?: CallOverrides
+    ): Promise<void>;
   };
 
   filters: {
@@ -555,9 +591,10 @@ export interface DeVoxShamanV1 extends BaseContract {
       beacon?: PromiseOrValue<string> | null
     ): BeaconUpgradedEventFilter;
 
-    "DonationReceived(address,address,uint256,uint256,uint256,uint256,uint256,uint256,string)"(
+    "DonationReceived(address,address,uint256,uint256,uint256,uint256,uint256,uint256,uint256,string)"(
       contributorAddress?: PromiseOrValue<string> | null,
       baal?: null,
+      id?: null,
       amount?: null,
       total?: null,
       target?: null,
@@ -569,6 +606,7 @@ export interface DeVoxShamanV1 extends BaseContract {
     DonationReceived(
       contributorAddress?: PromiseOrValue<string> | null,
       baal?: null,
+      id?: null,
       amount?: null,
       total?: null,
       target?: null,
@@ -590,11 +628,16 @@ export interface DeVoxShamanV1 extends BaseContract {
       newOwner?: PromiseOrValue<string> | null
     ): OwnershipTransferredEventFilter;
 
-    "TargetUpdated(uint256,uint256)"(
+    "TargetUpdated(uint256,uint256,uint256)"(
+      id?: null,
       target?: null,
       balance?: null
     ): TargetUpdatedEventFilter;
-    TargetUpdated(target?: null, balance?: null): TargetUpdatedEventFilter;
+    TargetUpdated(
+      id?: null,
+      target?: null,
+      balance?: null
+    ): TargetUpdatedEventFilter;
 
     "Upgraded(address)"(
       implementation?: PromiseOrValue<string> | null
@@ -602,6 +645,17 @@ export interface DeVoxShamanV1 extends BaseContract {
     Upgraded(
       implementation?: PromiseOrValue<string> | null
     ): UpgradedEventFilter;
+
+    "UserWhitelisted(address,bool,bytes)"(
+      user?: PromiseOrValue<string> | null,
+      status?: null,
+      metadata?: null
+    ): UserWhitelistedEventFilter;
+    UserWhitelisted(
+      user?: PromiseOrValue<string> | null,
+      status?: null,
+      metadata?: null
+    ): UserWhitelistedEventFilter;
   };
 
   estimateGas: {
@@ -622,17 +676,17 @@ export interface DeVoxShamanV1 extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
+    id(overrides?: CallOverrides): Promise<BigNumber>;
+
     initialize(
       _moloch: PromiseOrValue<string>,
       _token: PromiseOrValue<string>,
+      _id: PromiseOrValue<BigNumberish>,
       _pricePerUnit: PromiseOrValue<BigNumberish>,
-      _lootPerUnit: PromiseOrValue<BigNumberish>,
-      _sharesPerMember: PromiseOrValue<BigNumberish>,
+      _tokensPerUnit: PromiseOrValue<BigNumberish>,
       _target: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
-
-    lootPerUnit(overrides?: CallOverrides): Promise<BigNumber>;
 
     owner(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -649,11 +703,11 @@ export interface DeVoxShamanV1 extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
-    sharesPerMember(overrides?: CallOverrides): Promise<BigNumber>;
-
     target(overrides?: CallOverrides): Promise<BigNumber>;
 
     token(overrides?: CallOverrides): Promise<BigNumber>;
+
+    tokensPerUnit(overrides?: CallOverrides): Promise<BigNumber>;
 
     transferOwnership(
       newOwner: PromiseOrValue<string>,
@@ -676,6 +730,12 @@ export interface DeVoxShamanV1 extends BaseContract {
     ): Promise<BigNumber>;
 
     version(overrides?: CallOverrides): Promise<BigNumber>;
+
+    whitelist(
+      _status: PromiseOrValue<boolean>,
+      _metadata: PromiseOrValue<BytesLike>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
   };
 
   populateTransaction: {
@@ -696,17 +756,17 @@ export interface DeVoxShamanV1 extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
+    id(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
     initialize(
       _moloch: PromiseOrValue<string>,
       _token: PromiseOrValue<string>,
+      _id: PromiseOrValue<BigNumberish>,
       _pricePerUnit: PromiseOrValue<BigNumberish>,
-      _lootPerUnit: PromiseOrValue<BigNumberish>,
-      _sharesPerMember: PromiseOrValue<BigNumberish>,
+      _tokensPerUnit: PromiseOrValue<BigNumberish>,
       _target: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
-
-    lootPerUnit(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     owner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
@@ -723,11 +783,11 @@ export interface DeVoxShamanV1 extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
-    sharesPerMember(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
     target(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     token(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    tokensPerUnit(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     transferOwnership(
       newOwner: PromiseOrValue<string>,
@@ -750,5 +810,11 @@ export interface DeVoxShamanV1 extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     version(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    whitelist(
+      _status: PromiseOrValue<boolean>,
+      _metadata: PromiseOrValue<BytesLike>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
   };
 }

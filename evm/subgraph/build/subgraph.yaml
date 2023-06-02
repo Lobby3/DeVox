@@ -1,0 +1,195 @@
+specVersion: 0.0.5
+schema:
+  file: schema.graphql
+dataSources:
+  - kind: ethereum
+    name: BaalSummonerV1
+    network: hardhat
+    source:
+      address: "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9"
+      abi: BaalSummonerV1
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - BeaconUpgraded
+        - DaoReferral
+        - DeployBaalSafe
+        - DeployBaalTokens
+        - Initialized
+        - OwnershipTransferred
+        - SetAddrsVersion
+        - SummonBaal
+        - Upgraded
+      abis:
+        - name: BaalSummonerV1
+          file: BaalSummonerV1/abis/BaalSummonerV1.json
+      eventHandlers:
+        - event: BeaconUpgraded(indexed address)
+          handler: handleBeaconUpgraded
+        - event: DaoReferral(bytes32,address)
+          handler: handleDaoReferral
+        - event: DeployBaalSafe(address,address)
+          handler: handleDeployBaalSafe
+        - event: DeployBaalTokens(address,address)
+          handler: handleDeployBaalTokens
+        - event: Initialized(uint8)
+          handler: handleInitialized
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: SetAddrsVersion(uint256)
+          handler: handleSetAddrsVersion
+        - event: SummonBaal(indexed address,indexed address,indexed address,address,address,uint256)
+          handler: handleSummonBaal
+        - event: Upgraded(indexed address)
+          handler: handleUpgraded
+      file: BaalSummonerV1/BaalSummonerV1.wasm
+  - kind: ethereum
+    name: DeVoxShamanSummonerV1
+    network: hardhat
+    source:
+      address: "0x0B306BF915C4d645ff596e518fAf3F9669b97016"
+      abi: DeVoxShamanSummonerV1
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - BeaconUpgraded
+        - Initialized
+        - OwnershipTransferred
+        - SummonComplete
+        - Upgraded
+      abis:
+        - name: DeVoxShamanSummonerV1
+          file: DeVoxShamanSummonerV1/abis/DeVoxShamanSummonerV1.json
+      eventHandlers:
+        - event: BeaconUpgraded(indexed address)
+          handler: handleBeaconUpgraded
+        - event: Initialized(uint8)
+          handler: handleInitialized
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: SummonComplete(indexed address,address,address,uint256,uint256,uint256,uint256)
+          handler: handleSummonComplete
+        - event: Upgraded(indexed address)
+          handler: handleUpgraded
+      file: DeVoxShamanSummonerV1/DeVoxShamanSummonerV1.wasm
+templates:
+  - kind: ethereum
+    name: BaalV1
+    network: hardhat
+    source:
+      abi: BaalV1
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Approval
+        - AvatarSet
+        - CancelProposal
+        - ChangedGuard
+        - GovernanceConfigSet
+        - Initialized
+        - LockAdmin
+        - LockGovernor
+        - LockManager
+        - LockRagequit
+        - LootPaused
+        - OwnershipTransferred
+        - ProcessProposal
+        - Ragequit
+        - SetTrustedForwarder
+        - SetupComplete
+        - ShamanSet
+        - SharesPaused
+        - SponsorProposal
+        - SubmitProposal
+        - SubmitVote
+        - TargetSet
+      abis:
+        - name: BaalV1
+          file: BaalV1/abis/BaalV1.json
+      eventHandlers:
+        - event: Approval(indexed address,indexed address,uint256)
+          handler: handleApproval
+        - event: AvatarSet(indexed address,indexed address)
+          handler: handleAvatarSet
+        - event: CancelProposal(indexed uint256)
+          handler: handleCancelProposal
+        - event: ChangedGuard(address)
+          handler: handleChangedGuard
+        - event: GovernanceConfigSet(uint32,uint32,uint256,uint256,uint256,uint256)
+          handler: handleGovernanceConfigSet
+        - event: Initialized(uint8)
+          handler: handleInitialized
+        - event: LockAdmin(bool)
+          handler: handleLockAdmin
+        - event: LockGovernor(bool)
+          handler: handleLockGovernor
+        - event: LockManager(bool)
+          handler: handleLockManager
+        - event: LootPaused(bool)
+          handler: handleLootPaused
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: ProcessProposal(indexed uint256,bool,bool)
+          handler: handleProcessProposal
+        - event: Ragequit(indexed address,address,indexed uint256,indexed uint256,address[])
+          handler: handleRagequit
+        - event: SetTrustedForwarder(indexed address)
+          handler: handleSetTrustedForwarder
+        - event: SetupComplete(bool,bool,uint32,uint32,uint256,uint256,uint256,uint256,string,string,uint256,uint256)
+          handler: handleSetupComplete
+        - event: ShamanSet(indexed address,uint256)
+          handler: handleShamanSet
+        - event: SharesPaused(bool)
+          handler: handleSharesPaused
+        - event: SponsorProposal(indexed address,indexed uint256,indexed uint256)
+          handler: handleSponsorProposal
+        - event: SubmitProposal(indexed uint256,indexed
+            bytes32,uint256,bytes,uint256,uint256,bool,uint256,string)
+          handler: handleSubmitProposal
+        - event: SubmitVote(indexed address,uint256,indexed uint256,indexed bool)
+          handler: handleSubmitVote
+        - event: TargetSet(indexed address,indexed address)
+          handler: handleTargetSet
+      file: templates/BaalV1/BaalV1.wasm
+  - kind: ethereum
+    name: DeVoxShamanV1
+    network: hardhat
+    source:
+      abi: DeVoxShamanV1
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - AdminChanged
+        - BeaconUpgraded
+        - DonationReceived
+        - Initialized
+        - TargetUpdated
+        - Upgraded
+      abis:
+        - name: DeVoxShamanV1
+          file: DeVoxShamanV1/abis/DeVoxShamanV1.json
+      eventHandlers:
+        - event: AdminChanged(address,address)
+          handler: handleAdminChanged
+        - event: BeaconUpgraded(indexed address)
+          handler: handleBeaconUpgraded
+        - event: DonationReceived(indexed
+            address,address,uint256,uint256,uint256,uint256,uint256,uint256,uint256,string)
+          handler: handleDonationReceived
+        - event: Initialized(uint8)
+          handler: handleInitialized
+        - event: TargetUpdated(uint256,uint256,uint256)
+          handler: handleTargetUpdated
+        - event: Upgraded(indexed address)
+          handler: handleUpgraded
+        - event: UserWhitelisted(indexed address,bool,bytes)
+          handler: handleUserWhitelisted
+      file: templates/DeVoxShamanV1/DeVoxShamanV1.wasm

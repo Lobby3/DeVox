@@ -8,7 +8,10 @@ import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";
 
+import "./interfaces/IBaalToken.sol";
 import "./BaalV1.sol";
+
+import "hardhat/console.sol";
 
 contract BaalSummonerV1 is Initializable, OwnableUpgradeable, UUPSUpgradeable {
     // when some of the init addresses are updated
@@ -36,9 +39,7 @@ contract BaalSummonerV1 is Initializable, OwnableUpgradeable, UUPSUpgradeable {
     GnosisSafeProxyFactory gnosisSafeProxyFactory;
     ModuleProxyFactory moduleProxyFactory;
 
-    event SetAddrsVersion(
-        uint256 version
-    );
+    event SetAddrsVersion(uint256 version);
 
     event SummonBaal(
         address indexed baal,
@@ -49,22 +50,13 @@ contract BaalSummonerV1 is Initializable, OwnableUpgradeable, UUPSUpgradeable {
         uint256 existingAddrs
     );
 
-    event DaoReferral(
-        bytes32 referrer,
-        address daoAddress
-    );
+    event DaoReferral(bytes32 referrer, address daoAddress);
 
-    event DeployBaalTokens(
-        address lootToken, 
-        address sharesToken
-    );
+    event DeployBaalTokens(address lootToken, address sharesToken);
 
-    event DeployBaalSafe(
-        address baalSafe,
-        address moduleAddr
-    );
+    event DeployBaalSafe(address baalSafe, address moduleAddr);
 
-    function initialize() initializer public {
+    function initialize() public initializer {
         __Ownable_init();
         __UUPSUpgradeable_init();
     }
@@ -83,31 +75,35 @@ contract BaalSummonerV1 is Initializable, OwnableUpgradeable, UUPSUpgradeable {
         require(_lootSingleton != address(0), "!lootSingleton");
         require(_sharesSingleton != address(0), "!sharesSingleton");
         require(_gnosisSingleton != address(0), "!gnosisSingleton");
-        require(_gnosisFallbackLibrary != address(0), '!gnosisFallbackLibrary');
-        require(_gnosisMultisendLibrary != address(0), '!gnosisMultisendLibrary');
-        require(_gnosisSafeProxyFactory != address(0), '!gnosisSafeProxyFactory');
-        require(_moduleProxyFactory != address(0), '!moduleProxyFactory');
+        require(_gnosisFallbackLibrary != address(0), "!gnosisFallbackLibrary");
+        require(
+            _gnosisMultisendLibrary != address(0),
+            "!gnosisMultisendLibrary"
+        );
+        require(
+            _gnosisSafeProxyFactory != address(0),
+            "!gnosisSafeProxyFactory"
+        );
+        require(_moduleProxyFactory != address(0), "!moduleProxyFactory");
 
         template = _template;
         gnosisSingleton = _gnosisSingleton;
         gnosisFallbackLibrary = _gnosisFallbackLibrary;
         gnosisMultisendLibrary = _gnosisMultisendLibrary;
-        gnosisSafeProxyFactory = GnosisSafeProxyFactory(_gnosisSafeProxyFactory);
+        gnosisSafeProxyFactory = GnosisSafeProxyFactory(
+            _gnosisSafeProxyFactory
+        );
         moduleProxyFactory = ModuleProxyFactory(_moduleProxyFactory);
         lootSingleton = _lootSingleton;
         sharesSingleton = _sharesSingleton;
 
-        emit SetAddrsVersion(
-        addrsVersion++
-        );
-        
+        emit SetAddrsVersion(addrsVersion++);
     }
 
-    function encodeMultisend(bytes[] memory _calls, address _target)
-        public
-        pure
-        returns (bytes memory encodedMultisend)
-    {
+    function encodeMultisend(
+        bytes[] memory _calls,
+        address _target
+    ) public pure returns (bytes memory encodedMultisend) {
         bytes memory encodedActions;
         for (uint256 i = 0; i < _calls.length; i++) {
             encodedActions = abi.encodePacked(
@@ -130,7 +126,6 @@ contract BaalSummonerV1 is Initializable, OwnableUpgradeable, UUPSUpgradeable {
         bytes[] calldata initializationActions,
         uint256 _saltNonce
     ) external returns (address) {
-        
         return
             _summonBaal(
                 initializationParams,
@@ -159,42 +154,41 @@ contract BaalSummonerV1 is Initializable, OwnableUpgradeable, UUPSUpgradeable {
     }
 
     // deploy new share and loot contracts
-    function deployTokens(string memory _name, string memory _symbol) 
-        public 
-        returns (address lootToken, address sharesToken) 
-    {
-        lootToken = address(new ERC1967Proxy(
-            lootSingleton,
-            abi.encodeWithSelector(
-                IBaalToken(lootSingleton).setUp.selector, 
-                string(abi.encodePacked(_name, " LOOT")), 
-                string(abi.encodePacked(_symbol, "-LOOT")))
-        ));
+    function deployTokens(
+        string memory _name,
+        string memory _symbol
+    ) public returns (address lootToken, address sharesToken) {
+        lootToken = address(
+            new ERC1967Proxy(
+                lootSingleton,
+                abi.encodeWithSelector(
+                    IBaalToken(lootSingleton).setUp.selector,
+                    string(abi.encodePacked(_name, " LOOT")),
+                    string(abi.encodePacked(_symbol, "-LOOT"))
+                )
+            )
+        );
 
-        sharesToken = address(new ERC1967Proxy(
-            sharesSingleton,
-            abi.encodeWithSelector(
-                IBaalToken(sharesSingleton).setUp.selector, 
-                _name, 
-                _symbol)
-        ));
+        sharesToken = address(
+            new ERC1967Proxy(
+                sharesSingleton,
+                abi.encodeWithSelector(
+                    IBaalToken(sharesSingleton).setUp.selector,
+                    _name,
+                    _symbol
+                )
+            )
+        );
 
         emit DeployBaalTokens(lootToken, sharesToken);
-
     }
 
     // deploy a safe with module and single module signer setup
-    function deployAndSetupSafe(address _moduleAddr)
-        public
-        returns (address)
-    {
+    function deployAndSetupSafe(address _moduleAddr) public returns (address) {
         // Deploy new safe but do not set it up yet
         GnosisSafe _safe = GnosisSafe(
             payable(
-                gnosisSafeProxyFactory.createProxy(
-                    gnosisSingleton,
-                    bytes("")
-                )
+                gnosisSafeProxyFactory.createProxy(gnosisSingleton, bytes(""))
             )
         );
         // Generate delegate calls so the safe calls enableModule on itself during setup
@@ -250,25 +244,28 @@ contract BaalSummonerV1 is Initializable, OwnableUpgradeable, UUPSUpgradeable {
     ) internal returns (address) {
         uint256 existingAddrs; // 1 tokens, 2 safe, 3 both
         (
-            string memory _name, /*_name Name for erc20 `shares` accounting, empty if token */
-            string memory _symbol, /*_symbol Symbol for erc20 `shares` accounting, empty if token*/
-            address _safeAddr, /*address of safe, 0 addr if new*/
-            address _forwarder, /*Trusted forwarder address for meta-transactions (EIP 2771), 0 addr if initially disabled*/
-            address _lootToken, /*predeployed loot token, 0 addr if new*/
+            string memory _name /*_name Name for erc20 `shares` accounting, empty if token */,
+            string memory _symbol /*_symbol Symbol for erc20 `shares` accounting, empty if token*/,
+            address _safeAddr /*address of safe, 0 addr if new*/,
+            address _forwarder /*Trusted forwarder address for meta-transactions (EIP 2771), 0 addr if initially disabled*/,
+            address _lootToken /*predeployed loot token, 0 addr if new*/,
             address _sharesToken /*predeployed shares token, 0 addr if new*/
-        ) = abi.decode(initializationParams, (string, string, address, address, address, address));
+        ) = abi.decode(
+                initializationParams,
+                (string, string, address, address, address, address)
+            );
 
         BaalV1 _baal = BaalV1(
             moduleProxyFactory.deployModule(
-                template, 
-                abi.encodeWithSignature("avatar()"), 
+                template,
+                abi.encodeWithSignature("avatar()"),
                 _saltNonce
             )
         );
 
         // if loot or shares are zero address new tokens are deployed
         // tokens need to be baalTokens
-        if(_lootToken == address(0) || _sharesToken == address(0)){
+        if (_lootToken == address(0) || _sharesToken == address(0)) {
             (_lootToken, _sharesToken) = deployTokens(_name, _symbol);
             // pause tokens by default and transfer to the DAO
             IBaalToken(_lootToken).pause();
@@ -281,7 +278,7 @@ contract BaalSummonerV1 is Initializable, OwnableUpgradeable, UUPSUpgradeable {
 
         // if zero address deploy a new safe
         // Needs to be a valid zodiac treasury
-        if(_safeAddr == address(0)){
+        if (_safeAddr == address(0)) {
             _safeAddr = deployAndSetupSafe(address(_baal));
         } else {
             existingAddrs += 2;
@@ -299,6 +296,7 @@ contract BaalSummonerV1 is Initializable, OwnableUpgradeable, UUPSUpgradeable {
             _forwarder,
             _initializationMultisendData
         );
+
         // can run the actions now because we have a baal
         _baal.setUp(_initializer);
 
@@ -314,9 +312,7 @@ contract BaalSummonerV1 is Initializable, OwnableUpgradeable, UUPSUpgradeable {
         return (address(_baal));
     }
 
-    function _authorizeUpgrade(address newImplementation)
-        internal
-        onlyOwner
-        override
-    {}
+    function _authorizeUpgrade(
+        address newImplementation
+    ) internal override onlyOwner {}
 }

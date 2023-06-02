@@ -36,6 +36,7 @@ npm-debug.log
 yarn-error.log
 testem.log
 /typings
+.env
 
 # System Files
 .DS_Store
@@ -44,3 +45,10 @@ Thumbs.db
 # Next.js
 .next
 /packages/frontend/.env
+
+# Subgraph
+./subgraph/generated
+./subgraph/build
+
+# Matchstick
+./subgraph/tests/.*

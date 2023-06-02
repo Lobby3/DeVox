@@ -1,5 +1,6 @@
 {
-  "name": "evm",
+  "name": "subgraph",
+  "version": "0.0.0",
   "license": "UNLICENSED",
   "scripts": {
     "codegen": "graph codegen",
