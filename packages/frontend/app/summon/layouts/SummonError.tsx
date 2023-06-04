@@ -1,19 +1,19 @@
+import { ExplorerLink } from "@daohaus/connect";
 import {
   Bold,
   Button,
   H1,
+  Link,
   ParLg,
   ParMd,
-  Link,
   useBreakpoint,
   widthQuery,
-} from '@daohaus/ui';
-import { ExplorerLink } from '@daohaus/connect';
+} from "@daohaus/ui";
+import { ReactSetter } from "@daohaus/utils";
 
-import { InfoSection } from './FormLayouts';
-import { HausBlockLoading } from '../components/HausBlockLoading/HausBlockLoading';
-import { ReactSetter } from '@daohaus/utils';
-import { SummonStates } from '../app/App';
+import { HausBlockLoading } from "../components/HausBlockLoading/HausBlockLoading";
+import { SummonStates } from "../types";
+import { InfoSection } from "./FormLayouts";
 
 type ErrorProps = {
   daoAddress: string;
@@ -27,7 +27,7 @@ export const SummonError = ({
   errMsg,
 }: ErrorProps) => {
   const handleResetSummon = () => {
-    setSummonState('idle');
+    setSummonState("idle");
   };
   const isMobile = useBreakpoint(widthQuery.sm);
   return (
@@ -36,7 +36,7 @@ export const SummonError = ({
         <Bold>Summon Error</Bold>
       </H1>
       <ParMd>
-        Learn more about{' '}
+        Learn more about{" "}
         <Link href="https://daohaus.mirror.xyz/U_JQtheSzdpRFqQwf9Ow3LgLNG0WMZ6ibAyrjWDu_fc">
           Moloch v3
         </Link>

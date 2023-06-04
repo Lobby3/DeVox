@@ -1,21 +1,20 @@
+import { Keychain } from "@daohaus/keychain-utils";
 import {
+  AddressDisplay,
   Bold,
   Button,
   H1,
-  ParMd,
   Link,
-  AddressDisplay,
+  ParMd,
   useBreakpoint,
   widthQuery,
-} from '@daohaus/ui';
+} from "@daohaus/ui";
+import { ReactSetter } from "@daohaus/utils";
+import styled from "styled-components";
 
-import { InfoSection } from './FormLayouts';
-import { HausBlockLoading } from '../components/HausBlockLoading/HausBlockLoading';
-import { ReactSetter } from '@daohaus/utils';
-import { Keychain } from '@daohaus/keychain-utils';
-
-import { SummonStates } from '../app/App';
-import styled from 'styled-components';
+import { HausBlockLoading } from "../components/HausBlockLoading/HausBlockLoading";
+import { SummonStates } from "../types";
+import { InfoSection } from "./FormLayouts";
 
 type SuccessProps = {
   daoAddress: string;
@@ -59,7 +58,7 @@ export const SummonerSuccess = ({
   setSummonState,
 }: SuccessProps) => {
   const handleResetSummon = () => {
-    setSummonState('idle');
+    setSummonState("idle");
   };
   const isMobile = useBreakpoint(widthQuery.sm);
 
@@ -69,7 +68,7 @@ export const SummonerSuccess = ({
         <Bold>DAO Summoned</Bold>
       </H1>
       <ParMd>
-        Learn more about{' '}
+        Learn more about{" "}
         <Link href="https://daohaus.mirror.xyz/U_JQtheSzdpRFqQwf9Ow3LgLNG0WMZ6ibAyrjWDu_fc">
           Moloch v3
         </Link>
