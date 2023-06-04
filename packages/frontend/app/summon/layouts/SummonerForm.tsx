@@ -13,6 +13,7 @@ import {
   useToast,
 } from "@daohaus/ui";
 import { ReactSetter } from "@daohaus/utils";
+import { useWeb3React } from "@web3-react/core";
 import { useState } from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 
@@ -39,7 +40,7 @@ export const SummonerForm = ({
   setDaoAddress,
   setErrMsg,
 }: SummonFormProps) => {
-  const { chainId, isConnected } = useHausConnect();
+  const { chainId: chainBeforeFormatting, isActive } = useWeb3React();
   const { fireTransaction } = useTxBuilder();
   const methods = useForm({ mode: "onTouched" });
   const {
@@ -47,11 +48,13 @@ export const SummonerForm = ({
   } = methods;
   const { errorToast, successToast } = useToast();
 
+  const chainId = `0x${chainBeforeFormatting}`;
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const submitDisabled = !isValid || isSubmitting || !isValidNetwork(chainId);
   const formDisabled = isSubmitting;
 
-  console.log(isValidNetwork(chainId));
+  console.log(chainId, isValidNetwork(chainId?.toString()));
 
   const handleFormSubmit: SubmitHandler<SummonParams> = async (formValues) => {
     if (!chainId || !isValidNetwork(chainId)) {
@@ -94,6 +97,7 @@ export const SummonerForm = ({
             }
           },
           onTxError(error) {
+            console.log(error);
             if (error instanceof Error) {
               setErrMsg(error.message);
               errorToast({ title: "Summon Error", description: error.message });
@@ -175,7 +179,7 @@ export const SummonerForm = ({
         <AdvancedSegment formDisabled={formDisabled} />
         <MembersSegment formDisabled={formDisabled} />
         <ShamanSegment formDisabled={formDisabled} />
-        {!isConnected && <ConnectBox />}
+        {!isActive && <ConnectBox />}
         <Button
           fullWidth
           // centerAlign

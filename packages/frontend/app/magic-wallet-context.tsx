@@ -10,11 +10,12 @@ export const [magicConnect, hooks] = initializeConnector<MagicConnect>(
 
       options: {
         apiKey: process.env.NEXT_PUBLIC_MAGIC_PUBLISHABLE_API_KEY!,
-        network: "mainnet",
+        network: "goerli",
         testMode: true,
         networkOptions: {
-          rpcUrl: "https://rpc.ankr.com/eth",
-          chainId: 1,
+          rpcUrl:
+            "https://goerli.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161",
+          chainId: 5,
         },
       },
     })

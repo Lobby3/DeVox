@@ -4,6 +4,7 @@ import { useHausConnect } from "@daohaus/daohaus-connect-feature";
 import { TXBuilder } from "@daohaus/tx-builder";
 import { Footer, widthQuery } from "@daohaus/ui";
 import styled from "@emotion/styled";
+import { useWeb3React } from "@web3-react/core";
 import { useState } from "react";
 
 import { CenterLayout } from "./layouts/FormLayouts";
@@ -26,7 +27,12 @@ const TemporaryLayout = styled.div`
 `;
 
 const SummonerPage = () => {
-  const { provider, chainId } = useHausConnect();
+  // TODO: Wire this up with magic.link
+  // TODO: Summon at the same time
+  // TODO: Remove the shaman input box, and fire up our own
+  //
+  const { provider, chainId } = useWeb3React();
+  console.log(`0x${chainId?.toString()}`);
 
   const [summonState, setSummonState] = useState<SummonStates>("idle");
   const [txHash, setTxHash] = useState<string>("");
@@ -34,7 +40,11 @@ const SummonerPage = () => {
   const [errMsg, setErrMsg] = useState<string>("");
 
   return (
-    <TXBuilder provider={provider} chainId={chainId} appState={{}}>
+    <TXBuilder
+      provider={provider}
+      chainId={`0x${chainId?.toString()}`}
+      appState={{}}
+    >
       <TemporaryLayout>
         <CenterLayout>
           {summonState === "idle" && (
@@ -48,7 +58,7 @@ const SummonerPage = () => {
           {summonState === "loading" && <SummonerLoading txHash={txHash} />}
           {summonState === "success" && (
             <SummonerSuccess
-              chainId={chainId}
+              chainId={chainId?.toString()}
               daoAddress={daoAddress}
               setSummonState={setSummonState}
             />
