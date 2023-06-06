@@ -72,5 +72,6 @@
     "packages/*",
     "evm",
     "evm/subgraph"
-  ]
+  ],
+  "packageManager": "yarn@1.22.19"
 }
