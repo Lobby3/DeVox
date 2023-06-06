@@ -8,11 +8,13 @@ import {ERC1967Proxy} from "@openzeppelin/contracts/proxy/ERC1967/ERC1967Proxy.s
 
 import {DeVoxShamanV1} from "./DeVoxShamanV1.sol";
 import {IShaman} from "./IShaman.sol";
+import {IShamanSummoner} from "./IShamanSummoner.sol";
 
 contract DeVoxShamanSummonerV1 is
     Initializable,
     OwnableUpgradeable,
-    UUPSUpgradeable
+    UUPSUpgradeable,
+    IShamanSummoner
 {
     /// @notice Current version of the contract
     uint16 internal _version;
@@ -27,6 +29,7 @@ contract DeVoxShamanSummonerV1 is
      ******************/
 
     /// @notice emitted when a new shaman is summoned
+    /// 
     /// @param baal Baal contract address
     /// @param shaman Shaman contract address
     /// @param token ERC20 token address
@@ -37,7 +40,7 @@ contract DeVoxShamanSummonerV1 is
     /// @param name Name of the campaign
     event SummonComplete(
         address indexed baal,
-        address shaman,
+        address indexed shaman,
         address token,
         uint256 id,
         uint256 pricePerUnit,
@@ -61,21 +64,27 @@ contract DeVoxShamanSummonerV1 is
     }
 
     function summonDeVoxShaman(
-        address _moloch,
-        address payable _token,
-        uint256 _pricePerUnit,
-        uint256 _tokensPerUnit,
-        uint256 _target,
-        string memory _name
-    ) public returns (address) {
+        bytes calldata _initializationParams
+    ) external override returns (address) {
         _id = _id + 1;
+
+        (
+            address payable _token,
+            uint256 _pricePerUnit,
+            uint256 _tokensPerUnit,
+            uint256 _target,
+            string memory _name
+        ) = abi.decode(
+                _initializationParams,
+                (address, uint256, uint256, uint256, string)
+            );
 
         address shaman = address(
             new ERC1967Proxy(
                 template,
                 abi.encodeWithSelector(
                     IShaman(template).initialize.selector,
-                    _moloch,
+                    address(0),
                     _token,
                     _id,
                     _pricePerUnit,
@@ -86,9 +95,9 @@ contract DeVoxShamanSummonerV1 is
         );
 
         emit SummonComplete(
-            _moloch,
+            address(0),
             shaman,
-            address(_token),
+            _token,
             _id,
             _pricePerUnit,
             _tokensPerUnit,

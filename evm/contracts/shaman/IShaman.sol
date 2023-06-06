@@ -12,6 +12,10 @@ interface IShaman {
         uint256 _target
     ) external;
 
+    /// @notice Set BaaL contract address
+    /// @param _baal BaaL contract address
+    function setBaal(address _baal) external;
+
     /// @notice Make a donation, join the DAO and receive voting shares
     /// @param _value amount donated
     /// @param _message message accompanying donation

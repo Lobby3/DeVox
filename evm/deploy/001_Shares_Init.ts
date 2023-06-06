@@ -8,4 +8,4 @@ const deploy: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
 };
 
 export default deploy;
-deploy.tags = [ContractNames.Shares, "local", "staging"];
+deploy.tags = [ContractNames.Shares, "local"];

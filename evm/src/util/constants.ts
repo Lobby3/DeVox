@@ -29,6 +29,7 @@ export const ContractNames = {
   BaalSummoner: "BaalSummonerV1",
   BaalAdvTokenSummoner: "BaalAdvTokenSummonerV1",
   BaalAndVaultSummoner: "BaalAndVaultSummonerV1",
+  DeVoxBaalAndShamanSummoner: "DeVoxBaalAndShamanSummonerV1",
   DeVoxShaman: "DeVoxShamanV1",
   DeVoxShamanSummoner: "DeVoxShamanSummonerV1",
   Loot: "LootV1",

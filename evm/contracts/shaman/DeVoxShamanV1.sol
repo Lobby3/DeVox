@@ -118,6 +118,12 @@ contract DeVoxShamanV1 is
         target = _target;
     }
 
+    /// @notice Set BaaL contract address
+    /// @param _baal BaaL contract address
+    function setBaal(address _baal) external override /*onlyOwner*/ {
+        baal = IBaal(_baal);
+    }
+
     /// Whitelist a user, enabling them to join the DAO
     /// @param _status whitelist status
     /// @param _metadata user metadata

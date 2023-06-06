@@ -70,6 +70,19 @@ const _abi = [
   {
     inputs: [
       {
+        internalType: "address",
+        name: "_baal",
+        type: "address",
+      },
+    ],
+    name: "setBaal",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
         internalType: "bool",
         name: "_status",
         type: "bool",

@@ -1,12 +1,12 @@
 import { expect } from "chai";
 import { BigNumber, BigNumberish, ContractTransaction } from "ethers";
+import { LogDescription, randomBytes } from "ethers/lib/utils";
 import { deployments, ethers } from "hardhat";
 
 import {
   Baal,
-  BaalSummoner,
+  DeVoxBaalAndShamanSummoner,
   DeVoxShaman,
-  DeVoxShamanSummoner,
   GnosisSafe,
   Loot,
   MultiSend,
@@ -74,96 +74,42 @@ export const defaultSummonArgs: DeVoxShamanSummonArgs = {
   name: "Sample Campaign",
 };
 
-async function blockTime() {
-  const block = await ethers.provider.getBlock("latest");
-  return block.timestamp;
-}
-
-async function moveForwardPeriods(periods: number, extra?: number) {
-  const goToTime =
-    defaultGovernanceSettings.VOTING_PERIOD_IN_SECONDS * periods +
-    (await blockTime()) +
-    (extra ?? 0);
-
-  await ethers.provider.send("evm_mine", [goToTime]);
-
-  return true;
-}
-
-const setShamanProposal = async function (
-  baal: Baal,
-  multisend: MultiSend,
-  shaman: string,
-  permission: BigNumberish
-) {
-  const setShaman = baal.interface.encodeFunctionData("setShamans", [
-    [shaman],
-    [permission],
-  ]);
-  const setShamanAction = encodeMultiAction(
-    multisend,
-    [setShaman],
-    [baal.address],
-    [BigNumber.from(0)],
-    [0]
-  );
-  await baal.submitProposal(setShamanAction, 0, 0, "");
-  const proposalId = await baal.proposalCount();
-  await baal.submitVote(proposalId, true);
-  await moveForwardPeriods(2);
-  await baal.processProposal(proposalId, setShamanAction);
-  return proposalId;
-};
-
-const summonDeVoxShaman = async function (
-  deVoxShamanArgs: DeVoxShamanSummonArgs,
-  multisend: MultiSend,
-  deVoxShamanSingleton: DeVoxShaman,
-  deVoxShamanSummoner: DeVoxShamanSummoner,
-  baal: Baal,
-  token: ERC20
-) {
-  // console.log(
-  //   "Summoning DeVoxShaman...",
-  //   baal.address,
-  //   token.address,
-  //   deVoxShamanArgs.pricePerUnit,
-  //   deVoxShamanArgs.tokensPerUnit,
-  //   deVoxShamanArgs.target
-  // );
-  const summondeVoxShaman = await deVoxShamanSummoner.summonDeVoxShaman(
-    baal.address,
-    token.address,
-    deVoxShamanArgs.pricePerUnit,
-    deVoxShamanArgs.tokensPerUnit,
-    deVoxShamanArgs.target,
-    deVoxShamanArgs.name
-  );
-  const result = await summondeVoxShaman.wait();
-  const events = result.events!;
-  const e = events[events.length - 1];
-  // console.log("e", e);
-  const shamanAddress = e.args?.shaman;
-  const deVoxShaman = deVoxShamanSingleton.attach(shamanAddress);
-
-  // console.log("Setting DeVoxShaman as Shaman...");
-  await setShamanProposal(baal, multisend, shamanAddress, 7);
-
-  return deVoxShaman;
-};
-
 const getNewBaalAddresses = async (
   tx: ContractTransaction
-): Promise<{ baal: string; loot: string; shares: string; safe: string }> => {
+): Promise<{
+  baal: string;
+  shaman: string;
+  loot: string;
+  shares: string;
+  safe: string;
+}> => {
   const receipt = await ethers.provider.getTransactionReceipt(tx.hash);
-  let baalSummonAbi = [
-    "event SummonBaal(address indexed baal, address indexed loot, address indexed shares, address safe, address forwarder, uint256 existingAddrs)",
-  ];
-  let iface = new ethers.utils.Interface(baalSummonAbi);
-  // console.log({logs: receipt.logs[receipt.logs.length - 1]})
-  let log = iface.parseLog(receipt.logs[receipt.logs.length - 1]);
-  const { baal, loot, shares, safe } = log.args;
-  return { baal, loot, shares, safe };
+  // console.log(receipt);
+
+  const tryFetchLogEvent = (abi: string) => {
+    const iface = new ethers.utils.Interface([abi]);
+    for (let i = 0; i < receipt.logs.length; i++) {
+      try {
+        const log = iface.parseLog(receipt.logs[i]);
+        return log;
+      } catch (e) {
+        if (i === receipt.logs.length - 1)
+          throw new Error(`No log found: ${e}`);
+      }
+    }
+  };
+
+  const shamanSummonAbi =
+    "event SummonComplete(address indexed baal, address indexed shaman, address token, uint256 id, uint256 pricePerUnit, uint256 tokensPerUnit, uint256 target, string name)";
+  const shamanSummonLog = tryFetchLogEvent(shamanSummonAbi);
+  const { _, shaman } = shamanSummonLog!.args;
+
+  const baalSummonAbi =
+    "event SummonBaal(address indexed baal, address indexed loot, address indexed shares, address safe, address forwarder, uint256 existingAddrs)";
+  const baalSummonLog = tryFetchLogEvent(baalSummonAbi);
+  const { baal, loot, shares, safe } = baalSummonLog!.args;
+
+  return { baal, shaman, loot, shares, safe };
 };
 
 const metadataConfig = {
@@ -229,6 +175,22 @@ const getBaalParams = async function (
   };
 };
 
+const getShamanInitParams = function (
+  tokenAddress: string,
+  shamanArgs: DeVoxShamanSummonArgs
+) {
+  return abiCoder.encode(
+    ["string", "uint256", "uint256", "uint256", "string"],
+    [
+      tokenAddress,
+      shamanArgs.pricePerUnit,
+      shamanArgs.tokensPerUnit,
+      shamanArgs.target,
+      shamanArgs.name,
+    ]
+  );
+};
+
 // await token.transfer(
 //   applicant.address,
 //   ethers.utils.parseUnits("10.0", "ether")
@@ -275,10 +237,10 @@ const setupTest = deployments.createFixture<
   );
   expect(multisend.address).to.be.properAddress;
 
-  const baalSummoner: BaalSummoner = await ethers.getContract(
-    ContractNames.BaalSummoner
+  const summoner: DeVoxBaalAndShamanSummoner = await ethers.getContract(
+    ContractNames.DeVoxBaalAndShamanSummoner
   );
-  expect(baalSummoner.address).to.be.properAddress;
+  expect(summoner.address).to.be.properAddress;
 
   const shamanSingleton: DeVoxShaman = await ethers.getContract(
     ContractNames.DeVoxShaman
@@ -312,16 +274,23 @@ const setupTest = deployments.createFixture<
     governanceSettings,
     [sharesPaused, lootPaused],
     [[deployer], [deployerShares]],
-    [[dead], [deadLoot]],  // has the effect of disabling meaningful ragequit
+    [[dead], [deadLoot]], // has the effect of disabling meaningful ragequit
     ethers.constants.AddressZero,
     ethers.constants.AddressZero,
     ethers.constants.AddressZero
   );
 
-  const tx = await baalSummoner.summonBaal(
+  const encodedShamanInitParams = getShamanInitParams(
+    tokenSingleton.address,
+    shamanArgs
+  );
+
+  const tx = await summoner.summonBaalAndShaman(
     encodedInitParams.initParams,
     encodedInitParams.initalizationActions,
-    101
+    101,
+    randomBytes(32),
+    encodedShamanInitParams
   );
   const addresses = await getNewBaalAddresses(tx);
 
@@ -329,6 +298,11 @@ const setupTest = deployments.createFixture<
   expect(baal.address).to.be.properAddress;
   expect(baal.address).to.equal(addresses.baal);
   expect(baal.address).not.to.equal(baalSingleton.address);
+
+  const shaman = shamanSingleton.attach(addresses.shaman);
+  expect(shaman.address).to.be.properAddress;
+  expect(shaman.address).to.equal(addresses.shaman);
+  expect(shaman.address).not.to.equal(shamanSingleton.address);
 
   const safe = safeSingleton.attach(addresses.safe);
   expect(safe.address).to.be.properAddress;
@@ -344,38 +318,6 @@ const setupTest = deployments.createFixture<
   expect(shares.address).to.be.properAddress;
   expect(shares.address).to.equal(addresses.shares);
   expect(shares.address).not.to.equal(sharesSingleton.address);
-
-  //   const selfTransferAction = encodeMultiAction(
-  //     multisend,
-  //     ["0x"],
-  //     [baal.address],
-  //     [BigNumber.from(0)],
-  //     [0]
-  //   );
-
-  //   const proposal = {
-  //     flag: 0,
-  //     account: user,
-  //     data: selfTransferAction,
-  //     details: "all hail baal",
-  //     expiration: 0,
-  //     baalGas: 0,
-  //   };
-
-  const shamanSummoner: DeVoxShamanSummoner = await ethers.getContract(
-    ContractNames.DeVoxShamanSummoner
-  );
-  expect(shamanSummoner.address).to.be.properAddress;
-
-  const shaman: DeVoxShaman = await summonDeVoxShaman(
-    shamanArgs,
-    multisend,
-    shamanSingleton,
-    shamanSummoner,
-    baal,
-    tokenSingleton
-  );
-  // console.log("summoned DeVoxShaman at: ", shaman.address);
 
   // Account config
   const setupAddress = async (address: string) => {

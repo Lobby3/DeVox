@@ -19,5 +19,4 @@ deploy.tags = [
   ContractNames.SafeMultiSend,
   ContractNames.SafeProxyFactory,
   "local",
-  "staging",
 ];

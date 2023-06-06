@@ -42,7 +42,7 @@ describe(ContractNames.DeVoxShaman, function () {
     );
   });
 
-  it.only("should mint shares on donate", async function () {
+  it("should mint shares on donate", async function () { // TODO: fix this test
     // arrange
     const {
       deployer: { token: deployerToken, safe },
@@ -123,7 +123,7 @@ describe(ContractNames.DeVoxShaman, function () {
     await testDonate("10000");
   });
 
-  it.only("should not allow ragequit of funds", async function () {
+  it("should not allow ragequit of funds", async function () { // TODO: fix this test
     // arrange
     const {
       deployer: { token: deployerToken, safe },

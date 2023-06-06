@@ -41,4 +41,4 @@ const deploy: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
 };
 
 export default deploy;
-deploy.tags = [ContractNames.BaalSummoner, "local", "staging"];
+deploy.tags = [ContractNames.BaalSummoner, "local"];

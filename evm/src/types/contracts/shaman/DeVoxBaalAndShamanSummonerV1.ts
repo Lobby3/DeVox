@@ -19,6 +19,7 @@ import type { Listener, Provider } from "@ethersproject/providers";
 import type {
   BaseContract,
   BigNumber,
+  BigNumberish,
   BytesLike,
   CallOverrides,
   ContractTransaction,
@@ -29,39 +30,45 @@ import type {
   utils,
 } from "ethers";
 
-export interface DeVoxShamanSummonerV1Interface extends utils.Interface {
+export interface DeVoxBaalAndShamanSummonerV1Interface extends utils.Interface {
   functions: {
-    "initialize(address)": FunctionFragment;
+    "_baalSummoner()": FunctionFragment;
+    "_shamanSummoner()": FunctionFragment;
+    "initialize(address,address)": FunctionFragment;
     "owner()": FunctionFragment;
     "proxiableUUID()": FunctionFragment;
     "renounceOwnership()": FunctionFragment;
-    "summonDeVoxShaman(bytes)": FunctionFragment;
-    "template()": FunctionFragment;
+    "summonBaalAndShaman(bytes,bytes[],uint256,bytes32,bytes)": FunctionFragment;
     "transferOwnership(address)": FunctionFragment;
-    "updateVersion()": FunctionFragment;
     "upgradeTo(address)": FunctionFragment;
     "upgradeToAndCall(address,bytes)": FunctionFragment;
-    "version()": FunctionFragment;
   };
 
   getFunction(
     nameOrSignatureOrTopic:
+      | "_baalSummoner"
+      | "_shamanSummoner"
       | "initialize"
       | "owner"
       | "proxiableUUID"
       | "renounceOwnership"
-      | "summonDeVoxShaman"
-      | "template"
+      | "summonBaalAndShaman"
       | "transferOwnership"
-      | "updateVersion"
       | "upgradeTo"
       | "upgradeToAndCall"
-      | "version"
   ): FunctionFragment;
 
   encodeFunctionData(
+    functionFragment: "_baalSummoner",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "_shamanSummoner",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
     functionFragment: "initialize",
-    values: [PromiseOrValue<string>]
+    values: [PromiseOrValue<string>, PromiseOrValue<string>]
   ): string;
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
   encodeFunctionData(
@@ -73,17 +80,18 @@ export interface DeVoxShamanSummonerV1Interface extends utils.Interface {
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "summonDeVoxShaman",
-    values: [PromiseOrValue<BytesLike>]
+    functionFragment: "summonBaalAndShaman",
+    values: [
+      PromiseOrValue<BytesLike>,
+      PromiseOrValue<BytesLike>[],
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BytesLike>,
+      PromiseOrValue<BytesLike>
+    ]
   ): string;
-  encodeFunctionData(functionFragment: "template", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "transferOwnership",
     values: [PromiseOrValue<string>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "updateVersion",
-    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "upgradeTo",
@@ -93,8 +101,15 @@ export interface DeVoxShamanSummonerV1Interface extends utils.Interface {
     functionFragment: "upgradeToAndCall",
     values: [PromiseOrValue<string>, PromiseOrValue<BytesLike>]
   ): string;
-  encodeFunctionData(functionFragment: "version", values?: undefined): string;
 
+  decodeFunctionResult(
+    functionFragment: "_baalSummoner",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "_shamanSummoner",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "initialize", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
   decodeFunctionResult(
@@ -106,16 +121,11 @@ export interface DeVoxShamanSummonerV1Interface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "summonDeVoxShaman",
+    functionFragment: "summonBaalAndShaman",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "template", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "transferOwnership",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "updateVersion",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "upgradeTo", data: BytesLike): Result;
@@ -123,14 +133,12 @@ export interface DeVoxShamanSummonerV1Interface extends utils.Interface {
     functionFragment: "upgradeToAndCall",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "version", data: BytesLike): Result;
 
   events: {
     "AdminChanged(address,address)": EventFragment;
     "BeaconUpgraded(address)": EventFragment;
     "Initialized(uint8)": EventFragment;
     "OwnershipTransferred(address,address)": EventFragment;
-    "SummonComplete(address,address,address,uint256,uint256,uint256,uint256,string)": EventFragment;
     "Upgraded(address)": EventFragment;
   };
 
@@ -138,7 +146,6 @@ export interface DeVoxShamanSummonerV1Interface extends utils.Interface {
   getEvent(nameOrSignatureOrTopic: "BeaconUpgraded"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "Initialized"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "OwnershipTransferred"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "SummonComplete"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "Upgraded"): EventFragment;
 }
 
@@ -182,23 +189,6 @@ export type OwnershipTransferredEvent = TypedEvent<
 export type OwnershipTransferredEventFilter =
   TypedEventFilter<OwnershipTransferredEvent>;
 
-export interface SummonCompleteEventObject {
-  baal: string;
-  shaman: string;
-  token: string;
-  id: BigNumber;
-  pricePerUnit: BigNumber;
-  tokensPerUnit: BigNumber;
-  target: BigNumber;
-  name: string;
-}
-export type SummonCompleteEvent = TypedEvent<
-  [string, string, string, BigNumber, BigNumber, BigNumber, BigNumber, string],
-  SummonCompleteEventObject
->;
-
-export type SummonCompleteEventFilter = TypedEventFilter<SummonCompleteEvent>;
-
 export interface UpgradedEventObject {
   implementation: string;
 }
@@ -206,12 +196,12 @@ export type UpgradedEvent = TypedEvent<[string], UpgradedEventObject>;
 
 export type UpgradedEventFilter = TypedEventFilter<UpgradedEvent>;
 
-export interface DeVoxShamanSummonerV1 extends BaseContract {
+export interface DeVoxBaalAndShamanSummonerV1 extends BaseContract {
   connect(signerOrProvider: Signer | Provider | string): this;
   attach(addressOrName: string): this;
   deployed(): Promise<this>;
 
-  interface: DeVoxShamanSummonerV1Interface;
+  interface: DeVoxBaalAndShamanSummonerV1Interface;
 
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,
@@ -233,8 +223,13 @@ export interface DeVoxShamanSummonerV1 extends BaseContract {
   removeListener: OnEvent<this>;
 
   functions: {
+    _baalSummoner(overrides?: CallOverrides): Promise<[string]>;
+
+    _shamanSummoner(overrides?: CallOverrides): Promise<[string]>;
+
     initialize(
-      _template: PromiseOrValue<string>,
+      baalSummoner: PromiseOrValue<string>,
+      shamanSummoner: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
@@ -246,19 +241,17 @@ export interface DeVoxShamanSummonerV1 extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
-    summonDeVoxShaman(
+    summonBaalAndShaman(
       _initializationParams: PromiseOrValue<BytesLike>,
+      _initializationActions: PromiseOrValue<BytesLike>[],
+      _saltNonce: PromiseOrValue<BigNumberish>,
+      _referrer: PromiseOrValue<BytesLike>,
+      _shamanInitializationParams: PromiseOrValue<BytesLike>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
-
-    template(overrides?: CallOverrides): Promise<[string]>;
 
     transferOwnership(
       newOwner: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
-
-    updateVersion(
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
@@ -272,12 +265,15 @@ export interface DeVoxShamanSummonerV1 extends BaseContract {
       data: PromiseOrValue<BytesLike>,
       overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
-
-    version(overrides?: CallOverrides): Promise<[BigNumber]>;
   };
 
+  _baalSummoner(overrides?: CallOverrides): Promise<string>;
+
+  _shamanSummoner(overrides?: CallOverrides): Promise<string>;
+
   initialize(
-    _template: PromiseOrValue<string>,
+    baalSummoner: PromiseOrValue<string>,
+    shamanSummoner: PromiseOrValue<string>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
@@ -289,19 +285,17 @@ export interface DeVoxShamanSummonerV1 extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
-  summonDeVoxShaman(
+  summonBaalAndShaman(
     _initializationParams: PromiseOrValue<BytesLike>,
+    _initializationActions: PromiseOrValue<BytesLike>[],
+    _saltNonce: PromiseOrValue<BigNumberish>,
+    _referrer: PromiseOrValue<BytesLike>,
+    _shamanInitializationParams: PromiseOrValue<BytesLike>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
-
-  template(overrides?: CallOverrides): Promise<string>;
 
   transferOwnership(
     newOwner: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
-
-  updateVersion(
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
@@ -316,11 +310,14 @@ export interface DeVoxShamanSummonerV1 extends BaseContract {
     overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
-  version(overrides?: CallOverrides): Promise<BigNumber>;
-
   callStatic: {
+    _baalSummoner(overrides?: CallOverrides): Promise<string>;
+
+    _shamanSummoner(overrides?: CallOverrides): Promise<string>;
+
     initialize(
-      _template: PromiseOrValue<string>,
+      baalSummoner: PromiseOrValue<string>,
+      shamanSummoner: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -330,19 +327,21 @@ export interface DeVoxShamanSummonerV1 extends BaseContract {
 
     renounceOwnership(overrides?: CallOverrides): Promise<void>;
 
-    summonDeVoxShaman(
+    summonBaalAndShaman(
       _initializationParams: PromiseOrValue<BytesLike>,
+      _initializationActions: PromiseOrValue<BytesLike>[],
+      _saltNonce: PromiseOrValue<BigNumberish>,
+      _referrer: PromiseOrValue<BytesLike>,
+      _shamanInitializationParams: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
-    ): Promise<string>;
-
-    template(overrides?: CallOverrides): Promise<string>;
+    ): Promise<
+      [string, string] & { _baalAddress: string; _shamanAddress: string }
+    >;
 
     transferOwnership(
       newOwner: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<void>;
-
-    updateVersion(overrides?: CallOverrides): Promise<void>;
 
     upgradeTo(
       newImplementation: PromiseOrValue<string>,
@@ -354,8 +353,6 @@ export interface DeVoxShamanSummonerV1 extends BaseContract {
       data: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<void>;
-
-    version(overrides?: CallOverrides): Promise<BigNumber>;
   };
 
   filters: {
@@ -387,27 +384,6 @@ export interface DeVoxShamanSummonerV1 extends BaseContract {
       newOwner?: PromiseOrValue<string> | null
     ): OwnershipTransferredEventFilter;
 
-    "SummonComplete(address,address,address,uint256,uint256,uint256,uint256,string)"(
-      baal?: PromiseOrValue<string> | null,
-      shaman?: PromiseOrValue<string> | null,
-      token?: null,
-      id?: null,
-      pricePerUnit?: null,
-      tokensPerUnit?: null,
-      target?: null,
-      name?: null
-    ): SummonCompleteEventFilter;
-    SummonComplete(
-      baal?: PromiseOrValue<string> | null,
-      shaman?: PromiseOrValue<string> | null,
-      token?: null,
-      id?: null,
-      pricePerUnit?: null,
-      tokensPerUnit?: null,
-      target?: null,
-      name?: null
-    ): SummonCompleteEventFilter;
-
     "Upgraded(address)"(
       implementation?: PromiseOrValue<string> | null
     ): UpgradedEventFilter;
@@ -417,8 +393,13 @@ export interface DeVoxShamanSummonerV1 extends BaseContract {
   };
 
   estimateGas: {
+    _baalSummoner(overrides?: CallOverrides): Promise<BigNumber>;
+
+    _shamanSummoner(overrides?: CallOverrides): Promise<BigNumber>;
+
     initialize(
-      _template: PromiseOrValue<string>,
+      baalSummoner: PromiseOrValue<string>,
+      shamanSummoner: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
@@ -430,19 +411,17 @@ export interface DeVoxShamanSummonerV1 extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
-    summonDeVoxShaman(
+    summonBaalAndShaman(
       _initializationParams: PromiseOrValue<BytesLike>,
+      _initializationActions: PromiseOrValue<BytesLike>[],
+      _saltNonce: PromiseOrValue<BigNumberish>,
+      _referrer: PromiseOrValue<BytesLike>,
+      _shamanInitializationParams: PromiseOrValue<BytesLike>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
-
-    template(overrides?: CallOverrides): Promise<BigNumber>;
 
     transferOwnership(
       newOwner: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
-
-    updateVersion(
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
@@ -456,13 +435,16 @@ export interface DeVoxShamanSummonerV1 extends BaseContract {
       data: PromiseOrValue<BytesLike>,
       overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
-
-    version(overrides?: CallOverrides): Promise<BigNumber>;
   };
 
   populateTransaction: {
+    _baalSummoner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    _shamanSummoner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
     initialize(
-      _template: PromiseOrValue<string>,
+      baalSummoner: PromiseOrValue<string>,
+      shamanSummoner: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -474,19 +456,17 @@ export interface DeVoxShamanSummonerV1 extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
-    summonDeVoxShaman(
+    summonBaalAndShaman(
       _initializationParams: PromiseOrValue<BytesLike>,
+      _initializationActions: PromiseOrValue<BytesLike>[],
+      _saltNonce: PromiseOrValue<BigNumberish>,
+      _referrer: PromiseOrValue<BytesLike>,
+      _shamanInitializationParams: PromiseOrValue<BytesLike>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
-
-    template(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     transferOwnership(
       newOwner: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
-
-    updateVersion(
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -500,7 +480,5 @@ export interface DeVoxShamanSummonerV1 extends BaseContract {
       data: PromiseOrValue<BytesLike>,
       overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
-
-    version(overrides?: CallOverrides): Promise<PopulatedTransaction>;
   };
 }
