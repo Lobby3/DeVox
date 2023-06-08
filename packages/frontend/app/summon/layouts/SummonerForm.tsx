@@ -1,5 +1,4 @@
-import { SummonParams, assembleTxArgs } from "@daohaus/contract-utils";
-import { useHausConnect } from "@daohaus/daohaus-connect-feature";
+import { SummonParams } from "@daohaus/contract-utils";
 import { isValidNetwork } from "@daohaus/keychain-utils";
 import { useTxBuilder } from "@daohaus/tx-builder";
 import {
@@ -17,13 +16,13 @@ import { useWeb3React } from "@web3-react/core";
 import { useState } from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 
-import { ConnectBox } from "../components/ConnectBox/ConnectBox";
+import ConnectButton from "../../../components/connect-button/connect-button";
 import { AdvancedSegment } from "../layouts/AdvancedSegment";
 import { MembersSegment } from "../layouts/MemberSegment";
-import { ShamanSegment } from "../layouts/ShamanSegment";
 import { StakeTokensSegment } from "../layouts/StakeTokenSegment";
 import { TimingSegment } from "../layouts/TimingSegment";
 import { SummonStates } from "../types";
+import { assembleTxArgs } from "../utils/assembleTxArgs";
 import { FORM_KEYS } from "../utils/formKeys";
 import { SummonTX } from "../utils/summonlegos";
 
@@ -40,31 +39,44 @@ export const SummonerForm = ({
   setDaoAddress,
   setErrMsg,
 }: SummonFormProps) => {
-  const { chainId: chainBeforeFormatting, isActive } = useWeb3React();
+  const { chainId, isActive, account } = useWeb3React();
   const { fireTransaction } = useTxBuilder();
-  const methods = useForm({ mode: "onTouched" });
+  const methods = useForm({
+    mode: "onTouched",
+    defaultValues: {
+      [FORM_KEYS.DAO_NAME]: "DeVox Test DAO 1",
+      [FORM_KEYS.GRACE_PERIOD]: "1",
+      [FORM_KEYS.VOTING_PERIOD]: "1",
+      [FORM_KEYS.TOKEN_NAME]: "DeVox",
+      [FORM_KEYS.TOKEN_SYMBOL]: "DVOX",
+      [FORM_KEYS.LOOT_TOKEN_NAME]: "DeVox Loot",
+      [FORM_KEYS.LOOT_TOKEN_SYMBOL]: "DVOXL",
+      [FORM_KEYS.MEMBERS]: account && `${account} 1000000 0`,
+    },
+  });
   const {
     formState: { isValid },
   } = methods;
   const { errorToast, successToast } = useToast();
-
-  const chainId = `0x${chainBeforeFormatting}`;
-
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const submitDisabled = !isValid || isSubmitting || !isValidNetwork(chainId);
+
+  const chainIdHex = chainId && `0x${chainId.toString(16)}`;
+  const submitDisabled =
+    !isValid || !isValidNetwork(chainIdHex) || isSubmitting;
   const formDisabled = isSubmitting;
 
-  console.log(chainId, isValidNetwork(chainId?.toString()));
+  console.log("chainId (valid)", chainIdHex, isValidNetwork(chainIdHex));
+  console.log("account", account);
 
   const handleFormSubmit: SubmitHandler<SummonParams> = async (formValues) => {
-    if (!chainId || !isValidNetwork(chainId)) {
+    if (!chainIdHex || !isValidNetwork(chainIdHex)) {
       setSummonState("error");
       return;
     }
 
     setIsSubmitting(true);
     try {
-      const args = assembleTxArgs(formValues, chainId);
+      const args = assembleTxArgs(formValues, chainIdHex);
 
       fireTransaction({
         tx: {
@@ -178,8 +190,7 @@ export const SummonerForm = ({
         <TimingSegment formDisabled={formDisabled} />
         <AdvancedSegment formDisabled={formDisabled} />
         <MembersSegment formDisabled={formDisabled} />
-        <ShamanSegment formDisabled={formDisabled} />
-        {!isActive && <ConnectBox />}
+        {!isActive && <ConnectButton />}
         <Button
           fullWidth
           // centerAlign

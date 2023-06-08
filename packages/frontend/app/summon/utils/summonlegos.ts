@@ -1,16 +1,15 @@
-import { LOCAL_ABI } from '@daohaus/abis';
 import { ContractLego } from '@daohaus/utils';
-import { CONTRACT_KEYCHAINS } from '@daohaus/keychain-utils';
+import DeVoxBaalAndShamanSummonerV1Abi from '../../../abi/DeVoxBaalAndShamanSummonerV1';
 
-const BaalSummonerContract: ContractLego = {
-  contractName: 'BaalSummoner',
+const BaalAndShamanSummonerContract: ContractLego = {
+  contractName: 'DeVoxBaalAndShamanSummonerV1',
   type: 'static',
-  abi: LOCAL_ABI.BAAL_ADV_TOKEN_SUMMONER,
-  targetAddress: CONTRACT_KEYCHAINS.V3_FACTORY_ADV_TOKEN,
+  abi: DeVoxBaalAndShamanSummonerV1Abi,
+  targetAddress: "0xF7F0fC85946060F37B01c3E125eBe17F2663ed82"
 };
 
 export const SummonTX = {
   id: 'SummonTX',
-  contract: BaalSummonerContract,
-  method: 'summonBaalFromReferrer',
+  contract: BaalAndShamanSummonerContract,
+  method: 'summonBaalAndShaman',
 };
