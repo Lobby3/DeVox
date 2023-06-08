@@ -14,4 +14,4 @@ const deploy: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
 };
 
 export default deploy;
-deploy.tags = [ContractNames.DeVoxShamanSummoner, "local", "staging"];
+deploy.tags = [ContractNames.DeVoxShamanSummoner, "local", "staging", "production"];

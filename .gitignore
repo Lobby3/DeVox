@@ -37,6 +37,8 @@ yarn-error.log
 testem.log
 /typings
 .env
+etherscan.txt
+mnemonic.txt
 
 # System Files
 .DS_Store
