@@ -4,29 +4,23 @@ import {
   encodeMintParams,
   encodeTokenParams,
 } from "@daohaus/contract-utils";
-import { ValidNetwork, CONTRACT_KEYCHAINS } from "@daohaus/keychain-utils";
+import { ValidNetwork } from "@daohaus/keychain-utils";
 import {
-  POSTER_TAGS,
-  ZERO_ADDRESS,
   encodeFunction,
   encodeValues,
   getNonce,
   isNumberish,
   isString,
 } from "@daohaus/utils";
-import { randomBytes } from "crypto";
 import { BigNumber } from "ethers";
-
 import { FORM_KEYS } from "./formKeys";
+import { TreasuryTokenKeychains } from "./wellKnown";
 
-const HardhatChainId = "0x31337";
 export type ArgType = string | number | boolean | BigNumber | ArgType[];
-export type OurValidNetwork = ValidNetwork | "0x31337";
 
 export const assembleTxArgs = (
   formValues: Record<string, unknown>,
-  chainId: OurValidNetwork,
-  safeAddress?: string
+  chainId: ValidNetwork
 ): ArgType[] => {
   const tokenName = formValues["tokenName"];
   const tokenSymbol = formValues["tokenSymbol"];
@@ -46,64 +40,39 @@ export const assembleTxArgs = (
     );
   }
 
-  // const { POSTER } = handleKeychains(chainId);
-
   const mintParams = encodeMintParams(formValues);
-
   const tokenParams = encodeTokenParams(formValues);
 
-  const initActions = [
-    governanceConfigTX(formValues),
-    // metadataConfigTX(formValues, POSTER),
-  ];
-  //   const args = [
-  //     safeAddress || ZERO_ADDRESS,
-  //     ZERO_ADDRESS,
-  //     getNonce(),
-  //     mintParams,
-  //     tokenParams,
-  //     initActions,
-  //   ];
+  const baalInitActions = [governanceConfigTX(formValues)];
 
-  // Baal "classic" factory summon args
-  //   string memory _name /*_name Name for erc20 `shares` accounting, empty if token */,
-  //   string memory _symbol /*_symbol Symbol for erc20 `shares` accounting, empty if token*/,
-  //   address _safeAddr /*address of safe, 0 addr if new*/,
-  //   address _forwarder /*Trusted forwarder address for meta-transactions (EIP 2771), 0 addr if initially disabled*/,
-  //   address _lootToken /*predeployed loot token, 0 addr if new*/,
-  //   address _sharesToken /*predeployed shares token, 0 addr if new*/
-  const baalArgs = encodeValues(
-    ["string", "string", "address", "address", "address", "address"],
-    [
-      <string>formValues[FORM_KEYS.TOKEN_NAME],
-      <string>formValues[FORM_KEYS.TOKEN_SYMBOL],
-      safeAddress || ZERO_ADDRESS,
-      ZERO_ADDRESS,
-      ZERO_ADDRESS,
-      ZERO_ADDRESS,
-    ]
-  );
-
-  const shamanArgs = getShamanInitParams();
-  const referrer = Array.from(randomBytes(32).values());
-  const args = [baalArgs, initActions, getNonce(), referrer, shamanArgs];
+  const shamanArgs = getShamanInitParams(formValues, chainId);
+  const args = [getNonce(), mintParams, tokenParams, baalInitActions, shamanArgs];
   console.log("args", args);
 
   return args;
 };
 
 const getShamanInitParams = function (
-  tokenAddress: string = "0xB7f8BC63BbcaD18155201308C8f3540b07f84F5e"
-  // shamanArgs: DeVoxShamanSummonArgs
+  formValues: Record<string, unknown>,
+  chainId: ValidNetwork,
 ) {
+  const tokenSymbol = formValues[FORM_KEYS.TREASURY_TOKEN];
+  if (!isString(tokenSymbol)) throw new Error("tokenSymbol is not a string");
+  const tokenAddress = TreasuryTokenKeychains[tokenSymbol][chainId];
+  if (!isString(tokenAddress)) throw new Error("tokenAddress is not a string");
+  const daoName = formValues[FORM_KEYS.DAO_NAME];
+  if (!isString(daoName)) throw new Error("daoName is not a string");
+  const target = Number(formValues[FORM_KEYS.CAMPAIGN_TARGET]);
+  if (!isNumberish(target)) throw new Error("target is not a number");
+
   return encodeValues(
     ["address", "uint256", "uint256", "uint256", "string"],
     [
       tokenAddress,
-      1000000000, // shamanArgs.pricePerUnit,
+      1000000, // shamanArgs.pricePerUnit,
       1, // shamanArgs.tokensPerUnit,
-      100000, // shamanArgs.target,
-      "DeVox Campaign 1", // shamanArgs.name,
+      target, // shamanArgs.target,
+      daoName, // shamanArgs.name,
     ]
   );
 };

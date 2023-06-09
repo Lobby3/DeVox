@@ -142,6 +142,8 @@ export type { BaalAndVaultSummonerV1 } from "./contracts/fixtures/Baal/higherOrd
 export { BaalAndVaultSummonerV1__factory } from "./factories/contracts/fixtures/Baal/higherOrderFactories/BaalAndVaultSummonerV1__factory";
 export type { IBaal } from "./contracts/fixtures/Baal/interfaces/IBaal";
 export { IBaal__factory } from "./factories/contracts/fixtures/Baal/interfaces/IBaal__factory";
+export type { IBaalAdvTokenSummoner } from "./contracts/fixtures/Baal/interfaces/IBaalAdvTokenSummoner";
+export { IBaalAdvTokenSummoner__factory } from "./factories/contracts/fixtures/Baal/interfaces/IBaalAdvTokenSummoner__factory";
 export type { IBaalSummoner } from "./contracts/fixtures/Baal/interfaces/IBaalSummoner";
 export { IBaalSummoner__factory } from "./factories/contracts/fixtures/Baal/interfaces/IBaalSummoner__factory";
 export type { IBaalToken } from "./contracts/fixtures/Baal/interfaces/IBaalToken";

@@ -38,7 +38,7 @@ export interface DeVoxBaalAndShamanSummonerV1Interface extends utils.Interface {
     "owner()": FunctionFragment;
     "proxiableUUID()": FunctionFragment;
     "renounceOwnership()": FunctionFragment;
-    "summonBaalAndShaman(bytes,bytes[],uint256,bytes32,bytes)": FunctionFragment;
+    "summonBaalAndShaman(uint256,bytes,bytes,bytes[],bytes)": FunctionFragment;
     "transferOwnership(address)": FunctionFragment;
     "upgradeTo(address)": FunctionFragment;
     "upgradeToAndCall(address,bytes)": FunctionFragment;
@@ -82,10 +82,10 @@ export interface DeVoxBaalAndShamanSummonerV1Interface extends utils.Interface {
   encodeFunctionData(
     functionFragment: "summonBaalAndShaman",
     values: [
-      PromiseOrValue<BytesLike>,
-      PromiseOrValue<BytesLike>[],
       PromiseOrValue<BigNumberish>,
       PromiseOrValue<BytesLike>,
+      PromiseOrValue<BytesLike>,
+      PromiseOrValue<BytesLike>[],
       PromiseOrValue<BytesLike>
     ]
   ): string;
@@ -242,10 +242,10 @@ export interface DeVoxBaalAndShamanSummonerV1 extends BaseContract {
     ): Promise<ContractTransaction>;
 
     summonBaalAndShaman(
-      _initializationParams: PromiseOrValue<BytesLike>,
-      _initializationActions: PromiseOrValue<BytesLike>[],
       _saltNonce: PromiseOrValue<BigNumberish>,
-      _referrer: PromiseOrValue<BytesLike>,
+      _initializationMintParams: PromiseOrValue<BytesLike>,
+      _initializationTokenParams: PromiseOrValue<BytesLike>,
+      _baalInitializationActions: PromiseOrValue<BytesLike>[],
       _shamanInitializationParams: PromiseOrValue<BytesLike>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
@@ -286,10 +286,10 @@ export interface DeVoxBaalAndShamanSummonerV1 extends BaseContract {
   ): Promise<ContractTransaction>;
 
   summonBaalAndShaman(
-    _initializationParams: PromiseOrValue<BytesLike>,
-    _initializationActions: PromiseOrValue<BytesLike>[],
     _saltNonce: PromiseOrValue<BigNumberish>,
-    _referrer: PromiseOrValue<BytesLike>,
+    _initializationMintParams: PromiseOrValue<BytesLike>,
+    _initializationTokenParams: PromiseOrValue<BytesLike>,
+    _baalInitializationActions: PromiseOrValue<BytesLike>[],
     _shamanInitializationParams: PromiseOrValue<BytesLike>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
@@ -328,10 +328,10 @@ export interface DeVoxBaalAndShamanSummonerV1 extends BaseContract {
     renounceOwnership(overrides?: CallOverrides): Promise<void>;
 
     summonBaalAndShaman(
-      _initializationParams: PromiseOrValue<BytesLike>,
-      _initializationActions: PromiseOrValue<BytesLike>[],
       _saltNonce: PromiseOrValue<BigNumberish>,
-      _referrer: PromiseOrValue<BytesLike>,
+      _initializationMintParams: PromiseOrValue<BytesLike>,
+      _initializationTokenParams: PromiseOrValue<BytesLike>,
+      _baalInitializationActions: PromiseOrValue<BytesLike>[],
       _shamanInitializationParams: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<
@@ -412,10 +412,10 @@ export interface DeVoxBaalAndShamanSummonerV1 extends BaseContract {
     ): Promise<BigNumber>;
 
     summonBaalAndShaman(
-      _initializationParams: PromiseOrValue<BytesLike>,
-      _initializationActions: PromiseOrValue<BytesLike>[],
       _saltNonce: PromiseOrValue<BigNumberish>,
-      _referrer: PromiseOrValue<BytesLike>,
+      _initializationMintParams: PromiseOrValue<BytesLike>,
+      _initializationTokenParams: PromiseOrValue<BytesLike>,
+      _baalInitializationActions: PromiseOrValue<BytesLike>[],
       _shamanInitializationParams: PromiseOrValue<BytesLike>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
@@ -457,10 +457,10 @@ export interface DeVoxBaalAndShamanSummonerV1 extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     summonBaalAndShaman(
-      _initializationParams: PromiseOrValue<BytesLike>,
-      _initializationActions: PromiseOrValue<BytesLike>[],
       _saltNonce: PromiseOrValue<BigNumberish>,
-      _referrer: PromiseOrValue<BytesLike>,
+      _initializationMintParams: PromiseOrValue<BytesLike>,
+      _initializationTokenParams: PromiseOrValue<BytesLike>,
+      _baalInitializationActions: PromiseOrValue<BytesLike>[],
       _shamanInitializationParams: PromiseOrValue<BytesLike>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;

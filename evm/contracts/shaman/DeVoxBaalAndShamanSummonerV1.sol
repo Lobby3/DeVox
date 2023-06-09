@@ -6,7 +6,7 @@ import {OwnableUpgradeable} from "@openzeppelin/contracts-upgradeable/access/Own
 import {UUPSUpgradeable} from "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";
 
 import {IBaal} from "../fixtures/Baal/interfaces/IBaal.sol";
-import {IBaalSummoner} from "../fixtures/Baal/interfaces/IBaalSummoner.sol";
+import {IBaalAdvTokenSummoner} from "../fixtures/Baal/interfaces/IBaalAdvTokenSummoner.sol";
 import {IShaman} from "./IShaman.sol";
 import {IShamanSummoner} from "./IShamanSummoner.sol";
 
@@ -18,7 +18,7 @@ contract DeVoxBaalAndShamanSummonerV1 is
     OwnableUpgradeable,
     UUPSUpgradeable
 {
-    IBaalSummoner public _baalSummoner;
+    IBaalAdvTokenSummoner public _baalSummoner;
     IShamanSummoner public _shamanSummoner;
 
     function initialize(
@@ -31,48 +31,52 @@ contract DeVoxBaalAndShamanSummonerV1 is
         __Ownable_init();
         __UUPSUpgradeable_init();
 
-        _baalSummoner = IBaalSummoner(baalSummoner);
+        _baalSummoner = IBaalAdvTokenSummoner(baalSummoner);
         _shamanSummoner = IShamanSummoner(shamanSummoner);
     }
 
     /// @notice Summon a new Baal and DeVoxShaman
-    /// @param _initializationParams Baal initialization params
-    /// @param _initializationActions Baal initialization actions
     /// @param _saltNonce Salt nonce for baal summoning
-    /// @param _referrer Referrer data - can be used to track the source of the summoning
+    /// @param _initializationMintParams The parameters for minting the tokens
+    /// @param _initializationTokenParams The parameters for deploying the tokens
+    /// @param _baalInitializationActions Baal initialization actions
     /// @param _shamanInitializationParams Shaman initialization params
+    /// @return _baalAddress The address of the new Baal contract
+    /// @return _shamanAddress The address of the new Shaman contract
     function summonBaalAndShaman(
-        bytes calldata _initializationParams,
-        bytes[] calldata _initializationActions,
         uint256 _saltNonce,
-        bytes32 _referrer,
+        bytes calldata _initializationMintParams,
+        bytes calldata _initializationTokenParams,
+        bytes[] calldata _baalInitializationActions,
         bytes calldata _shamanInitializationParams
     ) external returns (address _baalAddress, address _shamanAddress) {
-        _shamanAddress = _shamanSummoner.summonDeVoxShaman(_shamanInitializationParams);
+        _shamanAddress = _shamanSummoner.summonDeVoxShaman(
+            _shamanInitializationParams
+        );
         require(_shamanAddress != address(0), "shamanAddress: zero address");
 
-        bytes[] memory _baalInitializationActions = new bytes[](
-            _initializationActions.length + 1
+        bytes[] memory _newBaalInitializationActions = new bytes[](
+            _baalInitializationActions.length + 1
         );
-        for (uint256 i = 0; i < _initializationActions.length; i++) {
-            _baalInitializationActions[i] = _initializationActions[i];
+        for (uint256 i = 0; i < _baalInitializationActions.length; i++) {
+            _newBaalInitializationActions[i] = _baalInitializationActions[i];
         }
         address[] memory _shamans = new address[](1);
         _shamans[0] = _shamanAddress;
         uint256[] memory _permissions = new uint256[](1);
         _permissions[0] = 7;
-        _baalInitializationActions[_baalInitializationActions.length - 1] = abi
+        _newBaalInitializationActions[_newBaalInitializationActions.length - 1] = abi
             .encodeWithSelector(
                 IBaal.setShamans.selector,
-                _shamans, 
+                _shamans,
                 _permissions
             );
 
         _baalAddress = _baalSummoner.summonBaalFromReferrer(
-            _initializationParams,
-            _baalInitializationActions,
             _saltNonce,
-            _referrer
+            _initializationMintParams,
+            _initializationTokenParams,
+            _newBaalInitializationActions
         );
 
         IShaman(_shamanAddress).setBaal(_baalAddress);

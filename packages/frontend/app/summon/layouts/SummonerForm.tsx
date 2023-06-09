@@ -6,8 +6,6 @@ import {
   Button,
   Divider,
   H1,
-  Link,
-  ParMd,
   WrappedInput,
   useToast,
 } from "@daohaus/ui";
@@ -25,6 +23,7 @@ import { SummonStates } from "../types";
 import { assembleTxArgs } from "../utils/assembleTxArgs";
 import { FORM_KEYS } from "../utils/formKeys";
 import { SummonTX } from "../utils/summonlegos";
+import { TreasuryTokenSegment } from "./TreasuryTokenSegment";
 
 type SummonFormProps = {
   setSummonState: ReactSetter<SummonStates>;
@@ -44,13 +43,18 @@ export const SummonerForm = ({
   const methods = useForm({
     mode: "onTouched",
     defaultValues: {
-      [FORM_KEYS.DAO_NAME]: "DeVox Test DAO 1",
-      [FORM_KEYS.GRACE_PERIOD]: "1",
-      [FORM_KEYS.VOTING_PERIOD]: "1",
+      [FORM_KEYS.DAO_NAME]: "DeVox Test Campaign DAO 1",
+      [FORM_KEYS.GRACE_PERIOD]: "3",
+      [FORM_KEYS.VOTING_PERIOD]: "7",
       [FORM_KEYS.TOKEN_NAME]: "DeVox",
       [FORM_KEYS.TOKEN_SYMBOL]: "DVOX",
       [FORM_KEYS.LOOT_TOKEN_NAME]: "DeVox Loot",
       [FORM_KEYS.LOOT_TOKEN_SYMBOL]: "DVOXL",
+      [FORM_KEYS.VOTE_TOKEN_TRANSFER]: false,
+      [FORM_KEYS.NV_TOKEN_TRANSFER]: false,
+      [FORM_KEYS.SPONSOR_THRESHOLD]: "1",
+      [FORM_KEYS.TREASURY_TOKEN]: "USDT",
+      [FORM_KEYS.CAMPAIGN_TARGET]: "10000",
       [FORM_KEYS.MEMBERS]: account && `${account} 1000000 0`,
     },
   });
@@ -160,32 +164,27 @@ export const SummonerForm = ({
       >
         <div className="title-section">
           <H1 className="title">
-            <Bold>Summon a DAO</Bold>
+            <Bold>Create a Campaign DAO</Bold>
           </H1>
-          <ParMd>
-            Learn more about{" "}
-            <Link href="https://daohaus.mirror.xyz/U_JQtheSzdpRFqQwf9Ow3LgLNG0WMZ6ibAyrjWDu_fc">
-              Moloch v3
-            </Link>
-          </ParMd>
         </div>
         <div>
           <WrappedInput
             id={FORM_KEYS.DAO_NAME}
-            label="DAO Name"
-            placeholder="DAO Name"
+            label="Campaign DAO Name"
+            placeholder="Campaign DAO Name"
             full
             disabled={formDisabled}
             rules={{
-              required: "DAO name is required",
+              required: "Campaign name is required",
               maxLength: {
                 value: 128,
-                message: "DAO name must be 128 characters or less",
+                message: "Campaign name must be 128 characters or less",
               },
             }}
           />
           <Divider className="top-divider" />
         </div>
+        <TreasuryTokenSegment formDisabled={formDisabled} />
         <StakeTokensSegment formDisabled={formDisabled} />
         <TimingSegment formDisabled={formDisabled} />
         <AdvancedSegment formDisabled={formDisabled} />
@@ -198,7 +197,7 @@ export const SummonerForm = ({
           type="submit"
           disabled={submitDisabled}
         >
-          Summon DAO
+          Create DAO
         </Button>
       </form>
     </FormProvider>

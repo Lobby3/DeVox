@@ -2,5 +2,6 @@
 /* tslint:disable */
 /* eslint-disable */
 export type { IBaal } from "./IBaal";
+export type { IBaalAdvTokenSummoner } from "./IBaalAdvTokenSummoner";
 export type { IBaalSummoner } from "./IBaalSummoner";
 export type { IBaalToken } from "./IBaalToken";

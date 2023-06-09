@@ -38,7 +38,7 @@ export interface BaalAdvTokenSummonerV1Interface extends utils.Interface {
     "proxiableUUID()": FunctionFragment;
     "renounceOwnership()": FunctionFragment;
     "setSummonerAddr(address)": FunctionFragment;
-    "summonBaalFromReferrer(address,address,uint256,bytes,bytes,bytes[])": FunctionFragment;
+    "summonBaalFromReferrer(uint256,bytes,bytes,bytes[])": FunctionFragment;
     "transferOwnership(address)": FunctionFragment;
     "upgradeTo(address)": FunctionFragment;
     "upgradeToAndCall(address,bytes)": FunctionFragment;
@@ -82,8 +82,6 @@ export interface BaalAdvTokenSummonerV1Interface extends utils.Interface {
   encodeFunctionData(
     functionFragment: "summonBaalFromReferrer",
     values: [
-      PromiseOrValue<string>,
-      PromiseOrValue<string>,
       PromiseOrValue<BigNumberish>,
       PromiseOrValue<BytesLike>,
       PromiseOrValue<BytesLike>,
@@ -267,13 +265,11 @@ export interface BaalAdvTokenSummonerV1 extends BaseContract {
     ): Promise<ContractTransaction>;
 
     summonBaalFromReferrer(
-      _safeAddr: PromiseOrValue<string>,
-      _forwarderAddr: PromiseOrValue<string>,
       _saltNonce: PromiseOrValue<BigNumberish>,
-      initializationMintParams: PromiseOrValue<BytesLike>,
-      initializationTokenParams: PromiseOrValue<BytesLike>,
-      postInitializationActions: PromiseOrValue<BytesLike>[],
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _initializationMintParams: PromiseOrValue<BytesLike>,
+      _initializationTokenParams: PromiseOrValue<BytesLike>,
+      _postInitializationActions: PromiseOrValue<BytesLike>[],
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     transferOwnership(
@@ -313,13 +309,11 @@ export interface BaalAdvTokenSummonerV1 extends BaseContract {
   ): Promise<ContractTransaction>;
 
   summonBaalFromReferrer(
-    _safeAddr: PromiseOrValue<string>,
-    _forwarderAddr: PromiseOrValue<string>,
     _saltNonce: PromiseOrValue<BigNumberish>,
-    initializationMintParams: PromiseOrValue<BytesLike>,
-    initializationTokenParams: PromiseOrValue<BytesLike>,
-    postInitializationActions: PromiseOrValue<BytesLike>[],
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    _initializationMintParams: PromiseOrValue<BytesLike>,
+    _initializationTokenParams: PromiseOrValue<BytesLike>,
+    _postInitializationActions: PromiseOrValue<BytesLike>[],
+    overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   transferOwnership(
@@ -355,14 +349,12 @@ export interface BaalAdvTokenSummonerV1 extends BaseContract {
     ): Promise<void>;
 
     summonBaalFromReferrer(
-      _safeAddr: PromiseOrValue<string>,
-      _forwarderAddr: PromiseOrValue<string>,
       _saltNonce: PromiseOrValue<BigNumberish>,
-      initializationMintParams: PromiseOrValue<BytesLike>,
-      initializationTokenParams: PromiseOrValue<BytesLike>,
-      postInitializationActions: PromiseOrValue<BytesLike>[],
+      _initializationMintParams: PromiseOrValue<BytesLike>,
+      _initializationTokenParams: PromiseOrValue<BytesLike>,
+      _postInitializationActions: PromiseOrValue<BytesLike>[],
       overrides?: CallOverrides
-    ): Promise<void>;
+    ): Promise<string>;
 
     transferOwnership(
       newOwner: PromiseOrValue<string>,
@@ -451,13 +443,11 @@ export interface BaalAdvTokenSummonerV1 extends BaseContract {
     ): Promise<BigNumber>;
 
     summonBaalFromReferrer(
-      _safeAddr: PromiseOrValue<string>,
-      _forwarderAddr: PromiseOrValue<string>,
       _saltNonce: PromiseOrValue<BigNumberish>,
-      initializationMintParams: PromiseOrValue<BytesLike>,
-      initializationTokenParams: PromiseOrValue<BytesLike>,
-      postInitializationActions: PromiseOrValue<BytesLike>[],
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _initializationMintParams: PromiseOrValue<BytesLike>,
+      _initializationTokenParams: PromiseOrValue<BytesLike>,
+      _postInitializationActions: PromiseOrValue<BytesLike>[],
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     transferOwnership(
@@ -498,13 +488,11 @@ export interface BaalAdvTokenSummonerV1 extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     summonBaalFromReferrer(
-      _safeAddr: PromiseOrValue<string>,
-      _forwarderAddr: PromiseOrValue<string>,
       _saltNonce: PromiseOrValue<BigNumberish>,
-      initializationMintParams: PromiseOrValue<BytesLike>,
-      initializationTokenParams: PromiseOrValue<BytesLike>,
-      postInitializationActions: PromiseOrValue<BytesLike>[],
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      _initializationMintParams: PromiseOrValue<BytesLike>,
+      _initializationTokenParams: PromiseOrValue<BytesLike>,
+      _postInitializationActions: PromiseOrValue<BytesLike>[],
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     transferOwnership(

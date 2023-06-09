@@ -1,29 +1,31 @@
 import { useEffect, useState } from 'react';
 import { FormSegment, SplitColumn, WrappedInput } from '@daohaus/ui';
-import { handleBaseUnits, INFO_COPY, ValidateField } from '@daohaus/utils';
-import { getNetwork } from '@daohaus/keychain-utils';
-import { useDHConnect } from '@daohaus/connect';
+import { handleBaseUnits, INFO_COPY, isString, ValidateField } from '@daohaus/utils';
+import { useFormContext } from "react-hook-form";
 
 import { FORM_KEYS } from '../utils/formKeys';
 
 const DEFAULT_ASSET_SYMBOL = 'ETH';
 
 export const AdvancedSegment = ({
-  formDisabled,
+  formDisabled
 }: {
   formDisabled: boolean;
 }) => {
-  const { chainId } = useDHConnect();
-  const [nativeSymbol, setNativeSymbol] = useState(DEFAULT_ASSET_SYMBOL);
+  const {
+    watch,
+    formState: { errors, touchedFields },
+  } = useFormContext();
+  const treasuryToken = watch(FORM_KEYS.TREASURY_TOKEN);
+  const [nativeSymbol, setNativeSymbol] = useState<string>(DEFAULT_ASSET_SYMBOL);
 
   useEffect(() => {
-    if (chainId) {
-      const assetSymbol = getNetwork(chainId)?.symbol;
-      setNativeSymbol(assetSymbol || DEFAULT_ASSET_SYMBOL);
+    if (isString(treasuryToken)) {
+      setNativeSymbol(treasuryToken);
     } else {
       setNativeSymbol(DEFAULT_ASSET_SYMBOL);
     }
-  }, [chainId]);
+  }, [touchedFields, treasuryToken]);
 
   return (
     <FormSegment

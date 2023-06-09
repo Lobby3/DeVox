@@ -81,7 +81,7 @@ const DeVoxBaalAndShamanSummonerV1Abi = [
     name: "_baalSummoner",
     outputs: [
       {
-        internalType: "contract IBaalSummoner",
+        internalType: "contract IBaalAdvTokenSummoner",
         name: "",
         type: "address",
       },
@@ -156,24 +156,24 @@ const DeVoxBaalAndShamanSummonerV1Abi = [
   {
     inputs: [
       {
-        internalType: "bytes",
-        name: "_initializationParams",
-        type: "bytes",
-      },
-      {
-        internalType: "bytes[]",
-        name: "_initializationActions",
-        type: "bytes[]",
-      },
-      {
         internalType: "uint256",
         name: "_saltNonce",
         type: "uint256",
       },
       {
-        internalType: "bytes32",
-        name: "_referrer",
-        type: "bytes32",
+        internalType: "bytes",
+        name: "_initializationMintParams",
+        type: "bytes",
+      },
+      {
+        internalType: "bytes",
+        name: "_initializationTokenParams",
+        type: "bytes",
+      },
+      {
+        internalType: "bytes[]",
+        name: "_baalInitializationActions",
+        type: "bytes[]",
       },
       {
         internalType: "bytes",
@@ -243,6 +243,7 @@ const DeVoxBaalAndShamanSummonerV1Abi = [
   },
 ];
 
-export type DeVoxBaalAndShamanSummonerV1Type = typeof DeVoxBaalAndShamanSummonerV1Abi;
+export type DeVoxBaalAndShamanSummonerV1Type =
+  typeof DeVoxBaalAndShamanSummonerV1Abi;
 
 export default DeVoxBaalAndShamanSummonerV1Abi;

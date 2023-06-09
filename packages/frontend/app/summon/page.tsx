@@ -1,6 +1,5 @@
 "use client";
 
-import { useHausConnect } from "@daohaus/daohaus-connect-feature";
 import { TXBuilder } from "@daohaus/tx-builder";
 import { Footer, widthQuery } from "@daohaus/ui";
 import styled from "@emotion/styled";
@@ -15,6 +14,7 @@ import { SummonerSuccess } from "./layouts/SummonerSuccess";
 import { SummonStates } from "./types";
 
 const TemporaryLayout = styled.div`
+  background-color: #1a1a1a;
   width: 100%;
   padding-top: 2.7rem;
   padding: 4rem;
@@ -24,12 +24,20 @@ const TemporaryLayout = styled.div`
       margin-bottom: 2rem;
     }
   }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  label {
+    color: #fff;
+  }
 `;
 
 const SummonerPage = () => {
   // TODO: Wire this up with magic.link
   // TODO: Summon at the same time
-  // TODO: Remove the shaman input box, and fire up our own
   //
   const { provider, chainId } = useWeb3React();
   console.log(`0x${chainId?.toString()}`);
@@ -71,7 +79,6 @@ const SummonerPage = () => {
             />
           )}
         </CenterLayout>
-        <Footer />
       </TemporaryLayout>
     </TXBuilder>
   );

@@ -39,7 +39,7 @@ const deploy: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
     hre.ethers.provider.getSigner()
   );
 
-  proxy.setAddrs(
+  await proxy.setAddrs(
     template,
     gnosisSingleton,
     gnosisFallbackLibrary,

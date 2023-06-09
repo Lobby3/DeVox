@@ -1,6 +1,18 @@
+import { LOCAL_ABI } from "@daohaus/abis";
+import {
+  SummonParams,
+  encodeMintParams,
+  encodeTokenParams,
+} from "@daohaus/contract-utils";
+import {
+  encodeFunction,
+  encodeValues,
+  getNonce,
+  isNumberish,
+  isString,
+} from "@daohaus/utils";
 import { expect } from "chai";
-import { BigNumber, BigNumberish, ContractTransaction } from "ethers";
-import { LogDescription, randomBytes } from "ethers/lib/utils";
+import { BigNumberish, ContractTransaction } from "ethers";
 import { deployments, ethers } from "hardhat";
 
 import {
@@ -14,7 +26,6 @@ import {
 } from "../src";
 import { ERC20, MyToken } from "../src/types";
 import { ContractNames } from "../src/util";
-import { encodeMultiAction } from "../src/util/encoding";
 
 export type ContractSet = {
   baal: Baal;
@@ -36,18 +47,6 @@ export type AddressedUserContractSet = {
   anon: ConnectedContractSet;
 };
 
-export type GovernanceSettings = {
-  PROPOSAL_OFFERING: number;
-  GRACE_PERIOD_IN_SECONDS: number;
-  VOTING_PERIOD_IN_SECONDS: number;
-  QUORUM_PERCENT: number;
-  SPONSOR_THRESHOLD: number;
-  MIN_RETENTION_PERCENT: number;
-  MIN_STAKING_PERCENT: number;
-  TOKEN_NAME: string;
-  TOKEN_SYMBOL: string;
-};
-
 export type DeVoxShamanSummonArgs = {
   pricePerUnit: BigNumberish;
   tokensPerUnit: BigNumberish;
@@ -55,22 +54,37 @@ export type DeVoxShamanSummonArgs = {
   name: string;
 };
 
-export const defaultGovernanceSettings: GovernanceSettings = {
-  GRACE_PERIOD_IN_SECONDS: 43200,
-  VOTING_PERIOD_IN_SECONDS: 432000,
-  PROPOSAL_OFFERING: 69,
-  SPONSOR_THRESHOLD: 1,
-  MIN_RETENTION_PERCENT: 0,
-  MIN_STAKING_PERCENT: 0,
-  QUORUM_PERCENT: 0,
-  TOKEN_NAME: "BAALtests",
-  TOKEN_SYMBOL: "BAAL",
+export const defaultGovernanceSettings = (deployer: string) => {
+  const dead = "0x000000000000000000000000000000000000dEaD";
+  const deadLoot = 1000000000000000;
+
+  return {
+    members: {
+      memberAddresses: [deployer, dead],
+      memberShares: ["100", "0"],
+      memberLoot: ["0", deadLoot.toString()],
+    },
+    tokenName: "MyToken",
+    tokenSymbol: "MTKN",
+    lootTokenName: "Loot",
+    lootTokenSymbol: "LOOT",
+    pauseVoteToken: false,
+    pauseNvToken: false,
+    votingTransferable: false,
+    nvTransferable: false,
+    votingPeriodInSeconds: 32768,
+    gracePeriodInSeconds: 32768,
+    sponsorThreshold: "1",
+    newOffering: "1",
+    quorum: "1",
+    minRetention: "1",
+  } as SummonParams;
 };
 
 export const defaultSummonArgs: DeVoxShamanSummonArgs = {
-  pricePerUnit: ethers.utils.parseUnits("1", "ether"),
+  pricePerUnit: "1000000",
   tokensPerUnit: "100",
-  target: ethers.utils.parseUnits("100000", "ether"),
+  target: "100000",
   name: "Sample Campaign",
 };
 
@@ -119,60 +133,47 @@ const metadataConfig = {
 
 const abiCoder = ethers.utils.defaultAbiCoder;
 
-const getBaalParams = async function (
-  baal: Baal,
-  config: GovernanceSettings,
-  adminConfig: [boolean, boolean],
-  shares: [string[], number[]],
-  loots: [string[], number[]],
-  trustedForwarder: string,
-  lootAddr: string,
-  sharesAddr: string
-) {
-  const governanceConfig = abiCoder.encode(
+const governanceConfigTX = (formValues: SummonParams) => {
+  const {
+    votingPeriodInSeconds,
+    gracePeriodInSeconds,
+    newOffering,
+    quorum,
+    sponsorThreshold,
+    minRetention,
+  } = formValues;
+
+  if (
+    !isNumberish(votingPeriodInSeconds) ||
+    !isNumberish(gracePeriodInSeconds) ||
+    !isNumberish(newOffering) ||
+    !isNumberish(quorum) ||
+    !isNumberish(sponsorThreshold) ||
+    !isNumberish(minRetention)
+  ) {
+    throw new Error(
+      "governanceConfigTX recieved arguments in the wrong shape or type"
+    );
+  }
+
+  const encodedValues = encodeValues(
     ["uint32", "uint32", "uint256", "uint256", "uint256", "uint256"],
     [
-      config.VOTING_PERIOD_IN_SECONDS,
-      config.GRACE_PERIOD_IN_SECONDS,
-      config.PROPOSAL_OFFERING,
-      config.QUORUM_PERCENT,
-      config.SPONSOR_THRESHOLD,
-      config.MIN_RETENTION_PERCENT,
+      votingPeriodInSeconds,
+      gracePeriodInSeconds,
+      newOffering,
+      quorum,
+      sponsorThreshold,
+      minRetention,
     ]
   );
-
-  const setAdminConfig = baal.interface.encodeFunctionData(
-    "setAdminConfig",
-    adminConfig
-  );
-  const setGovernanceConfig = baal.interface.encodeFunctionData(
-    "setGovernanceConfig",
-    [governanceConfig]
-  );
-  const mintShares = baal.interface.encodeFunctionData("mintShares", shares);
-  const mintLoot = baal.interface.encodeFunctionData("mintLoot", loots);
-
-  const initalizationActions = [
-    setAdminConfig,
-    setGovernanceConfig,
-    mintShares,
-    mintLoot,
-  ];
-
-  return {
-    initParams: abiCoder.encode(
-      ["string", "string", "address", "address", "address", "address"],
-      [
-        config.TOKEN_NAME,
-        config.TOKEN_SYMBOL,
-        ethers.constants.AddressZero, // safe addr
-        trustedForwarder,
-        lootAddr,
-        sharesAddr,
-      ]
-    ),
-    initalizationActions,
-  };
+  const encoded = encodeFunction(LOCAL_ABI.BAAL, "setGovernanceConfig", [
+    encodedValues,
+  ]);
+  if (isString(encoded)) {
+    return encoded;
+  }
+  throw new Error("Encoding Error");
 };
 
 const getShamanInitParams = function (
@@ -191,26 +192,17 @@ const getShamanInitParams = function (
   );
 };
 
-// await token.transfer(
-//   applicant.address,
-//   ethers.utils.parseUnits("10.0", "ether")
-// );
-// await token.transfer(
-//   s2.address,
-//   ethers.utils.parseUnits("10000.0", "ether")
-// );
-
 const setupTest = deployments.createFixture<
   AddressedUserContractSet,
   {
-    governanceSettings?: GovernanceSettings;
+    summonParams?: SummonParams;
     shamanArgs?: DeVoxShamanSummonArgs;
   }
 >(async ({ deployments, getNamedAccounts, ethers }, args) => {
   await deployments.fixture(); // ensure you start from a fresh deployments
   const { deployer, user, anon } = await getNamedAccounts();
   const {
-    governanceSettings = defaultGovernanceSettings,
+    summonParams = defaultGovernanceSettings(deployer),
     shamanArgs = defaultSummonArgs,
   } = args ?? {};
 
@@ -262,23 +254,10 @@ const setupTest = deployments.createFixture<
   );
   expect(safeSingleton.address).to.be.properAddress;
 
-  const deployerShares = governanceSettings.SPONSOR_THRESHOLD * 2;
-  const sharesPaused = false;
-  const lootPaused = false;
+  const mintParams = encodeMintParams(summonParams);
+  const tokenParams = encodeTokenParams(summonParams);
 
-  const dead = "0x000000000000000000000000000000000000dEaD";
-  const deadLoot = 1000000000000000;
-
-  const encodedInitParams = await getBaalParams(
-    baalSingleton,
-    governanceSettings,
-    [sharesPaused, lootPaused],
-    [[deployer], [deployerShares]],
-    [[dead], [deadLoot]], // has the effect of disabling meaningful ragequit
-    ethers.constants.AddressZero,
-    ethers.constants.AddressZero,
-    ethers.constants.AddressZero
-  );
+  const baalInitActions = [governanceConfigTX(summonParams)];
 
   const encodedShamanInitParams = getShamanInitParams(
     tokenSingleton.address,
@@ -286,10 +265,10 @@ const setupTest = deployments.createFixture<
   );
 
   const tx = await summoner.summonBaalAndShaman(
-    encodedInitParams.initParams,
-    encodedInitParams.initalizationActions,
-    101,
-    randomBytes(32),
+    getNonce(),
+    mintParams,
+    tokenParams,
+    baalInitActions,
     encodedShamanInitParams
   );
   const addresses = await getNewBaalAddresses(tx);

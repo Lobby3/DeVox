@@ -16,4 +16,6 @@ export const FORM_KEYS = {
   GRACE_SECONDS: 'gracePeriodInSeconds',
   SHAMANS: 'shamans',
   MEMBERS: 'members',
+  TREASURY_TOKEN: 'treasuryToken',
+  CAMPAIGN_TARGET: 'campaignTarget',
 };
