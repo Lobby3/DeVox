@@ -1,10 +1,9 @@
-// import "@graphprotocol/hardhat-graph";
-import "@graphprotocol/hardhat-graph";
 import "@nomiclabs/hardhat-ethers";
 import "@nomiclabs/hardhat-etherscan";
 import "@nomiclabs/hardhat-waffle";
 import "@openzeppelin/hardhat-upgrades";
 import "@typechain/hardhat";
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import { config as dotenvConfig } from "dotenv";
 import * as fs from "fs";
 import "hardhat-abi-exporter";
@@ -50,7 +49,7 @@ const config: HardhatUserConfig = {
       },
     },
     goerli: {
-      url: `https://goerli.infura.io/v3/${process.env.INFURA_KEY}`, 
+      url: `https://goerli.infura.io/v3/${process.env.INFURA_KEY}`,
       gasPrice: 8000000000,
       gasMultiplier: 2,
       accounts: {
@@ -58,7 +57,7 @@ const config: HardhatUserConfig = {
       },
     },
     sepolia: {
-      url: `https://sepolia.infura.io/v3/${process.env.INFURA_KEY}`, 
+      url: `https://sepolia.infura.io/v3/${process.env.INFURA_KEY}`,
       gas: "auto",
       gasPrice: "auto",
       gasMultiplier: 2,
