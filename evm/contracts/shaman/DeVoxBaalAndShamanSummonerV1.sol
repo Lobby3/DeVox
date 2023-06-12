@@ -10,7 +10,7 @@ import {IBaalAdvTokenSummoner} from "../fixtures/Baal/interfaces/IBaalAdvTokenSu
 import {IShaman} from "./IShaman.sol";
 import {IShamanSummoner} from "./IShamanSummoner.sol";
 
-import {console} from "hardhat/console.sol";
+// import {console} from "hardhat/console.sol";
 
 /// @title Higher-order summoner contract for Baal and Shaman in a single transaction
 contract DeVoxBaalAndShamanSummonerV1 is
@@ -65,12 +65,13 @@ contract DeVoxBaalAndShamanSummonerV1 is
         _shamans[0] = _shamanAddress;
         uint256[] memory _permissions = new uint256[](1);
         _permissions[0] = 7;
-        _newBaalInitializationActions[_newBaalInitializationActions.length - 1] = abi
-            .encodeWithSelector(
-                IBaal.setShamans.selector,
-                _shamans,
-                _permissions
-            );
+        _newBaalInitializationActions[
+            _newBaalInitializationActions.length - 1
+        ] = abi.encodeWithSelector(
+            IBaal.setShamans.selector,
+            _shamans,
+            _permissions
+        );
 
         _baalAddress = _baalSummoner.summonBaalFromReferrer(
             _saltNonce,
@@ -84,5 +85,9 @@ contract DeVoxBaalAndShamanSummonerV1 is
 
     function _authorizeUpgrade(
         address newImplementation
-    ) internal override onlyOwner {}
+    )
+        internal
+        override
+        onlyOwner // solhint-disable-next-line no-empty-blocks
+    {}
 }

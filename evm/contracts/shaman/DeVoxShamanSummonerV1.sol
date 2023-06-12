@@ -29,7 +29,6 @@ contract DeVoxShamanSummonerV1 is
      ******************/
 
     /// @notice emitted when a new shaman is summoned
-    /// 
     /// @param baal Baal contract address
     /// @param shaman Shaman contract address
     /// @param token ERC20 token address

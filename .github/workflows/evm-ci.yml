@@ -38,7 +38,7 @@ jobs:
         run: "yarn --network-concurrency=1 && yarn install --immutable"
 
       - name: "Lint the code"
-        run: "yarn nx run evm:lint"
+        run: "yarn nx run evm:lint:sol"
 
       - name: "Add lint summary"
         run: |
