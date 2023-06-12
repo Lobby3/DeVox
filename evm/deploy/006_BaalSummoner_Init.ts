@@ -28,14 +28,14 @@ const deploy: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   const { address: lootSingleton } = await get(ContractNames.Loot);
   const { address: sharesSingleton } = await get(ContractNames.Shares);
 
-  const result = await deployProxy(ContractNames.BaalSummoner, hre);
+  const address = await deployProxy(ContractNames.BaalSummoner, hre);
 
-  if (!result) {
+  if (!address) {
     throw new Error("Failed to deploy BaalSummoner");
   }
 
   const proxy = BaalSummonerFactory.connect(
-    result.address,
+    address,
     hre.ethers.provider.getSigner()
   );
 
