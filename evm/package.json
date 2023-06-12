@@ -30,7 +30,6 @@
     "@gnosis.pm/zodiac": "^3.3.0",
     "@graphprotocol/graph-cli": "^0.49.0",
     "@graphprotocol/graph-ts": "^0.30.0",
-    "@graphprotocol/hardhat-graph": "https://github.com/graphprotocol/hardhat-graph",
     "@nomicfoundation/hardhat-toolbox": "^2.0.2",
     "@nomiclabs/hardhat-ethers": "npm:hardhat-deploy-ethers",
     "@nomiclabs/hardhat-etherscan": "^3.1.7",

@@ -35,7 +35,7 @@ jobs:
           echo "::debug::$(less .env)"
 
       - name: "Install the dependencies"
-        run: "yarn --network-concurrency=1 && yarn install --immutable"
+        run: "yarn install --immutable"
 
       - name: "Lint the code"
         run: "yarn nx run evm:lint:sol"
