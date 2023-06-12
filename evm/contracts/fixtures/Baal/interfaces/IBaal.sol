@@ -28,6 +28,11 @@ interface IBaal {
 
     function shamans(address shaman) external returns (uint256);
 
+    function setShamans(
+        address[] calldata shamans,
+        uint256[] calldata permissions
+    ) external;
+
     function isManager(address shaman) external returns (bool);
 
     function target() external returns (address);

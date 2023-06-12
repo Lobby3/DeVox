@@ -35,6 +35,7 @@ export interface IBaalInterface extends utils.Interface {
     "mintShares(address[],uint256[])": FunctionFragment;
     "setAdminConfig(bool,bool)": FunctionFragment;
     "setGovernanceConfig(bytes)": FunctionFragment;
+    "setShamans(address[],uint256[])": FunctionFragment;
     "shamans(address)": FunctionFragment;
     "sharesToken()": FunctionFragment;
     "target()": FunctionFragment;
@@ -51,6 +52,7 @@ export interface IBaalInterface extends utils.Interface {
       | "mintShares"
       | "setAdminConfig"
       | "setGovernanceConfig"
+      | "setShamans"
       | "shamans"
       | "sharesToken"
       | "target"
@@ -87,6 +89,10 @@ export interface IBaalInterface extends utils.Interface {
     values: [PromiseOrValue<BytesLike>]
   ): string;
   encodeFunctionData(
+    functionFragment: "setShamans",
+    values: [PromiseOrValue<string>[], PromiseOrValue<BigNumberish>[]]
+  ): string;
+  encodeFunctionData(
     functionFragment: "shamans",
     values: [PromiseOrValue<string>]
   ): string;
@@ -114,6 +120,7 @@ export interface IBaalInterface extends utils.Interface {
     functionFragment: "setGovernanceConfig",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "setShamans", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "shamans", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "sharesToken",
@@ -197,6 +204,12 @@ export interface IBaal extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
+    setShamans(
+      shamans: PromiseOrValue<string>[],
+      permissions: PromiseOrValue<BigNumberish>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
     shamans(
       shaman: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
@@ -253,6 +266,12 @@ export interface IBaal extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
+  setShamans(
+    shamans: PromiseOrValue<string>[],
+    permissions: PromiseOrValue<BigNumberish>[],
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
   shamans(
     shaman: PromiseOrValue<string>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
@@ -306,6 +325,12 @@ export interface IBaal extends BaseContract {
 
     setGovernanceConfig(
       _governanceConfig: PromiseOrValue<BytesLike>,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    setShamans(
+      shamans: PromiseOrValue<string>[],
+      permissions: PromiseOrValue<BigNumberish>[],
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -366,6 +391,12 @@ export interface IBaal extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
+    setShamans(
+      shamans: PromiseOrValue<string>[],
+      permissions: PromiseOrValue<BigNumberish>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
     shamans(
       shaman: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
@@ -420,6 +451,12 @@ export interface IBaal extends BaseContract {
 
     setGovernanceConfig(
       _governanceConfig: PromiseOrValue<BytesLike>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    setShamans(
+      shamans: PromiseOrValue<string>[],
+      permissions: PromiseOrValue<BigNumberish>[],
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 

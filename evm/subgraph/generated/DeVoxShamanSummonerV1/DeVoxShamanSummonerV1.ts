@@ -115,20 +115,24 @@ export class SummonComplete__Params {
     return this._event.parameters[2].value.toAddress();
   }
 
-  get pricePerUnit(): BigInt {
+  get id(): BigInt {
     return this._event.parameters[3].value.toBigInt();
   }
 
-  get lootPerUnit(): BigInt {
+  get pricePerUnit(): BigInt {
     return this._event.parameters[4].value.toBigInt();
   }
 
-  get sharesPerMember(): BigInt {
+  get tokensPerUnit(): BigInt {
     return this._event.parameters[5].value.toBigInt();
   }
 
   get target(): BigInt {
     return this._event.parameters[6].value.toBigInt();
+  }
+
+  get name(): string {
+    return this._event.parameters[7].value.toString();
   }
 }
 
@@ -193,20 +197,20 @@ export class DeVoxShamanSummonerV1 extends ethereum.SmartContract {
     _moloch: Address,
     _token: Address,
     _pricePerUnit: BigInt,
-    _lootPerUnit: BigInt,
-    _sharesPerMember: BigInt,
-    _target: BigInt
+    _tokensPerUnit: BigInt,
+    _target: BigInt,
+    _name: string
   ): Address {
     let result = super.call(
       "summonDeVoxShaman",
-      "summonDeVoxShaman(address,address,uint256,uint256,uint256,uint256):(address)",
+      "summonDeVoxShaman(address,address,uint256,uint256,uint256,string):(address)",
       [
         ethereum.Value.fromAddress(_moloch),
         ethereum.Value.fromAddress(_token),
         ethereum.Value.fromUnsignedBigInt(_pricePerUnit),
-        ethereum.Value.fromUnsignedBigInt(_lootPerUnit),
-        ethereum.Value.fromUnsignedBigInt(_sharesPerMember),
-        ethereum.Value.fromUnsignedBigInt(_target)
+        ethereum.Value.fromUnsignedBigInt(_tokensPerUnit),
+        ethereum.Value.fromUnsignedBigInt(_target),
+        ethereum.Value.fromString(_name)
       ]
     );
 
@@ -217,20 +221,20 @@ export class DeVoxShamanSummonerV1 extends ethereum.SmartContract {
     _moloch: Address,
     _token: Address,
     _pricePerUnit: BigInt,
-    _lootPerUnit: BigInt,
-    _sharesPerMember: BigInt,
-    _target: BigInt
+    _tokensPerUnit: BigInt,
+    _target: BigInt,
+    _name: string
   ): ethereum.CallResult<Address> {
     let result = super.tryCall(
       "summonDeVoxShaman",
-      "summonDeVoxShaman(address,address,uint256,uint256,uint256,uint256):(address)",
+      "summonDeVoxShaman(address,address,uint256,uint256,uint256,string):(address)",
       [
         ethereum.Value.fromAddress(_moloch),
         ethereum.Value.fromAddress(_token),
         ethereum.Value.fromUnsignedBigInt(_pricePerUnit),
-        ethereum.Value.fromUnsignedBigInt(_lootPerUnit),
-        ethereum.Value.fromUnsignedBigInt(_sharesPerMember),
-        ethereum.Value.fromUnsignedBigInt(_target)
+        ethereum.Value.fromUnsignedBigInt(_tokensPerUnit),
+        ethereum.Value.fromUnsignedBigInt(_target),
+        ethereum.Value.fromString(_name)
       ]
     );
     if (result.reverted) {
@@ -382,16 +386,16 @@ export class SummonDeVoxShamanCall__Inputs {
     return this._call.inputValues[2].value.toBigInt();
   }
 
-  get _lootPerUnit(): BigInt {
+  get _tokensPerUnit(): BigInt {
     return this._call.inputValues[3].value.toBigInt();
   }
 
-  get _sharesPerMember(): BigInt {
+  get _target(): BigInt {
     return this._call.inputValues[4].value.toBigInt();
   }
 
-  get _target(): BigInt {
-    return this._call.inputValues[5].value.toBigInt();
+  get _name(): string {
+    return this._call.inputValues[5].value.toString();
   }
 }
 

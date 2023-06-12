@@ -29,10 +29,12 @@ export interface IShamanInterface extends utils.Interface {
   functions: {
     "donate(uint256,string)": FunctionFragment;
     "initialize(address,address,uint256,uint256,uint256,uint256)": FunctionFragment;
+    "setBaal(address)": FunctionFragment;
+    "whitelist(bool,bytes)": FunctionFragment;
   };
 
   getFunction(
-    nameOrSignatureOrTopic: "donate" | "initialize"
+    nameOrSignatureOrTopic: "donate" | "initialize" | "setBaal" | "whitelist"
   ): FunctionFragment;
 
   encodeFunctionData(
@@ -50,9 +52,19 @@ export interface IShamanInterface extends utils.Interface {
       PromiseOrValue<BigNumberish>
     ]
   ): string;
+  encodeFunctionData(
+    functionFragment: "setBaal",
+    values: [PromiseOrValue<string>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "whitelist",
+    values: [PromiseOrValue<boolean>, PromiseOrValue<BytesLike>]
+  ): string;
 
   decodeFunctionResult(functionFragment: "donate", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "initialize", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "setBaal", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "whitelist", data: BytesLike): Result;
 
   events: {};
 }
@@ -99,6 +111,17 @@ export interface IShaman extends BaseContract {
       _target: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
+
+    setBaal(
+      _baal: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
+    whitelist(
+      _status: PromiseOrValue<boolean>,
+      _metadata: PromiseOrValue<BytesLike>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
   };
 
   donate(
@@ -117,6 +140,17 @@ export interface IShaman extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
+  setBaal(
+    _baal: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
+  whitelist(
+    _status: PromiseOrValue<boolean>,
+    _metadata: PromiseOrValue<BytesLike>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
   callStatic: {
     donate(
       _value: PromiseOrValue<BigNumberish>,
@@ -132,7 +166,18 @@ export interface IShaman extends BaseContract {
       _tokensPerUnit: PromiseOrValue<BigNumberish>,
       _target: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
-    ): Promise<boolean>;
+    ): Promise<void>;
+
+    setBaal(
+      _baal: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    whitelist(
+      _status: PromiseOrValue<boolean>,
+      _metadata: PromiseOrValue<BytesLike>,
+      overrides?: CallOverrides
+    ): Promise<void>;
   };
 
   filters: {};
@@ -153,6 +198,17 @@ export interface IShaman extends BaseContract {
       _target: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
+
+    setBaal(
+      _baal: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    whitelist(
+      _status: PromiseOrValue<boolean>,
+      _metadata: PromiseOrValue<BytesLike>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
   };
 
   populateTransaction: {
@@ -169,6 +225,17 @@ export interface IShaman extends BaseContract {
       _pricePerUnit: PromiseOrValue<BigNumberish>,
       _tokensPerUnit: PromiseOrValue<BigNumberish>,
       _target: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    setBaal(
+      _baal: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    whitelist(
+      _status: PromiseOrValue<boolean>,
+      _metadata: PromiseOrValue<BytesLike>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
   };

@@ -10,11 +10,13 @@ import "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";
 
 import "../BaalV1.sol";
 import "../interfaces/IBaalSummoner.sol";
+import {IBaalAdvTokenSummoner} from "../interfaces/IBaalAdvTokenSummoner.sol";
 
 contract BaalAdvTokenSummonerV1 is
     Initializable,
     OwnableUpgradeable,
-    UUPSUpgradeable
+    UUPSUpgradeable,
+    IBaalAdvTokenSummoner
 {
     IBaalSummoner public _baalSummoner;
 
@@ -39,40 +41,37 @@ contract BaalAdvTokenSummonerV1 is
 
     /**
      * @dev Summon a new Baal contract with a new set of tokens
-     * @param _safeAddr The address of the Gnosis Safe to be used as the treausry, 0x0 if new Safe
-     * @param _forwarderAddr The address of the forwarder to be used, 0x0 if not set
      * @param _saltNonce The salt nonce to be used for the Safe contract
-     * @param initializationMintParams The parameters for minting the tokens
-     * @param initializationTokenParams The parameters for deploying the tokens
-     * @param postInitializationActions The actions to be performed after the initialization
+     * @param _initializationMintParams The parameters for minting the tokens
+     * @param _initializationTokenParams The parameters for deploying the tokens
+     * @param _postInitializationActions The actions to be performed after the initialization
+     * @return _baal The address of the new Baal contract
      */
     function summonBaalFromReferrer(
-        address _safeAddr,
-        address _forwarderAddr,
         uint256 _saltNonce,
-        bytes calldata initializationMintParams,
-        bytes calldata initializationTokenParams,
-        bytes[] calldata postInitializationActions
-    ) external {
+        bytes calldata _initializationMintParams,
+        bytes calldata _initializationTokenParams,
+        bytes[] calldata _postInitializationActions
+    ) external payable override returns (address _baal){
         // summon tokens
         (address _lootToken, address _sharesToken) = deployTokens(
-            initializationTokenParams
+            _initializationTokenParams
         );
 
         // mint shares loot tokens
-        mintTokens(initializationMintParams, _lootToken, _sharesToken);
+        mintTokens(_initializationMintParams, _lootToken, _sharesToken);
 
         // summon baal with new tokens
-        address _baal = _baalSummoner.summonBaalFromReferrer(
+        _baal = _baalSummoner.summonBaalFromReferrer(
             abi.encode(
-                IBaalToken(_sharesToken).name(), 
+                IBaalToken(_sharesToken).name(),
                 IBaalToken(_sharesToken).symbol(),
-                _safeAddr,
-                _forwarderAddr,
+                address(0),
+                address(0),
                 _lootToken,
                 _sharesToken
             ),
-            postInitializationActions,
+            _postInitializationActions,
             _saltNonce,
             bytes32(bytes("DHAdvTokenSummoner")) // referrer
         );

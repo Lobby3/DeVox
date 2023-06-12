@@ -12,27 +12,21 @@ export const deployProxy = async (
   const { get, save } = deployments; // The deployments field itself contains the deploy function.
 
   try {
-    const exists = await get(contractName);
-    if (exists && hre.network.name !== Hardhat) {
+    const { address } = await get(contractName);
+    if (address && hre.network.name !== Hardhat) {
       console.log(`Already deployed ${contractName}`);
     }
+    return address;
   } catch {
-    // const factory = await ethers.getContractFactory(contractName);
-    // const proxy = await upgrades.deployProxy(factory, args, {
-    //   kind: "uups",
-    // });
-    
-    // // console.log(`Deployed ${contractName} + proxy at: ${proxy.address}`);
-
     const [deployer] = await ethers.getSigners();
     const { deploy } = deployments;
     const result = await deploy(contractName, {
       from: deployer.address,
       proxy: {
-        proxyContract: 'UUPS',
+        proxyContract: "UUPS",
         execute: {
           init: {
-            methodName: 'initialize',
+            methodName: "initialize",
             args: args ?? [],
           },
         },
@@ -48,6 +42,6 @@ export const deployProxy = async (
 
     await save(contractName, proxyDeployments);
 
-    return result;
+    return result.address;
   }
 };

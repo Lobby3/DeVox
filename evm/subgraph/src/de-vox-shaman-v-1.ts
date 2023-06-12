@@ -20,18 +20,16 @@ export function handleDonationReceived(event: DonationReceived): void {}
 export function handleInitialized(event: Initialized): void {}
 
 export function handleTargetUpdated(event: TargetUpdated): void {
-  // Entities can be loaded from the store using a string ID; this ID
-  // needs to be unique across all entities of the same type
-  let entity = Campaign.load(event.transaction.from);
+  let campaign = Campaign.load(event.params.id.toString());
 
-  // Entities only exist after they have been saved to the store;
-  // `null` checks allow to create entities on demand
-  if (!entity) {
-    entity = new Campaign(event.transaction.from);
+  if (!campaign) {
+    console.error("Campaign not found!");
+    return;
   }
 
-  // Entities can be written to the store with `.save()`
-  entity.save();
+  campaign.target = event.params.target;
+
+  campaign.save();
 }
 
 export function handleUpgraded(event: Upgraded): void {}

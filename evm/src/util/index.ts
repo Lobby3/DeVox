@@ -1,6 +1,9 @@
 export * from "./bigNumberMath";
+export * from "./chainId";
 export * from "./constants";
+export * from "./contractAddress";
 export * from "./encoding";
+export * from "./local";
 // export * from "./shaman";
 export * from "./signDelegation";
 export * from "./signPermit";

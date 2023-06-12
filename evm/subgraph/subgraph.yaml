@@ -71,7 +71,7 @@ dataSources:
           handler: handleInitialized
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
-        - event: SummonComplete(indexed address,address,address,uint256,uint256,uint256,uint256)
+        - event: SummonComplete(indexed address,address,address,uint256,uint256,uint256,uint256,string)
           handler: handleSummonComplete
         - event: Upgraded(indexed address)
           handler: handleUpgraded
@@ -132,8 +132,6 @@ templates:
           handler: handleLockGovernor
         - event: LockManager(bool)
           handler: handleLockManager
-        - event: LockRagequit(bool)
-          handler: handleLockRagequit
         - event: LootPaused(bool)
           handler: handleLootPaused
         - event: OwnershipTransferred(indexed address,indexed address)
@@ -184,12 +182,14 @@ templates:
           handler: handleAdminChanged
         - event: BeaconUpgraded(indexed address)
           handler: handleBeaconUpgraded
-        - event: DonationReceived(indexed address,address,uint256,uint256,uint256,uint256,uint256,uint256,string)
+        - event: DonationReceived(indexed address,address,uint256,uint256,uint256,uint256,uint256,uint256,uint256,string)
           handler: handleDonationReceived
         - event: Initialized(uint8)
           handler: handleInitialized
-        - event: TargetUpdated(uint256,uint256)
+        - event: TargetUpdated(uint256,uint256,uint256)
           handler: handleTargetUpdated
         - event: Upgraded(indexed address)
           handler: handleUpgraded
+        - event: UserWhitelisted(indexed address,bool,bytes)
+          handler: handleUserWhitelisted
       file: ./src/de-vox-shaman-v-1.ts

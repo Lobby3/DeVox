@@ -1,18 +1,18 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 pragma solidity ^0.8.12;
 
-import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
-import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
-import "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";
-import "@openzeppelin/contracts-upgradeable/security/ReentrancyGuardUpgradeable.sol";
-import "@openzeppelin/contracts/proxy/Clones.sol";
+import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import {OwnableUpgradeable} from "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
+import {Initializable} from "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
+import {UUPSUpgradeable} from "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";
+import {ReentrancyGuardUpgradeable} from "@openzeppelin/contracts-upgradeable/security/ReentrancyGuardUpgradeable.sol";
+import {Clones} from "@openzeppelin/contracts/proxy/Clones.sol";
 
-import "../fixtures/Baal/interfaces/IBaal.sol";
-import "../lib/FixedPointMathLib.sol";
-import "./IShaman.sol";
+import {IBaal} from "../fixtures/Baal/interfaces/IBaal.sol";
+import {FixedPointMathLib} from "../lib/FixedPointMathLib.sol";
+import {IShaman} from "./IShaman.sol";
 
-import "hardhat/console.sol";
+// import "hardhat/console.sol";
 
 /// @notice Shaman contract for Baal v3 DAOhaus
 /// @dev This contract is used to issue voting shares (quadratic) and loot (1:1) for donations
@@ -44,6 +44,9 @@ contract DeVoxShamanV1 is
     /// @notice Last cookie claims made by members
     /// @dev This is only a cache and claims older than period are deleted
     mapping(address => uint256) public donations;
+
+    /// @notice Whitelist of addresses that can join the DAO
+    mapping(address => bool) private _whitelist;
 
     /*******************
      * EVENTS
@@ -79,6 +82,12 @@ contract DeVoxShamanV1 is
     /// @param balance current campaign balance
     event TargetUpdated(uint256 id, uint256 target, uint256 balance);
 
+    /// @notice emitted when a user is whitelisted
+    /// @param user user address
+    /// @param status whitelist status
+    /// @param metadata user metadata
+    event UserWhitelisted(address indexed user, bool status, bytes metadata);
+
     /*******************
      * DEPLOY
      ******************/
@@ -97,7 +106,7 @@ contract DeVoxShamanV1 is
         uint256 _pricePerUnit,
         uint256 _tokensPerUnit,
         uint256 _target
-    ) external initializer returns(bool) {
+    ) external initializer {
         __Ownable_init();
         __UUPSUpgradeable_init();
 
@@ -107,25 +116,40 @@ contract DeVoxShamanV1 is
         pricePerUnit = _pricePerUnit;
         tokensPerUnit = _tokensPerUnit;
         target = _target;
-
-        console.log("DeVoxShamanV1 initialized at: %s", address(this));
-        console.log(
-            "DeVoxShamanV1 params: pricePerUnit %d, tokensPerUnit %d, target %d",
-            pricePerUnit,
-            tokensPerUnit,
-            target
-        );
-
-        return true;
     }
 
-    /// @notice Make a donation
+    /// @notice Set BaaL contract address
+    /// @param _baal BaaL contract address
+    function setBaal(address _baal) external override /*onlyOwner*/ {
+        baal = IBaal(_baal);
+    }
+
+    /// Whitelist a user, enabling them to join the DAO
+    /// @param _status whitelist status
+    /// @param _metadata user metadata
+    function whitelist(
+        bool _status,
+        bytes calldata _metadata
+    ) external override {
+        require(
+            _whitelist[msg.sender] != _status,
+            "whitelist status unchanged"
+        );
+
+        _whitelist[msg.sender] = _status;
+
+        emit UserWhitelisted(msg.sender, _status, _metadata);
+    }
+
+    /// @notice Make a donation, join the DAO and receive voting shares
     /// @param _value amount donated
     /// @param _message message accompanying donation
+    /// @dev message sender must be whitelisted
     function donate(
         uint256 _value,
         string calldata _message
-    ) external nonReentrant {
+    ) external override nonReentrant {
+        require(_whitelist[msg.sender], "user not whitelisted");
         require(address(baal) != address(0), "!init");
         require(baal.isManager(address(this)), "Shaman not manager");
         require(_value % pricePerUnit == 0, "invalid amount"); // require value as multiple of units
@@ -162,9 +186,9 @@ contract DeVoxShamanV1 is
 
     /// @notice Calculate the amount of loot to issue for a given donation
     function _lootToIssue(
-        uint256 _value
+        uint256 //_value
     ) internal view virtual returns (uint256) {
-        return (_value / pricePerUnit) * tokensPerUnit;
+        return 0;
     }
 
     /// @notice Calculate the amount of shares to issue for a given donation
@@ -172,7 +196,7 @@ contract DeVoxShamanV1 is
     function _sharesToIssue(
         uint256 _value
     ) internal view virtual returns (uint256) {
-        return (FixedPointMathLib.sqrt(_value) / pricePerUnit) * tokensPerUnit;
+        return FixedPointMathLib.sqrt(_value / pricePerUnit) * tokensPerUnit;
     }
 
     /// @notice Mint tokens for a given address
@@ -198,7 +222,7 @@ contract DeVoxShamanV1 is
     }
 
     /// @notice Gets the total token balance of the contract
-    function getTokenBalance() public returns (uint) {
+    function getTokenBalance() public returns (uint256) {
         return token.balanceOf(baal.target());
     }
 

@@ -149,6 +149,24 @@ const _abi = [
   {
     inputs: [
       {
+        internalType: "address[]",
+        name: "shamans",
+        type: "address[]",
+      },
+      {
+        internalType: "uint256[]",
+        name: "permissions",
+        type: "uint256[]",
+      },
+    ],
+    name: "setShamans",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
         internalType: "address",
         name: "shaman",
         type: "address",

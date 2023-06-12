@@ -16,6 +16,7 @@ export {
   BaalV1 as Baal,
   BaalV1__factory as BaalFactory,
   CompatibilityFallbackHandler,
+  DeVoxBaalAndShamanSummonerV1 as DeVoxBaalAndShamanSummoner,
   DeVoxShamanSummonerV1 as DeVoxShamanSummoner,
   DeVoxShamanV1 as DeVoxShaman, 
   GnosisSafe,

@@ -1,5 +1,0 @@
-# Subgraph
-./subgraph/generated
-./subgraph/build
-# Matchstick
-./subgraph/tests/.*

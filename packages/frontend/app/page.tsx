@@ -1,10 +1,18 @@
 "use client";
 
+import { VStack } from "@chakra-ui/react";
+
+import BodyContainer from "../components/body-container/body-container";
+import CampaignGridView from "../components/campaign-grid-view/campaign-grid-view";
+import { useListCampaigns } from "../hooks/campaign";
+
 export default async function Index() {
-  /*
-   * Replace the elements below with your own.
-   *
-   * Note: The corresponding styles are in the ./index.scss file.
-   */
-  return <div>DEVOX BODY</div>;
+  const campaigns = useListCampaigns();
+  return (
+    <VStack>
+      <BodyContainer>
+        <CampaignGridView campaigns={campaigns} />
+      </BodyContainer>
+    </VStack>
+  );
 }

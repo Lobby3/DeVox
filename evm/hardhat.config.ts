@@ -23,19 +23,6 @@ dotenvConfig({ path: resolve(__dirname, dotenvConfigPath) });
 
 const defaultNetwork = "localhost";
 
-function mnemonic() {
-  try {
-    return fs.readFileSync("./mnemonic.txt").toString().trim();
-  } catch (e) {
-    if (defaultNetwork !== "localhost") {
-      console.log(
-        "☢️ WARNING: No mnemonic file created for a deploy account. Try `yarn run generate` and then `yarn run account`."
-      );
-    }
-  }
-  return "";
-}
-
 function etherscan() {
   try {
     return fs.readFileSync("./etherscan.txt").toString().trim();
@@ -57,18 +44,26 @@ const config: HardhatUserConfig = {
       */
     },
     mainnet: {
-      url: "https://mainnet.infura.io/v3/460f40a260564ac4a4f4b3fffb032dad", //<---- YOUR INFURA ID! (or it won't work)
+      url: `https://mainnet.infura.io/v3/${process.env.INFURA_KEY}`,
       accounts: {
-        mnemonic: mnemonic(),
+        mnemonic: process.env.MNEMONIC,
       },
     },
     goerli: {
-      url: "https://goerli.infura.io/v3/460f40a260564ac4a4f4b3fffb032dad", //<---- YOUR INFURA ID! (or it won't work)
-      gas: 5000000,
+      url: `https://goerli.infura.io/v3/${process.env.INFURA_KEY}`, 
       gasPrice: 8000000000,
       gasMultiplier: 2,
       accounts: {
-        mnemonic: mnemonic(),
+        mnemonic: process.env.MNEMONIC,
+      },
+    },
+    sepolia: {
+      url: `https://sepolia.infura.io/v3/${process.env.INFURA_KEY}`, 
+      gas: "auto",
+      gasPrice: "auto",
+      gasMultiplier: 2,
+      accounts: {
+        mnemonic: process.env.MNEMONIC,
       },
     },
     xdai: {
@@ -76,7 +71,7 @@ const config: HardhatUserConfig = {
       gas: 5000000,
       gasPrice: 8000000000,
       accounts: {
-        mnemonic: mnemonic(),
+        mnemonic: process.env.MNEMONIC,
       },
     },
     matic: {
@@ -84,14 +79,14 @@ const config: HardhatUserConfig = {
       url: "https://polygon-mainnet.infura.io/v3/cc7ca25d68f246f393d7630842360c47",
       gasPrice: 1000000000,
       accounts: {
-        mnemonic: mnemonic(),
+        mnemonic: process.env.MNEMONIC,
       },
     },
     mumbai: {
       url: "https://rpc-mumbai.maticvigil.com/v1/036f1ba8516f0eee2204a574a960b68437ac8661",
       gasPrice: 1000000000,
       accounts: {
-        mnemonic: mnemonic(),
+        mnemonic: process.env.MNEMONIC,
       },
     },
   },
@@ -138,14 +133,6 @@ const config: HardhatUserConfig = {
       },
     ],
   },
-  // subgraph: {
-  //   name: "DeVox",
-  //   product: "subgraph-studio",
-  //   indexEvents: true,
-  // },
-  // paths: {
-  //   subgraph: "../packages/subgraph", // Defaults to './subgraph'
-  // },
   abiExporter: {
     path: "./abi",
     clear: true,
