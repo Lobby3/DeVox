@@ -49,7 +49,7 @@ jobs:
         run: "yarn typechain"
 
       - name: "Test the contracts and generate the coverage report"
-        run: "yarn coverage"
+        run: "yarn nx run evm:coverage"
 
       - name: "Add test summary"
         run: |
