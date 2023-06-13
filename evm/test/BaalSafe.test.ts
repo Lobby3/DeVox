@@ -220,17 +220,17 @@ const getNewBaalAddresses = async (
   tx: ContractTransaction
 ): Promise<{ baal: string; loot: string; shares: string; safe: string }> => {
   const receipt = await ethers.provider.getTransactionReceipt(tx.hash);
-  let baalSummonAbi = [
+  const baalSummonAbi = [
     "event SummonBaal(address indexed baal, address indexed loot, address indexed shares, address safe, address forwarder, uint256 existingAddrs)",
   ];
-  let iface = new ethers.utils.Interface(baalSummonAbi);
-  let log = iface.parseLog(receipt.logs[receipt.logs.length - 1]);
+  const iface = new ethers.utils.Interface(baalSummonAbi);
+  const log = iface.parseLog(receipt.logs[receipt.logs.length - 1]);
   const { baal, loot, shares, safe } = log.args;
   return { baal, loot, shares, safe };
 };
 
 const verifyProposal = function (prop1: any, prop2: any, overrides?: any) {
-  for (let key in prop1) {
+  for (const key in prop1) {
     if (Number.isInteger(+key)) {
       continue;
     }
@@ -3581,7 +3581,7 @@ describe("Baal contract", function () {
 });
 
 describe("Baal contract - offering required", function () {
-  let customConfig = {
+  const customConfig = {
     ...deploymentConfig,
     PROPOSAL_OFFERING: 69,
     SPONSOR_THRESHOLD: 1,
@@ -3885,7 +3885,7 @@ const getBaalParamsWithAvatar = async function (
 };
 
 describe("Baal contract - summon baal with current safe", function () {
-  let customConfig = {
+  const customConfig = {
     ...deploymentConfig,
     PROPOSAL_OFFERING: 69,
     SPONSOR_THRESHOLD: 1,

@@ -26,6 +26,6 @@ export const deployInstance = async (
       log: true,
     });
 
-    return result;
+    return result.address;
   }
 };

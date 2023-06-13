@@ -3,7 +3,7 @@ pragma solidity ^0.8.12;
 
 import "@openzeppelin/contracts/proxy/Clones.sol";
 
-import "../BaalV1.sol";
+import "../Baal.sol";
 
 contract MockBaal {
     bool public lootPaused;

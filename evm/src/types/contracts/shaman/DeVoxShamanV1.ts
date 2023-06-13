@@ -42,7 +42,6 @@ export interface DeVoxShamanV1Interface extends utils.Interface {
     "pricePerUnit()": FunctionFragment;
     "proxiableUUID()": FunctionFragment;
     "renounceOwnership()": FunctionFragment;
-    "setBaal(address)": FunctionFragment;
     "setTarget(uint256)": FunctionFragment;
     "target()": FunctionFragment;
     "token()": FunctionFragment;
@@ -67,7 +66,6 @@ export interface DeVoxShamanV1Interface extends utils.Interface {
       | "pricePerUnit"
       | "proxiableUUID"
       | "renounceOwnership"
-      | "setBaal"
       | "setTarget"
       | "target"
       | "token"
@@ -117,10 +115,6 @@ export interface DeVoxShamanV1Interface extends utils.Interface {
   encodeFunctionData(
     functionFragment: "renounceOwnership",
     values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "setBaal",
-    values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
     functionFragment: "setTarget",
@@ -176,7 +170,6 @@ export interface DeVoxShamanV1Interface extends utils.Interface {
     functionFragment: "renounceOwnership",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "setBaal", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "setTarget", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "target", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "token", data: BytesLike): Result;
@@ -389,11 +382,6 @@ export interface DeVoxShamanV1 extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
-    setBaal(
-      _baal: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
-
     setTarget(
       _target: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
@@ -473,11 +461,6 @@ export interface DeVoxShamanV1 extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
-  setBaal(
-    _baal: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
-
   setTarget(
     _target: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
@@ -552,11 +535,6 @@ export interface DeVoxShamanV1 extends BaseContract {
     proxiableUUID(overrides?: CallOverrides): Promise<string>;
 
     renounceOwnership(overrides?: CallOverrides): Promise<void>;
-
-    setBaal(
-      _baal: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<void>;
 
     setTarget(
       _target: PromiseOrValue<BigNumberish>,
@@ -720,11 +698,6 @@ export interface DeVoxShamanV1 extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
-    setBaal(
-      _baal: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
-
     setTarget(
       _target: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
@@ -802,11 +775,6 @@ export interface DeVoxShamanV1 extends BaseContract {
     proxiableUUID(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     renounceOwnership(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
-
-    setBaal(
-      _baal: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 

@@ -181,7 +181,7 @@ const getShamanInitParams = function (
   shamanArgs: DeVoxShamanSummonArgs
 ) {
   return abiCoder.encode(
-    ["string", "uint256", "uint256", "uint256", "string"],
+    ["address", "uint256", "uint256", "uint256", "string"],
     [
       tokenAddress,
       shamanArgs.pricePerUnit,

@@ -26,14 +26,14 @@ import type {
 
 export interface IShamanSummonerInterface extends utils.Interface {
   functions: {
-    "summonDeVoxShaman(bytes)": FunctionFragment;
+    "summonDeVoxShaman(address,bytes)": FunctionFragment;
   };
 
   getFunction(nameOrSignatureOrTopic: "summonDeVoxShaman"): FunctionFragment;
 
   encodeFunctionData(
     functionFragment: "summonDeVoxShaman",
-    values: [PromiseOrValue<BytesLike>]
+    values: [PromiseOrValue<string>, PromiseOrValue<BytesLike>]
   ): string;
 
   decodeFunctionResult(
@@ -72,18 +72,21 @@ export interface IShamanSummoner extends BaseContract {
 
   functions: {
     summonDeVoxShaman(
+      _baal: PromiseOrValue<string>,
       _initializationParams: PromiseOrValue<BytesLike>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
   };
 
   summonDeVoxShaman(
+    _baal: PromiseOrValue<string>,
     _initializationParams: PromiseOrValue<BytesLike>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   callStatic: {
     summonDeVoxShaman(
+      _baal: PromiseOrValue<string>,
       _initializationParams: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<string>;
@@ -93,6 +96,7 @@ export interface IShamanSummoner extends BaseContract {
 
   estimateGas: {
     summonDeVoxShaman(
+      _baal: PromiseOrValue<string>,
       _initializationParams: PromiseOrValue<BytesLike>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
@@ -100,6 +104,7 @@ export interface IShamanSummoner extends BaseContract {
 
   populateTransaction: {
     summonDeVoxShaman(
+      _baal: PromiseOrValue<string>,
       _initializationParams: PromiseOrValue<BytesLike>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;

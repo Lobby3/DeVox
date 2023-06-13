@@ -1,12 +1,13 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.12;
 
+import {Module} from "@gnosis.pm/zodiac/contracts/core/Module.sol";
 import {Initializable} from "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import {OwnableUpgradeable} from "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 import {UUPSUpgradeable} from "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";
 
 import {IBaal} from "../fixtures/Baal/interfaces/IBaal.sol";
-import {IBaalAdvTokenSummoner} from "../fixtures/Baal/interfaces/IBaalAdvTokenSummoner.sol";
+import {IBaalAdvTokenSummoner} from "../baal/interfaces/IBaalAdvTokenSummoner.sol";
 import {IShaman} from "./IShaman.sol";
 import {IShamanSummoner} from "./IShamanSummoner.sol";
 
@@ -50,27 +51,29 @@ contract DeVoxBaalAndShamanSummonerV1 is
         bytes[] calldata _baalInitializationActions,
         bytes calldata _shamanInitializationParams
     ) external returns (address _baalAddress, address _shamanAddress) {
-        _shamanAddress = _shamanSummoner.summonDeVoxShaman(
-            _shamanInitializationParams
-        );
-        require(_shamanAddress != address(0), "shamanAddress: zero address");
-
         bytes[] memory _newBaalInitializationActions = new bytes[](
             _baalInitializationActions.length + 1
         );
         for (uint256 i = 0; i < _baalInitializationActions.length; i++) {
             _newBaalInitializationActions[i] = _baalInitializationActions[i];
         }
-        address[] memory _shamans = new address[](1);
-        _shamans[0] = _shamanAddress;
-        uint256[] memory _permissions = new uint256[](1);
-        _permissions[0] = 7;
+        // address[] memory _shamans = new address[](1);
+        // _shamans[0] = _shamanAddress;
+        // uint256[] memory _permissions = new uint256[](1);
+        // _permissions[0] = 7;
+        // _newBaalInitializationActions[
+        //     _newBaalInitializationActions.length - 1
+        // ] = abi.encodeWithSelector(
+        //     IBaal.setShamans.selector,
+        //     _shamans,
+        //     _permissions
+        // );
+
         _newBaalInitializationActions[
             _newBaalInitializationActions.length - 1
         ] = abi.encodeWithSelector(
-            IBaal.setShamans.selector,
-            _shamans,
-            _permissions
+            OwnableUpgradeable.transferOwnership.selector,
+            address(this)
         );
 
         _baalAddress = _baalSummoner.summonBaalFromReferrer(
@@ -80,7 +83,20 @@ contract DeVoxBaalAndShamanSummonerV1 is
             _newBaalInitializationActions
         );
 
-        IShaman(_shamanAddress).setBaal(_baalAddress);
+        _shamanAddress = _shamanSummoner.summonDeVoxShaman(
+            _baalAddress,
+            _shamanInitializationParams
+        );
+
+        require(_shamanAddress != address(0), "shamanAddress: zero address");
+
+        Module(_baalAddress).setAvatar(address(this));
+        
+        address[] memory _shamans = new address[](1);
+        _shamans[0] = _shamanAddress;
+        uint256[] memory _permissions = new uint256[](1);
+        _permissions[0] = 7;
+        IBaal(_baalAddress).setShamans(_shamans, _permissions);
     }
 
     function _authorizeUpgrade(

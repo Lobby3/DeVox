@@ -7,7 +7,7 @@ async function createArgs(hre: HardhatRuntimeEnvironment) {
   const { deployments } = hre; // we get the deployments and getNamedAccounts which are provided by hardhat-deploy.
   const { get } = deployments; // The deployments field itself contains the deploy function.
 
-  const baalSummonerDeployment = await get(ContractNames.BaalAdvTokenSummoner);
+  const baalSummonerDeployment = await get(ContractNames.DeVoxBaalAdvTokenSummoner);
   const shamanSummonerDeployment = await get(ContractNames.DeVoxShamanSummoner);
 
   return [baalSummonerDeployment.address, shamanSummonerDeployment.address];

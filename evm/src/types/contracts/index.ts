@@ -3,9 +3,12 @@
 /* tslint:disable */
 
 /* eslint-disable */
+import type * as baal from "./baal";
 import type * as fixtures from "./fixtures";
 import type * as mock from "./mock";
 import type * as shaman from "./shaman";
+
+export type { baal };
 
 export type { fixtures };
 
