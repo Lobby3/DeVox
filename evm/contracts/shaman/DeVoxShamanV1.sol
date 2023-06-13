@@ -150,7 +150,10 @@ contract DeVoxShamanV1 is
         require(_value % pricePerUnit == 0, "donate: invalid amount"); // require value as multiple of units
 
         // send to DAO
-        require(token.transferFrom(msg.sender, baal.target(), _value), "donate: transfer failed");
+        require(
+            token.transferFrom(msg.sender, baal.target(), _value),
+            "donate: transfer failed"
+        );
 
         uint256 lootIssued = _lootToIssue(_value);
         _mintTokens(msg.sender, lootIssued, TokenType.LOOT);

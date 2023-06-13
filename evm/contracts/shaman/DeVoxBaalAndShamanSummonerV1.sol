@@ -91,7 +91,7 @@ contract DeVoxBaalAndShamanSummonerV1 is
         require(_shamanAddress != address(0), "shamanAddress: zero address");
 
         Module(_baalAddress).setAvatar(address(this));
-        
+
         address[] memory _shamans = new address[](1);
         _shamans[0] = _shamanAddress;
         uint256[] memory _permissions = new uint256[](1);

@@ -11,6 +11,7 @@ interface IShaman {
         uint256 _tokensPerUnit,
         uint256 _target
     ) external;
+
     /// @notice Make a donation, join the DAO and receive voting shares
     /// @param _value amount donated
     /// @param _message message accompanying donation
