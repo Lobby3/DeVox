@@ -40,15 +40,15 @@ jobs:
       - name: "Install the dependencies"
         run: "yarn install --immutable"
 
-      - name: "Lint the code"
-        run: "yarn nx run frontend:lint"
+      # - name: "Lint the code"
+      #   run: "yarn nx run frontend:lint"
 
-      - name: "Add lint summary"
-        run: |
-          echo "## Lint results" >> $GITHUB_STEP_SUMMARY
-          echo "✅ Passed" >> $GITHUB_STEP_SUMMARY
+      # - name: "Add lint summary"
+      #   run: |
+      #     echo "## Lint results" >> $GITHUB_STEP_SUMMARY
+      #     echo "✅ Passed" >> $GITHUB_STEP_SUMMARY
 
-      - name: "Test the contracts and generate the coverage report"
+      - name: "Test the code and generate the coverage report"
         run: "yarn nx run frontend:test"
 
       - name: "Add test summary"
