@@ -1,14 +1,7 @@
 import { SummonParams } from "@daohaus/contract-utils";
 import { isValidNetwork } from "@daohaus/keychain-utils";
 import { useTxBuilder } from "@daohaus/tx-builder";
-import {
-  Bold,
-  Button,
-  Divider,
-  H1,
-  WrappedInput,
-  useToast,
-} from "@daohaus/ui";
+import { Bold, Button, Divider, H1, WrappedInput, useToast } from "@daohaus/ui";
 import { ReactSetter } from "@daohaus/utils";
 import { useWeb3React } from "@web3-react/core";
 import { useState } from "react";
@@ -20,6 +13,7 @@ import { MembersSegment } from "../layouts/MemberSegment";
 import { StakeTokensSegment } from "../layouts/StakeTokenSegment";
 import { TimingSegment } from "../layouts/TimingSegment";
 import { SummonStates } from "../types";
+import { fixDaohausUrl, hexadecimalize } from "../utils";
 import { assembleTxArgs } from "../utils/assembleTxArgs";
 import { FORM_KEYS } from "../utils/formKeys";
 import { SummonTX } from "../utils/summonlegos";
@@ -64,7 +58,7 @@ export const SummonerForm = ({
   const { errorToast, successToast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const chainIdHex = chainId && `0x${chainId.toString(16)}`;
+  const chainIdHex = hexadecimalize(chainId);
   const submitDisabled =
     !isValid || !isValidNetwork(chainIdHex) || isSubmitting;
   const formDisabled = isSubmitting;
@@ -93,7 +87,8 @@ export const SummonerForm = ({
             setTxHash(txHash);
           },
           onPollSuccess(result) {
-            const daoAddress = result?.data?.transaction?.daoAddress;
+            const daoAddress = fixDaohausUrl(result?.data?.transaction?.daoAddress);
+            // const daoAddress = result?.data?.transaction?.daoAddress;
             if (daoAddress) {
               successToast({
                 title: "DAO Summoned",
