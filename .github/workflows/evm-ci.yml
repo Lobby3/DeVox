@@ -8,10 +8,14 @@ on:
   pull_request:
     branches:
       - "main"
+    paths:
+      - "evm/**"
   push:
     branches:
       - "main"
       - "develop"
+    paths:
+      - "evm/**"
 
 jobs:
   ci:
