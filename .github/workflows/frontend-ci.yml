@@ -1,0 +1,57 @@
+name: "FRONTEND-CI"
+
+# env:
+#   NEXT_PUBLIC_MAGIC_PUBLISHABLE_API_KEY: ${{ secrets.NEXT_PUBLIC_MAGIC_PUBLISHABLE_API_KEY }}
+
+on:
+  pull_request:
+    branches:
+      - "main"
+    paths:
+      - "packages/frontend/**"
+  push:
+    branches:
+      - "main"
+      - "develop"
+    paths:
+      - "packages/frontend/**"
+
+jobs:
+  ci:
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: "Check out the repo"
+        uses: "actions/checkout@v3"        
+        with:
+          # We need to fetch all branches and commits so that Nx affected has a base to compare against.
+          fetch-depth: 0
+
+      - name: "Install Node.js"
+        uses: "actions/setup-node@v3"
+        with:
+          # cache: "yarn"
+          node-version: "18"
+
+      # - name: "Copy config"
+      #   run: |
+      #     mv ./evm/.env.github ./evm/.env
+      #     echo "::debug::$(less .env)"
+
+      - name: "Install the dependencies"
+        run: "yarn install --immutable"
+
+      - name: "Lint the code"
+        run: "yarn nx run frontend:lint"
+
+      - name: "Add lint summary"
+        run: |
+          echo "## Lint results" >> $GITHUB_STEP_SUMMARY
+          echo "✅ Passed" >> $GITHUB_STEP_SUMMARY
+
+      - name: "Test the contracts and generate the coverage report"
+        run: "yarn nx run frontend:test"
+
+      - name: "Add test summary"
+        run: |
+          echo "## Test results" >> $GITHUB_STEP_SUMMARY
+          echo "✅ Passed" >> $GITHUB_STEP_SUMMARY
