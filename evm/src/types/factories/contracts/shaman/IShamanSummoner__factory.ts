@@ -14,6 +14,11 @@ const _abi = [
   {
     inputs: [
       {
+        internalType: "address",
+        name: "_baal",
+        type: "address",
+      },
+      {
         internalType: "bytes",
         name: "_initializationParams",
         type: "bytes",

@@ -35,7 +35,7 @@ export interface DeVoxShamanSummonerV1Interface extends utils.Interface {
     "owner()": FunctionFragment;
     "proxiableUUID()": FunctionFragment;
     "renounceOwnership()": FunctionFragment;
-    "summonDeVoxShaman(bytes)": FunctionFragment;
+    "summonDeVoxShaman(address,bytes)": FunctionFragment;
     "template()": FunctionFragment;
     "transferOwnership(address)": FunctionFragment;
     "updateVersion()": FunctionFragment;
@@ -74,7 +74,7 @@ export interface DeVoxShamanSummonerV1Interface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "summonDeVoxShaman",
-    values: [PromiseOrValue<BytesLike>]
+    values: [PromiseOrValue<string>, PromiseOrValue<BytesLike>]
   ): string;
   encodeFunctionData(functionFragment: "template", values?: undefined): string;
   encodeFunctionData(
@@ -247,6 +247,7 @@ export interface DeVoxShamanSummonerV1 extends BaseContract {
     ): Promise<ContractTransaction>;
 
     summonDeVoxShaman(
+      _baal: PromiseOrValue<string>,
       _initializationParams: PromiseOrValue<BytesLike>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
@@ -290,6 +291,7 @@ export interface DeVoxShamanSummonerV1 extends BaseContract {
   ): Promise<ContractTransaction>;
 
   summonDeVoxShaman(
+    _baal: PromiseOrValue<string>,
     _initializationParams: PromiseOrValue<BytesLike>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
@@ -331,6 +333,7 @@ export interface DeVoxShamanSummonerV1 extends BaseContract {
     renounceOwnership(overrides?: CallOverrides): Promise<void>;
 
     summonDeVoxShaman(
+      _baal: PromiseOrValue<string>,
       _initializationParams: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<string>;
@@ -431,6 +434,7 @@ export interface DeVoxShamanSummonerV1 extends BaseContract {
     ): Promise<BigNumber>;
 
     summonDeVoxShaman(
+      _baal: PromiseOrValue<string>,
       _initializationParams: PromiseOrValue<BytesLike>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
@@ -475,6 +479,7 @@ export interface DeVoxShamanSummonerV1 extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     summonDeVoxShaman(
+      _baal: PromiseOrValue<string>,
       _initializationParams: PromiseOrValue<BytesLike>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;

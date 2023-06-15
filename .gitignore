@@ -39,6 +39,8 @@ testem.log
 .env
 etherscan.txt
 mnemonic.txt
+coverage
+coverage.json
 
 # System Files
 .DS_Store

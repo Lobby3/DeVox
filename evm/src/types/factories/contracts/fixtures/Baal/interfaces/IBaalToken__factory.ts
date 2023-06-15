@@ -67,7 +67,7 @@ const _abi = [
         components: [
           {
             internalType: "uint32",
-            name: "fromTimePoint",
+            name: "fromTimeStamp",
             type: "uint32",
           },
           {
@@ -85,32 +85,14 @@ const _abi = [
     type: "function",
   },
   {
-    inputs: [],
-    name: "getCurrentSnapshotId",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
     inputs: [
       {
         internalType: "address",
         name: "account",
         type: "address",
       },
-      {
-        internalType: "uint256",
-        name: "timePoint",
-        type: "uint256",
-      },
     ],
-    name: "getPastVotes",
+    name: "getCurrentVotes",
     outputs: [
       {
         internalType: "uint256",
@@ -128,8 +110,13 @@ const _abi = [
         name: "account",
         type: "address",
       },
+      {
+        internalType: "uint256",
+        name: "timeStamp",
+        type: "uint256",
+      },
     ],
-    name: "getVotes",
+    name: "getPriorVotes",
     outputs: [
       {
         internalType: "uint256",
@@ -243,19 +230,6 @@ const _abi = [
   },
   {
     inputs: [],
-    name: "snapshot",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
     name: "symbol",
     outputs: [
       {
@@ -270,25 +244,6 @@ const _abi = [
   {
     inputs: [],
     name: "totalSupply",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "snapshotId",
-        type: "uint256",
-      },
-    ],
-    name: "totalSupplyAt",
     outputs: [
       {
         internalType: "uint256",

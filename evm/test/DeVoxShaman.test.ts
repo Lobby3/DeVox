@@ -12,12 +12,15 @@ describe(ContractNames.DeVoxShaman, function () {
   it.only("should deploy with correct parameters", async function () {
     // arrange
     const {
-      default: { shaman },
+      default: { baal, shaman, token },
     } = await setupTest({ shamanArgs: defaultSummonArgs });
 
     const { pricePerUnit, tokensPerUnit, target } = defaultSummonArgs;
 
     // act & assert
+    expect(await shaman.baal()).to.equal(baal.address, "baal!");
+    expect(await shaman.token()).to.equal(token.address, "token!");
+
     const shamanPricePerUnit = await shaman.pricePerUnit();
     expect(shamanPricePerUnit).to.equal(pricePerUnit, "pricePerUnit!");
 
@@ -28,6 +31,21 @@ describe(ContractNames.DeVoxShaman, function () {
     expect(shamanTokensPerUnit).to.equal(tokensPerUnit, "tokensPerUnit!");
   });
 
+  it.only("should have zero initial token balance", async function () {
+    // arrange
+    const {
+      default: { baal, token },
+    } = await setupTest({ shamanArgs: defaultSummonArgs });
+
+    // act
+    const safeAddress = await baal.target();
+    const balance = await token.balanceOf(safeAddress);
+
+    // assert
+    expect(safeAddress).to.be.properAddress;
+    expect(balance).to.be.eq(0);
+  });
+
   it.only("should only allow whitelisted sender to donate", async function () {
     // arrange
     const {
@@ -35,17 +53,17 @@ describe(ContractNames.DeVoxShaman, function () {
     } = await setupTest({ shamanArgs: defaultSummonArgs });
 
     const amount = ethers.utils.parseUnits("100", "ether");
-    
+
     // act & assert
     await expect(shaman.donate(amount, "hello")).to.be.revertedWith(
-      "user not whitelisted"
+      "donate: sender not whitelisted"
     );
   });
 
-  it("should mint shares on donate", async function () { // TODO: fix this test
+  it.only("should mint shares on donate", async function () {
     // arrange
     const {
-      deployer: { token: deployerToken, safe },
+      deployer: { token: deployerToken },
       user: { address: userAddress, baal, loot, shaman, shares, token },
     } = await setupTest({ shamanArgs: defaultSummonArgs });
 
@@ -56,11 +74,11 @@ describe(ContractNames.DeVoxShaman, function () {
     let total = BigNumber.from(0);
 
     const testDonate = async (donation: string) => {
-      const amount = ethers.utils.parseUnits(donation, "ether");
+      const amount = BigNumber.from(donation).mul(1000000);
       await deployerToken.transfer(userAddress, amount);
-      await token.approve(shaman.address, amount);
 
       const userBalanceBefore = await token.balanceOf(userAddress);
+      expect(userBalanceBefore).to.equal(amount, "userBalanceBefore!");
       const userSharesBefore = await shares.balanceOf(userAddress);
       const userLootBefore = await loot.balanceOf(userAddress);
       const baalTotalLootBefore = await baal.totalLoot();
@@ -72,6 +90,9 @@ describe(ContractNames.DeVoxShaman, function () {
       const msg = "hello";
 
       total = total.add(amount);
+
+      await token.approve(shaman.address, amount);
+      expect(await token.allowance(userAddress, shaman.address)).to.equal(amount, "allowance!");
 
       // act & assert
       await expect(shaman.donate(amount, msg))
@@ -123,7 +144,7 @@ describe(ContractNames.DeVoxShaman, function () {
     await testDonate("10000");
   });
 
-  it("should not allow ragequit of funds", async function () { // TODO: fix this test
+  it.only("should not allow ragequit of funds", async function () {
     // arrange
     const {
       deployer: { token: deployerToken, safe },
@@ -137,7 +158,7 @@ describe(ContractNames.DeVoxShaman, function () {
     const lootBefore = await loot.balanceOf(userAddress);
     const sharesBefore = await shares.balanceOf(userAddress);
     const safeTokenBefore = await token.balanceOf(safe.address);
-    
+
     // act
     await baal.ragequit(userAddress, sharesBefore, lootBefore, [token.address]);
 
@@ -148,6 +169,8 @@ describe(ContractNames.DeVoxShaman, function () {
     expect(lootAfter).to.equal(0, "loot!");
     expect(sharesAfter).to.equal(0, "shares!");
     const fac = 1000000000;
-    expect(safeTokenAfter.mul(fac).div(safeTokenBefore).toNumber() / fac).to.be.greaterThanOrEqual(0.999999999, "safeToken!");
+    expect(
+      safeTokenAfter.mul(fac).div(safeTokenBefore).toNumber() / fac
+    ).to.be.greaterThanOrEqual(0.999999999, "safeToken!");
   });
 });

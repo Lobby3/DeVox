@@ -118,12 +118,6 @@ contract DeVoxShamanV1 is
         target = _target;
     }
 
-    /// @notice Set BaaL contract address
-    /// @param _baal BaaL contract address
-    function setBaal(address _baal) external override /*onlyOwner*/ {
-        baal = IBaal(_baal);
-    }
-
     /// Whitelist a user, enabling them to join the DAO
     /// @param _status whitelist status
     /// @param _metadata user metadata
@@ -149,15 +143,16 @@ contract DeVoxShamanV1 is
         uint256 _value,
         string calldata _message
     ) external override nonReentrant {
-        require(_whitelist[msg.sender], "user not whitelisted");
-        require(address(baal) != address(0), "!init");
-        require(baal.isManager(address(this)), "Shaman not manager");
-        require(_value % pricePerUnit == 0, "invalid amount"); // require value as multiple of units
+        require(address(baal) != address(0), "donate: !baal");
+        require(address(token) != address(0), "donate: !token");
+        require(baal.isManager(address(this)), "donate: shaman not manager");
+        require(_whitelist[msg.sender], "donate: sender not whitelisted");
+        require(_value % pricePerUnit == 0, "donate: invalid amount"); // require value as multiple of units
 
         // send to DAO
         require(
             token.transferFrom(msg.sender, baal.target(), _value),
-            "Transfer failed"
+            "donate: transfer failed"
         );
 
         uint256 lootIssued = _lootToIssue(_value);

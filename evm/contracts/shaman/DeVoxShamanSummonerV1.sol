@@ -29,7 +29,6 @@ contract DeVoxShamanSummonerV1 is
      ******************/
 
     /// @notice emitted when a new shaman is summoned
-    /// 
     /// @param baal Baal contract address
     /// @param shaman Shaman contract address
     /// @param token ERC20 token address
@@ -64,6 +63,7 @@ contract DeVoxShamanSummonerV1 is
     }
 
     function summonDeVoxShaman(
+        address _baal,
         bytes calldata _initializationParams
     ) external override returns (address) {
         _id = _id + 1;
@@ -79,12 +79,21 @@ contract DeVoxShamanSummonerV1 is
                 (address, uint256, uint256, uint256, string)
             );
 
+        require(
+            _baal != address(0),
+            "DeVoxShamanSummonerV1: _baal cannot be 0x0"
+        );
+        require(
+            _token != address(0),
+            "DeVoxShamanSummonerV1: _token cannot be 0x0"
+        );
+
         address shaman = address(
             new ERC1967Proxy(
                 template,
                 abi.encodeWithSelector(
                     IShaman(template).initialize.selector,
-                    address(0),
+                    _baal,
                     _token,
                     _id,
                     _pricePerUnit,
@@ -94,8 +103,13 @@ contract DeVoxShamanSummonerV1 is
             )
         );
 
+        require(
+            address(DeVoxShamanV1(shaman).token()) == address(_token),
+            "DeVoxShamanSummonerV1: token mismatch"
+        );
+
         emit SummonComplete(
-            address(0),
+            _baal,
             shaman,
             _token,
             _id,

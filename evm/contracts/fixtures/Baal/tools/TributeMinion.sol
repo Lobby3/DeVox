@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.12;
 
-import "../BaalV1.sol";
+import "../Baal.sol";
 
 interface IERC20 {
     function transferFrom(
@@ -111,7 +111,7 @@ contract TributeMinion {
     }
 
     function submitTributeProposal(
-        BaalV1 baal,
+        Baal baal,
         address token,
         uint256 amount,
         uint256 shares,
@@ -156,7 +156,7 @@ contract TributeMinion {
     }
 
     function releaseEscrow(address _baal, uint32 _proposalId) external {
-        BaalV1 baal = BaalV1(_baal);
+        Baal baal = Baal(_baal);
         Escrow storage escrow = escrows[address(baal)][_proposalId];
         require(!escrow.released, "Already released");
 
