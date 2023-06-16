@@ -1,5 +1,7 @@
-import { newMockEvent } from "matchstick-as"
-import { ethereum, Address, BigInt, Bytes } from "@graphprotocol/graph-ts"
+/* eslint-disable @typescript-eslint/ban-types */
+import { Address, BigInt, Bytes, ethereum } from "@graphprotocol/graph-ts";
+import { newMockEvent } from "matchstick-as";
+
 import {
   Approval,
   AvatarSet,
@@ -22,77 +24,77 @@ import {
   SponsorProposal,
   SubmitProposal,
   SubmitVote,
-  TargetSet
-} from "../generated/BaalV1/BaalV1"
+  TargetSet,
+} from "../generated/BaalV1/BaalV1";
 
 export function createApprovalEvent(
   owner: Address,
   spender: Address,
   amount: BigInt
 ): Approval {
-  let approvalEvent = changetype<Approval>(newMockEvent())
+  const approvalEvent = changetype<Approval>(newMockEvent());
 
-  approvalEvent.parameters = new Array()
+  approvalEvent.parameters = [];
 
   approvalEvent.parameters.push(
     new ethereum.EventParam("owner", ethereum.Value.fromAddress(owner))
-  )
+  );
   approvalEvent.parameters.push(
     new ethereum.EventParam("spender", ethereum.Value.fromAddress(spender))
-  )
+  );
   approvalEvent.parameters.push(
     new ethereum.EventParam("amount", ethereum.Value.fromUnsignedBigInt(amount))
-  )
+  );
 
-  return approvalEvent
+  return approvalEvent;
 }
 
 export function createAvatarSetEvent(
   previousAvatar: Address,
   newAvatar: Address
 ): AvatarSet {
-  let avatarSetEvent = changetype<AvatarSet>(newMockEvent())
+  const avatarSetEvent = changetype<AvatarSet>(newMockEvent());
 
-  avatarSetEvent.parameters = new Array()
+  avatarSetEvent.parameters = [];
 
   avatarSetEvent.parameters.push(
     new ethereum.EventParam(
       "previousAvatar",
       ethereum.Value.fromAddress(previousAvatar)
     )
-  )
+  );
   avatarSetEvent.parameters.push(
     new ethereum.EventParam("newAvatar", ethereum.Value.fromAddress(newAvatar))
-  )
+  );
 
-  return avatarSetEvent
+  return avatarSetEvent;
 }
 
 export function createCancelProposalEvent(proposal: BigInt): CancelProposal {
-  let cancelProposalEvent = changetype<CancelProposal>(newMockEvent())
+  const cancelProposalEvent = changetype<CancelProposal>(newMockEvent());
 
-  cancelProposalEvent.parameters = new Array()
+  cancelProposalEvent.parameters = [];
 
   cancelProposalEvent.parameters.push(
     new ethereum.EventParam(
       "proposal",
       ethereum.Value.fromUnsignedBigInt(proposal)
     )
-  )
+  );
 
-  return cancelProposalEvent
+  return cancelProposalEvent;
 }
 
 export function createChangedGuardEvent(guard: Address): ChangedGuard {
-  let changedGuardEvent = changetype<ChangedGuard>(newMockEvent())
+  const changedGuardEvent = changetype<ChangedGuard>(newMockEvent());
 
-  changedGuardEvent.parameters = new Array()
+  changedGuardEvent.parameters = [];
 
   changedGuardEvent.parameters.push(
     new ethereum.EventParam("guard", ethereum.Value.fromAddress(guard))
-  )
+  );
 
-  return changedGuardEvent
+  return changedGuardEvent;
 }
 
 export function createGovernanceConfigSetEvent(
@@ -103,146 +105,148 @@ export function createGovernanceConfigSetEvent(
   sponsor: BigInt,
   minRetention: BigInt
 ): GovernanceConfigSet {
-  let governanceConfigSetEvent = changetype<GovernanceConfigSet>(newMockEvent())
+  const governanceConfigSetEvent = changetype<GovernanceConfigSet>(
+    newMockEvent()
+  );
 
-  governanceConfigSetEvent.parameters = new Array()
+  governanceConfigSetEvent.parameters = [];
 
   governanceConfigSetEvent.parameters.push(
     new ethereum.EventParam("voting", ethereum.Value.fromUnsignedBigInt(voting))
-  )
+  );
   governanceConfigSetEvent.parameters.push(
     new ethereum.EventParam("grace", ethereum.Value.fromUnsignedBigInt(grace))
-  )
+  );
   governanceConfigSetEvent.parameters.push(
     new ethereum.EventParam(
       "newOffering",
       ethereum.Value.fromUnsignedBigInt(newOffering)
     )
-  )
+  );
   governanceConfigSetEvent.parameters.push(
     new ethereum.EventParam("quorum", ethereum.Value.fromUnsignedBigInt(quorum))
-  )
+  );
   governanceConfigSetEvent.parameters.push(
     new ethereum.EventParam(
       "sponsor",
       ethereum.Value.fromUnsignedBigInt(sponsor)
     )
-  )
+  );
   governanceConfigSetEvent.parameters.push(
     new ethereum.EventParam(
       "minRetention",
       ethereum.Value.fromUnsignedBigInt(minRetention)
     )
-  )
+  );
 
-  return governanceConfigSetEvent
+  return governanceConfigSetEvent;
 }
 
 export function createInitializedEvent(version: i32): Initialized {
-  let initializedEvent = changetype<Initialized>(newMockEvent())
+  const initializedEvent = changetype<Initialized>(newMockEvent());
 
-  initializedEvent.parameters = new Array()
+  initializedEvent.parameters = [];
 
   initializedEvent.parameters.push(
     new ethereum.EventParam(
       "version",
       ethereum.Value.fromUnsignedBigInt(BigInt.fromI32(version))
     )
-  )
+  );
 
-  return initializedEvent
+  return initializedEvent;
 }
 
 export function createLockAdminEvent(adminLock: boolean): LockAdmin {
-  let lockAdminEvent = changetype<LockAdmin>(newMockEvent())
+  const lockAdminEvent = changetype<LockAdmin>(newMockEvent());
 
-  lockAdminEvent.parameters = new Array()
+  lockAdminEvent.parameters = [];
 
   lockAdminEvent.parameters.push(
     new ethereum.EventParam("adminLock", ethereum.Value.fromBoolean(adminLock))
-  )
+  );
 
-  return lockAdminEvent
+  return lockAdminEvent;
 }
 
 export function createLockGovernorEvent(governorLock: boolean): LockGovernor {
-  let lockGovernorEvent = changetype<LockGovernor>(newMockEvent())
+  const lockGovernorEvent = changetype<LockGovernor>(newMockEvent());
 
-  lockGovernorEvent.parameters = new Array()
+  lockGovernorEvent.parameters = [];
 
   lockGovernorEvent.parameters.push(
     new ethereum.EventParam(
       "governorLock",
       ethereum.Value.fromBoolean(governorLock)
     )
-  )
+  );
 
-  return lockGovernorEvent
+  return lockGovernorEvent;
 }
 
 export function createLockManagerEvent(managerLock: boolean): LockManager {
-  let lockManagerEvent = changetype<LockManager>(newMockEvent())
+  const lockManagerEvent = changetype<LockManager>(newMockEvent());
 
-  lockManagerEvent.parameters = new Array()
+  lockManagerEvent.parameters = [];
 
   lockManagerEvent.parameters.push(
     new ethereum.EventParam(
       "managerLock",
       ethereum.Value.fromBoolean(managerLock)
     )
-  )
+  );
 
-  return lockManagerEvent
+  return lockManagerEvent;
 }
 
 export function createLockRagequitEvent(ragequitLock: boolean): LockRagequit {
-  let lockRagequitEvent = changetype<LockRagequit>(newMockEvent())
+  const lockRagequitEvent = changetype<LockRagequit>(newMockEvent());
 
-  lockRagequitEvent.parameters = new Array()
+  lockRagequitEvent.parameters = [];
 
   lockRagequitEvent.parameters.push(
     new ethereum.EventParam(
       "ragequitLock",
       ethereum.Value.fromBoolean(ragequitLock)
     )
-  )
+  );
 
-  return lockRagequitEvent
+  return lockRagequitEvent;
 }
 
 export function createLootPausedEvent(paused: boolean): LootPaused {
-  let lootPausedEvent = changetype<LootPaused>(newMockEvent())
+  const lootPausedEvent = changetype<LootPaused>(newMockEvent());
 
-  lootPausedEvent.parameters = new Array()
+  lootPausedEvent.parameters = [];
 
   lootPausedEvent.parameters.push(
     new ethereum.EventParam("paused", ethereum.Value.fromBoolean(paused))
-  )
+  );
 
-  return lootPausedEvent
+  return lootPausedEvent;
 }
 
 export function createOwnershipTransferredEvent(
   previousOwner: Address,
   newOwner: Address
 ): OwnershipTransferred {
-  let ownershipTransferredEvent = changetype<OwnershipTransferred>(
+  const ownershipTransferredEvent = changetype<OwnershipTransferred>(
     newMockEvent()
-  )
+  );
 
-  ownershipTransferredEvent.parameters = new Array()
+  ownershipTransferredEvent.parameters = [];
 
   ownershipTransferredEvent.parameters.push(
     new ethereum.EventParam(
       "previousOwner",
       ethereum.Value.fromAddress(previousOwner)
     )
-  )
+  );
   ownershipTransferredEvent.parameters.push(
     new ethereum.EventParam("newOwner", ethereum.Value.fromAddress(newOwner))
-  )
+  );
 
-  return ownershipTransferredEvent
+  return ownershipTransferredEvent;
 }
 
 export function createProcessProposalEvent(
@@ -250,27 +254,27 @@ export function createProcessProposalEvent(
   passed: boolean,
   actionFailed: boolean
 ): ProcessProposal {
-  let processProposalEvent = changetype<ProcessProposal>(newMockEvent())
+  const processProposalEvent = changetype<ProcessProposal>(newMockEvent());
 
-  processProposalEvent.parameters = new Array()
+  processProposalEvent.parameters = [];
 
   processProposalEvent.parameters.push(
     new ethereum.EventParam(
       "proposal",
       ethereum.Value.fromUnsignedBigInt(proposal)
     )
-  )
+  );
   processProposalEvent.parameters.push(
     new ethereum.EventParam("passed", ethereum.Value.fromBoolean(passed))
-  )
+  );
   processProposalEvent.parameters.push(
     new ethereum.EventParam(
       "actionFailed",
       ethereum.Value.fromBoolean(actionFailed)
     )
-  )
+  );
 
-  return processProposalEvent
+  return processProposalEvent;
 }
 
 export function createRagequitEvent(
@@ -280,47 +284,49 @@ export function createRagequitEvent(
   sharesToBurn: BigInt,
   tokens: Array<Address>
 ): Ragequit {
-  let ragequitEvent = changetype<Ragequit>(newMockEvent())
+  const ragequitEvent = changetype<Ragequit>(newMockEvent());
 
-  ragequitEvent.parameters = new Array()
+  ragequitEvent.parameters = [];
 
   ragequitEvent.parameters.push(
     new ethereum.EventParam("member", ethereum.Value.fromAddress(member))
-  )
+  );
   ragequitEvent.parameters.push(
     new ethereum.EventParam("to", ethereum.Value.fromAddress(to))
-  )
+  );
   ragequitEvent.parameters.push(
     new ethereum.EventParam(
       "lootToBurn",
       ethereum.Value.fromUnsignedBigInt(lootToBurn)
     )
-  )
+  );
   ragequitEvent.parameters.push(
     new ethereum.EventParam(
       "sharesToBurn",
       ethereum.Value.fromUnsignedBigInt(sharesToBurn)
     )
-  )
+  );
   ragequitEvent.parameters.push(
     new ethereum.EventParam("tokens", ethereum.Value.fromAddressArray(tokens))
-  )
+  );
 
-  return ragequitEvent
+  return ragequitEvent;
 }
 
 export function createSetTrustedForwarderEvent(
   forwarder: Address
 ): SetTrustedForwarder {
-  let setTrustedForwarderEvent = changetype<SetTrustedForwarder>(newMockEvent())
+  const setTrustedForwarderEvent = changetype<SetTrustedForwarder>(
+    newMockEvent()
+  );
 
-  setTrustedForwarderEvent.parameters = new Array()
+  setTrustedForwarderEvent.parameters = [];
 
   setTrustedForwarderEvent.parameters.push(
     new ethereum.EventParam("forwarder", ethereum.Value.fromAddress(forwarder))
-  )
+  );
 
-  return setTrustedForwarderEvent
+  return setTrustedForwarderEvent;
 }
 
 export function createSetupCompleteEvent(
@@ -337,111 +343,111 @@ export function createSetupCompleteEvent(
   totalShares: BigInt,
   totalLoot: BigInt
 ): SetupComplete {
-  let setupCompleteEvent = changetype<SetupComplete>(newMockEvent())
+  const setupCompleteEvent = changetype<SetupComplete>(newMockEvent());
 
-  setupCompleteEvent.parameters = new Array()
+  setupCompleteEvent.parameters = [];
 
   setupCompleteEvent.parameters.push(
     new ethereum.EventParam(
       "lootPaused",
       ethereum.Value.fromBoolean(lootPaused)
     )
-  )
+  );
   setupCompleteEvent.parameters.push(
     new ethereum.EventParam(
       "sharesPaused",
       ethereum.Value.fromBoolean(sharesPaused)
     )
-  )
+  );
   setupCompleteEvent.parameters.push(
     new ethereum.EventParam(
       "gracePeriod",
       ethereum.Value.fromUnsignedBigInt(gracePeriod)
     )
-  )
+  );
   setupCompleteEvent.parameters.push(
     new ethereum.EventParam(
       "votingPeriod",
       ethereum.Value.fromUnsignedBigInt(votingPeriod)
     )
-  )
+  );
   setupCompleteEvent.parameters.push(
     new ethereum.EventParam(
       "proposalOffering",
       ethereum.Value.fromUnsignedBigInt(proposalOffering)
     )
-  )
+  );
   setupCompleteEvent.parameters.push(
     new ethereum.EventParam(
       "quorumPercent",
       ethereum.Value.fromUnsignedBigInt(quorumPercent)
     )
-  )
+  );
   setupCompleteEvent.parameters.push(
     new ethereum.EventParam(
       "sponsorThreshold",
       ethereum.Value.fromUnsignedBigInt(sponsorThreshold)
     )
-  )
+  );
   setupCompleteEvent.parameters.push(
     new ethereum.EventParam(
       "minRetentionPercent",
       ethereum.Value.fromUnsignedBigInt(minRetentionPercent)
     )
-  )
+  );
   setupCompleteEvent.parameters.push(
     new ethereum.EventParam("name", ethereum.Value.fromString(name))
-  )
+  );
   setupCompleteEvent.parameters.push(
     new ethereum.EventParam("symbol", ethereum.Value.fromString(symbol))
-  )
+  );
   setupCompleteEvent.parameters.push(
     new ethereum.EventParam(
       "totalShares",
       ethereum.Value.fromUnsignedBigInt(totalShares)
     )
-  )
+  );
   setupCompleteEvent.parameters.push(
     new ethereum.EventParam(
       "totalLoot",
       ethereum.Value.fromUnsignedBigInt(totalLoot)
     )
-  )
+  );
 
-  return setupCompleteEvent
+  return setupCompleteEvent;
 }
 
 export function createShamanSetEvent(
   shaman: Address,
   permission: BigInt
 ): ShamanSet {
-  let shamanSetEvent = changetype<ShamanSet>(newMockEvent())
+  const shamanSetEvent = changetype<ShamanSet>(newMockEvent());
 
-  shamanSetEvent.parameters = new Array()
+  shamanSetEvent.parameters = [];
 
   shamanSetEvent.parameters.push(
     new ethereum.EventParam("shaman", ethereum.Value.fromAddress(shaman))
-  )
+  );
   shamanSetEvent.parameters.push(
     new ethereum.EventParam(
       "permission",
       ethereum.Value.fromUnsignedBigInt(permission)
     )
-  )
+  );
 
-  return shamanSetEvent
+  return shamanSetEvent;
 }
 
 export function createSharesPausedEvent(paused: boolean): SharesPaused {
-  let sharesPausedEvent = changetype<SharesPaused>(newMockEvent())
+  const sharesPausedEvent = changetype<SharesPaused>(newMockEvent());
 
-  sharesPausedEvent.parameters = new Array()
+  sharesPausedEvent.parameters = [];
 
   sharesPausedEvent.parameters.push(
     new ethereum.EventParam("paused", ethereum.Value.fromBoolean(paused))
-  )
+  );
 
-  return sharesPausedEvent
+  return sharesPausedEvent;
 }
 
 export function createSponsorProposalEvent(
@@ -449,27 +455,27 @@ export function createSponsorProposalEvent(
   proposal: BigInt,
   votingStarts: BigInt
 ): SponsorProposal {
-  let sponsorProposalEvent = changetype<SponsorProposal>(newMockEvent())
+  const sponsorProposalEvent = changetype<SponsorProposal>(newMockEvent());
 
-  sponsorProposalEvent.parameters = new Array()
+  sponsorProposalEvent.parameters = [];
 
   sponsorProposalEvent.parameters.push(
     new ethereum.EventParam("member", ethereum.Value.fromAddress(member))
-  )
+  );
   sponsorProposalEvent.parameters.push(
     new ethereum.EventParam(
       "proposal",
       ethereum.Value.fromUnsignedBigInt(proposal)
     )
-  )
+  );
   sponsorProposalEvent.parameters.push(
     new ethereum.EventParam(
       "votingStarts",
       ethereum.Value.fromUnsignedBigInt(votingStarts)
     )
-  )
+  );
 
-  return sponsorProposalEvent
+  return sponsorProposalEvent;
 }
 
 export function createSubmitProposalEvent(
@@ -483,63 +489,63 @@ export function createSubmitProposalEvent(
   timestamp: BigInt,
   details: string
 ): SubmitProposal {
-  let submitProposalEvent = changetype<SubmitProposal>(newMockEvent())
+  const submitProposalEvent = changetype<SubmitProposal>(newMockEvent());
 
-  submitProposalEvent.parameters = new Array()
+  submitProposalEvent.parameters = [];
 
   submitProposalEvent.parameters.push(
     new ethereum.EventParam(
       "proposal",
       ethereum.Value.fromUnsignedBigInt(proposal)
     )
-  )
+  );
   submitProposalEvent.parameters.push(
     new ethereum.EventParam(
       "proposalDataHash",
       ethereum.Value.fromFixedBytes(proposalDataHash)
     )
-  )
+  );
   submitProposalEvent.parameters.push(
     new ethereum.EventParam(
       "votingPeriod",
       ethereum.Value.fromUnsignedBigInt(votingPeriod)
     )
-  )
+  );
   submitProposalEvent.parameters.push(
     new ethereum.EventParam(
       "proposalData",
       ethereum.Value.fromBytes(proposalData)
     )
-  )
+  );
   submitProposalEvent.parameters.push(
     new ethereum.EventParam(
       "expiration",
       ethereum.Value.fromUnsignedBigInt(expiration)
     )
-  )
+  );
   submitProposalEvent.parameters.push(
     new ethereum.EventParam(
       "baalGas",
       ethereum.Value.fromUnsignedBigInt(baalGas)
     )
-  )
+  );
   submitProposalEvent.parameters.push(
     new ethereum.EventParam(
       "selfSponsor",
       ethereum.Value.fromBoolean(selfSponsor)
     )
-  )
+  );
   submitProposalEvent.parameters.push(
     new ethereum.EventParam(
       "timestamp",
       ethereum.Value.fromUnsignedBigInt(timestamp)
     )
-  )
+  );
   submitProposalEvent.parameters.push(
     new ethereum.EventParam("details", ethereum.Value.fromString(details))
-  )
+  );
 
-  return submitProposalEvent
+  return submitProposalEvent;
 }
 
 export function createSubmitVoteEvent(
@@ -548,49 +554,49 @@ export function createSubmitVoteEvent(
   proposal: BigInt,
   approved: boolean
 ): SubmitVote {
-  let submitVoteEvent = changetype<SubmitVote>(newMockEvent())
+  const submitVoteEvent = changetype<SubmitVote>(newMockEvent());
 
-  submitVoteEvent.parameters = new Array()
+  submitVoteEvent.parameters = [];
 
   submitVoteEvent.parameters.push(
     new ethereum.EventParam("member", ethereum.Value.fromAddress(member))
-  )
+  );
   submitVoteEvent.parameters.push(
     new ethereum.EventParam(
       "balance",
       ethereum.Value.fromUnsignedBigInt(balance)
     )
-  )
+  );
   submitVoteEvent.parameters.push(
     new ethereum.EventParam(
       "proposal",
       ethereum.Value.fromUnsignedBigInt(proposal)
     )
-  )
+  );
   submitVoteEvent.parameters.push(
     new ethereum.EventParam("approved", ethereum.Value.fromBoolean(approved))
-  )
+  );
 
-  return submitVoteEvent
+  return submitVoteEvent;
 }
 
 export function createTargetSetEvent(
   previousTarget: Address,
   newTarget: Address
 ): TargetSet {
-  let targetSetEvent = changetype<TargetSet>(newMockEvent())
+  const targetSetEvent = changetype<TargetSet>(newMockEvent());
 
-  targetSetEvent.parameters = new Array()
+  targetSetEvent.parameters = [];
 
   targetSetEvent.parameters.push(
     new ethereum.EventParam(
       "previousTarget",
       ethereum.Value.fromAddress(previousTarget)
     )
-  )
+  );
   targetSetEvent.parameters.push(
     new ethereum.EventParam("newTarget", ethereum.Value.fromAddress(newTarget))
-  )
+  );
 
-  return targetSetEvent
+  return targetSetEvent;
 }

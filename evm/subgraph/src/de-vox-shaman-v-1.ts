@@ -1,35 +1,50 @@
-import { BigInt } from "@graphprotocol/graph-ts";
 
+import { log } from "matchstick-as";
 import {
-  AdminChanged,
-  BeaconUpgraded,
-  DeVoxShamanV1,
   DonationReceived,
-  Initialized,
   TargetUpdated,
-  Upgraded,
 } from "../generated/DeVoxShamanV1/DeVoxShamanV1";
-import { Campaign } from "../generated/schema";
+import { Campaign, Donation } from "../generated/schema";
 
-export function handleAdminChanged(event: AdminChanged): void {}
+// export function handleAdminChanged(event: AdminChanged): void {}
 
-export function handleBeaconUpgraded(event: BeaconUpgraded): void {}
+// export function handleBeaconUpgraded(event: BeaconUpgraded): void {}
 
-export function handleDonationReceived(event: DonationReceived): void {}
+export function handleDonationReceived(event: DonationReceived): void {
+  const donation = new Donation(event.transaction.hash.toHex() + "-" + event.logIndex.toString());
+  const campaignId = event.params.baal.toHexString();
+  donation.campaign = campaignId;
+  donation.amount = event.params.amount;
+  donation.loot = event.params.lootIssued;
+  donation.shares = event.params.sharesIssued;  
+  donation.message = event.params.message;
+  donation.user = event.params.contributorAddress;
+  donation.timestamp = event.block.timestamp;
+  donation.save();
 
-export function handleInitialized(event: Initialized): void {}
+  const campaign = Campaign.load(campaignId);
+  if (!campaign) {
+    log.error("Campaign not found!", [campaignId]);
+    return;
+  }
+
+  campaign.total = campaign.total.plus(event.params.amount);
+  campaign.save();
+}
+
+// export function handleInitialized(event: Initialized): void {}
 
 export function handleTargetUpdated(event: TargetUpdated): void {
-  let campaign = Campaign.load(event.params.id.toString());
+  const id = event.transaction.from.toHexString();
+  const campaign = Campaign.load(id);
 
   if (!campaign) {
-    console.error("Campaign not found!");
+    log.error("Campaign not found!", [id]);
     return;
   }
 
   campaign.target = event.params.target;
-
   campaign.save();
 }
 
-export function handleUpgraded(event: Upgraded): void {}
+// export function handleUpgraded(event: Upgraded): void {}

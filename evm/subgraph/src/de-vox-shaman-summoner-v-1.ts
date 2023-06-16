@@ -1,16 +1,8 @@
 import { BigInt } from "@graphprotocol/graph-ts";
 
-import {
-  AdminChanged,
-  BeaconUpgraded,
-  DeVoxShamanSummonerV1,
-  Initialized,
-  OwnershipTransferred,
-  SummonComplete,
-  Upgraded,
-} from "../generated/DeVoxShamanSummonerV1/DeVoxShamanSummonerV1";
+import { SummonComplete } from "../generated/DeVoxShamanSummonerV1/DeVoxShamanSummonerV1";
 import { Campaign } from "../generated/schema";
-import { DeVoxShamanV1 } from "../generated/templates";
+import { BaalV1, DeVoxShamanV1 } from "../generated/templates";
 
 // export function handleAdminChanged(event: AdminChanged): void {
 //   // Entities can be loaded from the store using a string ID; this ID
@@ -58,16 +50,17 @@ import { DeVoxShamanV1 } from "../generated/templates";
 // - contract.version(...)
 // }
 
-export function handleBeaconUpgraded(event: BeaconUpgraded): void {}
+// export function handleBeaconUpgraded(event: BeaconUpgraded): void {}
 
-export function handleInitialized(event: Initialized): void {}
+// export function handleInitialized(event: Initialized): void {}
 
-export function handleOwnershipTransferred(event: OwnershipTransferred): void {}
+// export function handleOwnershipTransferred(event: OwnershipTransferred): void {}
 
 export function handleSummonComplete(event: SummonComplete): void {
   DeVoxShamanV1.create(event.params.shaman);
+  BaalV1.create(event.params.baal);
 
-  let campaign = new Campaign(event.params.id.toString());
+  const campaign = new Campaign(event.params.baal.toHexString());
   campaign.baalAddress = event.params.baal;
   campaign.shamanAddress = event.params.shaman;
   campaign.tokenAddress = event.params.token;
@@ -79,4 +72,4 @@ export function handleSummonComplete(event: SummonComplete): void {
   campaign.save();
 }
 
-export function handleUpgraded(event: Upgraded): void {}
+// export function handleUpgraded(event: Upgraded): void {}
