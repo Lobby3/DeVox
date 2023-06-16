@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/ban-types */
 import { newMockEvent } from "matchstick-as"
-import { ethereum, Address, BigInt, Bytes } from "@graphprotocol/graph-ts"
+import { ethereum, Address, BigInt } from "@graphprotocol/graph-ts"
 import {
   AdminChanged,
   BeaconUpgraded,
@@ -13,9 +14,9 @@ export function createAdminChangedEvent(
   previousAdmin: Address,
   newAdmin: Address
 ): AdminChanged {
-  let adminChangedEvent = changetype<AdminChanged>(newMockEvent())
+  const adminChangedEvent = changetype<AdminChanged>(newMockEvent())
 
-  adminChangedEvent.parameters = new Array()
+  adminChangedEvent.parameters = []
 
   adminChangedEvent.parameters.push(
     new ethereum.EventParam(
@@ -31,9 +32,9 @@ export function createAdminChangedEvent(
 }
 
 export function createBeaconUpgradedEvent(beacon: Address): BeaconUpgraded {
-  let beaconUpgradedEvent = changetype<BeaconUpgraded>(newMockEvent())
+  const beaconUpgradedEvent = changetype<BeaconUpgraded>(newMockEvent())
 
-  beaconUpgradedEvent.parameters = new Array()
+  beaconUpgradedEvent.parameters = []
 
   beaconUpgradedEvent.parameters.push(
     new ethereum.EventParam("beacon", ethereum.Value.fromAddress(beacon))
@@ -53,9 +54,9 @@ export function createDonationReceivedEvent(
   sharesIssued: BigInt,
   message: string
 ): DonationReceived {
-  let donationReceivedEvent = changetype<DonationReceived>(newMockEvent())
+  const donationReceivedEvent = changetype<DonationReceived>(newMockEvent())
 
-  donationReceivedEvent.parameters = new Array()
+  donationReceivedEvent.parameters = []
 
   donationReceivedEvent.parameters.push(
     new ethereum.EventParam(
@@ -101,9 +102,9 @@ export function createDonationReceivedEvent(
 }
 
 export function createInitializedEvent(version: i32): Initialized {
-  let initializedEvent = changetype<Initialized>(newMockEvent())
+  const initializedEvent = changetype<Initialized>(newMockEvent())
 
-  initializedEvent.parameters = new Array()
+  initializedEvent.parameters = []
 
   initializedEvent.parameters.push(
     new ethereum.EventParam(
@@ -119,9 +120,9 @@ export function createTargetUpdatedEvent(
   target: BigInt,
   balance: BigInt
 ): TargetUpdated {
-  let targetUpdatedEvent = changetype<TargetUpdated>(newMockEvent())
+  const targetUpdatedEvent = changetype<TargetUpdated>(newMockEvent())
 
-  targetUpdatedEvent.parameters = new Array()
+  targetUpdatedEvent.parameters = []
 
   targetUpdatedEvent.parameters.push(
     new ethereum.EventParam("target", ethereum.Value.fromUnsignedBigInt(target))
@@ -137,9 +138,9 @@ export function createTargetUpdatedEvent(
 }
 
 export function createUpgradedEvent(implementation: Address): Upgraded {
-  let upgradedEvent = changetype<Upgraded>(newMockEvent())
+  const upgradedEvent = changetype<Upgraded>(newMockEvent())
 
-  upgradedEvent.parameters = new Array()
+  upgradedEvent.parameters = []
 
   upgradedEvent.parameters.push(
     new ethereum.EventParam(

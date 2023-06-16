@@ -10,27 +10,59 @@ type Campaign @entity {
   total: BigInt!
   donations: [Donation!]! @derivedFrom(field: "campaign")
   messages: [Message!]! @derivedFrom(field: "campaign")
+  proposals: [Proposal!]! @derivedFrom(field: "campaign")
 }
 
 type Donation @entity {
   id: ID!
   amount: BigInt!
-  campaign: Campaign! 
+  campaign: Campaign!
+  loot: BigInt!
+  shares: BigInt!
   user: User!
   message: Message
+  timestamp: BigInt!
 }
 
 type Message @entity {
   id: ID!
   text: String!
   user: User!
-  campaign: Campaign! 
+  campaign: Campaign!
+}
+
+type Proposal @entity {
+  id: ID!
+  campaign: Campaign!
+  cancelled: Boolean!
+  details: String!
+  expiration: BigInt!
+  expired: Boolean!
+  processed: Boolean!
+  passed: Boolean!
+  actionFailed: Boolean!
+  selfSponsor: Boolean!
+  sponsor: User
+  timestamp: BigInt!
+  votes: [Vote!]! @derivedFrom(field: "proposal")
+  votingPeriod: BigInt!
+  votingStarts: BigInt
 }
 
 type User @entity {
   "User id is an Ethereum address"
   id: Bytes!
+  isPrivate: Boolean!
   donations: [Donation!]! @derivedFrom(field: "user")
   messages: [Message!]! @derivedFrom(field: "user")
   metadata: Bytes!
+  votes: [Vote!]! @derivedFrom(field: "user")
+}
+
+type Vote @entity {
+  id: ID!
+  approved: Boolean!
+  proposal: Proposal!
+  shares: BigInt!
+  user: User!
 }

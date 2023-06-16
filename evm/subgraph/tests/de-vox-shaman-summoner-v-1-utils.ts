@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 import { Address, BigInt, ethereum } from "@graphprotocol/graph-ts";
 import { newMockEvent } from "matchstick-as";
 
@@ -14,9 +15,9 @@ export function createAdminChangedEvent(
   previousAdmin: Address,
   newAdmin: Address
 ): AdminChanged {
-  let adminChangedEvent = changetype<AdminChanged>(newMockEvent());
+  const adminChangedEvent = changetype<AdminChanged>(newMockEvent());
 
-  adminChangedEvent.parameters = new Array();
+  adminChangedEvent.parameters = [];
 
   adminChangedEvent.parameters.push(
     new ethereum.EventParam(
@@ -32,9 +33,9 @@ export function createAdminChangedEvent(
 }
 
 export function createBeaconUpgradedEvent(beacon: Address): BeaconUpgraded {
-  let beaconUpgradedEvent = changetype<BeaconUpgraded>(newMockEvent());
+  const beaconUpgradedEvent = changetype<BeaconUpgraded>(newMockEvent());
 
-  beaconUpgradedEvent.parameters = new Array();
+  beaconUpgradedEvent.parameters = [];
 
   beaconUpgradedEvent.parameters.push(
     new ethereum.EventParam("beacon", ethereum.Value.fromAddress(beacon))
@@ -44,9 +45,9 @@ export function createBeaconUpgradedEvent(beacon: Address): BeaconUpgraded {
 }
 
 export function createInitializedEvent(version: i32): Initialized {
-  let initializedEvent = changetype<Initialized>(newMockEvent());
+  const initializedEvent = changetype<Initialized>(newMockEvent());
 
-  initializedEvent.parameters = new Array();
+  initializedEvent.parameters = [];
 
   initializedEvent.parameters.push(
     new ethereum.EventParam(
@@ -62,11 +63,11 @@ export function createOwnershipTransferredEvent(
   previousOwner: Address,
   newOwner: Address
 ): OwnershipTransferred {
-  let ownershipTransferredEvent = changetype<OwnershipTransferred>(
+  const ownershipTransferredEvent = changetype<OwnershipTransferred>(
     newMockEvent()
   );
 
-  ownershipTransferredEvent.parameters = new Array();
+  ownershipTransferredEvent.parameters = [];
 
   ownershipTransferredEvent.parameters.push(
     new ethereum.EventParam(
@@ -91,9 +92,9 @@ export function createSummonCompleteEvent(
   target: BigInt,
   name: string
 ): SummonComplete {
-  let summonCompleteEvent = changetype<SummonComplete>(newMockEvent());
+  const summonCompleteEvent = changetype<SummonComplete>(newMockEvent());
 
-  summonCompleteEvent.parameters = new Array();
+  summonCompleteEvent.parameters = [];
 
   summonCompleteEvent.parameters.push(
     new ethereum.EventParam("baal", ethereum.Value.fromAddress(baal))
@@ -130,9 +131,9 @@ export function createSummonCompleteEvent(
 }
 
 export function createUpgradedEvent(implementation: Address): Upgraded {
-  let upgradedEvent = changetype<Upgraded>(newMockEvent());
+  const upgradedEvent = changetype<Upgraded>(newMockEvent());
 
-  upgradedEvent.parameters = new Array();
+  upgradedEvent.parameters = [];
 
   upgradedEvent.parameters.push(
     new ethereum.EventParam(

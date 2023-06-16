@@ -1,56 +1,129 @@
+import { Address, BigInt } from "@graphprotocol/graph-ts";
 import {
   assert,
+  beforeEach,
+  clearStore,
   describe,
   test,
-  clearStore,
-  beforeAll,
-  afterAll
-} from "matchstick-as/assembly/index"
-import { Address, BigInt, Bytes } from "@graphprotocol/graph-ts"
-import { AdminChanged } from "../generated/DeVoxShamanV1/DeVoxShamanV1"
-import { handleAdminChanged } from "../src/de-vox-shaman-v-1"
-import { createAdminChangedEvent } from "./de-vox-shaman-v-1-utils"
+} from "matchstick-as/assembly/index";
 
-// Tests structure (matchstick-as >=0.5.0)
-// https://thegraph.com/docs/en/developer/matchstick/#tests-structure-0-5-0
+import { Campaign, Donation } from "../generated/schema";
+import {
+  handleDonationReceived,
+  handleTargetUpdated,
+} from "../src/de-vox-shaman-v-1";
+import {
+  createDonationReceivedEvent,
+  createTargetUpdatedEvent,
+} from "./de-vox-shaman-v-1-utils";
 
-describe("DeVoxShaman", () => {
-  beforeAll(() => {
-    let previousAdmin = Address.fromString(
-      "0x0000000000000000000000000000000000000001"
-    )
-    let newAdmin = Address.fromString(
-      "0x0000000000000000000000000000000000000001"
-    )
-    let newAdminChangedEvent = createAdminChangedEvent(previousAdmin, newAdmin)
-    handleAdminChanged(newAdminChangedEvent)
-  })
+describe("DeVoxShamanV1", () => {
+  beforeEach(() => {
+    clearStore();
 
-  afterAll(() => {
-    clearStore()
-  })
+    const baalAddress = Address.fromString(
+      "0x90F9ac6B6dD860d4E40976eb6De6d6580Cc7e94D"
+    );
+    const shamanAddress = Address.fromString(
+      "0x90F9ac6B6dD860d4E40976eb6De6d6580Cc7e94D"
+    );
+    const tokenAddress = Address.fromString(
+      "0x11fE4B6AE13d2a6055C8D9cF65c55bac32B5d844"
+    );
+    const target = BigInt.fromI32(1000000000);
+    const campaign = new Campaign(baalAddress.toHexString());
+    campaign.name = "test campaign";
+    campaign.baalAddress = baalAddress;
+    campaign.shamanAddress = shamanAddress;
+    campaign.tokenAddress = tokenAddress;
+    campaign.pricePerUnit = BigInt.fromI32(1000000);
+    campaign.tokensPerUnit = BigInt.fromI32(10000);
+    campaign.target = target;
+    campaign.total = BigInt.fromI32(0);
+    campaign.save();
+  });
 
-  // For more test scenarios, see:
-  // https://thegraph.com/docs/en/developer/matchstick/#write-a-unit-test
+  test("Donation stored and Campaign updated", () => {
+    // prepare
+    const baalAddress = Address.fromString(
+      "0x90F9ac6B6dD860d4E40976eb6De6d6580Cc7e94D"
+    );
+    const shamanAddress = Address.fromString(
+      "0x90F9ac6B6dD860d4E40976eb6De6d6580Cc7e94D"
+    );
+    const target = BigInt.fromI32(1000000000);
+    const contributorAddress = Address.fromString(
+      "0x65Fc100DD791746B5945609373e5311dd0C77545"
+    );
+    const amount = BigInt.fromI32(1234567890);
+    const total = BigInt.fromI32(1234567890);
+    const balance = BigInt.fromI32(1234567890);
+    const lootIssued = BigInt.fromI32(0);
+    const sharesIssued = BigInt.fromI32(100);
+    const message = "test message";
+    const event = createDonationReceivedEvent(
+      contributorAddress,
+      baalAddress,
+      amount,
+      total,
+      target,
+      balance,
+      lootIssued,
+      sharesIssued,
+      message
+    );
+    event.transaction.from = shamanAddress;
 
-  // test("ExampleEntity created and stored", () => {
-  //   assert.entityCount("ExampleEntity", 1)
+    // act
+    handleDonationReceived(event);
 
-  //   // 0xa16081f360e3847006db660bae1c6d1b2e17ec2a is the default address used in newMockEvent() function
-  //   assert.fieldEquals(
-  //     "ExampleEntity",
-  //     "0xa16081f360e3847006db660bae1c6d1b2e17ec2a",
-  //     "previousAdmin",
-  //     "0x0000000000000000000000000000000000000001"
-  //   )
-  //   assert.fieldEquals(
-  //     "ExampleEntity",
-  //     "0xa16081f360e3847006db660bae1c6d1b2e17ec2a",
-  //     "newAdmin",
-  //     "0x0000000000000000000000000000000000000001"
-  //   )
+    // assert
+    assert.entityCount("Donation", 1);
+    const donationId =
+      event.transaction.hash.toHex() + "-" + event.logIndex.toString();
+    const donation = Donation.load(donationId);
+    assert.assertNotNull(donation);
+    if (!donation) {
+      return;
+    }
+    assert.bigIntEquals(donation.amount, amount);
+    assert.bigIntEquals(donation.loot, lootIssued);
+    assert.bigIntEquals(donation.shares, sharesIssued);
+    assert.fieldEquals("Donation", donationId, "message", message);
+    assert.fieldEquals(
+      "Donation",
+      donationId,
+      "user",
+      contributorAddress.toHexString()
+    );
+    assert.fieldEquals(
+      "Donation",
+      donationId,
+      "campaign",
+      event.transaction.from.toHexString()
+    );
+  });
 
-  //   // More assert options:
-  //   // https://thegraph.com/docs/en/developer/matchstick/#asserts
-  // })
-})
+  test("Target updated", () => {
+    // prepare
+    const shamanAddress = Address.fromString(
+      "0x90F9ac6B6dD860d4E40976eb6De6d6580Cc7e94D"
+    );
+    const target = BigInt.fromI32(99999999);
+    const balance = BigInt.fromI32(623452);
+    const event = createTargetUpdatedEvent(target, balance);
+    event.transaction.from = shamanAddress;
+
+    // act
+    handleTargetUpdated(event);
+
+    // assert
+    assert.entityCount("Campaign", 1);
+    const campaign = Campaign.load(shamanAddress.toHexString());
+    assert.assertNotNull(campaign);
+    if (!campaign) {
+      return;
+    }
+    assert.bigIntEquals(target, campaign.target);
+  });
+});
