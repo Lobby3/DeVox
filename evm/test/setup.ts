@@ -116,19 +116,16 @@ const getNewBaalAddresses = async (
   const shamanSummonAbi =
     "event SummonComplete(address indexed baal, address indexed shaman, address token, uint256 id, uint256 pricePerUnit, uint256 tokensPerUnit, uint256 target, string name)";
   const shamanSummonLog = tryFetchLogEvent(shamanSummonAbi);
-  const { _, shaman } = shamanSummonLog!.args;
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const { shaman } = shamanSummonLog!.args;
 
   const baalSummonAbi =
     "event SummonBaal(address indexed baal, address indexed loot, address indexed shares, address safe, address forwarder, uint256 existingAddrs)";
   const baalSummonLog = tryFetchLogEvent(baalSummonAbi);
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const { baal, loot, shares, safe } = baalSummonLog!.args;
 
   return { baal, shaman, loot, shares, safe };
-};
-
-const metadataConfig = {
-  CONTENT: '{"name":"test"}',
-  TAG: "daohaus.summoner.daoProfile",
 };
 
 const abiCoder = ethers.utils.defaultAbiCoder;

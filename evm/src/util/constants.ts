@@ -12,11 +12,11 @@ export const ContractNames = {
   Loot: "Loot",
   ModuleProxyFactory: "ModuleProxyFactory",
   MyToken: "MyToken",
-  Safe: "GnosisSafe", 
+  Safe: "GnosisSafe",
   SafeFallbackHandler: "CompatibilityFallbackHandler",
   SafeMultiSend: "MultiSend",
   SafeProxyFactory: "GnosisSafeProxyFactory",
   Shares: "Shares",
 };
 
-export type ContractName = typeof ContractNames[keyof typeof ContractNames];
+export type ContractName = (typeof ContractNames)[keyof typeof ContractNames];

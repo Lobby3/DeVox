@@ -47,13 +47,14 @@ import { HardhatRuntimeEnvironment } from "hardhat/types";
 //   await runTask("add", contractName, hre);
 // };
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const deploy: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
-//   await init(DeVoxShaman, hre);
-//   await add(DeVoxShamanSummoner, hre);
-//   await add(Baal, hre);
-//   await add(BaalSummoner, hre);
-//   await add(BaalAdvTokenSummoner, hre);
-//   await add(BaalAndVaultSummoner, hre);
+  //   await init(DeVoxShaman, hre);
+  //   await add(DeVoxShamanSummoner, hre);
+  //   await add(Baal, hre);
+  //   await add(BaalSummoner, hre);
+  //   await add(BaalAdvTokenSummoner, hre);
+  //   await add(BaalAndVaultSummoner, hre);
 };
 
 export default deploy;

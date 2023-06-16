@@ -4,8 +4,8 @@ import { HardhatRuntimeEnvironment } from "hardhat/types";
 import { ContractNames, deployProxy } from "../src/util";
 
 const deploy: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
-  const { deployments } = hre; // we get the deployments and getNamedAccounts which are provided by hardhat-deploy.
-  const { get } = deployments; // The deployments field itself contains the deploy function.
+  const { deployments } = hre;
+  const { get } = deployments;
 
   const shamanDeployment = await get(ContractNames.DeVoxShaman);
   const args = [shamanDeployment.address];
@@ -14,4 +14,9 @@ const deploy: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
 };
 
 export default deploy;
-deploy.tags = [ContractNames.DeVoxShamanSummoner, "local", "staging", "production"];
+deploy.tags = [
+  ContractNames.DeVoxShamanSummoner,
+  "local",
+  "staging",
+  "production",
+];

@@ -7,7 +7,10 @@ import { ContractNames, deployProxy, getContractAddress } from "../src/util";
 const deploy: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   const summoner = await getContractAddress(ContractNames.BaalSummoner, hre);
 
-  const address = await deployProxy(ContractNames.DeVoxBaalAdvTokenSummoner, hre);
+  const address = await deployProxy(
+    ContractNames.DeVoxBaalAdvTokenSummoner,
+    hre
+  );
 
   if (!address) {
     throw new Error("Failed to deploy DeVoxBaalAdvTokenSummoner");

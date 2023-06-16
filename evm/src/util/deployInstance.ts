@@ -6,7 +6,7 @@ import { Hardhat } from "./constants";
 export const deployInstance = async (
   contractName: string,
   hre: HardhatRuntimeEnvironment,
-  args?: any[]
+  args?: unknown[]
 ) => {
   const { deployments } = hre; // we get the deployments and getNamedAccounts which are provided by hardhat-deploy.
   const { get } = deployments; // The deployments field itself contains the deploy function.

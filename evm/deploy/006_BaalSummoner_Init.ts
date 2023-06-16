@@ -7,7 +7,7 @@ import { isLocal } from "../src/util/local";
 
 const deploy: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   if (!isLocal(hre)) return;
-  
+
   const { deployments } = hre; // we get the deployments and getNamedAccounts which are provided by hardhat-deploy.
   const { get } = deployments; // The deployments field itself contains the deploy function.
 

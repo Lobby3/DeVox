@@ -1,3 +1,14 @@
 # Add files here to ignore them from prettier formatting
-/dist
-/coverage
+coverage.json
+**/artifacts/**
+**/cache/**
+**/dist/**
+**/coverage/**
+**/deployments/**
+**/deployments/**
+**/fixtures/**
+**/generated/**
+**/lib/**
+**/mock/**
+**/subgraph/**
+**/src/types/**
