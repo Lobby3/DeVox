@@ -20,7 +20,7 @@ export {
   DeVoxBaalAdvTokenSummonerV1__factory as DeVoxBaalAdvTokenSummonerFactory,
   DeVoxBaalAndShamanSummonerV1 as DeVoxBaalAndShamanSummoner,
   DeVoxShamanSummonerV1 as DeVoxShamanSummoner,
-  DeVoxShamanV1 as DeVoxShaman, 
+  DeVoxShamanV1 as DeVoxShaman,
   GnosisSafe,
   GnosisSafeProxyFactory,
   IBaal,

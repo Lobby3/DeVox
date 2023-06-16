@@ -38,7 +38,7 @@ jobs:
         run: "yarn install --immutable"
 
       - name: "Lint the code"
-        run: "yarn nx run evm:lint:sol"
+        run: "yarn nx run evm:lint"
 
       - name: "Add lint summary"
         run: |

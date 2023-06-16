@@ -92,7 +92,10 @@ describe(ContractNames.DeVoxShaman, function () {
       total = total.add(amount);
 
       await token.approve(shaman.address, amount);
-      expect(await token.allowance(userAddress, shaman.address)).to.equal(amount, "allowance!");
+      expect(await token.allowance(userAddress, shaman.address)).to.equal(
+        amount,
+        "allowance!"
+      );
 
       // act & assert
       await expect(shaman.donate(amount, msg))

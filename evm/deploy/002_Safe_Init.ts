@@ -5,7 +5,7 @@ import { ContractNames, deployInstance, isLocal } from "../src/util";
 
 const deploy: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   if (!isLocal(hre)) return;
-  
+
   await deployInstance(ContractNames.ModuleProxyFactory, hre);
   await deployInstance(ContractNames.Safe, hre);
   await deployInstance(ContractNames.SafeFallbackHandler, hre);
