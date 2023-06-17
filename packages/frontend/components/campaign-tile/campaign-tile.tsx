@@ -1,6 +1,7 @@
 import { Button, Flex, Heading, Image, Text, VStack } from "@chakra-ui/react";
 import { ArrowRightIcon } from "@heroicons/react/20/solid";
 import Link from "next/link";
+import React from "react";
 
 import { headerBackground } from "../../styles/colors";
 import { Campaign } from "../../types/Campaign";
