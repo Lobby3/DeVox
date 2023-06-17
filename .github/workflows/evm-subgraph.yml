@@ -1,23 +1,17 @@
-name: "EVM-CI"
-
-# env:
-#   INFURA_API_KEY: ${{ secrets.INFURA_API_KEY }}
-#   MNEMONIC: ${{ secrets.MNEMONIC }}
+name: "EVM-SUBGRAPH"
 
 on:
   pull_request:
     branches:
       - "main"
     paths:
-      - "evm/**"
-      - "!evm/subgraph/**"
+      - "evm/subgraph/**"
   push:
     branches:
       - "main"
       - "develop"
     paths:
-      - "evm/**"
-      - "!evm/subgraph/**"
+      - "evm/subgraph/**"
 
 jobs:
   ci:
@@ -35,27 +29,11 @@ jobs:
           # cache: "yarn"
           node-version: "18"
 
-      - name: "Copy config"
-        run: |
-          mv ./evm/.env.github ./evm/.env
-          echo "::debug::$(less .env)"
-
       - name: "Install the dependencies"
         run: "yarn install --immutable"
-
-      - name: "Lint the code"
-        run: "yarn nx run evm:lint"
-
-      - name: "Add lint summary"
-        run: |
-          echo "## Lint results" >> $GITHUB_STEP_SUMMARY
-          echo "✅ Passed" >> $GITHUB_STEP_SUMMARY
-
-      - name: "Compile the contracts and generate the TypeChain bindings"
-        run: "yarn typechain"
-
-      - name: "Test the contracts and generate the coverage report"
-        run: "yarn nx run evm:coverage"
+        
+      - name: "Generate types and test mappings"
+        run: "yarn nx run subgraph:codegen && yarn nx run subgraph:test"
 
       - name: "Add test summary"
         run: |

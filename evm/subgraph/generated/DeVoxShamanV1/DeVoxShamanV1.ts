@@ -131,16 +131,12 @@ export class TargetUpdated__Params {
     this._event = event;
   }
 
-  get id(): BigInt {
+  get target(): BigInt {
     return this._event.parameters[0].value.toBigInt();
   }
 
-  get target(): BigInt {
-    return this._event.parameters[1].value.toBigInt();
-  }
-
   get balance(): BigInt {
-    return this._event.parameters[2].value.toBigInt();
+    return this._event.parameters[1].value.toBigInt();
   }
 }
 

@@ -1,3 +1,4 @@
+/* eslint-disable @nx/enforce-module-boundaries */
 import { MultiSend } from "@daohaus/baal-contracts";
 import { BigNumber } from "@ethersproject/bignumber";
 import { MetaTransaction, encodeMultiSend } from "@gnosis.pm/safe-contracts";
@@ -10,7 +11,7 @@ export const encodeMultiAction = (
   values: BigNumber[],
   operations: number[]
 ) => {
-  let metatransactions: MetaTransaction[] = [];
+  const metatransactions: MetaTransaction[] = [];
   for (let index = 0; index < actions.length; index++) {
     metatransactions.push({
       to: tos[index],

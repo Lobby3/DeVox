@@ -3,7 +3,7 @@ import { ethers } from "ethers";
 const ONE = ethers.BigNumber.from(1);
 const TWO = ethers.BigNumber.from(2);
 
-export function sqrt(value: any) {
+export function sqrt(value: unknown) {
   const x = ethers.BigNumber.from(value);
   let z = x.add(ONE).div(TWO);
   let y = x;

@@ -1,11 +1,12 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
 import { expect, use } from "chai";
 import { solidity } from "ethereum-waffle";
 import { ContractFactory } from "ethers";
 import { ethers } from "hardhat";
 
-import { signPermit } from "../src/util";
 import { Loot, MockBaal } from "../src";
+import { signPermit } from "../src/util";
 
 use(solidity);
 
@@ -29,11 +30,6 @@ async function blockTime() {
   return block.timestamp;
 }
 
-async function blockNumber() {
-  const block = await ethers.provider.getBlock("latest");
-  return block.number;
-}
-
 describe("Loot ERC20 contract", async function () {
   let lootSingleton: Loot;
   let LootFactory: ContractFactory;
@@ -42,7 +38,6 @@ describe("Loot ERC20 contract", async function () {
   let mockBaal: MockBaal;
 
   let lootToken: Loot;
-  let baalLootToken: Loot;
 
   let summoner: SignerWithAddress;
   let member: SignerWithAddress;

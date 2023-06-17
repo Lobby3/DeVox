@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { BigNumber, BigNumberish } from "@ethersproject/bignumber";
 import { calculateProxyAddress } from "@gnosis.pm/zodiac";
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
@@ -93,10 +96,10 @@ async function blockTime() {
   return block.timestamp;
 }
 
-async function blockNumber() {
-  const block = await ethers.provider.getBlock("latest");
-  return block.number;
-}
+// async function blockNumber() {
+//   const block = await ethers.provider.getBlock("latest");
+//   return block.number;
+// }
 
 async function moveForwardPeriods(periods: number, extra?: number) {
   const goToTime =
@@ -130,15 +133,15 @@ const getBaalParams = async function (
   baal: Baal,
   poster: Poster,
   config: {
-    PROPOSAL_OFFERING: any;
-    GRACE_PERIOD_IN_SECONDS: any;
-    VOTING_PERIOD_IN_SECONDS: any;
-    QUORUM_PERCENT: any;
-    SPONSOR_THRESHOLD: any;
-    MIN_RETENTION_PERCENT: any;
-    MIN_STAKING_PERCENT: any;
-    TOKEN_NAME: any;
-    TOKEN_SYMBOL: any;
+    PROPOSAL_OFFERING: unknown;
+    GRACE_PERIOD_IN_SECONDS: unknown;
+    VOTING_PERIOD_IN_SECONDS: unknown;
+    QUORUM_PERCENT: unknown;
+    SPONSOR_THRESHOLD: unknown;
+    MIN_RETENTION_PERCENT: unknown;
+    MIN_STAKING_PERCENT: unknown;
+    TOKEN_NAME: unknown;
+    TOKEN_SYMBOL: unknown;
   },
   metadata: [string, string],
   adminConfig: [boolean, boolean],
@@ -661,9 +664,9 @@ describe("Baal contract", function () {
 
       expect(await sharesToken.owner()).to.equal(summoner.address);
 
-      let BaalLessSharesFactory: ContractFactory;
-
-      BaalLessSharesFactory = await ethers.getContractFactory("BaalLessShares");
+      const BaalLessSharesFactory = await ethers.getContractFactory(
+        "BaalLessShares"
+      );
       const baalLessSharesSingleton =
         (await BaalLessSharesFactory.deploy()) as BaalLessShares;
 
