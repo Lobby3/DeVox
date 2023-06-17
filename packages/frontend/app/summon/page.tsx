@@ -1,10 +1,11 @@
 "use client";
 
 import { TXBuilder } from "@daohaus/tx-builder";
-import { Footer, widthQuery } from "@daohaus/ui";
+import { widthQuery } from "@daohaus/ui";
 import styled from "@emotion/styled";
 import { useWeb3React } from "@web3-react/core";
 import { useState } from "react";
+import React from "react";
 
 import { CenterLayout } from "./layouts/FormLayouts";
 import { SummonError } from "./layouts/SummonError";
@@ -12,6 +13,7 @@ import { SummonerForm } from "./layouts/SummonerForm";
 import { SummonerLoading } from "./layouts/SummonerLoading";
 import { SummonerSuccess } from "./layouts/SummonerSuccess";
 import { SummonStates } from "./types";
+import { hexadecimalize } from "./utils";
 
 const TemporaryLayout = styled.div`
   background-color: #1a1a1a;
@@ -40,19 +42,14 @@ const SummonerPage = () => {
   // TODO: Summon at the same time
   //
   const { provider, chainId } = useWeb3React();
-  console.log(`0x${chainId?.toString()}`);
-
   const [summonState, setSummonState] = useState<SummonStates>("idle");
   const [txHash, setTxHash] = useState<string>("");
   const [daoAddress, setDaoAddress] = useState<string>("");
   const [errMsg, setErrMsg] = useState<string>("");
 
+  const chainIdHex = hexadecimalize(chainId);
   return (
-    <TXBuilder
-      provider={provider}
-      chainId={`0x${chainId?.toString()}`}
-      appState={{}}
-    >
+    <TXBuilder provider={provider} chainId={chainIdHex} appState={{}}>
       <TemporaryLayout>
         <CenterLayout>
           {summonState === "idle" && (
@@ -66,7 +63,7 @@ const SummonerPage = () => {
           {summonState === "loading" && <SummonerLoading txHash={txHash} />}
           {summonState === "success" && (
             <SummonerSuccess
-              chainId={chainId?.toString()}
+              chainId={chainIdHex}
               daoAddress={daoAddress}
               setSummonState={setSummonState}
             />
