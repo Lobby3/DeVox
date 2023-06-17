@@ -10,6 +10,7 @@ import {
   widthQuery,
 } from "@daohaus/ui";
 import { ReactSetter } from "@daohaus/utils";
+import React from "react";
 
 import { HausBlockLoading } from "../components/HausBlockLoading/HausBlockLoading";
 import { SummonStates } from "../types";

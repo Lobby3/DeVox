@@ -1,8 +1,9 @@
-import { Bold, H1, ParMd, Link } from '@daohaus/ui';
-import { ExplorerLink } from '@daohaus/connect';
+import { ExplorerLink } from "@daohaus/connect";
+import { Bold, H1, Link, ParMd } from "@daohaus/ui";
+import React from "react";
 
-import { InfoSection } from './FormLayouts';
-import { HausBlockLoading } from '../components/HausBlockLoading/HausBlockLoading';
+import { HausBlockLoading } from "../components/HausBlockLoading/HausBlockLoading";
+import { InfoSection } from "./FormLayouts";
 
 type LoadingProps = {
   txHash: string;
@@ -15,7 +16,7 @@ export const SummonerLoading = ({ txHash }: LoadingProps) => {
         <Bold>Summon a DAO</Bold>
       </H1>
       <ParMd>
-        Learn more about{' '}
+        Learn more about{" "}
         <Link href="https://daohaus.mirror.xyz/U_JQtheSzdpRFqQwf9Ow3LgLNG0WMZ6ibAyrjWDu_fc">
           Moloch v3
         </Link>

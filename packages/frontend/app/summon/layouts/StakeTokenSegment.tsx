@@ -1,14 +1,14 @@
-import { useFormContext } from 'react-hook-form';
-
 import {
   FormSegment,
   SplitColumn,
   WrappedInput,
   WrappedSwitch,
-} from '@daohaus/ui';
+} from "@daohaus/ui";
+import { FORM_COPY, INFO_COPY } from "@daohaus/utils";
+import React from "react";
+import { useFormContext } from "react-hook-form";
 
-import { FORM_COPY, INFO_COPY } from '@daohaus/utils';
-import { FORM_KEYS } from '../utils/formKeys';
+import { FORM_KEYS } from "../utils/formKeys";
 
 export const StakeTokensSegment = ({
   formDisabled,
@@ -19,11 +19,11 @@ export const StakeTokensSegment = ({
   const formValues = watch();
 
   const votingTransferableLabel = formValues?.[FORM_KEYS.VOTE_TOKEN_TRANSFER]
-    ? 'Transferable'
-    : 'Not Transferable';
+    ? "Transferable"
+    : "Not Transferable";
   const nvTransferableLabel = formValues?.[FORM_KEYS.NV_TOKEN_TRANSFER]
-    ? 'Transferable'
-    : 'Not Transferable';
+    ? "Transferable"
+    : "Not Transferable";
 
   return (
     <FormSegment
@@ -33,7 +33,7 @@ export const StakeTokensSegment = ({
         <SplitColumn
           rows={[
             {
-              rowId: 'tokenNaming',
+              rowId: "tokenNaming",
               left: (
                 <WrappedInput
                   id={FORM_KEYS.TOKEN_NAME}
@@ -43,10 +43,10 @@ export const StakeTokensSegment = ({
                   full
                   disabled={formDisabled}
                   rules={{
-                    required: 'Token name is required',
+                    required: "Token name is required",
                     maxLength: {
                       value: 50,
-                      message: 'Token name cannot be longer than 50 characters',
+                      message: "Token name cannot be longer than 50 characters",
                     },
                   }}
                 />
@@ -60,18 +60,18 @@ export const StakeTokensSegment = ({
                   full
                   disabled={formDisabled}
                   rules={{
-                    required: 'Token symbol is required',
+                    required: "Token symbol is required",
                     maxLength: {
                       value: 5,
                       message:
-                        'Token symbol cannot be longer than 5 characters',
+                        "Token symbol cannot be longer than 5 characters",
                     },
                   }}
                 />
               ),
             },
             {
-              rowId: 'lootTokenNaming',
+              rowId: "lootTokenNaming",
               left: (
                 <WrappedInput
                   id={FORM_KEYS.LOOT_TOKEN_NAME}
@@ -81,10 +81,10 @@ export const StakeTokensSegment = ({
                   full
                   disabled={formDisabled}
                   rules={{
-                    required: 'Token name is required',
+                    required: "Token name is required",
                     maxLength: {
                       value: 50,
-                      message: 'Token name cannot be longer than 50 characters',
+                      message: "Token name cannot be longer than 50 characters",
                     },
                   }}
                 />
@@ -98,18 +98,18 @@ export const StakeTokensSegment = ({
                   full
                   disabled={formDisabled}
                   rules={{
-                    required: 'Token symbol is required',
+                    required: "Token symbol is required",
                     maxLength: {
                       value: 5,
                       message:
-                        'Token symbol cannot be longer than 5 characters',
+                        "Token symbol cannot be longer than 5 characters",
                     },
                   }}
                 />
               ),
             },
             {
-              rowId: 'tokenTransfer',
+              rowId: "tokenTransfer",
               left: (
                 <WrappedSwitch
                   id={FORM_KEYS.VOTE_TOKEN_TRANSFER}

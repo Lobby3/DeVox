@@ -1,14 +1,20 @@
-import { useEffect, useState } from 'react';
-import { FormSegment, SplitColumn, WrappedInput } from '@daohaus/ui';
-import { handleBaseUnits, INFO_COPY, isString, ValidateField } from '@daohaus/utils';
+import { FormSegment, SplitColumn, WrappedInput } from "@daohaus/ui";
+import {
+  INFO_COPY,
+  ValidateField,
+  handleBaseUnits,
+  isString,
+} from "@daohaus/utils";
+import { useEffect, useState } from "react";
+import React from "react";
 import { useFormContext } from "react-hook-form";
 
-import { FORM_KEYS } from '../utils/formKeys';
+import { FORM_KEYS } from "../utils/formKeys";
 
-const DEFAULT_ASSET_SYMBOL = 'ETH';
+const DEFAULT_ASSET_SYMBOL = "ETH";
 
 export const AdvancedSegment = ({
-  formDisabled
+  formDisabled,
 }: {
   formDisabled: boolean;
 }) => {
@@ -17,7 +23,8 @@ export const AdvancedSegment = ({
     formState: { errors, touchedFields },
   } = useFormContext();
   const treasuryToken = watch(FORM_KEYS.TREASURY_TOKEN);
-  const [nativeSymbol, setNativeSymbol] = useState<string>(DEFAULT_ASSET_SYMBOL);
+  const [nativeSymbol, setNativeSymbol] =
+    useState<string>(DEFAULT_ASSET_SYMBOL);
 
   useEffect(() => {
     if (isString(treasuryToken)) {
@@ -35,7 +42,7 @@ export const AdvancedSegment = ({
         <SplitColumn
           rows={[
             {
-              rowId: 'advanced1',
+              rowId: "advanced1",
               left: (
                 <WrappedInput
                   id={FORM_KEYS.QUORUM}
@@ -45,7 +52,7 @@ export const AdvancedSegment = ({
                   defaultValue="0"
                   disabled={formDisabled}
                   rules={{
-                    required: 'This value is required',
+                    required: "This value is required",
                     validate: (val) => ValidateField.percent(val),
                   }}
                 />
@@ -59,14 +66,14 @@ export const AdvancedSegment = ({
                   full
                   disabled={formDisabled}
                   rules={{
-                    required: 'This value is required',
+                    required: "This value is required",
                     validate: (val) => ValidateField.percent(val),
                   }}
                 />
               ),
             },
             {
-              rowId: 'advanced2',
+              rowId: "advanced2",
               left: (
                 <WrappedInput
                   id={FORM_KEYS.SPONSOR_THRESHOLD}
@@ -76,7 +83,7 @@ export const AdvancedSegment = ({
                   info={INFO_COPY.SPONSOR_THRESHOLD}
                   disabled={formDisabled}
                   rules={{
-                    required: 'This value is required',
+                    required: "This value is required",
                     setValueAs: (val) => handleBaseUnits(val),
                     validate: (val) => ValidateField.number(val),
                   }}
@@ -91,7 +98,7 @@ export const AdvancedSegment = ({
                   info={INFO_COPY.NEW_OFFERING}
                   disabled={formDisabled}
                   rules={{
-                    required: 'This value is required',
+                    required: "This value is required",
                     validate: (val) => ValidateField.number(val),
                     setValueAs: (val) => handleBaseUnits(val),
                   }}

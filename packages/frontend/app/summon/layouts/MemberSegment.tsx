@@ -1,12 +1,12 @@
-import { useEffect, useState } from 'react';
-import { useFormContext } from 'react-hook-form';
+import { FormSegment, ParSm, WrappedTextArea } from "@daohaus/ui";
+import { INFO_COPY } from "@daohaus/utils";
+import { useEffect, useState } from "react";
+import React from "react";
+import { useFormContext } from "react-hook-form";
 
-import { FormSegment, ParSm, WrappedTextArea } from '@daohaus/ui';
-import { INFO_COPY } from '@daohaus/utils';
-
-import { TextAreaSection } from '../layouts/FormLayouts';
-import { transformMemberData, validateMemberData } from '../utils/common';
-import { FORM_KEYS } from '../utils/formKeys';
+import { TextAreaSection } from "../layouts/FormLayouts";
+import { transformMemberData, validateMemberData } from "../utils/common";
+import { FORM_KEYS } from "../utils/formKeys";
 
 export const MembersSegment = ({ formDisabled }: { formDisabled: boolean }) => {
   const {
@@ -16,17 +16,17 @@ export const MembersSegment = ({ formDisabled }: { formDisabled: boolean }) => {
   const members = watch(FORM_KEYS.MEMBERS);
 
   const [amtMembers, setAmtMembers] = useState(0);
-  const [helperText, setHelperText] = useState('');
+  const [helperText, setHelperText] = useState("");
 
   useEffect(() => {
     if (members == null) return;
     setAmtMembers(members?.memberAddresses?.length || 0);
-    if (members === '') {
-      setHelperText('');
+    if (members === "") {
+      setHelperText("");
       return;
     }
     if (!errors?.[FORM_KEYS.MEMBERS] && touchedFields[FORM_KEYS.MEMBERS]) {
-      setHelperText('Formatting is valid.');
+      setHelperText("Formatting is valid.");
     }
   }, [members, errors, touchedFields]);
 
@@ -35,7 +35,7 @@ export const MembersSegment = ({ formDisabled }: { formDisabled: boolean }) => {
       title="Starting Members"
       description="You must have at least one member to summon. Add other summoning members as desired. Members can be added later through a proposal."
       formArea={
-        <TextAreaSection style={{ width: '100%' }}>
+        <TextAreaSection style={{ width: "100%" }}>
           <ParSm className="number-display">{amtMembers} Members</ParSm>
           <WrappedTextArea
             label="Addresses & Stake Amounts"
@@ -49,7 +49,7 @@ export const MembersSegment = ({ formDisabled }: { formDisabled: boolean }) => {
             rules={{
               setValueAs: transformMemberData,
               validate: validateMemberData,
-              required: 'Members is a required field',
+              required: "Members is a required field",
             }}
           />
         </TextAreaSection>
