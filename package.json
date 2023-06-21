@@ -19,6 +19,7 @@
     "@heroicons/react": "^2.0.18",
     "@types/styled-components": "^5.1.26",
     "@web3-react/core": "^8.2.0",
+    "ethers": "5.7.2",
     "formik": "^2.2.9",
     "framer-motion": "^10.12.12",
     "magic-sdk": "^17.1.6",
