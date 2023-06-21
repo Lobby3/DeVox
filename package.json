@@ -22,6 +22,7 @@
     "ethers": "5.7.2",
     "formik": "^2.2.9",
     "framer-motion": "^10.12.12",
+    "jsencrypt": "^3.3.2",
     "magic-sdk": "^17.1.6",
     "next": "13.4.1",
     "react": "18.2.0",
