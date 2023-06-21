@@ -1,5 +1,6 @@
 /* eslint-disable-next-line */
 import { Center, Flex } from "@chakra-ui/react";
+import React from "react";
 import { PropsWithChildren } from "react";
 
 export function BodyContainer({ children }: PropsWithChildren) {

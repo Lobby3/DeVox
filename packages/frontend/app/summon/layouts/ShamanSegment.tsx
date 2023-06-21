@@ -1,12 +1,12 @@
-import { useEffect, useState } from 'react';
-import { useFormContext } from 'react-hook-form';
+import { FormSegment, Link, ParSm, WrappedTextArea } from "@daohaus/ui";
+import { INFO_COPY } from "@daohaus/utils";
+import { useEffect, useState } from "react";
+import React from "react";
+import { useFormContext } from "react-hook-form";
 
-import { FormSegment, ParSm, Link, WrappedTextArea } from '@daohaus/ui';
-import { INFO_COPY } from '@daohaus/utils';
-
-import { TextAreaSection } from '../layouts/FormLayouts';
-import { transformShamans, validateShamanData } from '../utils/common';
-import { FORM_KEYS } from '../utils/formKeys';
+import { TextAreaSection } from "../layouts/FormLayouts";
+import { transformShamans, validateShamanData } from "../utils/common";
+import { FORM_KEYS } from "../utils/formKeys";
 
 export const ShamanSegment = ({ formDisabled }: { formDisabled: boolean }) => {
   const {
@@ -16,17 +16,17 @@ export const ShamanSegment = ({ formDisabled }: { formDisabled: boolean }) => {
   const shamans = watch(FORM_KEYS.SHAMANS);
 
   const [amtShamans, setAmtShamans] = useState(0);
-  const [helperText, setHelperText] = useState('');
+  const [helperText, setHelperText] = useState("");
 
   useEffect(() => {
     if (shamans == null) return;
     setAmtShamans(shamans?.shamanAddresses?.length || 0);
-    if (shamans === '') {
-      setHelperText('');
+    if (shamans === "") {
+      setHelperText("");
       return;
     }
     if (!errors?.[FORM_KEYS.SHAMANS] && touchedFields[FORM_KEYS.SHAMANS]) {
-      setHelperText('Formatting is valid.');
+      setHelperText("Formatting is valid.");
     }
   }, [shamans, errors, touchedFields]);
 

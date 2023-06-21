@@ -1,7 +1,8 @@
-import { FormSegment, SplitColumn, TimePicker } from '@daohaus/ui';
+import { FormSegment, SplitColumn, TimePicker } from "@daohaus/ui";
+import { INFO_COPY } from "@daohaus/utils";
+import React from "react";
 
-import { INFO_COPY } from '@daohaus/utils';
-import { FORM_KEYS } from '../utils/formKeys';
+import { FORM_KEYS } from "../utils/formKeys";
 
 export const TimingSegment = ({ formDisabled }: { formDisabled: boolean }) => {
   return (
@@ -12,7 +13,7 @@ export const TimingSegment = ({ formDisabled }: { formDisabled: boolean }) => {
       formArea={
         <SplitColumn
           rows={{
-            rowId: 'timing',
+            rowId: "timing",
             left: (
               <TimePicker
                 label="Voting Period"
@@ -22,7 +23,7 @@ export const TimingSegment = ({ formDisabled }: { formDisabled: boolean }) => {
                 disabled={formDisabled}
                 placeholder="0"
                 rules={{
-                  required: 'Time value is required',
+                  required: "Time value is required",
                 }}
               />
             ),
@@ -35,7 +36,7 @@ export const TimingSegment = ({ formDisabled }: { formDisabled: boolean }) => {
                 disabled={formDisabled}
                 placeholder="0"
                 rules={{
-                  required: 'Time value is required',
+                  required: "Time value is required",
                 }}
               />
             ),

@@ -10,6 +10,7 @@ import {
   widthQuery,
 } from "@daohaus/ui";
 import { ReactSetter } from "@daohaus/utils";
+import React from "react";
 import styled from "styled-components";
 
 import { HausBlockLoading } from "../components/HausBlockLoading/HausBlockLoading";
@@ -18,7 +19,7 @@ import { InfoSection } from "./FormLayouts";
 
 type SuccessProps = {
   daoAddress: string;
-  chainId: string | null | undefined;
+  chainId?: string;
   setSummonState: ReactSetter<SummonStates>;
 };
 
