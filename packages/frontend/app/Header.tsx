@@ -1,3 +1,5 @@
+"use client";
+
 import { Flex, HStack, Heading } from "@chakra-ui/react";
 import {
   ChatBubbleBottomCenterTextIcon,

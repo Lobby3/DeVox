@@ -1,3 +1,5 @@
+"use client";
+
 import { initializeConnector } from "@web3-react/core";
 import { Web3ReactHooks, Web3ReactProvider } from "@web3-react/core";
 import React from "react";
@@ -11,7 +13,6 @@ export const [magicConnect, hooks] = initializeConnector<MagicConnect>(
       options: {
         apiKey: process.env.NEXT_PUBLIC_MAGIC_PUBLISHABLE_API_KEY!,
         network: "goerli",
-        testMode: true,
         networkOptions: {
           rpcUrl:
             "https://goerli.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161",
