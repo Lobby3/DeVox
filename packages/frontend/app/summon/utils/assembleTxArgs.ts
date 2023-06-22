@@ -66,13 +66,14 @@ const getShamanInitParams = function (
   if (!isNumberish(target)) throw new Error("target is not a number");
 
   return encodeValues(
-    ["address", "uint256", "uint256", "uint256", "string"],
+    ["address", "uint256", "uint256", "uint256", "string", "address[]"],
     [
       tokenAddress,
       1000000, // shamanArgs.pricePerUnit,
       1, // shamanArgs.tokensPerUnit,
       target, // shamanArgs.target,
       daoName, // shamanArgs.name,
+      process.env.DEFAULT_SHAMAN_ADMIN_ADDRESSES?.split(",") || [],
     ]
   );
 };
