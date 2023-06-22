@@ -1,0 +1,41 @@
+# The Graph - DeVox Subgraph
+
+## Deployment to The Graph Hosted Service
+
+### Update `networks.json` if required
+
+This file contains the addresses for the contracts that the subgraph will listen to:
+
+``` json
+{
+
+  "goerli": {
+    "BaalSummoner": {
+      "address": "0x7e988A9db2F8597735fc68D21060Daed948a3e8C"
+    },
+    "Baal": {
+    },
+    "DeVoxShamanSummonerV1": {
+      "address": "0x9f723A885108236E478FC5E31ff90E60E300876D"
+    },
+    "DeVoxShamanV1": {
+    }
+  }
+}
+```
+
+BaalSummoner is a standard DAOhaus deployed contract instance and the address should not change.
+
+DeVoxShamanSummonerV1 is the address of the proxy. This can change if a fresh deployment occurs, but not in the case of an upgrade.
+
+### Regenerate `subgraph.yaml`
+
+Run `graph build --network <name>` from this folder to update this file with the correct addresses specified above.
+
+### Authenticate
+
+Run `graph auth --product hosted-service <ACCESS_TOKEN>` from this folder.
+
+### Deploy
+
+Run `graph deploy --network <name>` from this folder.
