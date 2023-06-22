@@ -9,7 +9,7 @@ import setupTest, { defaultSummonArgs } from "./setup";
 use(solidity);
 
 describe(ContractNames.DeVoxShaman, function () {
-  it.only("should deploy with correct parameters", async function () {
+  it("should deploy with correct parameters", async function () {
     // arrange
     const {
       default: { baal, shaman, token },
@@ -31,7 +31,7 @@ describe(ContractNames.DeVoxShaman, function () {
     expect(shamanTokensPerUnit).to.equal(tokensPerUnit, "tokensPerUnit!");
   });
 
-  it.only("should have zero initial token balance", async function () {
+  it("should have zero initial token balance", async function () {
     // arrange
     const {
       default: { baal, token },
@@ -46,7 +46,7 @@ describe(ContractNames.DeVoxShaman, function () {
     expect(balance).to.be.eq(0);
   });
 
-  it.only("should only allow whitelisted sender to donate", async function () {
+  it("should only allow whitelisted sender to donate", async function () {
     // arrange
     const {
       user: { shaman },
@@ -60,7 +60,7 @@ describe(ContractNames.DeVoxShaman, function () {
     );
   });
 
-  it.only("should mint shares on donate", async function () {
+  it("should mint shares on donate", async function () {
     // arrange
     const {
       deployer: { token: deployerToken },
@@ -147,7 +147,7 @@ describe(ContractNames.DeVoxShaman, function () {
     await testDonate("10000");
   });
 
-  it.only("should not allow ragequit of funds", async function () {
+  it("should not allow ragequit of funds", async function () {
     // arrange
     const {
       deployer: { token: deployerToken, safe },
@@ -175,5 +175,43 @@ describe(ContractNames.DeVoxShaman, function () {
     expect(
       safeTokenAfter.mul(fac).div(safeTokenBefore).toNumber() / fac
     ).to.be.greaterThanOrEqual(0.999999999, "safeToken!");
+  });
+
+  it("should allow admin user to set target", async function () {
+    // arrange
+    const {
+      deployer: { shaman },
+    } = await setupTest({ shamanArgs: defaultSummonArgs });
+    // prepare
+    const newTarget = BigNumber.from("123456789");
+    expect(await shaman.target()).to.not.equal(
+      newTarget,
+      "==newTarget before!"
+    );
+
+    // act
+    await shaman.setTarget(newTarget);
+
+    // assert
+    expect(await shaman.target()).to.equal(newTarget, "!=newTarget after!");
+  });
+
+  it("should not allow non-admin user to set target", async function () {
+    // arrange
+    const {
+      user: { shaman },
+    } = await setupTest({ shamanArgs: defaultSummonArgs });
+    // prepare
+    const target = await shaman.target();
+    const newTarget = BigNumber.from("123456789");
+    expect(target).to.not.equal(newTarget, "target before!");
+
+    // act
+    await expect(shaman.setTarget(newTarget)).to.be.revertedWith(
+      "AccessControl: account 0x70997970c51812dc3a010c7d01b50e0d17dc79c8 is missing role 0x0000000000000000000000000000000000000000000000000000000000000000"
+    );
+
+    // assert
+    expect(await shaman.target()).to.equal(target, "target after!");
   });
 });

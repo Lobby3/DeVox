@@ -61,8 +61,26 @@ const _abi = [
         name: "_target",
         type: "uint256",
       },
+      {
+        internalType: "address[]",
+        name: "_admins",
+        type: "address[]",
+      },
     ],
     name: "initialize",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "user",
+        type: "address",
+      },
+    ],
+    name: "setAdmin",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",

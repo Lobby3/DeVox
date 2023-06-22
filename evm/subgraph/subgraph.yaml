@@ -3,11 +3,11 @@ schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
-    name: BaalSummonerV1
-    network: hardhat
+    name: BaalSummoner
+    network: goerli
     source:
-      address: "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9"
-      abi: BaalSummonerV1
+      abi: BaalSummoner
+      address: "0x7e988A9db2F8597735fc68D21060Daed948a3e8C"
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -23,8 +23,8 @@ dataSources:
         - SummonBaal
         - Upgraded
       abis:
-        - name: BaalSummonerV1
-          file: ./abis/BaalSummonerV1.json
+        - name: BaalSummoner
+          file: ./abis/BaalSummoner.json
       eventHandlers:
         - event: BeaconUpgraded(indexed address)
           handler: handleBeaconUpgraded
@@ -40,17 +40,18 @@ dataSources:
           handler: handleOwnershipTransferred
         - event: SetAddrsVersion(uint256)
           handler: handleSetAddrsVersion
-        - event: SummonBaal(indexed address,indexed address,indexed address,address,address,uint256)
+        - event: SummonBaal(indexed address,indexed address,indexed
+            address,address,address,uint256)
           handler: handleSummonBaal
         - event: Upgraded(indexed address)
           handler: handleUpgraded
-      file: ./src/baal-summoner-v-1.ts
+      file: ./src/baal-summoner.ts
   - kind: ethereum
     name: DeVoxShamanSummonerV1
-    network: hardhat
+    network: goerli
     source:
-      address: "0x0B306BF915C4d645ff596e518fAf3F9669b97016"
       abi: DeVoxShamanSummonerV1
+      address: "0x88Bcb9813Ecc34a44aB998d809d01841cd0dF3a0"
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -71,18 +72,17 @@ dataSources:
           handler: handleInitialized
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
-        - event: SummonComplete(indexed address,address,address,uint256,uint256,uint256,uint256,string)
+        - event: SummonComplete(indexed address,indexed address,address,uint256,uint256,uint256,uint256,string)
           handler: handleSummonComplete
         - event: Upgraded(indexed address)
           handler: handleUpgraded
       file: ./src/de-vox-shaman-summoner-v-1.ts
 templates:
   - kind: ethereum
-    name: BaalV1
-    network: hardhat
+    name: Baal
+    network: goerli
     source:
-      # address: "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9"
-      abi: BaalV1
+      abi: Baal
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -111,8 +111,8 @@ templates:
         - SubmitVote
         - TargetSet
       abis:
-        - name: BaalV1
-          file: ./abis/BaalV1.json
+        - name: Baal
+          file: ./abis/Baal.json
       eventHandlers:
         - event: Approval(indexed address,indexed address,uint256)
           handler: handleApproval
@@ -138,7 +138,8 @@ templates:
           handler: handleOwnershipTransferred
         - event: ProcessProposal(indexed uint256,bool,bool)
           handler: handleProcessProposal
-        - event: Ragequit(indexed address,address,indexed uint256,indexed uint256,address[])
+        - event: Ragequit(indexed address,address,indexed uint256,indexed
+            uint256,address[])
           handler: handleRagequit
         - event: SetTrustedForwarder(indexed address)
           handler: handleSetTrustedForwarder
@@ -150,18 +151,18 @@ templates:
           handler: handleSharesPaused
         - event: SponsorProposal(indexed address,indexed uint256,indexed uint256)
           handler: handleSponsorProposal
-        - event: SubmitProposal(indexed uint256,indexed bytes32,uint256,bytes,uint256,uint256,bool,uint256,string)
+        - event: SubmitProposal(indexed uint256,indexed
+            bytes32,uint256,bytes,uint256,uint256,bool,uint256,string)
           handler: handleSubmitProposal
         - event: SubmitVote(indexed address,uint256,indexed uint256,indexed bool)
           handler: handleSubmitVote
         - event: TargetSet(indexed address,indexed address)
           handler: handleTargetSet
-      file: ./src/baal-v-1.ts
+      file: ./src/baal.ts
   - kind: ethereum
     name: DeVoxShamanV1
-    network: hardhat
+    network: goerli
     source:
-      # address: "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853"
       abi: DeVoxShamanV1
     mapping:
       kind: ethereum/events
@@ -174,6 +175,7 @@ templates:
         - Initialized
         - TargetUpdated
         - Upgraded
+        - UserWhitelisted
       abis:
         - name: DeVoxShamanV1
           file: ./abis/DeVoxShamanV1.json
@@ -182,14 +184,14 @@ templates:
           handler: handleAdminChanged
         - event: BeaconUpgraded(indexed address)
           handler: handleBeaconUpgraded
-        - event: DonationReceived(indexed address,address,uint256,uint256,uint256,uint256,uint256,uint256,uint256,string)
+        - event: DonationReceived(indexed address,indexed address,indexed uint256,uint256,uint256,uint256,uint256,uint256,uint256,string)
           handler: handleDonationReceived
         - event: Initialized(uint8)
           handler: handleInitialized
-        - event: TargetUpdated(uint256,uint256,uint256)
+        - event: TargetUpdated(indexed address,indexed uint256,uint256,uint256)
           handler: handleTargetUpdated
         - event: Upgraded(indexed address)
           handler: handleUpgraded
-        - event: UserWhitelisted(indexed address,bool,bytes)
+        - event: UserWhitelisted(indexed address,indexed address,indexed uint256,bool,bytes)
           handler: handleUserWhitelisted
       file: ./src/de-vox-shaman-v-1.ts

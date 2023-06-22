@@ -2,6 +2,7 @@
 pragma solidity ^0.8.12;
 
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import {AccessControlUpgradeable} from "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol";
 import {OwnableUpgradeable} from "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 import {Initializable} from "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import {UUPSUpgradeable} from "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";
@@ -18,6 +19,7 @@ import {IShaman} from "./IShaman.sol";
 /// @dev This contract is used to issue voting shares (quadratic) and loot (1:1) for donations
 contract DeVoxShamanV1 is
     Initializable,
+    AccessControlUpgradeable,
     OwnableUpgradeable,
     ReentrancyGuardUpgradeable,
     UUPSUpgradeable,
@@ -28,9 +30,6 @@ contract DeVoxShamanV1 is
         SHARES
     }
 
-    /// @notice Role required in order to access admin methods
-    // bytes32 public constant DEFAULT_ADMIN_ROLE =
-    //     keccak256('DEFAULT_ADMIN_ROLE');
     /// @notice Current version of the contract
     uint16 internal _version;
 
@@ -65,8 +64,8 @@ contract DeVoxShamanV1 is
     /// @param message message accompanying the donation
     event DonationReceived(
         address indexed contributorAddress,
-        address baal,
-        uint256 id,
+        address indexed baal,
+        uint256 indexed id,
         uint256 amount,
         uint256 total,
         uint256 target,
@@ -77,16 +76,30 @@ contract DeVoxShamanV1 is
     );
 
     /// @notice emitted when campaign target is updated
+    /// @param baal baal contract address
     /// @param id campaign id
     /// @param target campaign target amount
     /// @param balance current campaign balance
-    event TargetUpdated(uint256 id, uint256 target, uint256 balance);
+    event TargetUpdated(
+        address indexed baal,
+        uint indexed id,
+        uint256 target,
+        uint256 balance
+    );
 
     /// @notice emitted when a user is whitelisted
     /// @param user user address
+    /// @param baal baal contract address
+    /// @param id campaign id
     /// @param status whitelist status
     /// @param metadata user metadata
-    event UserWhitelisted(address indexed user, bool status, bytes metadata);
+    event UserWhitelisted(
+        address indexed user,
+        address indexed baal,
+        uint indexed id,
+        bool status,
+        bytes metadata
+    );
 
     /*******************
      * DEPLOY
@@ -105,8 +118,10 @@ contract DeVoxShamanV1 is
         uint256 _id,
         uint256 _pricePerUnit,
         uint256 _tokensPerUnit,
-        uint256 _target
+        uint256 _target,
+        address[] calldata _admins
     ) external initializer {
+        __AccessControl_init();
         __Ownable_init();
         __UUPSUpgradeable_init();
 
@@ -116,6 +131,14 @@ contract DeVoxShamanV1 is
         pricePerUnit = _pricePerUnit;
         tokensPerUnit = _tokensPerUnit;
         target = _target;
+
+        // set admins
+        for (uint256 i = 0; i < _admins.length; i++) {
+            _grantRole(DEFAULT_ADMIN_ROLE, _admins[i]);
+        }
+        _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
+
+        // console.log("DeVoxShamanV1 deployed by %s", msg.sender);
     }
 
     /// Whitelist a user, enabling them to join the DAO
@@ -132,7 +155,7 @@ contract DeVoxShamanV1 is
 
         _whitelist[msg.sender] = _status;
 
-        emit UserWhitelisted(msg.sender, _status, _metadata);
+        emit UserWhitelisted(msg.sender, address(baal), id, _status, _metadata);
     }
 
     /// @notice Make a donation, join the DAO and receive voting shares
@@ -179,6 +202,14 @@ contract DeVoxShamanV1 is
         );
     }
 
+    /// @notice Grant the specified user admin privileges
+    /// @param user user address
+    function setAdmin(
+        address user
+    ) external override onlyRole(DEFAULT_ADMIN_ROLE) {
+        _grantRole(DEFAULT_ADMIN_ROLE, user);
+    }
+
     /// @notice Calculate the amount of loot to issue for a given donation
     function _lootToIssue(
         uint256 //_value
@@ -221,8 +252,10 @@ contract DeVoxShamanV1 is
         return token.balanceOf(baal.target());
     }
 
-    function setTarget(uint256 _target) public {
+    function setTarget(uint256 _target) public onlyRole(DEFAULT_ADMIN_ROLE) {
         target = _target;
+
+        emit TargetUpdated(address(baal), id, _target, getTokenBalance());
     }
 
     /// @notice gets the current version of the contract

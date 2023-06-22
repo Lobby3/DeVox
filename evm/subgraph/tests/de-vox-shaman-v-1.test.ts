@@ -1,4 +1,4 @@
-import { Address, BigInt } from "@graphprotocol/graph-ts";
+import { Address, BigInt, Bytes } from "@graphprotocol/graph-ts";
 import {
   assert,
   beforeEach,
@@ -7,14 +7,16 @@ import {
   test,
 } from "matchstick-as/assembly/index";
 
-import { Campaign, Donation } from "../generated/schema";
+import { Campaign, Donation, User } from "../generated/schema";
 import {
   handleDonationReceived,
   handleTargetUpdated,
+  handleUserWhitelisted,
 } from "../src/de-vox-shaman-v-1";
 import {
   createDonationReceivedEvent,
   createTargetUpdatedEvent,
+  createUserWhitelistedEvent,
 } from "./de-vox-shaman-v-1-utils";
 
 describe("DeVoxShamanV1", () => {
@@ -25,7 +27,7 @@ describe("DeVoxShamanV1", () => {
       "0x90F9ac6B6dD860d4E40976eb6De6d6580Cc7e94D"
     );
     const shamanAddress = Address.fromString(
-      "0x90F9ac6B6dD860d4E40976eb6De6d6580Cc7e94D"
+      "0xEe79604E3D82641D3dE15dEc23E2064786011E94"
     );
     const tokenAddress = Address.fromString(
       "0x11fE4B6AE13d2a6055C8D9cF65c55bac32B5d844"
@@ -49,8 +51,9 @@ describe("DeVoxShamanV1", () => {
       "0x90F9ac6B6dD860d4E40976eb6De6d6580Cc7e94D"
     );
     const shamanAddress = Address.fromString(
-      "0x90F9ac6B6dD860d4E40976eb6De6d6580Cc7e94D"
+      "0xEe79604E3D82641D3dE15dEc23E2064786011E94"
     );
+    const id = BigInt.fromI32(1);
     const target = BigInt.fromI32(1000000000);
     const contributorAddress = Address.fromString(
       "0x65Fc100DD791746B5945609373e5311dd0C77545"
@@ -64,6 +67,7 @@ describe("DeVoxShamanV1", () => {
     const event = createDonationReceivedEvent(
       contributorAddress,
       baalAddress,
+      id,
       amount,
       total,
       target,
@@ -72,7 +76,7 @@ describe("DeVoxShamanV1", () => {
       sharesIssued,
       message
     );
-    event.transaction.from = shamanAddress;
+    event.address = shamanAddress;
 
     // act
     handleDonationReceived(event);
@@ -100,30 +104,63 @@ describe("DeVoxShamanV1", () => {
       "Donation",
       donationId,
       "campaign",
-      event.transaction.from.toHexString()
+      baalAddress.toHexString()
     );
   });
 
   test("Target updated", () => {
     // prepare
-    const shamanAddress = Address.fromString(
+    const baalAddress = Address.fromString(
       "0x90F9ac6B6dD860d4E40976eb6De6d6580Cc7e94D"
     );
+    const shamanAddress = Address.fromString(
+      "0xEe79604E3D82641D3dE15dEc23E2064786011E94"
+    );
+    const id = BigInt.fromI32(1);
     const target = BigInt.fromI32(99999999);
     const balance = BigInt.fromI32(623452);
-    const event = createTargetUpdatedEvent(target, balance);
-    event.transaction.from = shamanAddress;
+    const event = createTargetUpdatedEvent(baalAddress, id, target, balance);
+    event.address = shamanAddress;
 
     // act
     handleTargetUpdated(event);
 
     // assert
     assert.entityCount("Campaign", 1);
-    const campaign = Campaign.load(shamanAddress.toHexString());
+    const campaign = Campaign.load(baalAddress.toHexString());
     assert.assertNotNull(campaign);
     if (!campaign) {
       return;
     }
     assert.bigIntEquals(target, campaign.target);
+  });
+
+  test("User whitelisted", () => {
+    // prepare
+    const baalAddress = Address.fromString(
+      "0x90F9ac6B6dD860d4E40976eb6De6d6580Cc7e94D"
+    );
+    const shamanAddress = Address.fromString(
+      "0xEe79604E3D82641D3dE15dEc23E2064786011E94"
+    );
+    const userAddress = Address.fromString(
+      "0x65Fc100DD791746B5945609373e5311dd0C77545"
+    );
+    const id = BigInt.fromI32(1);
+    const status = true;
+    const metadata = Bytes.fromHexString("0x1234");
+    const event = createUserWhitelistedEvent(userAddress, baalAddress, id, status, metadata);
+    event.address = shamanAddress;
+
+    // act
+    handleUserWhitelisted(event);
+
+    assert.entityCount("User", 1);
+    const user = User.load(userAddress);
+    assert.assertNotNull(user);
+    if (!user) {
+      return;
+    }
+    assert.bytesEquals(metadata, user.metadata);
   });
 });

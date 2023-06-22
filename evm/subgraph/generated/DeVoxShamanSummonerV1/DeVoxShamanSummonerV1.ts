@@ -193,24 +193,13 @@ export class DeVoxShamanSummonerV1 extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBytes());
   }
 
-  summonDeVoxShaman(
-    _moloch: Address,
-    _token: Address,
-    _pricePerUnit: BigInt,
-    _tokensPerUnit: BigInt,
-    _target: BigInt,
-    _name: string
-  ): Address {
+  summonDeVoxShaman(_baal: Address, _initializationParams: Bytes): Address {
     let result = super.call(
       "summonDeVoxShaman",
-      "summonDeVoxShaman(address,address,uint256,uint256,uint256,string):(address)",
+      "summonDeVoxShaman(address,bytes):(address)",
       [
-        ethereum.Value.fromAddress(_moloch),
-        ethereum.Value.fromAddress(_token),
-        ethereum.Value.fromUnsignedBigInt(_pricePerUnit),
-        ethereum.Value.fromUnsignedBigInt(_tokensPerUnit),
-        ethereum.Value.fromUnsignedBigInt(_target),
-        ethereum.Value.fromString(_name)
+        ethereum.Value.fromAddress(_baal),
+        ethereum.Value.fromBytes(_initializationParams)
       ]
     );
 
@@ -218,23 +207,15 @@ export class DeVoxShamanSummonerV1 extends ethereum.SmartContract {
   }
 
   try_summonDeVoxShaman(
-    _moloch: Address,
-    _token: Address,
-    _pricePerUnit: BigInt,
-    _tokensPerUnit: BigInt,
-    _target: BigInt,
-    _name: string
+    _baal: Address,
+    _initializationParams: Bytes
   ): ethereum.CallResult<Address> {
     let result = super.tryCall(
       "summonDeVoxShaman",
-      "summonDeVoxShaman(address,address,uint256,uint256,uint256,string):(address)",
+      "summonDeVoxShaman(address,bytes):(address)",
       [
-        ethereum.Value.fromAddress(_moloch),
-        ethereum.Value.fromAddress(_token),
-        ethereum.Value.fromUnsignedBigInt(_pricePerUnit),
-        ethereum.Value.fromUnsignedBigInt(_tokensPerUnit),
-        ethereum.Value.fromUnsignedBigInt(_target),
-        ethereum.Value.fromString(_name)
+        ethereum.Value.fromAddress(_baal),
+        ethereum.Value.fromBytes(_initializationParams)
       ]
     );
     if (result.reverted) {
@@ -374,28 +355,12 @@ export class SummonDeVoxShamanCall__Inputs {
     this._call = call;
   }
 
-  get _moloch(): Address {
+  get _baal(): Address {
     return this._call.inputValues[0].value.toAddress();
   }
 
-  get _token(): Address {
-    return this._call.inputValues[1].value.toAddress();
-  }
-
-  get _pricePerUnit(): BigInt {
-    return this._call.inputValues[2].value.toBigInt();
-  }
-
-  get _tokensPerUnit(): BigInt {
-    return this._call.inputValues[3].value.toBigInt();
-  }
-
-  get _target(): BigInt {
-    return this._call.inputValues[4].value.toBigInt();
-  }
-
-  get _name(): string {
-    return this._call.inputValues[5].value.toString();
+  get _initializationParams(): Bytes {
+    return this._call.inputValues[1].value.toBytes();
   }
 }
 

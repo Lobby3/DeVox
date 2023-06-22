@@ -28,12 +28,13 @@ import type {
 export interface IShamanInterface extends utils.Interface {
   functions: {
     "donate(uint256,string)": FunctionFragment;
-    "initialize(address,address,uint256,uint256,uint256,uint256)": FunctionFragment;
+    "initialize(address,address,uint256,uint256,uint256,uint256,address[])": FunctionFragment;
+    "setAdmin(address)": FunctionFragment;
     "whitelist(bool,bytes)": FunctionFragment;
   };
 
   getFunction(
-    nameOrSignatureOrTopic: "donate" | "initialize" | "whitelist"
+    nameOrSignatureOrTopic: "donate" | "initialize" | "setAdmin" | "whitelist"
   ): FunctionFragment;
 
   encodeFunctionData(
@@ -48,8 +49,13 @@ export interface IShamanInterface extends utils.Interface {
       PromiseOrValue<BigNumberish>,
       PromiseOrValue<BigNumberish>,
       PromiseOrValue<BigNumberish>,
-      PromiseOrValue<BigNumberish>
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<string>[]
     ]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "setAdmin",
+    values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
     functionFragment: "whitelist",
@@ -58,6 +64,7 @@ export interface IShamanInterface extends utils.Interface {
 
   decodeFunctionResult(functionFragment: "donate", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "initialize", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "setAdmin", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "whitelist", data: BytesLike): Result;
 
   events: {};
@@ -103,6 +110,12 @@ export interface IShaman extends BaseContract {
       _pricePerUnit: PromiseOrValue<BigNumberish>,
       _tokensPerUnit: PromiseOrValue<BigNumberish>,
       _target: PromiseOrValue<BigNumberish>,
+      _admins: PromiseOrValue<string>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
+    setAdmin(
+      user: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
@@ -126,6 +139,12 @@ export interface IShaman extends BaseContract {
     _pricePerUnit: PromiseOrValue<BigNumberish>,
     _tokensPerUnit: PromiseOrValue<BigNumberish>,
     _target: PromiseOrValue<BigNumberish>,
+    _admins: PromiseOrValue<string>[],
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
+  setAdmin(
+    user: PromiseOrValue<string>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
@@ -149,6 +168,12 @@ export interface IShaman extends BaseContract {
       _pricePerUnit: PromiseOrValue<BigNumberish>,
       _tokensPerUnit: PromiseOrValue<BigNumberish>,
       _target: PromiseOrValue<BigNumberish>,
+      _admins: PromiseOrValue<string>[],
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    setAdmin(
+      user: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -175,6 +200,12 @@ export interface IShaman extends BaseContract {
       _pricePerUnit: PromiseOrValue<BigNumberish>,
       _tokensPerUnit: PromiseOrValue<BigNumberish>,
       _target: PromiseOrValue<BigNumberish>,
+      _admins: PromiseOrValue<string>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    setAdmin(
+      user: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
@@ -199,6 +230,12 @@ export interface IShaman extends BaseContract {
       _pricePerUnit: PromiseOrValue<BigNumberish>,
       _tokensPerUnit: PromiseOrValue<BigNumberish>,
       _target: PromiseOrValue<BigNumberish>,
+      _admins: PromiseOrValue<string>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    setAdmin(
+      user: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 

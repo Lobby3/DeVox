@@ -3,12 +3,15 @@
   "version": "0.0.0",
   "license": "UNLICENSED",
   "scripts": {
+    "auth": "graph auth --studio 2e6eb43adc6cebbbff3224ff171f13b2",
     "codegen": "graph codegen",
     "build": "graph build",
-    "deploy": "graph deploy --node https://api.studio.thegraph.com/deploy/ evm",
-    "create-local": "graph create --node http://localhost:8020/ evm",
-    "remove-local": "graph remove --node http://localhost:8020/ evm",
-    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 evm",
+    "deploy": "graph deploy --studio devox-goerli",
+    "create-local": "graph create --node http://localhost:8020/ lobby3-devox",
+    "remove-local": "graph remove --node http://localhost:8020/ lobby3-devox",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 lobby3-devox",
+    "start-local": "docker-compose up -d",
+    "stop-local": "docker-compose down",
     "test": "graph test"
   },
   "dependencies": {

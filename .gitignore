@@ -53,8 +53,6 @@ Thumbs.db
 /packages/frontend/.env
 
 # Subgraph
-./subgraph/generated
-./subgraph/build
-
-# Matchstick
-./subgraph/tests/.*
+subgraph/build
+subgraph/data
+subgraph/tests/.*

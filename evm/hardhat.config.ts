@@ -20,19 +20,6 @@ import "solidity-coverage";
 const dotenvConfigPath: string = process.env.DOTENV_CONFIG_PATH || "./.env";
 dotenvConfig({ path: resolve(__dirname, dotenvConfigPath) });
 
-const defaultNetwork = "localhost";
-
-function etherscan() {
-  try {
-    return fs.readFileSync("./etherscan.txt").toString().trim();
-  } catch (e) {
-    if (defaultNetwork !== "localhost") {
-      console.log("☢️ WARNING: No etherscan file");
-    }
-  }
-  return "";
-}
-
 const config: HardhatUserConfig = {
   networks: {
     localhost: {
@@ -95,9 +82,9 @@ const config: HardhatUserConfig = {
     // apiKey: "61ED96HQAY6PASTEWRXN6AMYQEKM8SYTRY" // etherscan
     apiKey: {
       gnosis: "SN711KA5TEDG6JRJ2XGD8AITT7Q3VE58XG",
-      xdai: etherscan(),
-      goerli: etherscan(),
-      mainnet: etherscan(),
+      xdai: process.env.NX_ETHERSCAN_KEY ?? "",
+      goerli: process.env.NX_ETHERSCAN_KEY ?? "",
+      mainnet: process.env.NX_ETHERSCAN_KEY ?? "",
     },
     customChains: [
       // {
