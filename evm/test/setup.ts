@@ -186,7 +186,7 @@ const getShamanInitParams = function (
       shamanArgs.tokensPerUnit,
       shamanArgs.target,
       shamanArgs.name,
-      admins
+      admins,
     ]
   );
 };

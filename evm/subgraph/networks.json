@@ -3,24 +3,20 @@
     "BaalSummoner": {
       "address": "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9"
     },
-    "Baal": {
-    },
+    "Baal": {},
     "DeVoxShamanSummonerV1": {
       "address": "0x0B306BF915C4d645ff596e518fAf3F9669b97016"
     },
-    "DeVoxShamanV1": {
-    }
+    "DeVoxShamanV1": {}
   },
   "goerli": {
     "BaalSummoner": {
       "address": "0x7e988A9db2F8597735fc68D21060Daed948a3e8C"
     },
-    "Baal": {
-    },
+    "Baal": {},
     "DeVoxShamanSummonerV1": {
       "address": "0x9f723A885108236E478FC5E31ff90E60E300876D"
     },
-    "DeVoxShamanV1": {
-    }
+    "DeVoxShamanV1": {}
   }
 }

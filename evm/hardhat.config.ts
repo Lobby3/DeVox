@@ -5,7 +5,6 @@ import "@openzeppelin/hardhat-upgrades";
 import "@typechain/hardhat";
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { config as dotenvConfig } from "dotenv";
-import * as fs from "fs";
 import "hardhat-abi-exporter";
 import "hardhat-contract-sizer";
 import "hardhat-deploy";
