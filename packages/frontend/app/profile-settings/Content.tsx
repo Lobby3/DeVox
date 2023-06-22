@@ -15,6 +15,7 @@ import {
 import { useWeb3React } from "@web3-react/core";
 import { Form, Formik } from "formik";
 import React from "react";
+import { toast } from "react-toastify";
 
 import BodyContainer from "../../components/body-container/body-container";
 import { useShamanWhitelist } from "../../hooks/contracts";
@@ -46,11 +47,19 @@ const Content = () => {
           return errors;
         }}
         onSubmit={async (values) => {
-          await whiteList.mutateAsync({
-            status: true,
-            zipCode: values.zipCode,
-            share: values.shareZipCode,
-          });
+          try {
+            const txHash = await whiteList.mutateAsync({
+              status: false,
+              zipCode: values.zipCode,
+              share: values.shareZipCode,
+            });
+            console.log(txHash);
+          } catch (e) {
+            console.log(e);
+            toast("Error submitting ZIP Code", {
+              type: "error",
+            });
+          }
         }}
       >
         {({

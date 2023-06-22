@@ -1,6 +1,8 @@
 "use client";
 
 import React from "react";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.min.css";
 
 import { Footer } from "./Footer";
 import { Header } from "./Header";
@@ -22,7 +24,22 @@ export default function RootLayout({
       <body className="body">
         <Providers>
           <Header />
-          <main style={{ maxWidth: "100vw", flexGrow: 1 }}>{children}</main>
+          <main style={{ maxWidth: "100vw", flexGrow: 1 }}>
+            <ToastContainer
+              position="top-right"
+              style={{ marginTop: 60 }}
+              autoClose={5000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="dark"
+            />
+            {children}
+          </main>
           <Footer />
         </Providers>
       </body>
