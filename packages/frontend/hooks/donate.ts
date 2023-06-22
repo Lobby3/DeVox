@@ -3,11 +3,13 @@ import { BigNumber, ethers } from "ethers";
 import { toast } from "react-toastify";
 
 import { useBalance } from "./balance";
-import { useShamanContract } from "./contracts";
+import { useShamanContract, useTokenContract } from "./contracts";
 
 export const useDonate = () => {
   const shamanContract = useShamanContract();
+  const tokenContract = useTokenContract();
   const { decimals } = useBalance();
+
   return useMutation(
     ["donate"],
     async ({
@@ -17,7 +19,7 @@ export const useDonate = () => {
       amountInToken: number;
       message: string;
     }) => {
-      if (!shamanContract) {
+      if (!shamanContract || !tokenContract) {
         throw new Error("No contract");
       }
 
@@ -25,6 +27,12 @@ export const useDonate = () => {
       const amountInTokenWithDecimals = BigNumber.from(
         amountInToken * 10 ** decimals
       );
+      const approveTx = await tokenContract.approve(
+        shamanContract.address,
+        amountInTokenWithDecimals
+      );
+      await approveTx.wait();
+
       const tx = await shamanContract.donate(
         amountInTokenWithDecimals,
         encodedMessage

@@ -37,7 +37,7 @@ export function DonateModal({
   onClose,
 }: Omit<DonateModalProps, "children">) {
   const { isActive } = useWeb3React();
-  const { balance, symbol } = useBalance();
+  const { formattedBalance, symbol } = useBalance();
   const donate = useDonate();
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -54,7 +54,7 @@ export function DonateModal({
           }}
           validate={(values) => {
             const errors: Record<string, string> = {};
-            if (values.amount > balance.toNumber()) {
+            if (values.amount > Number(formattedBalance)) {
               errors["amount"] = "Insufficient balance";
             }
             return errors;
@@ -121,7 +121,7 @@ export function DonateModal({
                       </FormControl>
                       {symbol && (
                         <Text>
-                          Balance: {balance.toString()} {symbol}
+                          Balance: {formattedBalance} {symbol}
                         </Text>
                       )}
                     </VStack>
