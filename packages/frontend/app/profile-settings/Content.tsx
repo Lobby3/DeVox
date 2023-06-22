@@ -18,7 +18,7 @@ import React from "react";
 import { toast } from "react-toastify";
 
 import BodyContainer from "../../components/body-container/body-container";
-import { useShamanWhitelist } from "../../hooks/contracts";
+import { useShamanWhitelist } from "../../hooks/whitelist";
 
 const Content = () => {
   const { isActive } = useWeb3React();
@@ -49,7 +49,7 @@ const Content = () => {
         onSubmit={async (values) => {
           try {
             const txHash = await whiteList.mutateAsync({
-              status: false,
+              status: true,
               zipCode: values.zipCode,
               share: values.shareZipCode,
             });
