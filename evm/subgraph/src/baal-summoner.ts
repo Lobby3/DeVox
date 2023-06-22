@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import { log } from "@graphprotocol/graph-ts";
+
 import {
   AdminChanged,
   BeaconUpgraded,
@@ -12,42 +14,51 @@ import {
   Upgraded,
 } from "../generated/BaalSummoner/BaalSummoner";
 
-export function handleAdminChanged(_event: AdminChanged): void {
-  // ignored
+export function handleAdminChanged(event: AdminChanged): void {
+  log.info("AdminChanged: {}", [event.params.newAdmin.toHexString()]);
 }
 
-export function handleBeaconUpgraded(_event: BeaconUpgraded): void {
-  // ignored
+export function handleBeaconUpgraded(event: BeaconUpgraded): void {
+  log.info("BeaconUpgraded: {}", [event.params.beacon.toHexString()]);
 }
 
-export function handleDaoReferral(_event: DaoReferral): void {
-  // ignored
+export function handleDaoReferral(event: DaoReferral): void {
+  log.info("DaoReferral: daoAddress={} referrer={}", [
+    event.params.daoAddress.toHexString(),
+    event.params.referrer.toHexString(),
+  ]);
 }
 
-export function handleDeployBaalSafe(_event: DeployBaalSafe): void {
-  // ignored
+export function handleDeployBaalSafe(event: DeployBaalSafe): void {
+  log.info("DeployBaalSafe: baalSafe={} moduleAddr={}", [
+    event.params.baalSafe.toHexString(),
+    event.params.moduleAddr.toHexString(),
+  ]);
 }
 
-export function handleDeployBaalTokens(_event: DeployBaalTokens): void {
-  // ignored
+export function handleDeployBaalTokens(event: DeployBaalTokens): void {
+  log.info("DeployBaalTokens: loot={} shares={}", [
+    event.params.lootToken.toHexString(),
+    event.params.sharesToken.toHexString(),
+  ]);
 }
 
-export function handleInitialized(_event: Initialized): void {
-  // ignored
+export function handleInitialized(event: Initialized): void {
+  log.info("Initialized: v{}", [event.params.version.toString()]);
 }
 
-export function handleOwnershipTransferred(_event: OwnershipTransferred): void {
-  // ignored
+export function handleOwnershipTransferred(event: OwnershipTransferred): void {
+  log.info("OwnershipTransferred: {}", [event.params.newOwner.toHexString()]);
 }
 
-export function handleSetAddrsVersion(_event: SetAddrsVersion): void {
-  // ignored
+export function handleSetAddrsVersion(event: SetAddrsVersion): void {
+  log.info("SetAddrsVersion: {}", [event.params.version.toString()]);
 }
 
-export function handleSummonBaal(_event: SummonBaal): void {
-  // ignored
+export function handleSummonBaal(event: SummonBaal): void {
+  log.info("SummonBaal: {}", [event.params.baal.toHexString()]);
 }
 
-export function handleUpgraded(_event: Upgraded): void {
-  // ignored
+export function handleUpgraded(event: Upgraded): void {
+  log.info("Upgraded: {}", [event.params.implementation.toHexString()]);
 }

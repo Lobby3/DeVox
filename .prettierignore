@@ -13,3 +13,4 @@ coverage.json
 **/src/types/**
 **/subgraph/abis/**
 **/subgraph/build/**
+**/subgraph/tests/.**

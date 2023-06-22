@@ -53,7 +53,17 @@ export function handleCancelProposal(event: CancelProposal): void {
 }
 
 export function handleGovernanceConfigSet(event: GovernanceConfigSet): void {
-  log.info("GovernanceConfigSet: {}", [JSON.stringify(event.params)]);
+  log.info(
+    "GovernanceConfigSet: grace={} minRetention={} newOffering={} quorum={} sponsor={} voting={}",
+    [
+      event.params.grace.toString(),
+      event.params.minRetention.toString(),
+      event.params.newOffering.toString(),
+      event.params.quorum.toString(),
+      event.params.sponsor.toString(),
+      event.params.voting.toString(),
+    ]
+  );
 }
 
 export function handleInitialized(event: Initialized): void {
@@ -93,7 +103,12 @@ export function handleProcessProposal(event: ProcessProposal): void {
 }
 
 export function handleRagequit(event: Ragequit): void {
-  log.info("Ragequit: {}", [JSON.stringify(event.params)]);
+  log.info("Ragequit: member={} shares={} loot={} to={}", [
+    event.params.member.toHexString(),
+    event.params.sharesToBurn.toString(),
+    event.params.lootToBurn.toString(),
+    event.params.to.toHexString(),
+  ]);
 }
 
 export function handleSetTrustedForwarder(event: SetTrustedForwarder): void {
@@ -101,7 +116,22 @@ export function handleSetTrustedForwarder(event: SetTrustedForwarder): void {
 }
 
 export function handleSetupComplete(event: SetupComplete): void {
-  log.info("SetupComplete: {}", [JSON.stringify(event.params)]);
+  log.info(
+    "SetupComplete: gracePeriod={} lootPaused={} minRetentionPercent={} name={} proposalOffering={} quorumPercent={} sharesPaused={} sponsorThreshold={} symbol={} totalLoot={} totalShares={}",
+    [
+      event.params.gracePeriod.toString(),
+      event.params.lootPaused.toString(),
+      event.params.minRetentionPercent.toString(),
+      event.params.name.toString(),
+      event.params.proposalOffering.toString(),
+      event.params.quorumPercent.toString(),
+      event.params.sharesPaused.toString(),
+      event.params.sponsorThreshold.toString(),
+      event.params.symbol.toString(),
+      event.params.totalLoot.toString(),
+      event.params.totalShares.toString(),
+    ]
+  );
 }
 
 export function handleShamanSet(event: ShamanSet): void {

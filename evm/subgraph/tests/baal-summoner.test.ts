@@ -1,56 +1,74 @@
-import {
-  assert,
-  describe,
-  test,
-  clearStore,
-  beforeAll,
-  afterAll
-} from "matchstick-as/assembly/index"
-import { Address, Bytes, BigInt } from "@graphprotocol/graph-ts"
-import { AdminChanged } from "../generated/BaalSummoner/BaalSummoner"
-import { handleAdminChanged } from "../src/baal-summoner"
-import { createAdminChangedEvent } from "./baal-summoner-utils"
+import { Address, BigInt } from "@graphprotocol/graph-ts";
+import { describe, test } from "matchstick-as/assembly/index";
 
-// Tests structure (matchstick-as >=0.5.0)
-// https://thegraph.com/docs/en/developer/matchstick/#tests-structure-0-5-0
+import {
+  handleAdminChanged,
+  handleBeaconUpgraded,
+  handleSummonBaal,
+} from "../src/baal-summoner";
+import {
+  createAdminChangedEvent,
+  createBeaconUpgradedEvent,
+  createSummonBaalEvent,
+} from "./baal-summoner-utils";
 
 describe("BaalSummoner", () => {
-  beforeAll(() => {
-    let previousAdmin = Address.fromString(
+  test("AdminChanged event", () => {
+    // prepare
+    const previousAdmin = Address.fromString(
       "0x0000000000000000000000000000000000000001"
-    )
-    let newAdmin = Address.fromString(
+    );
+    const newAdmin = Address.fromString(
+      "0x0000000000000000000000000000000000000011"
+    );
+    const newAdminChangedEvent = createAdminChangedEvent(
+      previousAdmin,
+      newAdmin
+    );
+
+    // act
+    handleAdminChanged(newAdminChangedEvent);
+  });
+
+  test("BeaconUpgraded event", () => {
+    // prepare
+    const beacon = Address.fromString(
       "0x0000000000000000000000000000000000000001"
-    )
-    let newAdminChangedEvent = createAdminChangedEvent(previousAdmin, newAdmin)
-    handleAdminChanged(newAdminChangedEvent)
-  })
+    );
+    const newBeaconUpgradedEvent = createBeaconUpgradedEvent(beacon);
 
-  afterAll(() => {
-    clearStore()
-  })
+    // act
+    handleBeaconUpgraded(newBeaconUpgradedEvent);
+  });
 
-  // For more test scenarios, see:
-  // https://thegraph.com/docs/en/developer/matchstick/#write-a-unit-test
+  test("SummonBaal event", () => {
+    // prepare
+    const baal = Address.fromString(
+      "0x0000000000000000000000000000000000000001"
+    );
+    const loot = Address.fromString(
+      "0x0000000000000000000000000000000000000001"
+    );
+    const shares = Address.fromString(
+      "0x0000000000000000000000000000000000000001"
+    );
+    const safe = Address.fromString(
+      "0x0000000000000000000000000000000000000001"
+    );
+    const forwarder = Address.fromString(
+      "0x0000000000000000000000000000000000000001"
+    );
+    const existingAddrs = BigInt.fromI32(1);
+    const newSummonBaalEvent = createSummonBaalEvent(
+      baal,
+      loot,
+      shares,
+      safe,
+      forwarder,
+      existingAddrs
+    );
 
-  // test("ExampleEntity created and stored", () => {
-    // assert.entityCount("ExampleEntity", 1)
-
-    // // 0xa16081f360e3847006db660bae1c6d1b2e17ec2a is the default address used in newMockEvent() function
-    // assert.fieldEquals(
-    //   "ExampleEntity",
-    //   "0xa16081f360e3847006db660bae1c6d1b2e17ec2a",
-    //   "previousAdmin",
-    //   "0x0000000000000000000000000000000000000001"
-    // )
-    // assert.fieldEquals(
-    //   "ExampleEntity",
-    //   "0xa16081f360e3847006db660bae1c6d1b2e17ec2a",
-    //   "newAdmin",
-    //   "0x0000000000000000000000000000000000000001"
-    // )
-
-    // More assert options:
-    // https://thegraph.com/docs/en/developer/matchstick/#asserts
-  // })
-})
+    // act
+    handleSummonBaal(newSummonBaalEvent);
+  });
+});

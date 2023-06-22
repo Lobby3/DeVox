@@ -1,19 +1,25 @@
-import { BigInt } from "@graphprotocol/graph-ts";
+import { BigInt, log } from "@graphprotocol/graph-ts";
 
-import { BeaconUpgraded, Initialized, OwnershipTransferred, SummonComplete, Upgraded } from "../generated/DeVoxShamanSummonerV1/DeVoxShamanSummonerV1";
+import {
+  BeaconUpgraded,
+  Initialized,
+  OwnershipTransferred,
+  SummonComplete,
+  Upgraded,
+} from "../generated/DeVoxShamanSummonerV1/DeVoxShamanSummonerV1";
 import { Campaign } from "../generated/schema";
 import { Baal, DeVoxShamanV1 } from "../generated/templates";
 
 export function handleBeaconUpgraded(event: BeaconUpgraded): void {
-  // ignore
+  log.info("BeaconUpgraded: {}", [event.params.beacon.toHexString()]);
 }
 
 export function handleInitialized(event: Initialized): void {
-  // ignore
+  log.info("Initialized: v{}", [event.params.version.toString()]);
 }
 
 export function handleOwnershipTransferred(event: OwnershipTransferred): void {
-  // ignore
+  log.info("OwnershipTransferred: {}", [event.params.newOwner.toHexString()]);
 }
 
 export function handleSummonComplete(event: SummonComplete): void {
@@ -33,5 +39,5 @@ export function handleSummonComplete(event: SummonComplete): void {
 }
 
 export function handleUpgraded(event: Upgraded): void {
-  // ignore
+  log.info("Upgraded: {}", [event.params.implementation.toHexString()]);
 }

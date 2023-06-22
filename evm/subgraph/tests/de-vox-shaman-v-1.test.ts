@@ -149,7 +149,13 @@ describe("DeVoxShamanV1", () => {
     const id = BigInt.fromI32(1);
     const status = true;
     const metadata = Bytes.fromHexString("0x1234");
-    const event = createUserWhitelistedEvent(userAddress, baalAddress, id, status, metadata);
+    const event = createUserWhitelistedEvent(
+      userAddress,
+      baalAddress,
+      id,
+      status,
+      metadata
+    );
     event.address = shamanAddress;
 
     // act

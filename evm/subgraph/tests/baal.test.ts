@@ -1,9 +1,4 @@
-import {
-  Address,
-  BigInt,
-  Bytes,
-  log,
-} from "@graphprotocol/graph-ts";
+import { Address, BigInt, Bytes, log } from "@graphprotocol/graph-ts";
 import {
   afterAll,
   assert,
@@ -29,9 +24,6 @@ import {
   createSubmitVoteEvent,
 } from "./baal-utils";
 
-// Tests structure (matchstick-as >=0.5.0)
-// https://thegraph.com/docs/en/developer/matchstick/#tests-structure-0-5-0
-
 describe("Baal", () => {
   beforeAll(() => {
     // prepare
@@ -40,9 +32,6 @@ describe("Baal", () => {
   afterAll(() => {
     clearStore();
   });
-
-  // For more test scenarios, see:
-  // https://thegraph.com/docs/en/developer/matchstick/#write-a-unit-test
 
   test("Proposal created and stored", () => {
     // prepare
@@ -269,7 +258,11 @@ describe("Baal", () => {
 
     const passed = true;
     const actionFailed = false;
-    const processProposalEvent = createProcessProposalEvent(proposal, passed, actionFailed);
+    const processProposalEvent = createProcessProposalEvent(
+      proposal,
+      passed,
+      actionFailed
+    );
 
     // act
     handleProcessProposal(processProposalEvent);

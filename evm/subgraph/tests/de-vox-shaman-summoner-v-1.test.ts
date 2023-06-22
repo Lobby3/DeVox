@@ -1,9 +1,5 @@
 import { Address, BigInt, Bytes } from "@graphprotocol/graph-ts";
-import {
-  assert,
-  describe,
-  test,
-} from "matchstick-as/assembly/index";
+import { assert, describe, test } from "matchstick-as/assembly/index";
 
 import { Campaign } from "../generated/schema";
 import { handleSummonComplete } from "../src/de-vox-shaman-summoner-v-1";
