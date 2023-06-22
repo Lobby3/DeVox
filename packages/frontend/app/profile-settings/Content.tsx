@@ -1,4 +1,8 @@
 import {
+  Alert,
+  AlertDescription,
+  AlertIcon,
+  AlertTitle,
   Button,
   FormControl,
   FormErrorMessage,
@@ -8,17 +12,16 @@ import {
   Switch,
   VStack,
 } from "@chakra-ui/react";
-import { useToast } from "@daohaus/ui";
 import { useWeb3React } from "@web3-react/core";
 import { Form, Formik } from "formik";
-import { JSEncrypt } from "jsencrypt";
 import React from "react";
 
 import BodyContainer from "../../components/body-container/body-container";
+import { useShamanWhitelist } from "../../hooks/contracts";
 
 const Content = () => {
-  const { provider } = useWeb3React();
-  const toast = useToast();
+  const { isActive } = useWeb3React();
+  const whiteList = useShamanWhitelist();
 
   if (typeof window === "undefined") {
     return null;
@@ -43,36 +46,11 @@ const Content = () => {
           return errors;
         }}
         onSubmit={async (values) => {
-          let encryptedZipCode = "";
-          if (values.shareZipCode) {
-            if (!provider) {
-              toast.errorToast({
-                title: "No Provider",
-                description: "Please connect your wallet",
-              });
-              return;
-            }
-
-            const encrypt = new JSEncrypt();
-            const publicKey = process.env.NEXT_PUBLIC_PUBLIC_KEY;
-            const privateKey = process.env.NEXT_PUBLIC_PRIVATE_KEY_TEST;
-
-            if (!publicKey) {
-              throw new Error("No public key");
-            }
-            console.log(publicKey, privateKey);
-            encrypt.setPublicKey(publicKey);
-
-            const result = encrypt.encrypt(values.zipCode);
-
-            if (!result) {
-              throw new Error("No encrypted zip code");
-            }
-
-            encryptedZipCode = result;
-
-            console.log(encryptedZipCode);
-          }
+          await whiteList.mutateAsync({
+            status: true,
+            zipCode: values.zipCode,
+            share: values.shareZipCode,
+          });
         }}
       >
         {({
@@ -84,12 +62,20 @@ const Content = () => {
           handleSubmit,
           isSubmitting,
           isValid,
-          /* and other goodies */
         }) => {
-          const disabled = !isValid || isSubmitting;
+          const disabled = !isValid || isSubmitting || !isActive;
           return (
             <Form onSubmit={handleSubmit}>
-              <VStack>
+              <VStack spacing={10} alignItems={"flex-start"}>
+                {!isActive && (
+                  <Alert status="error">
+                    <AlertIcon />
+                    <AlertTitle>Not Connected</AlertTitle>
+                    <AlertDescription>
+                      Please connect your wallet to continue.
+                    </AlertDescription>
+                  </Alert>
+                )}
                 <FormControl
                   isRequired
                   isInvalid={!!(errors.zipCode && touched.zipCode)}
