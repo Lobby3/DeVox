@@ -9,7 +9,8 @@ interface IShaman {
         uint256 _id,
         uint256 _pricePerUnit,
         uint256 _tokensPerUnit,
-        uint256 _target
+        uint256 _target,
+        address[] calldata _admins
     ) external;
 
     /// @notice Make a donation, join the DAO and receive voting shares
@@ -21,4 +22,8 @@ interface IShaman {
     /// @param _status whitelist status
     /// @param _metadata user metadata
     function whitelist(bool _status, bytes calldata _metadata) external;
+
+    /// @notice Grant the specified user admin privileges
+    /// @param user user address
+    function setAdmin(address user) external;
 }

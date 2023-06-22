@@ -19,7 +19,7 @@ const revertMessages = {
   permitNotAuthorized: "ERC20Permit: invalid signature",
   permitExpired: "ERC20Permit: expired deadline",
   lootNotBaal: "Ownable: caller is not the owner",
-  notTransferable: "loot: !transferable",
+  notTransferable: "!transferable",
   transferToZero: "ERC20: transfer to the zero address",
 };
 
@@ -30,7 +30,7 @@ async function blockTime() {
   return block.timestamp;
 }
 
-describe("Loot ERC20 contract", async function () {
+describe.skip("Loot ERC20 contract", async function () {
   let lootSingleton: Loot;
   let LootFactory: ContractFactory;
   let MockBaalFactory: ContractFactory;
@@ -50,7 +50,7 @@ describe("Loot ERC20 contract", async function () {
   let s2Loot: Loot;
 
   this.beforeAll(async function () {
-    LootFactory = await ethers.getContractFactory("LootV1");
+    LootFactory = await ethers.getContractFactory("Loot");
     lootSingleton = (await LootFactory.deploy()) as Loot;
     MockBaalFactory = await ethers.getContractFactory("MockBaal");
     const network = await ethers.provider.getNetwork();

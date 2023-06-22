@@ -73,10 +73,11 @@ contract DeVoxShamanSummonerV1 is
             uint256 _pricePerUnit,
             uint256 _tokensPerUnit,
             uint256 _target,
-            string memory _name
+            string memory _name,
+            address[] memory _admins
         ) = abi.decode(
                 _initializationParams,
-                (address, uint256, uint256, uint256, string)
+                (address, uint256, uint256, uint256, string, address[])
             );
 
         require(
@@ -98,7 +99,8 @@ contract DeVoxShamanSummonerV1 is
                     _id,
                     _pricePerUnit,
                     _tokensPerUnit,
-                    _target
+                    _target,
+                    _admins
                 )
             )
         );

@@ -11,6 +11,7 @@
     "coverage": "npx hardhat coverage",
     "deploy": "npx hardhat deploy",
     "docgen": "npx hardhat docgen",
+    "verify": "npx hardhat verify",
     "hardhat-local": "hardhat node --hostname 0.0.0.0",
     "lint": "yarn lint:sol && yarn lint:ts && yarn prettier:check",
     "lint:sol": "solhint --config .solhint.json --max-warnings 0 \"contracts/**/*.sol\"",

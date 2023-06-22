@@ -31,12 +31,12 @@ import type {
 
 export declare namespace BaalVotes {
   export type CheckpointStruct = {
-    fromTimePoint: PromiseOrValue<BigNumberish>;
+    fromTimeStamp: PromiseOrValue<BigNumberish>;
     votes: PromiseOrValue<BigNumberish>;
   };
 
   export type CheckpointStructOutput = [number, BigNumber] & {
-    fromTimePoint: number;
+    fromTimeStamp: number;
     votes: BigNumber;
   };
 }
@@ -53,15 +53,13 @@ export interface BaalVotesInterface extends utils.Interface {
     "delegate(address)": FunctionFragment;
     "delegateBySig(address,uint256,uint256,uint8,bytes32,bytes32)": FunctionFragment;
     "delegates(address)": FunctionFragment;
-    "delegationNonces(address)": FunctionFragment;
     "eip712Domain()": FunctionFragment;
     "getCheckpoint(address,uint256)": FunctionFragment;
-    "getPastVotes(address,uint256)": FunctionFragment;
-    "getVotes(address)": FunctionFragment;
+    "getCurrentVotes(address)": FunctionFragment;
+    "getPriorVotes(address,uint256)": FunctionFragment;
     "increaseAllowance(address,uint256)": FunctionFragment;
     "name()": FunctionFragment;
     "nonces(address)": FunctionFragment;
-    "now()": FunctionFragment;
     "numCheckpoints(address)": FunctionFragment;
     "permit(address,address,uint256,uint256,uint8,bytes32,bytes32)": FunctionFragment;
     "symbol()": FunctionFragment;
@@ -82,15 +80,13 @@ export interface BaalVotesInterface extends utils.Interface {
       | "delegate"
       | "delegateBySig"
       | "delegates"
-      | "delegationNonces"
       | "eip712Domain"
       | "getCheckpoint"
-      | "getPastVotes"
-      | "getVotes"
+      | "getCurrentVotes"
+      | "getPriorVotes"
       | "increaseAllowance"
       | "name"
       | "nonces"
-      | "now"
       | "numCheckpoints"
       | "permit"
       | "symbol"
@@ -144,10 +140,6 @@ export interface BaalVotesInterface extends utils.Interface {
     values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
-    functionFragment: "delegationNonces",
-    values: [PromiseOrValue<string>]
-  ): string;
-  encodeFunctionData(
     functionFragment: "eip712Domain",
     values?: undefined
   ): string;
@@ -156,12 +148,12 @@ export interface BaalVotesInterface extends utils.Interface {
     values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
-    functionFragment: "getPastVotes",
-    values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
+    functionFragment: "getCurrentVotes",
+    values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
-    functionFragment: "getVotes",
-    values: [PromiseOrValue<string>]
+    functionFragment: "getPriorVotes",
+    values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
     functionFragment: "increaseAllowance",
@@ -172,7 +164,6 @@ export interface BaalVotesInterface extends utils.Interface {
     functionFragment: "nonces",
     values: [PromiseOrValue<string>]
   ): string;
-  encodeFunctionData(functionFragment: "now", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "numCheckpoints",
     values: [PromiseOrValue<string>]
@@ -230,10 +221,6 @@ export interface BaalVotesInterface extends utils.Interface {
   ): Result;
   decodeFunctionResult(functionFragment: "delegates", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "delegationNonces",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
     functionFragment: "eip712Domain",
     data: BytesLike
   ): Result;
@@ -242,17 +229,19 @@ export interface BaalVotesInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "getPastVotes",
+    functionFragment: "getCurrentVotes",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "getVotes", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "getPriorVotes",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "increaseAllowance",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "name", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "nonces", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "now", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "numCheckpoints",
     data: BytesLike
@@ -402,7 +391,7 @@ export interface BaalVotes extends BaseContract {
       arg1: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<
-      [number, BigNumber] & { fromTimePoint: number; votes: BigNumber }
+      [number, BigNumber] & { fromTimeStamp: number; votes: BigNumber }
     >;
 
     decimals(overrides?: CallOverrides): Promise<[number]>;
@@ -433,11 +422,6 @@ export interface BaalVotes extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[string]>;
 
-    delegationNonces(
-      arg0: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber]>;
-
     eip712Domain(
       overrides?: CallOverrides
     ): Promise<
@@ -458,14 +442,14 @@ export interface BaalVotes extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[BaalVotes.CheckpointStructOutput]>;
 
-    getPastVotes(
+    getCurrentVotes(
       account: PromiseOrValue<string>,
-      timePoint: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<[BigNumber] & { votes: BigNumber }>;
 
-    getVotes(
+    getPriorVotes(
       account: PromiseOrValue<string>,
+      timeStamp: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<[BigNumber] & { votes: BigNumber }>;
 
@@ -481,10 +465,6 @@ export interface BaalVotes extends BaseContract {
       owner: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
-
-    now(
-      overrides?: CallOverrides
-    ): Promise<[BigNumber] & { timePoint: BigNumber }>;
 
     numCheckpoints(
       arg0: PromiseOrValue<string>,
@@ -543,7 +523,7 @@ export interface BaalVotes extends BaseContract {
     arg0: PromiseOrValue<string>,
     arg1: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
-  ): Promise<[number, BigNumber] & { fromTimePoint: number; votes: BigNumber }>;
+  ): Promise<[number, BigNumber] & { fromTimeStamp: number; votes: BigNumber }>;
 
   decimals(overrides?: CallOverrides): Promise<number>;
 
@@ -573,11 +553,6 @@ export interface BaalVotes extends BaseContract {
     overrides?: CallOverrides
   ): Promise<string>;
 
-  delegationNonces(
-    arg0: PromiseOrValue<string>,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
-
   eip712Domain(
     overrides?: CallOverrides
   ): Promise<
@@ -598,14 +573,14 @@ export interface BaalVotes extends BaseContract {
     overrides?: CallOverrides
   ): Promise<BaalVotes.CheckpointStructOutput>;
 
-  getPastVotes(
+  getCurrentVotes(
     account: PromiseOrValue<string>,
-    timePoint: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
-  getVotes(
+  getPriorVotes(
     account: PromiseOrValue<string>,
+    timeStamp: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
@@ -621,8 +596,6 @@ export interface BaalVotes extends BaseContract {
     owner: PromiseOrValue<string>,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
-
-  now(overrides?: CallOverrides): Promise<BigNumber>;
 
   numCheckpoints(
     arg0: PromiseOrValue<string>,
@@ -682,7 +655,7 @@ export interface BaalVotes extends BaseContract {
       arg1: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<
-      [number, BigNumber] & { fromTimePoint: number; votes: BigNumber }
+      [number, BigNumber] & { fromTimeStamp: number; votes: BigNumber }
     >;
 
     decimals(overrides?: CallOverrides): Promise<number>;
@@ -713,11 +686,6 @@ export interface BaalVotes extends BaseContract {
       overrides?: CallOverrides
     ): Promise<string>;
 
-    delegationNonces(
-      arg0: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
     eip712Domain(
       overrides?: CallOverrides
     ): Promise<
@@ -738,14 +706,14 @@ export interface BaalVotes extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BaalVotes.CheckpointStructOutput>;
 
-    getPastVotes(
+    getCurrentVotes(
       account: PromiseOrValue<string>,
-      timePoint: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    getVotes(
+    getPriorVotes(
       account: PromiseOrValue<string>,
+      timeStamp: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -761,8 +729,6 @@ export interface BaalVotes extends BaseContract {
       owner: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
-
-    now(overrides?: CallOverrides): Promise<BigNumber>;
 
     numCheckpoints(
       arg0: PromiseOrValue<string>,
@@ -904,11 +870,6 @@ export interface BaalVotes extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    delegationNonces(
-      arg0: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
     eip712Domain(overrides?: CallOverrides): Promise<BigNumber>;
 
     getCheckpoint(
@@ -917,14 +878,14 @@ export interface BaalVotes extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    getPastVotes(
+    getCurrentVotes(
       account: PromiseOrValue<string>,
-      timePoint: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    getVotes(
+    getPriorVotes(
       account: PromiseOrValue<string>,
+      timeStamp: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -940,8 +901,6 @@ export interface BaalVotes extends BaseContract {
       owner: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
-
-    now(overrides?: CallOverrides): Promise<BigNumber>;
 
     numCheckpoints(
       arg0: PromiseOrValue<string>,
@@ -1031,11 +990,6 @@ export interface BaalVotes extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    delegationNonces(
-      arg0: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
     eip712Domain(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     getCheckpoint(
@@ -1044,14 +998,14 @@ export interface BaalVotes extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    getPastVotes(
+    getCurrentVotes(
       account: PromiseOrValue<string>,
-      timePoint: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    getVotes(
+    getPriorVotes(
       account: PromiseOrValue<string>,
+      timeStamp: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -1067,8 +1021,6 @@ export interface BaalVotes extends BaseContract {
       owner: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
-
-    now(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     numCheckpoints(
       arg0: PromiseOrValue<string>,

@@ -52,7 +52,6 @@ type Proposal @entity {
 type User @entity {
   "User id is an Ethereum address"
   id: Bytes!
-  isPrivate: Boolean!
   donations: [Donation!]! @derivedFrom(field: "user")
   messages: [Message!]! @derivedFrom(field: "user")
   metadata: Bytes!

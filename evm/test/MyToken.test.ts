@@ -8,7 +8,7 @@ import setupTest, { defaultSummonArgs } from "./setup";
 use(solidity);
 
 describe(ContractNames.MyToken, function () {
-  it.only("should deploy with correct parameters", async function () {
+  it("should deploy with correct parameters", async function () {
     // arrange
     const {
       deployer: { address, token },
@@ -21,7 +21,7 @@ describe(ContractNames.MyToken, function () {
     expect(balance).to.equal(process.env.MYTOKEN_INITIAL_SUPPLY);
   });
 
-  it.only("should allow transfer", async function () {
+  it("should allow transfer", async function () {
     // arrange
     const {
       default: { token },

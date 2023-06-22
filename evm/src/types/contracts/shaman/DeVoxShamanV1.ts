@@ -32,17 +32,25 @@ import type {
 
 export interface DeVoxShamanV1Interface extends utils.Interface {
   functions: {
+    "DEFAULT_ADMIN_ROLE()": FunctionFragment;
     "baal()": FunctionFragment;
     "donate(uint256,string)": FunctionFragment;
     "donations(address)": FunctionFragment;
+    "getRoleAdmin(bytes32)": FunctionFragment;
     "getTokenBalance()": FunctionFragment;
+    "grantRole(bytes32,address)": FunctionFragment;
+    "hasRole(bytes32,address)": FunctionFragment;
     "id()": FunctionFragment;
-    "initialize(address,address,uint256,uint256,uint256,uint256)": FunctionFragment;
+    "initialize(address,address,uint256,uint256,uint256,uint256,address[])": FunctionFragment;
     "owner()": FunctionFragment;
     "pricePerUnit()": FunctionFragment;
     "proxiableUUID()": FunctionFragment;
     "renounceOwnership()": FunctionFragment;
+    "renounceRole(bytes32,address)": FunctionFragment;
+    "revokeRole(bytes32,address)": FunctionFragment;
+    "setAdmin(address)": FunctionFragment;
     "setTarget(uint256)": FunctionFragment;
+    "supportsInterface(bytes4)": FunctionFragment;
     "target()": FunctionFragment;
     "token()": FunctionFragment;
     "tokensPerUnit()": FunctionFragment;
@@ -56,17 +64,25 @@ export interface DeVoxShamanV1Interface extends utils.Interface {
 
   getFunction(
     nameOrSignatureOrTopic:
+      | "DEFAULT_ADMIN_ROLE"
       | "baal"
       | "donate"
       | "donations"
+      | "getRoleAdmin"
       | "getTokenBalance"
+      | "grantRole"
+      | "hasRole"
       | "id"
       | "initialize"
       | "owner"
       | "pricePerUnit"
       | "proxiableUUID"
       | "renounceOwnership"
+      | "renounceRole"
+      | "revokeRole"
+      | "setAdmin"
       | "setTarget"
+      | "supportsInterface"
       | "target"
       | "token"
       | "tokensPerUnit"
@@ -78,6 +94,10 @@ export interface DeVoxShamanV1Interface extends utils.Interface {
       | "whitelist"
   ): FunctionFragment;
 
+  encodeFunctionData(
+    functionFragment: "DEFAULT_ADMIN_ROLE",
+    values?: undefined
+  ): string;
   encodeFunctionData(functionFragment: "baal", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "donate",
@@ -88,8 +108,20 @@ export interface DeVoxShamanV1Interface extends utils.Interface {
     values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
+    functionFragment: "getRoleAdmin",
+    values: [PromiseOrValue<BytesLike>]
+  ): string;
+  encodeFunctionData(
     functionFragment: "getTokenBalance",
     values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "grantRole",
+    values: [PromiseOrValue<BytesLike>, PromiseOrValue<string>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "hasRole",
+    values: [PromiseOrValue<BytesLike>, PromiseOrValue<string>]
   ): string;
   encodeFunctionData(functionFragment: "id", values?: undefined): string;
   encodeFunctionData(
@@ -100,7 +132,8 @@ export interface DeVoxShamanV1Interface extends utils.Interface {
       PromiseOrValue<BigNumberish>,
       PromiseOrValue<BigNumberish>,
       PromiseOrValue<BigNumberish>,
-      PromiseOrValue<BigNumberish>
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<string>[]
     ]
   ): string;
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
@@ -117,8 +150,24 @@ export interface DeVoxShamanV1Interface extends utils.Interface {
     values?: undefined
   ): string;
   encodeFunctionData(
+    functionFragment: "renounceRole",
+    values: [PromiseOrValue<BytesLike>, PromiseOrValue<string>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "revokeRole",
+    values: [PromiseOrValue<BytesLike>, PromiseOrValue<string>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "setAdmin",
+    values: [PromiseOrValue<string>]
+  ): string;
+  encodeFunctionData(
     functionFragment: "setTarget",
     values: [PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "supportsInterface",
+    values: [PromiseOrValue<BytesLike>]
   ): string;
   encodeFunctionData(functionFragment: "target", values?: undefined): string;
   encodeFunctionData(functionFragment: "token", values?: undefined): string;
@@ -148,13 +197,23 @@ export interface DeVoxShamanV1Interface extends utils.Interface {
     values: [PromiseOrValue<boolean>, PromiseOrValue<BytesLike>]
   ): string;
 
+  decodeFunctionResult(
+    functionFragment: "DEFAULT_ADMIN_ROLE",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "baal", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "donate", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "donations", data: BytesLike): Result;
   decodeFunctionResult(
+    functionFragment: "getRoleAdmin",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
     functionFragment: "getTokenBalance",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "grantRole", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "hasRole", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "id", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "initialize", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
@@ -170,7 +229,17 @@ export interface DeVoxShamanV1Interface extends utils.Interface {
     functionFragment: "renounceOwnership",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(
+    functionFragment: "renounceRole",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "revokeRole", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "setAdmin", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "setTarget", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "supportsInterface",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "target", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "token", data: BytesLike): Result;
   decodeFunctionResult(
@@ -199,9 +268,12 @@ export interface DeVoxShamanV1Interface extends utils.Interface {
     "DonationReceived(address,address,uint256,uint256,uint256,uint256,uint256,uint256,uint256,string)": EventFragment;
     "Initialized(uint8)": EventFragment;
     "OwnershipTransferred(address,address)": EventFragment;
-    "TargetUpdated(uint256,uint256,uint256)": EventFragment;
+    "RoleAdminChanged(bytes32,bytes32,bytes32)": EventFragment;
+    "RoleGranted(bytes32,address,address)": EventFragment;
+    "RoleRevoked(bytes32,address,address)": EventFragment;
+    "TargetUpdated(address,uint256,uint256,uint256)": EventFragment;
     "Upgraded(address)": EventFragment;
-    "UserWhitelisted(address,bool,bytes)": EventFragment;
+    "UserWhitelisted(address,address,uint256,bool,bytes)": EventFragment;
   };
 
   getEvent(nameOrSignatureOrTopic: "AdminChanged"): EventFragment;
@@ -209,6 +281,9 @@ export interface DeVoxShamanV1Interface extends utils.Interface {
   getEvent(nameOrSignatureOrTopic: "DonationReceived"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "Initialized"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "OwnershipTransferred"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "RoleAdminChanged"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "RoleGranted"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "RoleRevoked"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "TargetUpdated"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "Upgraded"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "UserWhitelisted"): EventFragment;
@@ -285,13 +360,51 @@ export type OwnershipTransferredEvent = TypedEvent<
 export type OwnershipTransferredEventFilter =
   TypedEventFilter<OwnershipTransferredEvent>;
 
+export interface RoleAdminChangedEventObject {
+  role: string;
+  previousAdminRole: string;
+  newAdminRole: string;
+}
+export type RoleAdminChangedEvent = TypedEvent<
+  [string, string, string],
+  RoleAdminChangedEventObject
+>;
+
+export type RoleAdminChangedEventFilter =
+  TypedEventFilter<RoleAdminChangedEvent>;
+
+export interface RoleGrantedEventObject {
+  role: string;
+  account: string;
+  sender: string;
+}
+export type RoleGrantedEvent = TypedEvent<
+  [string, string, string],
+  RoleGrantedEventObject
+>;
+
+export type RoleGrantedEventFilter = TypedEventFilter<RoleGrantedEvent>;
+
+export interface RoleRevokedEventObject {
+  role: string;
+  account: string;
+  sender: string;
+}
+export type RoleRevokedEvent = TypedEvent<
+  [string, string, string],
+  RoleRevokedEventObject
+>;
+
+export type RoleRevokedEventFilter = TypedEventFilter<RoleRevokedEvent>;
+
 export interface TargetUpdatedEventObject {
+  baal: string;
   id: BigNumber;
   target: BigNumber;
   balance: BigNumber;
 }
 export type TargetUpdatedEvent = TypedEvent<
-  [BigNumber, BigNumber, BigNumber],
+  [string, BigNumber, BigNumber, BigNumber],
   TargetUpdatedEventObject
 >;
 
@@ -306,11 +419,13 @@ export type UpgradedEventFilter = TypedEventFilter<UpgradedEvent>;
 
 export interface UserWhitelistedEventObject {
   user: string;
+  baal: string;
+  id: BigNumber;
   status: boolean;
   metadata: string;
 }
 export type UserWhitelistedEvent = TypedEvent<
-  [string, boolean, string],
+  [string, string, BigNumber, boolean, string],
   UserWhitelistedEventObject
 >;
 
@@ -343,6 +458,8 @@ export interface DeVoxShamanV1 extends BaseContract {
   removeListener: OnEvent<this>;
 
   functions: {
+    DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<[string]>;
+
     baal(overrides?: CallOverrides): Promise<[string]>;
 
     donate(
@@ -356,9 +473,26 @@ export interface DeVoxShamanV1 extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
+    getRoleAdmin(
+      role: PromiseOrValue<BytesLike>,
+      overrides?: CallOverrides
+    ): Promise<[string]>;
+
     getTokenBalance(
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
+
+    grantRole(
+      role: PromiseOrValue<BytesLike>,
+      account: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
+    hasRole(
+      role: PromiseOrValue<BytesLike>,
+      account: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<[boolean]>;
 
     id(overrides?: CallOverrides): Promise<[BigNumber]>;
 
@@ -369,6 +503,7 @@ export interface DeVoxShamanV1 extends BaseContract {
       _pricePerUnit: PromiseOrValue<BigNumberish>,
       _tokensPerUnit: PromiseOrValue<BigNumberish>,
       _target: PromiseOrValue<BigNumberish>,
+      _admins: PromiseOrValue<string>[],
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
@@ -382,10 +517,32 @@ export interface DeVoxShamanV1 extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
+    renounceRole(
+      role: PromiseOrValue<BytesLike>,
+      account: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
+    revokeRole(
+      role: PromiseOrValue<BytesLike>,
+      account: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
+    setAdmin(
+      user: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
     setTarget(
       _target: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
+
+    supportsInterface(
+      interfaceId: PromiseOrValue<BytesLike>,
+      overrides?: CallOverrides
+    ): Promise<[boolean]>;
 
     target(overrides?: CallOverrides): Promise<[BigNumber]>;
 
@@ -422,6 +579,8 @@ export interface DeVoxShamanV1 extends BaseContract {
     ): Promise<ContractTransaction>;
   };
 
+  DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<string>;
+
   baal(overrides?: CallOverrides): Promise<string>;
 
   donate(
@@ -435,9 +594,26 @@ export interface DeVoxShamanV1 extends BaseContract {
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
+  getRoleAdmin(
+    role: PromiseOrValue<BytesLike>,
+    overrides?: CallOverrides
+  ): Promise<string>;
+
   getTokenBalance(
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
+
+  grantRole(
+    role: PromiseOrValue<BytesLike>,
+    account: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
+  hasRole(
+    role: PromiseOrValue<BytesLike>,
+    account: PromiseOrValue<string>,
+    overrides?: CallOverrides
+  ): Promise<boolean>;
 
   id(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -448,6 +624,7 @@ export interface DeVoxShamanV1 extends BaseContract {
     _pricePerUnit: PromiseOrValue<BigNumberish>,
     _tokensPerUnit: PromiseOrValue<BigNumberish>,
     _target: PromiseOrValue<BigNumberish>,
+    _admins: PromiseOrValue<string>[],
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
@@ -461,10 +638,32 @@ export interface DeVoxShamanV1 extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
+  renounceRole(
+    role: PromiseOrValue<BytesLike>,
+    account: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
+  revokeRole(
+    role: PromiseOrValue<BytesLike>,
+    account: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
+  setAdmin(
+    user: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
   setTarget(
     _target: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
+
+  supportsInterface(
+    interfaceId: PromiseOrValue<BytesLike>,
+    overrides?: CallOverrides
+  ): Promise<boolean>;
 
   target(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -501,6 +700,8 @@ export interface DeVoxShamanV1 extends BaseContract {
   ): Promise<ContractTransaction>;
 
   callStatic: {
+    DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<string>;
+
     baal(overrides?: CallOverrides): Promise<string>;
 
     donate(
@@ -514,7 +715,24 @@ export interface DeVoxShamanV1 extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    getRoleAdmin(
+      role: PromiseOrValue<BytesLike>,
+      overrides?: CallOverrides
+    ): Promise<string>;
+
     getTokenBalance(overrides?: CallOverrides): Promise<BigNumber>;
+
+    grantRole(
+      role: PromiseOrValue<BytesLike>,
+      account: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    hasRole(
+      role: PromiseOrValue<BytesLike>,
+      account: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<boolean>;
 
     id(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -525,6 +743,7 @@ export interface DeVoxShamanV1 extends BaseContract {
       _pricePerUnit: PromiseOrValue<BigNumberish>,
       _tokensPerUnit: PromiseOrValue<BigNumberish>,
       _target: PromiseOrValue<BigNumberish>,
+      _admins: PromiseOrValue<string>[],
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -536,10 +755,32 @@ export interface DeVoxShamanV1 extends BaseContract {
 
     renounceOwnership(overrides?: CallOverrides): Promise<void>;
 
+    renounceRole(
+      role: PromiseOrValue<BytesLike>,
+      account: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    revokeRole(
+      role: PromiseOrValue<BytesLike>,
+      account: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    setAdmin(
+      user: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
     setTarget(
       _target: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<void>;
+
+    supportsInterface(
+      interfaceId: PromiseOrValue<BytesLike>,
+      overrides?: CallOverrides
+    ): Promise<boolean>;
 
     target(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -593,8 +834,8 @@ export interface DeVoxShamanV1 extends BaseContract {
 
     "DonationReceived(address,address,uint256,uint256,uint256,uint256,uint256,uint256,uint256,string)"(
       contributorAddress?: PromiseOrValue<string> | null,
-      baal?: null,
-      id?: null,
+      baal?: PromiseOrValue<string> | null,
+      id?: PromiseOrValue<BigNumberish> | null,
       amount?: null,
       total?: null,
       target?: null,
@@ -605,8 +846,8 @@ export interface DeVoxShamanV1 extends BaseContract {
     ): DonationReceivedEventFilter;
     DonationReceived(
       contributorAddress?: PromiseOrValue<string> | null,
-      baal?: null,
-      id?: null,
+      baal?: PromiseOrValue<string> | null,
+      id?: PromiseOrValue<BigNumberish> | null,
       amount?: null,
       total?: null,
       target?: null,
@@ -628,13 +869,48 @@ export interface DeVoxShamanV1 extends BaseContract {
       newOwner?: PromiseOrValue<string> | null
     ): OwnershipTransferredEventFilter;
 
-    "TargetUpdated(uint256,uint256,uint256)"(
-      id?: null,
+    "RoleAdminChanged(bytes32,bytes32,bytes32)"(
+      role?: PromiseOrValue<BytesLike> | null,
+      previousAdminRole?: PromiseOrValue<BytesLike> | null,
+      newAdminRole?: PromiseOrValue<BytesLike> | null
+    ): RoleAdminChangedEventFilter;
+    RoleAdminChanged(
+      role?: PromiseOrValue<BytesLike> | null,
+      previousAdminRole?: PromiseOrValue<BytesLike> | null,
+      newAdminRole?: PromiseOrValue<BytesLike> | null
+    ): RoleAdminChangedEventFilter;
+
+    "RoleGranted(bytes32,address,address)"(
+      role?: PromiseOrValue<BytesLike> | null,
+      account?: PromiseOrValue<string> | null,
+      sender?: PromiseOrValue<string> | null
+    ): RoleGrantedEventFilter;
+    RoleGranted(
+      role?: PromiseOrValue<BytesLike> | null,
+      account?: PromiseOrValue<string> | null,
+      sender?: PromiseOrValue<string> | null
+    ): RoleGrantedEventFilter;
+
+    "RoleRevoked(bytes32,address,address)"(
+      role?: PromiseOrValue<BytesLike> | null,
+      account?: PromiseOrValue<string> | null,
+      sender?: PromiseOrValue<string> | null
+    ): RoleRevokedEventFilter;
+    RoleRevoked(
+      role?: PromiseOrValue<BytesLike> | null,
+      account?: PromiseOrValue<string> | null,
+      sender?: PromiseOrValue<string> | null
+    ): RoleRevokedEventFilter;
+
+    "TargetUpdated(address,uint256,uint256,uint256)"(
+      baal?: PromiseOrValue<string> | null,
+      id?: PromiseOrValue<BigNumberish> | null,
       target?: null,
       balance?: null
     ): TargetUpdatedEventFilter;
     TargetUpdated(
-      id?: null,
+      baal?: PromiseOrValue<string> | null,
+      id?: PromiseOrValue<BigNumberish> | null,
       target?: null,
       balance?: null
     ): TargetUpdatedEventFilter;
@@ -646,19 +922,25 @@ export interface DeVoxShamanV1 extends BaseContract {
       implementation?: PromiseOrValue<string> | null
     ): UpgradedEventFilter;
 
-    "UserWhitelisted(address,bool,bytes)"(
+    "UserWhitelisted(address,address,uint256,bool,bytes)"(
       user?: PromiseOrValue<string> | null,
+      baal?: PromiseOrValue<string> | null,
+      id?: PromiseOrValue<BigNumberish> | null,
       status?: null,
       metadata?: null
     ): UserWhitelistedEventFilter;
     UserWhitelisted(
       user?: PromiseOrValue<string> | null,
+      baal?: PromiseOrValue<string> | null,
+      id?: PromiseOrValue<BigNumberish> | null,
       status?: null,
       metadata?: null
     ): UserWhitelistedEventFilter;
   };
 
   estimateGas: {
+    DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<BigNumber>;
+
     baal(overrides?: CallOverrides): Promise<BigNumber>;
 
     donate(
@@ -672,8 +954,25 @@ export interface DeVoxShamanV1 extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    getRoleAdmin(
+      role: PromiseOrValue<BytesLike>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     getTokenBalance(
       overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    grantRole(
+      role: PromiseOrValue<BytesLike>,
+      account: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    hasRole(
+      role: PromiseOrValue<BytesLike>,
+      account: PromiseOrValue<string>,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     id(overrides?: CallOverrides): Promise<BigNumber>;
@@ -685,6 +984,7 @@ export interface DeVoxShamanV1 extends BaseContract {
       _pricePerUnit: PromiseOrValue<BigNumberish>,
       _tokensPerUnit: PromiseOrValue<BigNumberish>,
       _target: PromiseOrValue<BigNumberish>,
+      _admins: PromiseOrValue<string>[],
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
@@ -698,9 +998,31 @@ export interface DeVoxShamanV1 extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
+    renounceRole(
+      role: PromiseOrValue<BytesLike>,
+      account: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    revokeRole(
+      role: PromiseOrValue<BytesLike>,
+      account: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    setAdmin(
+      user: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
     setTarget(
       _target: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    supportsInterface(
+      interfaceId: PromiseOrValue<BytesLike>,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     target(overrides?: CallOverrides): Promise<BigNumber>;
@@ -739,6 +1061,10 @@ export interface DeVoxShamanV1 extends BaseContract {
   };
 
   populateTransaction: {
+    DEFAULT_ADMIN_ROLE(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
     baal(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     donate(
@@ -752,8 +1078,25 @@ export interface DeVoxShamanV1 extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    getRoleAdmin(
+      role: PromiseOrValue<BytesLike>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
     getTokenBalance(
       overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    grantRole(
+      role: PromiseOrValue<BytesLike>,
+      account: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    hasRole(
+      role: PromiseOrValue<BytesLike>,
+      account: PromiseOrValue<string>,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     id(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -765,6 +1108,7 @@ export interface DeVoxShamanV1 extends BaseContract {
       _pricePerUnit: PromiseOrValue<BigNumberish>,
       _tokensPerUnit: PromiseOrValue<BigNumberish>,
       _target: PromiseOrValue<BigNumberish>,
+      _admins: PromiseOrValue<string>[],
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -778,9 +1122,31 @@ export interface DeVoxShamanV1 extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
+    renounceRole(
+      role: PromiseOrValue<BytesLike>,
+      account: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    revokeRole(
+      role: PromiseOrValue<BytesLike>,
+      account: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    setAdmin(
+      user: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
     setTarget(
       _target: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    supportsInterface(
+      interfaceId: PromiseOrValue<BytesLike>,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     target(overrides?: CallOverrides): Promise<PopulatedTransaction>;

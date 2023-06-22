@@ -78,7 +78,7 @@
         "type": "address"
       },
       {
-        "indexed": false,
+        "indexed": true,
         "internalType": "address",
         "name": "shaman",
         "type": "address"
@@ -186,33 +186,13 @@
     "inputs": [
       {
         "internalType": "address",
-        "name": "_moloch",
+        "name": "_baal",
         "type": "address"
       },
       {
-        "internalType": "address payable",
-        "name": "_token",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_pricePerUnit",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_tokensPerUnit",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_target",
-        "type": "uint256"
-      },
-      {
-        "internalType": "string",
-        "name": "_name",
-        "type": "string"
+        "internalType": "bytes",
+        "name": "_initializationParams",
+        "type": "bytes"
       }
     ],
     "name": "summonDeVoxShaman",

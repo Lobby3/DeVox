@@ -10,5 +10,7 @@ coverage.json
 **/generated/**
 **/lib/**
 **/mock/**
-**/subgraph/**
 **/src/types/**
+**/subgraph/abis/**
+**/subgraph/build/**
+**/subgraph/tests/.**

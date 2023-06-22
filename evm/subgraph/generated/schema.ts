@@ -663,19 +663,6 @@ export class User extends Entity {
     this.set("id", Value.fromBytes(value));
   }
 
-  get isPrivate(): boolean {
-    let value = this.get("isPrivate");
-    if (!value || value.kind == ValueKind.NULL) {
-      return false;
-    } else {
-      return value.toBoolean();
-    }
-  }
-
-  set isPrivate(value: boolean) {
-    this.set("isPrivate", Value.fromBoolean(value));
-  }
-
   get donations(): Array<string> {
     let value = this.get("donations");
     if (!value || value.kind == ValueKind.NULL) {

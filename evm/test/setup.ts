@@ -175,16 +175,18 @@ const governanceConfigTX = (formValues: SummonParams) => {
 
 const getShamanInitParams = function (
   tokenAddress: string,
-  shamanArgs: DeVoxShamanSummonArgs
+  shamanArgs: DeVoxShamanSummonArgs,
+  admins: string[]
 ) {
   return abiCoder.encode(
-    ["address", "uint256", "uint256", "uint256", "string"],
+    ["address", "uint256", "uint256", "uint256", "string", "address[]"],
     [
       tokenAddress,
       shamanArgs.pricePerUnit,
       shamanArgs.tokensPerUnit,
       shamanArgs.target,
       shamanArgs.name,
+      admins,
     ]
   );
 };
@@ -242,7 +244,8 @@ const setupTest = deployments.createFixture<
       1,
       1,
       1,
-      1
+      1,
+      [deployer]
     )
   ).to.be.revertedWith("Initializable: contract is already initialized");
 
@@ -258,7 +261,8 @@ const setupTest = deployments.createFixture<
 
   const encodedShamanInitParams = getShamanInitParams(
     tokenSingleton.address,
-    shamanArgs
+    shamanArgs,
+    [deployer]
   );
 
   const tx = await summoner.summonBaalAndShaman(

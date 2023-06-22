@@ -14,7 +14,7 @@ import { MembersSegment } from "../layouts/MemberSegment";
 import { StakeTokensSegment } from "../layouts/StakeTokenSegment";
 import { TimingSegment } from "../layouts/TimingSegment";
 import { SummonStates } from "../types";
-import { fixDaohausUrl, hexadecimalize } from "../utils";
+import { hexadecimalize } from "../utils";
 import { assembleTxArgs } from "../utils/assembleTxArgs";
 import { FORM_KEYS } from "../utils/formKeys";
 import { SummonTX } from "../utils/summonlegos";
@@ -88,10 +88,7 @@ export const SummonerForm = ({
             setTxHash(txHash);
           },
           onPollSuccess(result) {
-            const daoAddress = fixDaohausUrl(
-              result?.data?.transaction?.daoAddress
-            );
-            // const daoAddress = result?.data?.transaction?.daoAddress;
+            const daoAddress = result?.data?.transaction?.daoAddress;
             if (daoAddress) {
               successToast({
                 title: "DAO Summoned",
