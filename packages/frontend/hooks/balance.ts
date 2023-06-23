@@ -14,6 +14,7 @@ export const useBalance = (tokenAddress?: string) => {
   useEffect(() => {
     const getBalance = async () => {
       if (!contract) {
+        console.log("No token contract", tokenAddress);
         return;
       }
 
@@ -27,7 +28,7 @@ export const useBalance = (tokenAddress?: string) => {
       setSymbol(symbol);
     };
     getBalance();
-  }, [contract]);
+  }, [contract, tokenAddress]);
 
   return {
     balance,

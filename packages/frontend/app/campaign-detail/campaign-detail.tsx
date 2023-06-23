@@ -18,6 +18,7 @@ import React from "react";
 
 import CampaignDonateButton from "../../components/campaign-donate-button/campaign-donate-button";
 import CampaignSignButton from "../../components/campaign-sign-button/campaign-sign-button";
+import DonationsOverview from "../../components/donations-overview/donations-overview";
 import ErrorScreen from "../../components/error-screen/error-screen";
 import Loader from "../../components/loader/loader";
 import { useCampaignData, useGetCampaign } from "../../graph/campaigns";
@@ -30,6 +31,7 @@ export interface CampaignDetailProps {
 const CampaignDetail = ({ campaignId }: CampaignDetailProps) => {
   const { data: campaign, isLoading, isError } = useGetCampaign(campaignId);
   const { imageUrl, description } = useCampaignData(campaignId);
+  const [tab, setTab] = React.useState<"details" | "donations">("donations");
 
   console.log(campaignId, campaign, isLoading, isError, imageUrl, description);
 
@@ -99,17 +101,30 @@ const CampaignDetail = ({ campaignId }: CampaignDetailProps) => {
                 </VStack>
               </HStack>
               <VStack
+                width={"100%"}
                 spacing={8}
                 alignItems={"flex-start"}
                 paddingX={"40px"}
                 paddingBottom={"40px"}
               >
                 <HStack>
-                  <Button variant={"solid"}>Details</Button>
-                  <Button variant={"outline"}>Contributions</Button>
-                  <Button variant={"outline"}>Governance</Button>
+                  <Button
+                    onClick={() => setTab("details")}
+                    variant={tab === "details" ? "solid" : "outline"}
+                  >
+                    Details
+                  </Button>
+                  <Button
+                    onClick={() => setTab("donations")}
+                    variant={tab === "donations" ? "solid" : "outline"}
+                  >
+                    Contributions
+                  </Button>
                 </HStack>
-                <Text>{description}</Text>
+                {tab === "details" && <Text>{description}</Text>}
+                {tab === "donations" && (
+                  <DonationsOverview campaignId={campaignId} />
+                )}
               </VStack>
             </VStack>
           </Flex>

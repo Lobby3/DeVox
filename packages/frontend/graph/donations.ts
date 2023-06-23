@@ -13,7 +13,74 @@ interface Donation {
   message: {
     text: string;
   };
+  user: {
+    id: string;
+  };
 }
+
+const donationFragment = gql`
+  fragment DonationFragment on Donation {
+    id
+    amount
+    timestamp
+    shares
+    loot
+    message {
+      text
+    }
+    user {
+      id
+    }
+  }
+`;
+
+//
+// export const useUserHasVerifiedZipCode = (userAddress?: string) => {
+//   const { account } = useWeb3React();
+//
+//   const address = userAddress || account;
+//
+//   return useQuery(["zipCode", address], async () => {
+//     if (!address) {
+//       return false;
+//     }
+//     const result = await graphQLClient.request(
+//       gql`;
+//         query GetUser($address: String!) {
+//           user(id: $address) {
+//             zipCode
+//           }
+//         }
+//       `,
+//       { address }
+//     );
+//     return (result as { user: { zipCode: string } }).user.zipCode !== null;
+//   });
+// };
+
+export const useGetDonationsForCampaign = (campaignId: string) => {
+  return useQuery(["donations", campaignId], async () => {
+    return graphQLClient
+      .request(
+        gql`
+          ${donationFragment}
+          query GetDonations($campaignId: String!) {
+            donations(
+              where: { campaign: $campaignId }
+              orderBy: timestamp
+              orderDirection: desc
+            ) {
+              ...DonationFragment
+            }
+          }
+        `,
+        { campaignId }
+      )
+      .then((result) => {
+        return (result as { donations: Donation[] }).donations;
+      });
+  });
+};
 
 export const useGetDonationsForUser = (
   campaignId: string,
@@ -30,20 +97,14 @@ export const useGetDonationsForUser = (
     return graphQLClient
       .request(
         gql`
-          query GetDonations($campaignId: String!, $address: String!) {
+          ${donationFragment}
+          query GetDonations($campaignId: String!) {
             donations(
-              where: { campaign: $campaignId, user: $address }
+              where: { campaign: $campaignId }
               orderBy: timestamp
               orderDirection: desc
             ) {
-              id
-              amount
-              timestamp
-              shares
-              loot
-              message {
-                text
-              }
+              ...DonationFragment
             }
           }
         `,
