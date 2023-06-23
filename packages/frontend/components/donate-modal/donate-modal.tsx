@@ -6,6 +6,7 @@ import {
   Button,
   FormControl,
   FormErrorMessage,
+  FormLabel,
   Heading,
   Input,
   InputGroup,
@@ -56,6 +57,7 @@ export function DonateModal({ isOpen, onClose, campaignId }: DonateModalProps) {
           <Formik
             initialValues={{
               amount: 0,
+              message: "",
             }}
             validate={(values) => {
               const errors: Record<string, string> = {};
@@ -68,7 +70,7 @@ export function DonateModal({ isOpen, onClose, campaignId }: DonateModalProps) {
               try {
                 const txHash = await donate.mutateAsync({
                   amountInToken: values.amount,
-                  message: "",
+                  message: values.message,
                 });
                 console.log(txHash);
                 setStep("success");
@@ -117,6 +119,7 @@ export function DonateModal({ isOpen, onClose, campaignId }: DonateModalProps) {
                           isRequired
                           isInvalid={!!errors.amount}
                         >
+                          <FormLabel>Amount</FormLabel>
                           <InputGroup>
                             <InputLeftElement
                               pointerEvents="none"
@@ -132,6 +135,22 @@ export function DonateModal({ isOpen, onClose, campaignId }: DonateModalProps) {
                             />
                           </InputGroup>
                           <FormErrorMessage>{errors.amount}</FormErrorMessage>
+                        </FormControl>
+                        <FormControl
+                          maxWidth={300}
+                          isInvalid={!!errors.message}
+                        >
+                          <FormLabel>Message</FormLabel>
+                          <Input
+                            type="text"
+                            maxLength={32}
+                            name="message"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values.message}
+                            isDisabled={!isActive}
+                          />
+                          <FormErrorMessage>{errors.message}</FormErrorMessage>
                         </FormControl>
                         {symbol && (
                           <Text>

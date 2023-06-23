@@ -25,8 +25,7 @@ export const useDonate = (campaignId: string) => {
         throw new Error("No contract");
       }
 
-      console.log(amountInToken, decimals);
-      const encodedMessage = ethers.utils.toUtf8Bytes(message);
+      const encodedMessage = ethers.utils.formatBytes32String(message);
       const amountInTokenWithDecimals = BigNumber.from(
         amountInToken * 10 ** decimals
       );

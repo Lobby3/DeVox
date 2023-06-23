@@ -22,8 +22,6 @@ export function DonationsOverview({ campaignId }: DonationsOverviewProps) {
   } = useGetDonationsForCampaign(campaignId);
   const { decimals, symbol } = useBalance(campaign?.tokenAddress);
 
-  console.log(decimals);
-
   if (isLoading) {
     return <Loader />;
   }
@@ -35,7 +33,7 @@ export function DonationsOverview({ campaignId }: DonationsOverviewProps) {
   return (
     <List>
       {donations.map((donation) => (
-        <ListItem display={"flex"} alignItems={"center"}>
+        <ListItem key={donation.id} display={"flex"} alignItems={"center"}>
           <ListIcon as={CircleStackIcon} color="green.500" />
           <Text>
             <b>
