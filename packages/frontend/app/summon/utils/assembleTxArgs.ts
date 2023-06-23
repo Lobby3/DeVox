@@ -21,6 +21,11 @@ import { TreasuryTokenKeychains } from "./wellKnown";
 
 export type ArgType = string | number | boolean | BigNumber | ArgType[];
 
+export type ExtendedSummonParams = SummonParams & {
+  daoDescription?: string;
+  daoAvatarImg?: string;
+};
+
 export const assembleTxArgs = (
   formValues: Record<string, unknown>,
   chainId: ValidNetwork
@@ -134,7 +139,10 @@ const governanceConfigTX = (formValues: SummonParams) => {
   throw new Error("Encoding Error");
 };
 
-const metadataConfigTX = (formValues: SummonParams, posterAddress: string) => {
+const metadataConfigTX = (
+  formValues: ExtendedSummonParams,
+  posterAddress: string
+) => {
   const { daoName, daoDescription, daoAvatarImg } = formValues;
   if (!isString(daoName)) {
     console.error("ERROR: Form Values", formValues);
@@ -142,7 +150,11 @@ const metadataConfigTX = (formValues: SummonParams, posterAddress: string) => {
   }
 
   const METADATA = encodeFunction(LOCAL_ABI.POSTER, "post", [
-    JSON.stringify({ name: daoName, description: daoDescription, avatarImg: daoAvatarImg }),
+    JSON.stringify({
+      name: daoName,
+      description: daoDescription,
+      avatarImg: daoAvatarImg,
+    }),
     POSTER_TAGS.summoner,
   ]);
 
