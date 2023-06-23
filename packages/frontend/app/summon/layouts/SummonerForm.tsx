@@ -184,6 +184,13 @@ export const SummonerForm = ({
             full
             disabled={formDisabled}
           />
+          <WrappedInput
+            id={FORM_KEYS.DAO_AVATAR_IMG_URL}
+            label="Campaign Avatar Image URL"
+            placeholder="Campaign Avatar Image URL"
+            full
+            disabled={formDisabled}
+          />
           <Divider className="top-divider" />
         </div>
         <TreasuryTokenSegment formDisabled={formDisabled} />

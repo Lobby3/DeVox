@@ -135,14 +135,14 @@ const governanceConfigTX = (formValues: SummonParams) => {
 };
 
 const metadataConfigTX = (formValues: SummonParams, posterAddress: string) => {
-  const { daoName, daoDescription } = formValues;
+  const { daoName, daoDescription, daoAvatarImg } = formValues;
   if (!isString(daoName)) {
     console.error("ERROR: Form Values", formValues);
     throw new Error("metadataTX recieved arguments in the wrong shape or type");
   }
 
   const METADATA = encodeFunction(LOCAL_ABI.POSTER, "post", [
-    JSON.stringify({ name: daoName, description: daoDescription }),
+    JSON.stringify({ name: daoName, description: daoDescription, avatarImg: daoAvatarImg }),
     POSTER_TAGS.summoner,
   ]);
 

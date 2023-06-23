@@ -1,6 +1,7 @@
 export const FORM_KEYS = {
   DAO_NAME: 'daoName',
   DAO_DESCRIPTION: 'daoDescription',
+  DAO_AVATAR_IMG_URL: 'daoAvatarImg',
   TOKEN_NAME: 'tokenName',
   TOKEN_SYMBOL: 'tokenSymbol',
   LOOT_TOKEN_NAME: 'lootTokenName',
