@@ -3,9 +3,11 @@ import {
   SummonParams,
   encodeMintParams,
   encodeTokenParams,
+  handleKeychains,
 } from "@daohaus/contract-utils";
 import { ValidNetwork } from "@daohaus/keychain-utils";
 import {
+  POSTER_TAGS,
   encodeFunction,
   encodeValues,
   getNonce,
@@ -13,10 +15,16 @@ import {
   isString,
 } from "@daohaus/utils";
 import { BigNumber } from "ethers";
+
 import { FORM_KEYS } from "./formKeys";
 import { TreasuryTokenKeychains } from "./wellKnown";
 
 export type ArgType = string | number | boolean | BigNumber | ArgType[];
+
+export type ExtendedSummonParams = SummonParams & {
+  daoDescription?: string;
+  daoAvatarImg?: string;
+};
 
 export const assembleTxArgs = (
   formValues: Record<string, unknown>,
@@ -40,13 +48,23 @@ export const assembleTxArgs = (
     );
   }
 
+  const { POSTER } = handleKeychains(chainId);
   const mintParams = encodeMintParams(formValues);
   const tokenParams = encodeTokenParams(formValues);
 
-  const baalInitActions = [governanceConfigTX(formValues)];
+  const baalInitActions = [
+    governanceConfigTX(formValues),
+    metadataConfigTX(formValues, POSTER),
+  ];
 
   const shamanArgs = getShamanInitParams(formValues, chainId);
-  const args = [getNonce(), mintParams, tokenParams, baalInitActions, shamanArgs];
+  const args = [
+    getNonce(),
+    mintParams,
+    tokenParams,
+    baalInitActions,
+    shamanArgs,
+  ];
   console.log("args", args);
 
   return args;
@@ -54,7 +72,7 @@ export const assembleTxArgs = (
 
 const getShamanInitParams = function (
   formValues: Record<string, unknown>,
-  chainId: ValidNetwork,
+  chainId: ValidNetwork
 ) {
   const tokenSymbol = formValues[FORM_KEYS.TREASURY_TOKEN];
   if (!isString(tokenSymbol)) throw new Error("tokenSymbol is not a string");
@@ -121,25 +139,32 @@ const governanceConfigTX = (formValues: SummonParams) => {
   throw new Error("Encoding Error");
 };
 
-// const metadataConfigTX = (formValues: SummonParams, posterAddress: string) => {
-//   const { daoName } = formValues;
-//   if (!isString(daoName)) {
-//     console.log("ERROR: Form Values", formValues);
-//     throw new Error("metadataTX recieved arguments in the wrong shape or type");
-//   }
+const metadataConfigTX = (
+  formValues: ExtendedSummonParams,
+  posterAddress: string
+) => {
+  const { daoName, daoDescription, daoAvatarImg } = formValues;
+  if (!isString(daoName)) {
+    console.error("ERROR: Form Values", formValues);
+    throw new Error("metadataTX recieved arguments in the wrong shape or type");
+  }
 
-//   const METADATA = encodeFunction(LOCAL_ABI.POSTER, "post", [
-//     JSON.stringify({ name: daoName }),
-//     POSTER_TAGS.summoner,
-//   ]);
+  const METADATA = encodeFunction(LOCAL_ABI.POSTER, "post", [
+    JSON.stringify({
+      name: daoName,
+      description: daoDescription,
+      avatarImg: daoAvatarImg,
+    }),
+    POSTER_TAGS.summoner,
+  ]);
 
-//   const encoded = encodeFunction(LOCAL_ABI.BAAL, "executeAsBaal", [
-//     posterAddress,
-//     0,
-//     METADATA,
-//   ]);
-//   if (isString(encoded)) {
-//     return encoded;
-//   }
-//   throw new Error("Encoding Error");
-// };
+  const encoded = encodeFunction(LOCAL_ABI.BAAL, "executeAsBaal", [
+    posterAddress,
+    0,
+    METADATA,
+  ]);
+  if (isString(encoded)) {
+    return encoded;
+  }
+  throw new Error("Encoding Error");
+};
