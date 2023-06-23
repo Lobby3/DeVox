@@ -1,18 +1,27 @@
 import { GridItem, SimpleGrid } from "@chakra-ui/react";
 import React from "react";
 
-import { Campaign } from "../../types/Campaign";
+import { useGetCampaigns } from "../../graph/campaigns";
 import CampaignTile from "../campaign-tile/campaign-tile";
+import ErrorScreen from "../error-screen/error-screen";
+import Loader from "../loader/loader";
 
-/* eslint-disable-next-line */
-export interface CampaignGridViewProps {
-  campaigns: Campaign[];
-}
+export interface CampaignGridViewProps {}
 
-export function CampaignGridView({ campaigns }: CampaignGridViewProps) {
+export function CampaignGridView(props: CampaignGridViewProps) {
+  const { data, isLoading, isError } = useGetCampaigns();
+
+  if (isLoading) {
+    return <Loader />;
+  }
+
+  if (isError) {
+    return <ErrorScreen />;
+  }
+
   return (
     <SimpleGrid gap={6} width="100%" minChildWidth={"340px"}>
-      {campaigns.map((campaign) => (
+      {(data || []).map((campaign) => (
         <GridItem key={campaign.id}>
           <CampaignTile campaign={campaign} />
         </GridItem>

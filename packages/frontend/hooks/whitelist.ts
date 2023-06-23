@@ -3,10 +3,12 @@ import { ethers } from "ethers";
 import { JSEncrypt } from "jsencrypt";
 import { toast } from "react-toastify";
 
+import { useGetCampaign } from "../graph/campaigns";
 import { useShamanContract } from "./contracts";
 
-export const useShamanWhitelist = () => {
-  const shamanContract = useShamanContract();
+export const useShamanWhitelist = (campaignId: string) => {
+  const { data } = useGetCampaign(campaignId);
+  const shamanContract = useShamanContract(data?.shamanAddress);
 
   return useMutation(
     ["shaman-whitelist"],

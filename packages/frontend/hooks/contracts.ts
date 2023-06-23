@@ -2,12 +2,11 @@ import { useWeb3React } from "@web3-react/core";
 import { Contract, ethers } from "ethers";
 import { useEffect, useState } from "react";
 
-import { ERC20__factory } from "../../../evm/src/types";
 import { _abi } from "../contract-types/erc20";
 
 const shamanContractJson = require("../contract-types/DeVoxShamanV1.json");
 
-export const useShamanContract = () => {
+export const useShamanContract = (shamanAddress?: string) => {
   const [contract, setContract] = useState<Contract | null>(null);
   const {
     hooks: { usePriorityProvider },
@@ -21,33 +20,31 @@ export const useShamanContract = () => {
       return;
     }
 
-    const contract = new Contract(
-      "0x2586e966863be18288c60c743bb945a45ec9e86b",
-      abi,
-      provider.getSigner()
-    );
+    if (!shamanAddress) {
+      return;
+    }
+
+    const contract = new Contract(shamanAddress, abi, provider.getSigner());
 
     setContract(contract);
-  }, [provider]);
+  }, [provider, shamanAddress]);
   return contract;
 };
 
-export const useTokenContract = () => {
+export const useTokenContract = (tokenAddress?: string) => {
   const [contract, setContract] = useState<Contract | null>(null);
   const {
     hooks: { usePriorityProvider },
   } = useWeb3React();
   const provider = usePriorityProvider();
-  const shamanContract = useShamanContract();
 
   useEffect(() => {
     const getTokenContract = async () => {
-      if (!shamanContract) {
+      if (!provider) {
         return;
       }
-      const tokenAddress = await shamanContract.token();
 
-      if (!provider) {
+      if (!tokenAddress) {
         return;
       }
 
@@ -59,6 +56,6 @@ export const useTokenContract = () => {
       setContract(tokenContract);
     };
     getTokenContract();
-  }, [provider, shamanContract]);
+  }, [provider, tokenAddress]);
   return contract;
 };

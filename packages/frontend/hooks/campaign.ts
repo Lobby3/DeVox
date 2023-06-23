@@ -1,4 +1,6 @@
 // 5 mock campaigns
+import _ from "lodash";
+
 import { Campaign } from "../types/Campaign";
 
 const mockCampaignData: Campaign[] = [
@@ -74,6 +76,14 @@ const mockCampaignData: Campaign[] = [
     numberOfSigners: 252,
   },
 ];
+
+export const getRandomCampaignImage = () => {
+  return _.shuffle(mockCampaignData.map((x) => x.imageUrl))[0];
+};
+
+export const getRandomCampaignDescription = () => {
+  return _.shuffle(mockCampaignData.map((x) => x.description))[0];
+};
 
 export const useCampaignInfo = (campaignId: string) => {
   return mockCampaignData.find((campaign) => campaign.id === campaignId);
