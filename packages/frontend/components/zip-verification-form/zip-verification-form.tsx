@@ -21,9 +21,13 @@ import { useShamanWhitelist } from "../../hooks/whitelist";
 
 export interface ZipVerificationFormProps {
   campaignId: string;
+  onSuccessfulVerification: () => void;
 }
 
-const ZipVerificationForm = ({ campaignId }: ZipVerificationFormProps) => {
+const ZipVerificationForm = ({
+  campaignId,
+  onSuccessfulVerification,
+}: ZipVerificationFormProps) => {
   const { isActive } = useWeb3React();
   const whiteList = useShamanWhitelist(campaignId);
 
@@ -56,6 +60,7 @@ const ZipVerificationForm = ({ campaignId }: ZipVerificationFormProps) => {
             share: values.shareZipCode,
           });
           console.log(txHash);
+          onSuccessfulVerification();
         } catch (e) {
           console.log(e);
           toast("Error submitting ZIP Code", {

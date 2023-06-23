@@ -1,0 +1,7 @@
+schema: schema.graphql
+documents: '**/*.graphql'
+extensions:
+    endpoints:
+        default:
+          url: https://api.thegraph.com/subgraphs/name/moconnell/lobby3-devox
+          introspect: true

@@ -3,8 +3,12 @@ import { ArrowRightIcon } from "@heroicons/react/20/solid";
 import Link from "next/link";
 import React from "react";
 
+import { Campaign } from "../../graph/campaigns";
+import {
+  getRandomCampaignDescription,
+  getRandomCampaignImage,
+} from "../../hooks/campaign";
 import { headerBackground } from "../../styles/colors";
-import { Campaign } from "../../types/Campaign";
 import Funded from "../tags/funded/funded";
 
 export interface CampaignTileProps {
@@ -12,6 +16,8 @@ export interface CampaignTileProps {
 }
 
 export function CampaignTile({ campaign }: CampaignTileProps) {
+  const imageUrl = getRandomCampaignImage();
+  const description = getRandomCampaignDescription();
   return (
     <VStack
       alignItems={"flex-start"}
@@ -22,7 +28,7 @@ export function CampaignTile({ campaign }: CampaignTileProps) {
       height="100%"
     >
       <Image
-        src={campaign.imageUrl}
+        src={imageUrl}
         alt=""
         width="368px"
         height="368px"
@@ -30,7 +36,7 @@ export function CampaignTile({ campaign }: CampaignTileProps) {
       />
       <Funded />
       <Heading textTransform="uppercase">{campaign.name}</Heading>
-      <Text noOfLines={3}>{campaign.description}</Text>
+      <Text noOfLines={3}>{description}</Text>
       <Flex flexGrow={1} alignItems={"flex-end"}>
         <Link href={`campaign/${campaign.id}`}>
           <Button

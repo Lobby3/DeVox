@@ -4,12 +4,11 @@ import { useEffect, useState } from "react";
 
 import { useTokenContract } from "./contracts";
 
-export const useBalance = () => {
-  const contract = useTokenContract();
+export const useBalance = (tokenAddress?: string) => {
+  const contract = useTokenContract(tokenAddress);
   const [balance, setBalance] = useState(BigNumber.from(0));
   const [decimals, setDecimals] = useState(0);
   const [symbol, setSymbol] = useState("");
-  const [tokenAddress, setTokenAddress] = useState("");
   const { account } = useWeb3React();
 
   useEffect(() => {
@@ -17,8 +16,6 @@ export const useBalance = () => {
       if (!contract) {
         return;
       }
-
-      setTokenAddress(contract.address);
 
       const [balance, decimals, symbol] = await Promise.all([
         contract.balanceOf(account),

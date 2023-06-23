@@ -2,16 +2,18 @@ import { useMutation } from "@tanstack/react-query";
 import { BigNumber, ethers } from "ethers";
 import { toast } from "react-toastify";
 
+import { useGetCampaign } from "../graph/campaigns";
 import { useBalance } from "./balance";
 import { useShamanContract, useTokenContract } from "./contracts";
 
-export const useDonate = () => {
-  const shamanContract = useShamanContract();
-  const tokenContract = useTokenContract();
-  const { decimals } = useBalance();
+export const useDonate = (campaignId: string) => {
+  const { data } = useGetCampaign(campaignId);
+  const shamanContract = useShamanContract(data?.shamanAddress);
+  const tokenContract = useTokenContract(data?.tokenAddress);
+  const { decimals } = useBalance(data?.tokenAddress);
 
   return useMutation(
-    ["donate"],
+    ["donate", campaignId],
     async ({
       amountInToken,
       message,
@@ -23,6 +25,7 @@ export const useDonate = () => {
         throw new Error("No contract");
       }
 
+      console.log(amountInToken, decimals);
       const encodedMessage = ethers.utils.toUtf8Bytes(message);
       const amountInTokenWithDecimals = BigNumber.from(
         amountInToken * 10 ** decimals
@@ -43,6 +46,7 @@ export const useDonate = () => {
         type: "success",
       });
       return txHash;
-    }
+    },
+    {}
   );
 };

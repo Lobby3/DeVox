@@ -25,23 +25,33 @@ import { Form, Formik } from "formik";
 import React from "react";
 import { toast } from "react-toastify";
 
+import { useGetCampaign } from "../../graph/campaigns";
 import { useBalance } from "../../hooks/balance";
 import { useDonate } from "../../hooks/donate";
+import ZipVerificationForm from "../zip-verification-form/zip-verification-form";
 
-export interface DonateModalProps extends ModalProps {}
+export interface DonateModalProps extends Omit<ModalProps, "children"> {
+  campaignId: string;
+}
 
-export function DonateModal({
-  isOpen,
-  onClose,
-}: Omit<DonateModalProps, "children">) {
-  const [step, setStep] = React.useState<"donate" | "success">("donate");
+export function DonateModal({ isOpen, onClose, campaignId }: DonateModalProps) {
+  const { data } = useGetCampaign(campaignId);
+  const [step, setStep] = React.useState<
+    "zip-verification" | "donate" | "success"
+  >("donate");
   const { isActive } = useWeb3React();
-  const { formattedBalance, symbol } = useBalance();
-  const donate = useDonate();
+  const { formattedBalance, symbol } = useBalance(data?.tokenAddress);
+  const donate = useDonate(campaignId);
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
-      <ModalContent p={4}>
+      <ModalContent p={4} my="auto">
+        {step === "zip-verification" && (
+          <ZipVerificationForm
+            campaignId={campaignId}
+            onSuccessfulVerification={() => setStep("donate")}
+          />
+        )}
         {step === "donate" && (
           <Formik
             initialValues={{
