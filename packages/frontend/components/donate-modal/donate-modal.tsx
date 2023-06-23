@@ -39,7 +39,7 @@ export function DonateModal({ isOpen, onClose, campaignId }: DonateModalProps) {
   const { data } = useGetCampaign(campaignId);
   const [step, setStep] = React.useState<
     "zip-verification" | "donate" | "success"
-  >("donate");
+  >("zip-verification");
   const { isActive } = useWeb3React();
   const { formattedBalance, symbol } = useBalance(data?.tokenAddress);
   const donate = useDonate(campaignId);
