@@ -165,8 +165,8 @@ export const SummonerForm = ({
         <div>
           <WrappedInput
             id={FORM_KEYS.DAO_NAME}
-            label="Campaign DAO Name"
-            placeholder="Campaign DAO Name"
+            label="Campaign Name"
+            placeholder="Campaign Name"
             full
             disabled={formDisabled}
             rules={{
@@ -176,6 +176,13 @@ export const SummonerForm = ({
                 message: "Campaign name must be 128 characters or less",
               },
             }}
+          />
+          <WrappedInput
+            id={FORM_KEYS.DAO_DESCRIPTION}
+            label="Campaign Description"
+            placeholder="Campaign Description"
+            full
+            disabled={formDisabled}
           />
           <Divider className="top-divider" />
         </div>
