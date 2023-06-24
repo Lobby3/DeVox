@@ -13,7 +13,7 @@ describe("CampaignDonateButton", () => {
       const { baseElement } = render(
         <MagicWalletProvider>
           <QueryClientProvider client={queryClient}>
-            <CampaignDonateButton />
+            <CampaignDonateButton campaignId="" />
           </QueryClientProvider>
         </MagicWalletProvider>
       );

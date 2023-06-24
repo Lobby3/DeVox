@@ -27,7 +27,7 @@ describe("CampaignGridView", () => {
     ];
 
     // act
-    const { baseElement } = render(<CampaignGridView campaigns={campaigns} />);
+    const { baseElement } = render(<CampaignGridView />);
 
     // assert
     expect(baseElement).toBeTruthy();

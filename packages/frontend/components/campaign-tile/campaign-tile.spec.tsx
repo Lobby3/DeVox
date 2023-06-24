@@ -11,7 +11,7 @@ describe("CampaignTile", () => {
       name: "test",
       description: "test",
       imageUrl: "https://test.com/test.png",
-      target: 1,
+      target: "1",
       treasury: "test",
       votingPeriod: 1,
       gracePeriod: 1,
@@ -20,8 +20,12 @@ describe("CampaignTile", () => {
       tokenAddress: "0x000",
       tokenSymbol: "test",
       tokenDecimals: 1,
-      total: 1,
+      total: "1",
       numberOfSigners: 1,
+      pricePerUnit: "1",
+      tokensPerUnit: "1",
+      proposals: [],
+      donations: [],
     };
 
     // act
