@@ -29,6 +29,7 @@ import { toast } from "react-toastify";
 import { useGetCampaign } from "../../graph/campaigns";
 import { useBalance } from "../../hooks/balance";
 import { useDonate } from "../../hooks/donate";
+import { useTokenInfo } from "../../hooks/token";
 import ZipVerificationForm from "../zip-verification-form/zip-verification-form";
 
 export interface DonateModalProps extends Omit<ModalProps, "children"> {
@@ -41,7 +42,8 @@ export function DonateModal({ isOpen, onClose, campaignId }: DonateModalProps) {
     "zip-verification" | "donate" | "success"
   >("zip-verification");
   const { isActive } = useWeb3React();
-  const { formattedBalance, symbol } = useBalance(data?.tokenAddress);
+  const { formattedBalance } = useBalance(data?.tokenAddress);
+  const { symbol } = useTokenInfo(data?.tokenAddress);
   const donate = useDonate(campaignId);
   return (
     <Modal isOpen={isOpen} onClose={onClose}>

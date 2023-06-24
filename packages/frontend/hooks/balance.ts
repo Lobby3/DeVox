@@ -3,13 +3,13 @@ import { BigNumber, ethers } from "ethers";
 import { useEffect, useState } from "react";
 
 import { useTokenContract } from "./contracts";
+import { useTokenInfo } from "./token";
 
 export const useBalance = (tokenAddress?: string) => {
   const contract = useTokenContract(tokenAddress);
   const [balance, setBalance] = useState(BigNumber.from(0));
-  const [decimals, setDecimals] = useState(0);
-  const [symbol, setSymbol] = useState("");
   const { account } = useWeb3React();
+  const { decimals } = useTokenInfo(tokenAddress);
 
   useEffect(() => {
     const getBalance = async () => {
@@ -18,22 +18,14 @@ export const useBalance = (tokenAddress?: string) => {
         return;
       }
 
-      const [balance, decimals, symbol] = await Promise.all([
-        contract.balanceOf(account),
-        contract.decimals(),
-        contract.symbol(),
-      ]);
+      const balance = await contract.balanceOf(account);
       setBalance(balance);
-      setDecimals(decimals);
-      setSymbol(symbol);
     };
     getBalance();
   }, [contract, tokenAddress]);
 
   return {
     balance,
-    decimals,
-    symbol,
     formattedBalance: ethers.utils.formatUnits(balance, decimals),
     tokenAddress,
   };

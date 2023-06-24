@@ -14,6 +14,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { CircleStackIcon, PencilSquareIcon } from "@heroicons/react/24/outline";
+import { ethers } from "ethers";
 import React from "react";
 
 import CampaignDonateButton from "../../components/campaign-donate-button/campaign-donate-button";
@@ -22,6 +23,7 @@ import DonationsOverview from "../../components/donations-overview/donations-ove
 import ErrorScreen from "../../components/error-screen/error-screen";
 import Loader from "../../components/loader/loader";
 import { useCampaignData, useGetCampaign } from "../../graph/campaigns";
+import { useTokenInfo } from "../../hooks/token";
 import { headerBackground } from "../../styles/colors";
 
 export interface CampaignDetailProps {
@@ -31,9 +33,8 @@ export interface CampaignDetailProps {
 const CampaignDetail = ({ campaignId }: CampaignDetailProps) => {
   const { data: campaign, isLoading, isError } = useGetCampaign(campaignId);
   const { imageUrl, description } = useCampaignData(campaignId);
+  const { decimals } = useTokenInfo(campaign?.tokenAddress);
   const [tab, setTab] = React.useState<"details" | "donations">("donations");
-
-  console.log(campaignId, campaign, isLoading, isError, imageUrl, description);
 
   if (isLoading) {
     return <Loader />;
@@ -51,8 +52,10 @@ const CampaignDetail = ({ campaignId }: CampaignDetailProps) => {
     );
   }
 
+  const formattedTotal = ethers.utils.formatUnits(campaign.total, decimals);
+
   const progressValue =
-    (Number(campaign.total) / Number(campaign.target)) * 100;
+    (Number(formattedTotal) / Number(campaign.target)) * 100;
 
   return (
     <>
@@ -88,7 +91,7 @@ const CampaignDetail = ({ campaignId }: CampaignDetailProps) => {
                   </Flex>
                   <Flex alignItems={"center"}>
                     <Heading size={"sm"} mr={2}>
-                      ${campaign.total}/{campaign.target}
+                      ${Number(formattedTotal)}/{campaign.target}
                     </Heading>
                     <Box width="200px" mr={2}>
                       <Progress

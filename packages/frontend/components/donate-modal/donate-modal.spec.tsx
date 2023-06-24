@@ -14,7 +14,7 @@ describe("DonateModal", () => {
       const { baseElement } = render(
         <MagicWalletProvider>
           <QueryClientProvider client={queryClient}>
-            <DonateModal isOpen={false} onClose={() => {}} />
+            <DonateModal campaignId="" isOpen={false} onClose={() => {}} />
           </QueryClientProvider>
         </MagicWalletProvider>
       );
