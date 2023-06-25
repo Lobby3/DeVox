@@ -1,6 +1,12 @@
 import { log } from "matchstick-as";
 
-import { Campaign, Donation, Message, Signature, User } from "../generated/schema";
+import {
+  Campaign,
+  Donation,
+  Message,
+  Signature,
+  User,
+} from "../generated/schema";
 import {
   AdminChanged,
   BeaconUpgraded,
@@ -61,7 +67,9 @@ export function handleInitialized(event: Initialized): void {
 }
 
 export function handleSigned(event: UserSigned): void {
-  const signature = new Signature(event.transaction.hash.toHex() + "-" + event.logIndex.toString());
+  const signature = new Signature(
+    event.transaction.hash.toHex() + "-" + event.logIndex.toString()
+  );
   signature.campaign = event.params.baal.toHexString();
   signature.timestamp = event.block.timestamp;
   signature.user = event.params.user;
