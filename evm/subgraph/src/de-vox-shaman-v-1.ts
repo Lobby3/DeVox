@@ -1,6 +1,6 @@
 import { log } from "matchstick-as";
 
-import { Campaign, Donation, User } from "../generated/schema";
+import { Campaign, Donation, Message, User } from "../generated/schema";
 import {
   AdminChanged,
   BeaconUpgraded,
@@ -20,28 +20,39 @@ export function handleBeaconUpgraded(event: BeaconUpgraded): void {
 }
 
 export function handleDonationReceived(event: DonationReceived): void {
-  const donation = new Donation(
-    event.transaction.hash.toHex() + "-" + event.logIndex.toString()
-  );
   const campaignId = event.params.baal.toHexString();
-
   const campaign = Campaign.load(campaignId);
   if (!campaign) {
     log.error("Campaign {} not found!", [campaignId]);
     return;
   }
 
+  const donationId =
+    event.transaction.hash.toHex() + "-" + event.logIndex.toString();
+  const donation = new Donation(donationId);
   donation.campaign = campaignId;
   donation.amount = event.params.amount;
   donation.loot = event.params.lootIssued;
   donation.shares = event.params.sharesIssued;
-  donation.message = event.params.message;
   donation.user = event.params.contributorAddress;
   donation.timestamp = event.block.timestamp;
+
+  if (event.params.message) {
+    const messageId = campaignId + "-" + donationId;
+
+    const message = new Message(messageId);
+    message.campaign = campaignId;
+    message.text = event.params.message;
+    message.user = event.params.contributorAddress;
+    message.save();
+
+    donation.message = messageId;
+  }
+
   donation.save();
 
-  // campaign.total = campaign.total.plus(event.params.amount);
-  // campaign.save();
+  campaign.total = campaign.total.plus(event.params.amount);
+  campaign.save();
 }
 
 export function handleInitialized(event: Initialized): void {

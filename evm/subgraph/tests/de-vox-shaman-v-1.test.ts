@@ -93,7 +93,6 @@ describe("DeVoxShamanV1", () => {
     assert.bigIntEquals(donation.amount, amount);
     assert.bigIntEquals(donation.loot, lootIssued);
     assert.bigIntEquals(donation.shares, sharesIssued);
-    assert.fieldEquals("Donation", donationId, "message", message);
     assert.fieldEquals(
       "Donation",
       donationId,
@@ -106,6 +105,20 @@ describe("DeVoxShamanV1", () => {
       "campaign",
       baalAddress.toHexString()
     );
+
+    assert.entityCount("Campaign", 1);
+    assert.fieldEquals(
+      "Campaign",
+      baalAddress.toHexString(),
+      "total",
+      donation.amount.toString()
+    );
+
+    if (message) {
+      const messageId = baalAddress.toHexString() + "-" + donationId;
+      assert.fieldEquals("Message", messageId, "text", message);
+      assert.fieldEquals("Donation", donationId, "message", messageId);
+    }
   });
 
   test("Target updated", () => {
