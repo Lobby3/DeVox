@@ -9,6 +9,7 @@ import {
   Initialized,
   TargetUpdated,
   Upgraded,
+  UserSigned,
   UserWhitelisted,
 } from "../generated/templates/DeVoxShamanV1/DeVoxShamanV1";
 
@@ -120,6 +121,30 @@ export function createInitializedEvent(version: i32): Initialized {
   );
 
   return initializedEvent;
+}
+
+export function createSignedEvent(
+  user: Address,
+  baal: Address,
+  id: BigInt
+): UserSigned {
+  const signedEvent = changetype<UserSigned>(newMockEvent());
+
+  signedEvent.parameters = [];
+
+  signedEvent.parameters.push(
+    new ethereum.EventParam("user", ethereum.Value.fromAddress(user))
+  );
+
+  signedEvent.parameters.push(
+    new ethereum.EventParam("baal", ethereum.Value.fromAddress(baal))
+  );
+
+  signedEvent.parameters.push(
+    new ethereum.EventParam("id", ethereum.Value.fromUnsignedBigInt(id))
+  );
+
+  return signedEvent;
 }
 
 export function createTargetUpdatedEvent(

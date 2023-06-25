@@ -26,4 +26,7 @@ interface IShaman {
     /// @notice Grant the specified user admin privileges
     /// @param user user address
     function setAdmin(address user) external;
+
+    /// @notice Sign the campaign to indicate your support.
+    function sign() external;
 }

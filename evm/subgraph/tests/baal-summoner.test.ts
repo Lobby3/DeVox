@@ -14,7 +14,7 @@ import {
 
 describe("BaalSummoner", () => {
   test("AdminChanged event", () => {
-    // prepare
+    // arrange
     const previousAdmin = Address.fromString(
       "0x0000000000000000000000000000000000000001"
     );
@@ -31,7 +31,7 @@ describe("BaalSummoner", () => {
   });
 
   test("BeaconUpgraded event", () => {
-    // prepare
+    // arrange
     const beacon = Address.fromString(
       "0x0000000000000000000000000000000000000001"
     );
@@ -42,7 +42,7 @@ describe("BaalSummoner", () => {
   });
 
   test("SummonBaal event", () => {
-    // prepare
+    // arrange
     const baal = Address.fromString(
       "0x0000000000000000000000000000000000000001"
     );

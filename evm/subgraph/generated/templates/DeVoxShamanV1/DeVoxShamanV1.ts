@@ -270,6 +270,32 @@ export class Upgraded__Params {
   }
 }
 
+export class UserSigned extends ethereum.Event {
+  get params(): UserSigned__Params {
+    return new UserSigned__Params(this);
+  }
+}
+
+export class UserSigned__Params {
+  _event: UserSigned;
+
+  constructor(event: UserSigned) {
+    this._event = event;
+  }
+
+  get user(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+
+  get baal(): Address {
+    return this._event.parameters[1].value.toAddress();
+  }
+
+  get id(): BigInt {
+    return this._event.parameters[2].value.toBigInt();
+  }
+}
+
 export class UserWhitelisted extends ethereum.Event {
   get params(): UserWhitelisted__Params {
     return new UserWhitelisted__Params(this);
@@ -493,6 +519,25 @@ export class DeVoxShamanV1 extends ethereum.SmartContract {
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toBytes());
+  }
+
+  signatures(param0: Address): boolean {
+    let result = super.call("signatures", "signatures(address):(bool)", [
+      ethereum.Value.fromAddress(param0)
+    ]);
+
+    return result[0].toBoolean();
+  }
+
+  try_signatures(param0: Address): ethereum.CallResult<boolean> {
+    let result = super.tryCall("signatures", "signatures(address):(bool)", [
+      ethereum.Value.fromAddress(param0)
+    ]);
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBoolean());
   }
 
   supportsInterface(interfaceId: Bytes): boolean {
@@ -911,6 +956,32 @@ export class SetTargetCall__Outputs {
   _call: SetTargetCall;
 
   constructor(call: SetTargetCall) {
+    this._call = call;
+  }
+}
+
+export class SignCall extends ethereum.Call {
+  get inputs(): SignCall__Inputs {
+    return new SignCall__Inputs(this);
+  }
+
+  get outputs(): SignCall__Outputs {
+    return new SignCall__Outputs(this);
+  }
+}
+
+export class SignCall__Inputs {
+  _call: SignCall;
+
+  constructor(call: SignCall) {
+    this._call = call;
+  }
+}
+
+export class SignCall__Outputs {
+  _call: SignCall;
+
+  constructor(call: SignCall) {
     this._call = call;
   }
 }

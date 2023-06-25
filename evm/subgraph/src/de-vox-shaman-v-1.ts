@@ -1,6 +1,6 @@
 import { log } from "matchstick-as";
 
-import { Campaign, Donation, Message, User } from "../generated/schema";
+import { Campaign, Donation, Message, Signature, User } from "../generated/schema";
 import {
   AdminChanged,
   BeaconUpgraded,
@@ -8,6 +8,7 @@ import {
   Initialized,
   TargetUpdated,
   Upgraded,
+  UserSigned,
   UserWhitelisted,
 } from "../generated/templates/DeVoxShamanV1/DeVoxShamanV1";
 
@@ -57,6 +58,14 @@ export function handleDonationReceived(event: DonationReceived): void {
 
 export function handleInitialized(event: Initialized): void {
   log.info("Initialized: v{}", [event.params.version.toString()]);
+}
+
+export function handleSigned(event: UserSigned): void {
+  const signature = new Signature(event.transaction.hash.toHex() + "-" + event.logIndex.toString());
+  signature.campaign = event.params.baal.toHexString();
+  signature.timestamp = event.block.timestamp;
+  signature.user = event.params.user;
+  signature.save();
 }
 
 export function handleTargetUpdated(event: TargetUpdated): void {

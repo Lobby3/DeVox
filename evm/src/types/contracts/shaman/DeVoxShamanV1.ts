@@ -50,6 +50,8 @@ export interface DeVoxShamanV1Interface extends utils.Interface {
     "revokeRole(bytes32,address)": FunctionFragment;
     "setAdmin(address)": FunctionFragment;
     "setTarget(uint256)": FunctionFragment;
+    "sign()": FunctionFragment;
+    "signatures(address)": FunctionFragment;
     "supportsInterface(bytes4)": FunctionFragment;
     "target()": FunctionFragment;
     "token()": FunctionFragment;
@@ -82,6 +84,8 @@ export interface DeVoxShamanV1Interface extends utils.Interface {
       | "revokeRole"
       | "setAdmin"
       | "setTarget"
+      | "sign"
+      | "signatures"
       | "supportsInterface"
       | "target"
       | "token"
@@ -165,6 +169,11 @@ export interface DeVoxShamanV1Interface extends utils.Interface {
     functionFragment: "setTarget",
     values: [PromiseOrValue<BigNumberish>]
   ): string;
+  encodeFunctionData(functionFragment: "sign", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "signatures",
+    values: [PromiseOrValue<string>]
+  ): string;
   encodeFunctionData(
     functionFragment: "supportsInterface",
     values: [PromiseOrValue<BytesLike>]
@@ -236,6 +245,8 @@ export interface DeVoxShamanV1Interface extends utils.Interface {
   decodeFunctionResult(functionFragment: "revokeRole", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "setAdmin", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "setTarget", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "sign", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "signatures", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "supportsInterface",
     data: BytesLike
@@ -273,6 +284,7 @@ export interface DeVoxShamanV1Interface extends utils.Interface {
     "RoleRevoked(bytes32,address,address)": EventFragment;
     "TargetUpdated(address,uint256,uint256,uint256)": EventFragment;
     "Upgraded(address)": EventFragment;
+    "UserSigned(address,address,uint256)": EventFragment;
     "UserWhitelisted(address,address,uint256,bool,bytes)": EventFragment;
   };
 
@@ -286,6 +298,7 @@ export interface DeVoxShamanV1Interface extends utils.Interface {
   getEvent(nameOrSignatureOrTopic: "RoleRevoked"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "TargetUpdated"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "Upgraded"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "UserSigned"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "UserWhitelisted"): EventFragment;
 }
 
@@ -417,6 +430,18 @@ export type UpgradedEvent = TypedEvent<[string], UpgradedEventObject>;
 
 export type UpgradedEventFilter = TypedEventFilter<UpgradedEvent>;
 
+export interface UserSignedEventObject {
+  user: string;
+  baal: string;
+  id: BigNumber;
+}
+export type UserSignedEvent = TypedEvent<
+  [string, string, BigNumber],
+  UserSignedEventObject
+>;
+
+export type UserSignedEventFilter = TypedEventFilter<UserSignedEvent>;
+
 export interface UserWhitelistedEventObject {
   user: string;
   baal: string;
@@ -539,6 +564,15 @@ export interface DeVoxShamanV1 extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
+    sign(
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
+    signatures(
+      arg0: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<[boolean]>;
+
     supportsInterface(
       interfaceId: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
@@ -660,6 +694,15 @@ export interface DeVoxShamanV1 extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
+  sign(
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
+  signatures(
+    arg0: PromiseOrValue<string>,
+    overrides?: CallOverrides
+  ): Promise<boolean>;
+
   supportsInterface(
     interfaceId: PromiseOrValue<BytesLike>,
     overrides?: CallOverrides
@@ -776,6 +819,13 @@ export interface DeVoxShamanV1 extends BaseContract {
       _target: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<void>;
+
+    sign(overrides?: CallOverrides): Promise<void>;
+
+    signatures(
+      arg0: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<boolean>;
 
     supportsInterface(
       interfaceId: PromiseOrValue<BytesLike>,
@@ -922,6 +972,17 @@ export interface DeVoxShamanV1 extends BaseContract {
       implementation?: PromiseOrValue<string> | null
     ): UpgradedEventFilter;
 
+    "UserSigned(address,address,uint256)"(
+      user?: PromiseOrValue<string> | null,
+      baal?: PromiseOrValue<string> | null,
+      id?: PromiseOrValue<BigNumberish> | null
+    ): UserSignedEventFilter;
+    UserSigned(
+      user?: PromiseOrValue<string> | null,
+      baal?: PromiseOrValue<string> | null,
+      id?: PromiseOrValue<BigNumberish> | null
+    ): UserSignedEventFilter;
+
     "UserWhitelisted(address,address,uint256,bool,bytes)"(
       user?: PromiseOrValue<string> | null,
       baal?: PromiseOrValue<string> | null,
@@ -1018,6 +1079,15 @@ export interface DeVoxShamanV1 extends BaseContract {
     setTarget(
       _target: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    sign(
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    signatures(
+      arg0: PromiseOrValue<string>,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     supportsInterface(
@@ -1142,6 +1212,15 @@ export interface DeVoxShamanV1 extends BaseContract {
     setTarget(
       _target: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    sign(
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    signatures(
+      arg0: PromiseOrValue<string>,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     supportsInterface(
