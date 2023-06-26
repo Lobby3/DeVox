@@ -2,6 +2,13 @@
 pragma solidity ^0.8.12;
 
 interface IShaman {
+    
+    /// @notice Cancel the specified proposal
+    /// @param proposalId proposal id
+    function cancelProposal(
+        uint32 proposalId
+    ) external;
+    
     /// @notice Contract initialization logic
     function initialize(
         address _moloch,

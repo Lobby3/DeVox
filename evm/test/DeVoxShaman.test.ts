@@ -3,10 +3,18 @@ import { solidity } from "ethereum-waffle";
 import { BigNumber } from "ethers";
 import { ethers } from "hardhat";
 
-import { ContractNames, sqrt } from "../src/util";
+import {
+  ContractNames,
+  PROPOSAL_STATE, 
+  encodeMultiAction,
+  sqrt,
+} from "../src";
 import setupTest, { defaultSummonArgs } from "./setup";
 
 use(solidity);
+
+const DEFAULT_ADMIN_ROLE =
+  "0x0000000000000000000000000000000000000000000000000000000000000000";
 
 describe(ContractNames.DeVoxShaman, function () {
   it("should deploy with correct parameters", async function () {
@@ -46,7 +54,7 @@ describe(ContractNames.DeVoxShaman, function () {
     expect(balance).to.be.eq(0);
   });
 
-  it("should only allow whitelisted sender to donate", async function () {
+  it("donate: should only allow whitelisted sender", async function () {
     // arrange
     const {
       user: { shaman },
@@ -60,7 +68,7 @@ describe(ContractNames.DeVoxShaman, function () {
     );
   });
 
-  it("should mint shares on donate", async function () {
+  it("donate: should mint shares", async function () {
     // arrange
     const {
       deployer: { token: deployerToken },
@@ -177,12 +185,12 @@ describe(ContractNames.DeVoxShaman, function () {
     ).to.be.greaterThanOrEqual(0.999999999, "safeToken!");
   });
 
-  it("should allow admin user to set target", async function () {
+  it("setTarget: should allow admin user", async function () {
     // arrange
     const {
       deployer: { shaman },
     } = await setupTest({ shamanArgs: defaultSummonArgs });
-    // prepare
+
     const newTarget = BigNumber.from("123456789");
     expect(await shaman.target()).to.not.equal(
       newTarget,
@@ -196,22 +204,104 @@ describe(ContractNames.DeVoxShaman, function () {
     expect(await shaman.target()).to.equal(newTarget, "!=newTarget after!");
   });
 
-  it("should not allow non-admin user to set target", async function () {
+  it("setTarget: should not allow non-admin user", async function () {
     // arrange
     const {
-      user: { shaman },
+      user: { address: userAddress, shaman },
     } = await setupTest({ shamanArgs: defaultSummonArgs });
-    // prepare
+    // arrange
     const target = await shaman.target();
     const newTarget = BigNumber.from("123456789");
     expect(target).to.not.equal(newTarget, "target before!");
 
     // act
     await expect(shaman.setTarget(newTarget)).to.be.revertedWith(
-      "AccessControl: account 0x70997970c51812dc3a010c7d01b50e0d17dc79c8 is missing role 0x0000000000000000000000000000000000000000000000000000000000000000"
+      `AccessControl: account ${userAddress.toLowerCase()} is missing role ${DEFAULT_ADMIN_ROLE}`
     );
 
     // assert
     expect(await shaman.target()).to.equal(target, "target after!");
+  });
+
+  it("cancelProposal: should allow admin user to cancel proposal", async function () {
+    // arrange
+    const {
+      deployer: { address, baal, multisend, safe, shaman: deployerShaman },
+      user: { address: userAddress, shaman },
+    } = await setupTest({ shamanArgs: defaultSummonArgs });
+
+    await deployerShaman.setAdmin(userAddress);
+
+    const encodedAction = encodeMultiAction(
+      multisend,
+      ["0x"],
+      [safe.address],
+      [BigNumber.from(0)],
+      [0]
+    );
+
+    const proposal = {
+      flag: 0,
+      account: address,
+      data: encodedAction,
+      details: "all hail baal",
+      expiration: 0,
+      baalGas: 0,
+    };
+
+    await baal.submitProposal(
+      encodedAction,
+      proposal.expiration,
+      proposal.baalGas,
+      ethers.utils.id(proposal.details)
+    );
+
+    // act
+    await shaman.cancelProposal(1); // cancel as gov shaman
+
+    // assert
+    const state = await baal.state(1);
+    expect(state).to.equal(PROPOSAL_STATE.CANCELLED);
+  });
+
+  it("cancelProposal: should not allow non-admin user to cancel proposal", async function () {
+    // arrange
+    const {
+      deployer: { address, baal, multisend, safe },
+      user: { address: userAddress, shaman: userShaman },
+    } = await setupTest({ shamanArgs: defaultSummonArgs });
+
+    const encodedAction = encodeMultiAction(
+      multisend,
+      ["0x"],
+      [safe.address],
+      [BigNumber.from(0)],
+      [0]
+    );
+
+    const proposal = {
+      flag: 0,
+      account: address,
+      data: encodedAction,
+      details: "all hail baal",
+      expiration: 0,
+      baalGas: 0,
+    };
+
+    await baal.submitProposal(
+      encodedAction,
+      proposal.expiration,
+      proposal.baalGas,
+      ethers.utils.id(proposal.details)
+    );
+
+    // act
+    await expect(userShaman.cancelProposal(1)).to.be.revertedWith(
+      `AccessControl: account ${userAddress.toLowerCase()} is missing role ${DEFAULT_ADMIN_ROLE}`
+    );
+
+    // assert
+    const state = await baal.state(1);
+    expect(state).to.equal(PROPOSAL_STATE.VOTING);
   });
 });

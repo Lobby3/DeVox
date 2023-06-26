@@ -142,6 +142,8 @@ export type { IERC20 } from "./@openzeppelin/contracts/token/ERC20/IERC20";
 export { IERC20__factory } from "./factories/@openzeppelin/contracts/token/ERC20/IERC20__factory";
 export type { DeVoxBaalAdvTokenSummonerV1 } from "./contracts/baal/higherOrderFactories/DeVoxBaalAdvTokenSummonerV1";
 export { DeVoxBaalAdvTokenSummonerV1__factory } from "./factories/contracts/baal/higherOrderFactories/DeVoxBaalAdvTokenSummonerV1__factory";
+export type { IBaal } from "./contracts/baal/interfaces/IBaal";
+export { IBaal__factory } from "./factories/contracts/baal/interfaces/IBaal__factory";
 export type { IBaalAdvTokenSummoner } from "./contracts/baal/interfaces/IBaalAdvTokenSummoner";
 export { IBaalAdvTokenSummoner__factory } from "./factories/contracts/baal/interfaces/IBaalAdvTokenSummoner__factory";
 export type { IBaalSummoner } from "./contracts/baal/interfaces/IBaalSummoner";
@@ -154,8 +156,6 @@ export type { BaalAdvTokenSummoner } from "./contracts/fixtures/Baal/higherOrder
 export { BaalAdvTokenSummoner__factory } from "./factories/contracts/fixtures/Baal/higherOrderFactories/BaalAdvTokenSummoner__factory";
 export type { BaalAndVaultSummoner } from "./contracts/fixtures/Baal/higherOrderFactories/BaalAndVaultSummoner";
 export { BaalAndVaultSummoner__factory } from "./factories/contracts/fixtures/Baal/higherOrderFactories/BaalAndVaultSummoner__factory";
-export type { IBaal } from "./contracts/fixtures/Baal/interfaces/IBaal";
-export { IBaal__factory } from "./factories/contracts/fixtures/Baal/interfaces/IBaal__factory";
 export type { IBaalToken } from "./contracts/fixtures/Baal/interfaces/IBaalToken";
 export { IBaalToken__factory } from "./factories/contracts/fixtures/Baal/interfaces/IBaalToken__factory";
 export type { Loot } from "./contracts/fixtures/Baal/LootERC20.sol/Loot";

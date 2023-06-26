@@ -25,10 +25,11 @@ import {
   Shares,
 } from "../src";
 import { ERC20, MyToken } from "../src/types";
-import { ContractNames } from "../src/util";
+import { ContractNames, fetchTransactionLog } from "../src/util";
 
 export type ContractSet = {
   baal: Baal;
+  multisend: MultiSend;
   shaman: DeVoxShaman;
   safe: GnosisSafe;
   loot: Loot;
@@ -97,33 +98,15 @@ const getNewBaalAddresses = async (
   shares: string;
   safe: string;
 }> => {
-  const receipt = await ethers.provider.getTransactionReceipt(tx.hash);
-  // console.log(receipt);
-
-  const tryFetchLogEvent = (abi: string) => {
-    const iface = new ethers.utils.Interface([abi]);
-    for (let i = 0; i < receipt.logs.length; i++) {
-      try {
-        const log = iface.parseLog(receipt.logs[i]);
-        return log;
-      } catch (e) {
-        if (i === receipt.logs.length - 1)
-          throw new Error(`No log found: ${e}`);
-      }
-    }
-  };
-
   const shamanSummonAbi =
     "event SummonComplete(address indexed baal, address indexed shaman, address token, uint256 id, uint256 pricePerUnit, uint256 tokensPerUnit, uint256 target, string name)";
-  const shamanSummonLog = tryFetchLogEvent(shamanSummonAbi);
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const { shaman } = shamanSummonLog!.args;
+  const shamanSummonLog = await fetchTransactionLog(tx.hash, shamanSummonAbi);
+  const { shaman } = shamanSummonLog.args;
 
   const baalSummonAbi =
     "event SummonBaal(address indexed baal, address indexed loot, address indexed shares, address safe, address forwarder, uint256 existingAddrs)";
-  const baalSummonLog = tryFetchLogEvent(baalSummonAbi);
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const { baal, loot, shares, safe } = baalSummonLog!.args;
+  const baalSummonLog = await fetchTransactionLog(tx.hash, baalSummonAbi);
+  const { baal, loot, shares, safe } = baalSummonLog.args;
 
   return { baal, shaman, loot, shares, safe };
 };
@@ -224,7 +207,7 @@ const setupTest = deployments.createFixture<
   expect(await tokenSingleton.name()).to.equal("MyToken");
 
   const multisend: MultiSend = await ethers.getContract(
-    ContractNames.SafeMultiSend
+    ContractNames.MultiSend
   );
   expect(multisend.address).to.be.properAddress;
 
@@ -307,6 +290,7 @@ const setupTest = deployments.createFixture<
       baal: baal.connect(signer),
       shaman: shaman.connect(signer),
       loot: loot.connect(signer),
+      multisend: multisend.connect(signer),
       shares: shares.connect(signer),
       safe: safe.connect(signer),
       token: tokenSingleton.connect(signer),
@@ -315,7 +299,15 @@ const setupTest = deployments.createFixture<
 
   // Struct
   return {
-    default: { baal, shaman, loot, shares, safe, token: tokenSingleton },
+    default: {
+      baal,
+      shaman,
+      loot,
+      multisend,
+      shares,
+      safe,
+      token: tokenSingleton,
+    },
     deployer: await setupAddress(deployer),
     user: await setupAddress(user),
     anon: await setupAddress(anon),

@@ -34,6 +34,7 @@ export interface DeVoxShamanV1Interface extends utils.Interface {
   functions: {
     "DEFAULT_ADMIN_ROLE()": FunctionFragment;
     "baal()": FunctionFragment;
+    "cancelProposal(uint32)": FunctionFragment;
     "donate(uint256,string)": FunctionFragment;
     "donations(address)": FunctionFragment;
     "getRoleAdmin(bytes32)": FunctionFragment;
@@ -66,6 +67,7 @@ export interface DeVoxShamanV1Interface extends utils.Interface {
     nameOrSignatureOrTopic:
       | "DEFAULT_ADMIN_ROLE"
       | "baal"
+      | "cancelProposal"
       | "donate"
       | "donations"
       | "getRoleAdmin"
@@ -99,6 +101,10 @@ export interface DeVoxShamanV1Interface extends utils.Interface {
     values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "baal", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "cancelProposal",
+    values: [PromiseOrValue<BigNumberish>]
+  ): string;
   encodeFunctionData(
     functionFragment: "donate",
     values: [PromiseOrValue<BigNumberish>, PromiseOrValue<string>]
@@ -202,6 +208,10 @@ export interface DeVoxShamanV1Interface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "baal", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "cancelProposal",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "donate", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "donations", data: BytesLike): Result;
   decodeFunctionResult(
@@ -462,6 +472,11 @@ export interface DeVoxShamanV1 extends BaseContract {
 
     baal(overrides?: CallOverrides): Promise<[string]>;
 
+    cancelProposal(
+      proposalId: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
     donate(
       _value: PromiseOrValue<BigNumberish>,
       _message: PromiseOrValue<string>,
@@ -583,6 +598,11 @@ export interface DeVoxShamanV1 extends BaseContract {
 
   baal(overrides?: CallOverrides): Promise<string>;
 
+  cancelProposal(
+    proposalId: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
   donate(
     _value: PromiseOrValue<BigNumberish>,
     _message: PromiseOrValue<string>,
@@ -703,6 +723,11 @@ export interface DeVoxShamanV1 extends BaseContract {
     DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<string>;
 
     baal(overrides?: CallOverrides): Promise<string>;
+
+    cancelProposal(
+      proposalId: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     donate(
       _value: PromiseOrValue<BigNumberish>,
@@ -943,6 +968,11 @@ export interface DeVoxShamanV1 extends BaseContract {
 
     baal(overrides?: CallOverrides): Promise<BigNumber>;
 
+    cancelProposal(
+      proposalId: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
     donate(
       _value: PromiseOrValue<BigNumberish>,
       _message: PromiseOrValue<string>,
@@ -1066,6 +1096,11 @@ export interface DeVoxShamanV1 extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     baal(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    cancelProposal(
+      proposalId: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
 
     donate(
       _value: PromiseOrValue<BigNumberish>,
