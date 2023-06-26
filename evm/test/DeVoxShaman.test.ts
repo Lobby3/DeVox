@@ -326,15 +326,13 @@ describe(ContractNames.DeVoxShaman, function () {
     } = await setupTest({ shamanArgs: defaultSummonArgs });
 
     const campaignId = 1;
-    
+
     await shaman.whitelist(true, ethers.utils.randomBytes(256));
 
     // act
-    await expect(shaman.sign()).to.emit(shaman, "UserSigned").withArgs(
-      address,
-      baal.address,
-      campaignId
-    );
+    await expect(shaman.sign())
+      .to.emit(shaman, "UserSigned")
+      .withArgs(address, baal.address, campaignId);
 
     // assert
     expect(await shaman.signatures(address)).to.equal(
