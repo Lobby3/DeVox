@@ -86,6 +86,7 @@ export function createSummonCompleteEvent(
   baal: Address,
   shaman: Address,
   token: Address,
+  userRegistry: Address,
   id: BigInt,
   pricePerUnit: BigInt,
   tokensPerUnit: BigInt,
@@ -104,6 +105,12 @@ export function createSummonCompleteEvent(
   );
   summonCompleteEvent.parameters.push(
     new ethereum.EventParam("token", ethereum.Value.fromAddress(token))
+  );
+  summonCompleteEvent.parameters.push(
+    new ethereum.EventParam(
+      "userRegistry",
+      ethereum.Value.fromAddress(userRegistry)
+    )
   );
   summonCompleteEvent.parameters.push(
     new ethereum.EventParam("id", ethereum.Value.fromUnsignedBigInt(id))

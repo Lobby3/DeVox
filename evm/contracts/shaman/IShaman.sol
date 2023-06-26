@@ -9,7 +9,8 @@ interface IShaman {
     /// @notice Contract initialization logic
     function initialize(
         address _moloch,
-        address payable _token,
+        address _token,
+        address _userRegistry,
         uint256 _id,
         uint256 _pricePerUnit,
         uint256 _tokensPerUnit,
@@ -21,11 +22,6 @@ interface IShaman {
     /// @param _value amount donated
     /// @param _message message accompanying donation
     function donate(uint256 _value, string calldata _message) external;
-
-    /// Whitelist a user, enabling them to join the DAO
-    /// @param _status whitelist status
-    /// @param _metadata user metadata
-    function whitelist(bool _status, bytes calldata _metadata) external;
 
     /// @notice Grant the specified user admin privileges
     /// @param user user address

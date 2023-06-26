@@ -5,7 +5,7 @@ const BaalAndShamanSummonerContract: ContractLego = {
   contractName: 'DeVoxBaalAndShamanSummonerV1',
   type: 'static',
   abi: DeVoxBaalAndShamanSummonerV1Abi,
-  targetAddress: "0x8A3C734715D80460f25B51ba30aA571Af2fbAf24"
+  targetAddress: "0xc54Bb6694c2eB96Fd8D636A446f35A2C734d8413"
 };
 
 export const SummonTX = {

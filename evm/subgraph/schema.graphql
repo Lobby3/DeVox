@@ -63,7 +63,7 @@ type User @entity {
   messages: [Message!]! @derivedFrom(field: "user")
   metadata: Bytes!
   votes: [Vote!]! @derivedFrom(field: "user")
-}
+}  
 
 type Vote @entity {
   id: ID!

@@ -130,7 +130,7 @@ export interface DeVoxShamanSummonerV1Interface extends utils.Interface {
     "BeaconUpgraded(address)": EventFragment;
     "Initialized(uint8)": EventFragment;
     "OwnershipTransferred(address,address)": EventFragment;
-    "SummonComplete(address,address,address,uint256,uint256,uint256,uint256,string)": EventFragment;
+    "SummonComplete(address,address,address,address,uint256,uint256,uint256,uint256,string)": EventFragment;
     "Upgraded(address)": EventFragment;
   };
 
@@ -186,6 +186,7 @@ export interface SummonCompleteEventObject {
   baal: string;
   shaman: string;
   token: string;
+  userRegistry: string;
   id: BigNumber;
   pricePerUnit: BigNumber;
   tokensPerUnit: BigNumber;
@@ -193,7 +194,17 @@ export interface SummonCompleteEventObject {
   name: string;
 }
 export type SummonCompleteEvent = TypedEvent<
-  [string, string, string, BigNumber, BigNumber, BigNumber, BigNumber, string],
+  [
+    string,
+    string,
+    string,
+    string,
+    BigNumber,
+    BigNumber,
+    BigNumber,
+    BigNumber,
+    string
+  ],
   SummonCompleteEventObject
 >;
 
@@ -390,10 +401,11 @@ export interface DeVoxShamanSummonerV1 extends BaseContract {
       newOwner?: PromiseOrValue<string> | null
     ): OwnershipTransferredEventFilter;
 
-    "SummonComplete(address,address,address,uint256,uint256,uint256,uint256,string)"(
+    "SummonComplete(address,address,address,address,uint256,uint256,uint256,uint256,string)"(
       baal?: PromiseOrValue<string> | null,
       shaman?: PromiseOrValue<string> | null,
       token?: null,
+      userRegistry?: null,
       id?: null,
       pricePerUnit?: null,
       tokensPerUnit?: null,
@@ -404,6 +416,7 @@ export interface DeVoxShamanSummonerV1 extends BaseContract {
       baal?: PromiseOrValue<string> | null,
       shaman?: PromiseOrValue<string> | null,
       token?: null,
+      userRegistry?: null,
       id?: null,
       pricePerUnit?: null,
       tokensPerUnit?: null,

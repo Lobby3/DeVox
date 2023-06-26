@@ -1,21 +1,15 @@
 import { log } from "matchstick-as";
 
-import {
-  Campaign,
-  Donation,
-  Message,
-  Signature,
-  User,
-} from "../generated/schema";
+import { Campaign, Donation, Message, Signature } from "../generated/schema";
 import {
   AdminChanged,
   BeaconUpgraded,
   DonationReceived,
   Initialized,
+  OwnershipTransferred,
   TargetUpdated,
   Upgraded,
   UserSigned,
-  UserWhitelisted,
 } from "../generated/templates/DeVoxShamanV1/DeVoxShamanV1";
 
 export function handleAdminChanged(event: AdminChanged): void {
@@ -66,6 +60,10 @@ export function handleInitialized(event: Initialized): void {
   log.info("Initialized: v{}", [event.params.version.toString()]);
 }
 
+export function handleOwnershipTransferred(event: OwnershipTransferred): void {
+  log.info("OwnershipTransferred: {}", [event.params.newOwner.toHexString()]);
+}
+
 export function handleSigned(event: UserSigned): void {
   const signature = new Signature(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
@@ -87,51 +85,6 @@ export function handleTargetUpdated(event: TargetUpdated): void {
 
   campaign.target = event.params.target;
   campaign.save();
-}
-
-export function handleUserWhitelisted(event: UserWhitelisted): void {
-  if (event.params.status) {
-    let user = User.load(event.params.user);
-    if (!user) {
-      user = new User(event.params.user);
-    }
-    user.metadata = event.params.metadata;
-    user.save();
-
-    // const id = event.transaction.from.toHexString();
-    // const campaign = Campaign.load(id);
-
-    // if (!campaign) {
-    //   log.error("Campaign not found!", [id]);
-    //   return;
-    // }
-
-    // campaign.users.push(event.params.user);
-    // campaign.save();
-  }
-  // else {
-  // const user = User.load(event.params.user);
-  // if (!user) {
-  //   log.error("User {} not found!", [event.params.user.toHexString()]);
-  //   return;
-  // }
-  // user.metadata = event.params.metadata;
-  // user.save();
-
-  // const id = event.transaction.from.toHexString();
-  // const campaign = Campaign.load(id);
-  // if (!campaign) {
-  //   log.error("Campaign {} not found!", [id]);
-  //   return;
-  // }
-
-  // remove user from campaign
-  // for (let i = campaign.users.indexOf(event.params.user); i < campaign.users.length - 1; i++) {
-  //   campaign.users[i] = campaign.users[i + 1];
-  // }
-  // campaign.users.pop();
-  // campaign.save();
-  // }
 }
 
 export function handleUpgraded(event: Upgraded): void {
