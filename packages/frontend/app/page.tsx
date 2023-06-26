@@ -1,10 +1,17 @@
 "use client";
 
 import { VStack } from "@chakra-ui/react";
+import dynamic from "next/dynamic";
 import React from "react";
 
 import BodyContainer from "../components/body-container/body-container";
-import CampaignGridView from "../components/campaign-grid-view/campaign-grid-view";
+
+const CampaignGridView = dynamic(
+  () => import("../components/campaign-grid-view/campaign-grid-view"),
+  {
+    ssr: false,
+  }
+);
 
 export default async function Index() {
   return (
