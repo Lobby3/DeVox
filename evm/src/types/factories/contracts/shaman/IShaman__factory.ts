@@ -99,6 +99,13 @@ const _abi = [
     type: "function",
   },
   {
+    inputs: [],
+    name: "sign",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
     inputs: [
       {
         internalType: "bool",

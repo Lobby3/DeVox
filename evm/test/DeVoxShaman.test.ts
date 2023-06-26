@@ -106,7 +106,7 @@ describe(ContractNames.DeVoxShaman, function () {
         .withArgs(
           userAddress,
           baal.address,
-          1, // devoxShamanId,
+          1, // devoxShamanId
           amount,
           total, // wallet total donated
           target,
@@ -298,5 +298,56 @@ describe(ContractNames.DeVoxShaman, function () {
     // assert
     const state = await baal.state(1);
     expect(state).to.equal(PROPOSAL_STATE.VOTING);
+  });
+
+  it("sign: should allow any whitelisted user to sign campaign", async function () {
+    // arrange
+    const {
+      user: { address, baal, shaman },
+    } = await setupTest({ shamanArgs: defaultSummonArgs });
+
+    await shaman.whitelist(true, ethers.utils.randomBytes(256));
+
+    // act
+    await expect(shaman.sign()).to.emit(shaman, "UserSigned").withArgs(
+      address,
+      baal.address,
+      1 // devoxShamanId;
+    );
+
+    // assert
+    expect(await shaman.signatures(address)).to.equal(
+      true,
+      "signature missing!"
+    );
+  });
+
+  it("sign: should not allow user to sign campaign more than once", async function () {
+    // arrange
+    const {
+      user: { address, baal, shaman },
+    } = await setupTest({ shamanArgs: defaultSummonArgs });
+
+    await shaman.whitelist(true, ethers.utils.randomBytes(256));
+
+    // act
+    await expect(shaman.sign()).to.emit(shaman, "UserSigned").withArgs(
+      address,
+      baal.address,
+      1 // devoxShamanId;
+    );
+
+    // assert
+    await expect(shaman.sign()).to.be.revertedWith("sign: already signed");
+  });
+
+  it("sign: should reject non-whitelisted user", async function () {
+    // arrange
+    const {
+      user: { shaman },
+    } = await setupTest({ shamanArgs: defaultSummonArgs });
+
+    // act & assert
+    await expect(shaman.sign()).to.be.revertedWith("sign: not whitelisted");
   });
 });
