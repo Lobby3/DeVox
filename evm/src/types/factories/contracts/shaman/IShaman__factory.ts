@@ -50,7 +50,7 @@ const _abi = [
         type: "address",
       },
       {
-        internalType: "address payable",
+        internalType: "address",
         name: "_token",
         type: "address",
       },

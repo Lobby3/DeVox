@@ -69,7 +69,7 @@ contract DeVoxShamanSummonerV1 is
         _id = _id + 1;
 
         (
-            address payable _token,
+            address _token,
             uint256 _pricePerUnit,
             uint256 _tokensPerUnit,
             uint256 _target,

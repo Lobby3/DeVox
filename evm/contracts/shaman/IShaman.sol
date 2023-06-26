@@ -7,9 +7,16 @@ interface IShaman {
     function cancelProposal(uint32 proposalId) external;
 
     /// @notice Contract initialization logic
+    /// @param _moloch moloch contract address
+    /// @param _token ERC20 token contract address
+    /// @param _id campaign id
+    /// @param _pricePerUnit value of unit of ERC20 token
+    /// @param _tokensPerUnit shares/loot multiplier per unit of ERC20 token
+    /// @param _target campaign target amount
+    /// @param _admins admin addresses
     function initialize(
         address _moloch,
-        address payable _token,
+        address _token,
         uint256 _id,
         uint256 _pricePerUnit,
         uint256 _tokensPerUnit,
