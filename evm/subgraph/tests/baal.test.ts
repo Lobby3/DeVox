@@ -26,7 +26,7 @@ import {
 
 describe("Baal", () => {
   beforeAll(() => {
-    // prepare
+    // arrange
   });
 
   afterAll(() => {
@@ -34,7 +34,7 @@ describe("Baal", () => {
   });
 
   test("Proposal created and stored", () => {
-    // prepare
+    // arrange
     const PROPOSAL = "Proposal";
     const proposal = BigInt.fromI32(1);
     const proposalDataHash = Bytes.fromHexString("0x1234");
@@ -81,7 +81,7 @@ describe("Baal", () => {
   });
 
   test("Proposal (self-sponsor) created and stored", () => {
-    // prepare
+    // arrange
     const PROPOSAL = "Proposal";
     const proposal = BigInt.fromI32(1);
     const proposalDataHash = Bytes.fromHexString("0x1234");
@@ -133,7 +133,7 @@ describe("Baal", () => {
   });
 
   test("Proposal sponsored", () => {
-    // prepare
+    // arrange
     const PROPOSAL = "Proposal";
     const proposal = BigInt.fromI32(1);
     const proposalDataHash = Bytes.fromHexString("0x1234");
@@ -192,7 +192,7 @@ describe("Baal", () => {
   });
 
   test("Proposal cancelled", () => {
-    // prepare
+    // arrange
     const PROPOSAL = "Proposal";
     const proposal = BigInt.fromI32(1);
     const proposalDataHash = Bytes.fromHexString("0x1234");
@@ -232,7 +232,7 @@ describe("Baal", () => {
   });
 
   test("Proposal processed", () => {
-    // prepare
+    // arrange
     const PROPOSAL = "Proposal";
     const proposal = BigInt.fromI32(1);
     const proposalDataHash = Bytes.fromHexString("0x1234");
@@ -281,7 +281,7 @@ describe("Baal", () => {
   });
 
   test("Vote stored", () => {
-    // prepare
+    // arrange
     // const PROPOSAL = "Proposal";
     const proposal = BigInt.fromI32(1);
     // const proposalDataHash = Bytes.fromHexString("0x1234");

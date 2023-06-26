@@ -49,6 +49,13 @@ type Proposal @entity {
   votingStarts: BigInt
 }
 
+type Signature @entity {
+  id: ID!
+  campaign: Campaign!
+  user: User!
+  timestamp: BigInt!
+}
+
 type User @entity {
   "User id is an Ethereum address"
   id: Bytes!

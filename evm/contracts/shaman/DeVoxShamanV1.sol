@@ -40,9 +40,11 @@ contract DeVoxShamanV1 is
     uint256 public tokensPerUnit;
     uint256 public target;
 
-    /// @notice Last cookie claims made by members
-    /// @dev This is only a cache and claims older than period are deleted
+    /// @notice Donations made by address
     mapping(address => uint256) public donations;
+
+    /// @notice Signatures made by address
+    mapping(address => bool) public signatures;
 
     /// @notice Whitelist of addresses that can join the DAO
     mapping(address => bool) private _whitelist;
@@ -85,6 +87,16 @@ contract DeVoxShamanV1 is
         uint indexed id,
         uint256 target,
         uint256 balance
+    );
+
+    /// @notice emitted when a user signs the campaign
+    /// @param user user address
+    /// @param baal baal contract address
+    /// @param id campaign id
+    event UserSigned(
+        address indexed user,
+        address indexed baal,
+        uint indexed id
     );
 
     /// @notice emitted when a user is whitelisted
@@ -208,6 +220,15 @@ contract DeVoxShamanV1 is
         address user
     ) external override onlyRole(DEFAULT_ADMIN_ROLE) {
         _grantRole(DEFAULT_ADMIN_ROLE, user);
+    }
+
+    function sign() external override {
+        require(_whitelist[msg.sender], "sign: not whitelisted");
+        require(!signatures[msg.sender], "sign: already signed");
+
+        signatures[msg.sender] = true;
+
+        emit UserSigned(msg.sender, address(baal), id);
     }
 
     /// @notice Calculate the amount of loot to issue for a given donation
