@@ -1,12 +1,13 @@
+export * from "./baal";
 export * from "./bigNumberMath";
 export * from "./chainId";
 export * from "./constants";
 export * from "./contractAddress";
+export * from "./deployInstance";
+export * from "./deployProxy";
 export * from "./encoding";
+export * from "./fetchTransactionLog";
 export * from "./local";
-// export * from "./shaman";
 export * from "./signDelegation";
 export * from "./signPermit";
 export * from "./signVote";
-export * from "./deployInstance";
-export * from "./deployProxy";

@@ -11,10 +11,10 @@ export const ContractNames = {
   DeVoxShamanSummoner: "DeVoxShamanSummonerV1",
   Loot: "Loot",
   ModuleProxyFactory: "ModuleProxyFactory",
+  MultiSend: "MultiSend",
   MyToken: "MyToken",
   Safe: "GnosisSafe",
   SafeFallbackHandler: "CompatibilityFallbackHandler",
-  SafeMultiSend: "MultiSend",
   SafeProxyFactory: "GnosisSafeProxyFactory",
   Shares: "Shares",
 };

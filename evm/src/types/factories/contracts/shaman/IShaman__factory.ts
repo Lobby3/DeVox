@@ -14,6 +14,19 @@ const _abi = [
   {
     inputs: [
       {
+        internalType: "uint32",
+        name: "proposalId",
+        type: "uint32",
+      },
+    ],
+    name: "cancelProposal",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
         internalType: "uint256",
         name: "_value",
         type: "uint256",

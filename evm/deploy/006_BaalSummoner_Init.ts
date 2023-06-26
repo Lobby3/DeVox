@@ -17,7 +17,7 @@ const deploy: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
     ContractNames.SafeFallbackHandler
   );
   const { address: gnosisMultisendLibrary } = await get(
-    ContractNames.SafeMultiSend
+    ContractNames.MultiSend
   );
   const { address: gnosisSafeProxyFactory } = await get(
     ContractNames.SafeProxyFactory

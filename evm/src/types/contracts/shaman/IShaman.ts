@@ -27,6 +27,7 @@ import type {
 
 export interface IShamanInterface extends utils.Interface {
   functions: {
+    "cancelProposal(uint32)": FunctionFragment;
     "donate(uint256,string)": FunctionFragment;
     "initialize(address,address,uint256,uint256,uint256,uint256,address[])": FunctionFragment;
     "setAdmin(address)": FunctionFragment;
@@ -36,6 +37,7 @@ export interface IShamanInterface extends utils.Interface {
 
   getFunction(
     nameOrSignatureOrTopic:
+      | "cancelProposal"
       | "donate"
       | "initialize"
       | "setAdmin"
@@ -43,6 +45,10 @@ export interface IShamanInterface extends utils.Interface {
       | "whitelist"
   ): FunctionFragment;
 
+  encodeFunctionData(
+    functionFragment: "cancelProposal",
+    values: [PromiseOrValue<BigNumberish>]
+  ): string;
   encodeFunctionData(
     functionFragment: "donate",
     values: [PromiseOrValue<BigNumberish>, PromiseOrValue<string>]
@@ -69,6 +75,10 @@ export interface IShamanInterface extends utils.Interface {
     values: [PromiseOrValue<boolean>, PromiseOrValue<BytesLike>]
   ): string;
 
+  decodeFunctionResult(
+    functionFragment: "cancelProposal",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "donate", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "initialize", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "setAdmin", data: BytesLike): Result;
@@ -105,6 +115,11 @@ export interface IShaman extends BaseContract {
   removeListener: OnEvent<this>;
 
   functions: {
+    cancelProposal(
+      proposalId: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
     donate(
       _value: PromiseOrValue<BigNumberish>,
       _message: PromiseOrValue<string>,
@@ -137,6 +152,11 @@ export interface IShaman extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
   };
+
+  cancelProposal(
+    proposalId: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
 
   donate(
     _value: PromiseOrValue<BigNumberish>,
@@ -171,6 +191,11 @@ export interface IShaman extends BaseContract {
   ): Promise<ContractTransaction>;
 
   callStatic: {
+    cancelProposal(
+      proposalId: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
     donate(
       _value: PromiseOrValue<BigNumberish>,
       _message: PromiseOrValue<string>,
@@ -205,6 +230,11 @@ export interface IShaman extends BaseContract {
   filters: {};
 
   estimateGas: {
+    cancelProposal(
+      proposalId: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
     donate(
       _value: PromiseOrValue<BigNumberish>,
       _message: PromiseOrValue<string>,
@@ -239,6 +269,11 @@ export interface IShaman extends BaseContract {
   };
 
   populateTransaction: {
+    cancelProposal(
+      proposalId: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
     donate(
       _value: PromiseOrValue<BigNumberish>,
       _message: PromiseOrValue<string>,

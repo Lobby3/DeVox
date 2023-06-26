@@ -9,7 +9,7 @@ import {UUPSUpgradeable} from "@openzeppelin/contracts-upgradeable/proxy/utils/U
 import {ReentrancyGuardUpgradeable} from "@openzeppelin/contracts-upgradeable/security/ReentrancyGuardUpgradeable.sol";
 import {Clones} from "@openzeppelin/contracts/proxy/Clones.sol";
 
-import {IBaal} from "../fixtures/Baal/interfaces/IBaal.sol";
+import {IBaal} from "../baal/interfaces/IBaal.sol";
 import {FixedPointMathLib} from "../lib/FixedPointMathLib.sol";
 import {IShaman} from "./IShaman.sol";
 
@@ -214,6 +214,29 @@ contract DeVoxShamanV1 is
         );
     }
 
+    /// @notice Gets the total token balance of the contract
+    function getTokenBalance() public returns (uint256) {
+        return token.balanceOf(baal.target());
+    }
+
+    /// @notice gets the current version of the contract
+    function version() public view virtual returns (uint256) {
+        return _version;
+    }
+
+    /*******************
+     * ADMIN
+     ******************/
+
+    /// @notice Cancel the specified proposal
+    /// @param proposalId proposal id
+    function cancelProposal(
+        uint32 proposalId
+    ) external override onlyRole(DEFAULT_ADMIN_ROLE) {
+        require(baal.isManager(address(this)), "donate: shaman not manager");
+        baal.cancelProposal(proposalId);
+    }
+
     /// @notice Grant the specified user admin privileges
     /// @param user user address
     function setAdmin(
@@ -230,6 +253,28 @@ contract DeVoxShamanV1 is
 
         emit UserSigned(msg.sender, address(baal), id);
     }
+
+    /// @notice Update campaign target
+    /// @param _target campaign target amount
+    function setTarget(uint256 _target) public onlyRole(DEFAULT_ADMIN_ROLE) {
+        target = _target;
+
+        emit TargetUpdated(address(baal), id, _target, getTokenBalance());
+    }
+
+    /*******************
+     * OWNER
+     ******************/
+
+    /// @notice Update the contract version number
+    /// @dev onlyOwner
+    function updateVersion() external onlyOwner {
+        _version += 1;
+    }
+
+    /*******************
+     * INTERNAL
+     ******************/
 
     /// @notice Calculate the amount of loot to issue for a given donation
     function _lootToIssue(
@@ -267,32 +312,6 @@ contract DeVoxShamanV1 is
             baal.mintLoot(_receivers, _amounts);
         }
     }
-
-    /// @notice Gets the total token balance of the contract
-    function getTokenBalance() public returns (uint256) {
-        return token.balanceOf(baal.target());
-    }
-
-    function setTarget(uint256 _target) public onlyRole(DEFAULT_ADMIN_ROLE) {
-        target = _target;
-
-        emit TargetUpdated(address(baal), id, _target, getTokenBalance());
-    }
-
-    /// @notice gets the current version of the contract
-    function version() public view virtual returns (uint256) {
-        return _version;
-    }
-
-    /// @notice Update the contract version number
-    /// @dev onlyOwner
-    function updateVersion() external onlyOwner {
-        _version += 1;
-    }
-
-    /*******************
-     * INTERNAL
-     ******************/
 
     /// @notice upgrade authorization logic
     /// @dev adds onlyOwner requirement

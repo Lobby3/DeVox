@@ -40,3 +40,4 @@ export {
   TributeMinion,
   TributeMinion__factory as TributeMinionFactory,
 } from "./types";
+export * from "./util";
