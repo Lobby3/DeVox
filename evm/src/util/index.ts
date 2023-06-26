@@ -1,3 +1,4 @@
+export * from "./baal";
 export * from "./bigNumberMath";
 export * from "./chainId";
 export * from "./constants";

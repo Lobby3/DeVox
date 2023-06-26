@@ -3,12 +3,7 @@ import { solidity } from "ethereum-waffle";
 import { BigNumber } from "ethers";
 import { ethers } from "hardhat";
 
-import {
-  ContractNames,
-  PROPOSAL_STATE, 
-  encodeMultiAction,
-  sqrt,
-} from "../src";
+import { ContractNames, PROPOSAL_STATE, encodeMultiAction, sqrt } from "../src";
 import setupTest, { defaultSummonArgs } from "./setup";
 
 use(solidity);
