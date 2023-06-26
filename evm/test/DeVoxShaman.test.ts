@@ -49,6 +49,23 @@ describe(ContractNames.DeVoxShaman, function () {
     expect(balance).to.be.eq(0);
   });
 
+  it("whitelist: should emit UserWhitelisted event", async function () {
+    // arrange
+    const {
+      user: { address: userAddress, baal, shaman },
+    } = await setupTest({ shamanArgs: defaultSummonArgs });
+
+    const status = true;
+    const metadata = ethers.utils.randomBytes(256);
+    const metadataHex = ethers.utils.hexlify(metadata);
+    const campaignId = BigNumber.from(1);
+
+    // act & assert
+    await expect(shaman.whitelist(status, metadata))
+      .to.emit(shaman, "UserWhitelisted")
+      .withArgs(userAddress, baal.address, campaignId, status, metadataHex);
+  });
+
   it("donate: should only allow whitelisted sender", async function () {
     // arrange
     const {
@@ -183,7 +200,7 @@ describe(ContractNames.DeVoxShaman, function () {
   it("setTarget: should allow admin user", async function () {
     // arrange
     const {
-      deployer: { shaman },
+      deployer: { baal, shaman },
     } = await setupTest({ shamanArgs: defaultSummonArgs });
 
     const newTarget = BigNumber.from("123456789");
@@ -193,7 +210,9 @@ describe(ContractNames.DeVoxShaman, function () {
     );
 
     // act
-    await shaman.setTarget(newTarget);
+    await expect(shaman.setTarget(newTarget))
+      .to.emit(shaman, "TargetUpdated")
+      .withArgs(baal.address, 1, newTarget, 0);
 
     // assert
     expect(await shaman.target()).to.equal(newTarget, "!=newTarget after!");
@@ -306,13 +325,15 @@ describe(ContractNames.DeVoxShaman, function () {
       user: { address, baal, shaman },
     } = await setupTest({ shamanArgs: defaultSummonArgs });
 
+    const campaignId = 1;
+    
     await shaman.whitelist(true, ethers.utils.randomBytes(256));
 
     // act
     await expect(shaman.sign()).to.emit(shaman, "UserSigned").withArgs(
       address,
       baal.address,
-      1 // devoxShamanId;
+      campaignId
     );
 
     // assert
