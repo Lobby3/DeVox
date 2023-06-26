@@ -22,7 +22,7 @@ import CampaignSignButton from "../../components/campaign-sign-button/campaign-s
 import DonationsOverview from "../../components/donations-overview/donations-overview";
 import ErrorScreen from "../../components/error-screen/error-screen";
 import Loader from "../../components/loader/loader";
-import { useCampaignData, useGetCampaign } from "../../graph/campaigns";
+import { useGetCampaign } from "../../graph/campaigns";
 import { useTokenInfo } from "../../hooks/token";
 import { headerBackground } from "../../styles/colors";
 
@@ -32,7 +32,6 @@ export interface CampaignDetailProps {
 
 const CampaignDetail = ({ campaignId }: CampaignDetailProps) => {
   const { data: campaign, isLoading, isError } = useGetCampaign(campaignId);
-  const { imageUrl, description } = useCampaignData(campaignId);
   const { decimals } = useTokenInfo(campaign?.tokenAddress);
   const [tab, setTab] = React.useState<"details" | "donations">("donations");
 
@@ -69,7 +68,7 @@ const CampaignDetail = ({ campaignId }: CampaignDetailProps) => {
                 marginLeft={"auto"}
               >
                 <Image
-                  src={imageUrl}
+                  src={campaign.dao?.avatarImg}
                   height="auto"
                   width={"50%"}
                   objectFit={"fill"}
@@ -124,7 +123,11 @@ const CampaignDetail = ({ campaignId }: CampaignDetailProps) => {
                     Contributions
                   </Button>
                 </HStack>
-                {tab === "details" && <Text>{description}</Text>}
+                {tab === "details" && (
+                  <Text>
+                    {campaign.dao?.longDescription || campaign.dao?.description}
+                  </Text>
+                )}
                 {tab === "donations" && (
                   <DonationsOverview campaignId={campaignId} />
                 )}

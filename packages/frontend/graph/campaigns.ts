@@ -1,3 +1,4 @@
+import { useDaoData } from "@daohaus/moloch-v3-hooks";
 import { useQuery } from "@tanstack/react-query";
 import { gql } from "graphql-request";
 import { useMemo } from "react";
@@ -74,23 +75,38 @@ export const useGetCampaigns = () => {
 };
 
 export const useGetCampaign = (id: string) => {
-  return useQuery(["campaign", id], async () => {
-    return graphQLClient
-      .request(
-        gql`
-          ${campaignFragment}
-          query GetCampaign($id: ID!) {
-            campaign(id: $id) {
-              ...campaignFragment
-            }
-          }
-        `,
-        { id }
-      )
-      .then((result) => {
-        return (result as { campaign: Campaign }).campaign;
-      });
+  const { dao } = useDaoData({
+    daoId: id,
+    daoChain: process.env.NEXT_PUBLIC_CHAIN_ID_HEX!,
   });
+  return useQuery(
+    ["campaign", id],
+    async () => {
+      return graphQLClient
+        .request(
+          gql`
+            ${campaignFragment}
+            query GetCampaign($id: ID!) {
+              campaign(id: $id) {
+                ...campaignFragment
+              }
+            }
+          `,
+          { id }
+        )
+        .then((result) => {
+          return (result as { campaign: Campaign }).campaign;
+        });
+    },
+    {
+      select: (data) => {
+        return {
+          ...data,
+          dao,
+        };
+      },
+    }
+  );
 };
 
 export const useCampaignData = (id: string) => {
