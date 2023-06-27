@@ -10,8 +10,8 @@ import {
 import { Campaign, Donation, Signature } from "../generated/schema";
 import {
   handleDonationReceived,
-  handleSigned,
   handleTargetUpdated,
+  handleUserSigned,
 } from "../src/de-vox-shaman-v-1";
 import {
   createDonationReceivedEvent,
@@ -137,7 +137,7 @@ describe("DeVoxShamanV1", () => {
     event.address = shamanAddress;
 
     // act
-    handleSigned(event);
+    handleUserSigned(event);
 
     // assert
     assert.entityCount("Signature", 1);
