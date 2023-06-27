@@ -64,7 +64,7 @@ export function handleOwnershipTransferred(event: OwnershipTransferred): void {
   log.info("OwnershipTransferred: {}", [event.params.newOwner.toHexString()]);
 }
 
-export function handleSigned(event: UserSigned): void {
+export function handleUserSigned(event: UserSigned): void {
   const signature = new Signature(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   );
