@@ -1,3 +1,4 @@
+import { StaticContract } from "@daohaus/utils";
 import { useWeb3React } from "@web3-react/core";
 import { Contract, ethers } from "ethers";
 import { useEffect, useState } from "react";
@@ -83,7 +84,7 @@ export const usePublicTokenContract = (tokenAddress?: string) => {
 };
 
 export const useUserRegistryContract = () => {
-  const userRegistryKeychain = DeVoxUserRegistryContract;
+  const userRegistryKeychain = DeVoxUserRegistryContract as StaticContract;
   const [contract, setContract] = useState<Contract | null>(null);
   const {
     hooks: { usePriorityProvider },
@@ -104,7 +105,7 @@ export const useUserRegistryContract = () => {
       setContract(contract);
     };
     getContract();
-  }, [provider]);
+  }, [provider, userRegistryKeychain.abi, userRegistryKeychain.targetAddress]);
 
   return contract;
 };
