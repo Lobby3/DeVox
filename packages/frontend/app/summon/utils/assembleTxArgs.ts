@@ -17,7 +17,7 @@ import {
 import { BigNumber } from "ethers";
 
 import { FORM_KEYS } from "./formKeys";
-import { TreasuryTokenKeychains } from "./wellKnown";
+import { DeVoxUserRegistryContract, TreasuryTokenKeychains } from "./wellKnown";
 
 export type ArgType = string | number | boolean | BigNumber | ArgType[];
 
@@ -84,14 +84,23 @@ const getShamanInitParams = function (
   if (!isNumberish(target)) throw new Error("target is not a number");
 
   return encodeValues(
-    ["address", "uint256", "uint256", "uint256", "string", "address[]"],
+    [
+      "address",
+      "address",
+      "uint256",
+      "uint256",
+      "uint256",
+      "string",
+      "address[]",
+    ],
     [
       tokenAddress,
-      1000000, // shamanArgs.pricePerUnit,
-      1, // shamanArgs.tokensPerUnit,
+      DeVoxUserRegistryContract.targetAddress.toString(),
+      process.env.SHAMAN_PRICE_PER_UNIT ?? 1000000, // shamanArgs.pricePerUnit,
+      process.env.SHAMAN_TOKENS_PER_UNIT ?? 1, // shamanArgs.tokensPerUnit,
       target, // shamanArgs.target,
       daoName, // shamanArgs.name,
-      process.env.DEFAULT_SHAMAN_ADMIN_ADDRESSES?.split(",") || [],
+      process.env.SHAMAN_DEFAULT_ADMIN_ADDRESSES?.split(",") || [],
     ]
   );
 };

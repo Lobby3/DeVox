@@ -1,7 +1,8 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { act, render } from "@testing-library/react";
-import { MagicWalletProvider } from "packages/frontend/app/magic-wallet-context";
+import React from "react";
 
+import { MagicWalletProvider } from "../../app/magic-wallet-context";
 import CampaignDonateButton from "./campaign-donate-button";
 
 describe("CampaignDonateButton", () => {

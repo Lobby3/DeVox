@@ -57,17 +57,6 @@ contract DeVoxBaalAndShamanSummonerV1 is
         for (uint256 i = 0; i < _baalInitializationActions.length; i++) {
             _newBaalInitializationActions[i] = _baalInitializationActions[i];
         }
-        // address[] memory _shamans = new address[](1);
-        // _shamans[0] = _shamanAddress;
-        // uint256[] memory _permissions = new uint256[](1);
-        // _permissions[0] = 7;
-        // _newBaalInitializationActions[
-        //     _newBaalInitializationActions.length - 1
-        // ] = abi.encodeWithSelector(
-        //     IBaal.setShamans.selector,
-        //     _shamans,
-        //     _permissions
-        // );
 
         _newBaalInitializationActions[
             _newBaalInitializationActions.length - 1

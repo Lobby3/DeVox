@@ -91,6 +91,12 @@
       },
       {
         "indexed": false,
+        "internalType": "address",
+        "name": "userRegistry",
+        "type": "address"
+      },
+      {
+        "indexed": false,
         "internalType": "uint256",
         "name": "id",
         "type": "uint256"

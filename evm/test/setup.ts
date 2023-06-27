@@ -19,12 +19,14 @@ import {
   Baal,
   DeVoxBaalAndShamanSummoner,
   DeVoxShaman,
+  DeVoxUserRegistry,
   GnosisSafe,
   Loot,
   MultiSend,
+  MyToken,
   Shares,
 } from "../src";
-import { ERC20, MyToken } from "../src/types";
+import { ERC20 } from "../src/types";
 import { ContractNames, fetchTransactionLog } from "../src/util";
 
 export type ContractSet = {
@@ -35,6 +37,7 @@ export type ContractSet = {
   loot: Loot;
   shares: Shares;
   token: ERC20;
+  userRegistry: DeVoxUserRegistry;
 };
 
 export type ConnectedContractSet = ContractSet & {
@@ -99,7 +102,7 @@ const getNewBaalAddresses = async (
   safe: string;
 }> => {
   const shamanSummonAbi =
-    "event SummonComplete(address indexed baal, address indexed shaman, address token, uint256 id, uint256 pricePerUnit, uint256 tokensPerUnit, uint256 target, string name)";
+    "event SummonComplete(address indexed baal, address indexed shaman, address token, address userRegistry, uint256 id, uint256 pricePerUnit, uint256 tokensPerUnit, uint256 target, string name)";
   const shamanSummonLog = await fetchTransactionLog(tx.hash, shamanSummonAbi);
   const { shaman } = shamanSummonLog.args;
 
@@ -158,13 +161,23 @@ const governanceConfigTX = (formValues: SummonParams) => {
 
 const getShamanInitParams = function (
   tokenAddress: string,
+  userRegistryAddress: string,
   shamanArgs: DeVoxShamanSummonArgs,
   admins: string[]
 ) {
   return abiCoder.encode(
-    ["address", "uint256", "uint256", "uint256", "string", "address[]"],
+    [
+      "address",
+      "address",
+      "uint256",
+      "uint256",
+      "uint256",
+      "string",
+      "address[]",
+    ],
     [
       tokenAddress,
+      userRegistryAddress,
       shamanArgs.pricePerUnit,
       shamanArgs.tokensPerUnit,
       shamanArgs.target,
@@ -211,6 +224,11 @@ const setupTest = deployments.createFixture<
   );
   expect(multisend.address).to.be.properAddress;
 
+  const userRegistry: DeVoxUserRegistry = await ethers.getContract(
+    ContractNames.DeVoxUserRegistry
+  );
+  expect(userRegistry.address).to.be.properAddress;
+
   const summoner: DeVoxBaalAndShamanSummoner = await ethers.getContract(
     ContractNames.DeVoxBaalAndShamanSummoner
   );
@@ -222,6 +240,7 @@ const setupTest = deployments.createFixture<
   expect(shamanSingleton.address).to.be.properAddress;
   await expect(
     shamanSingleton.initialize(
+      ethers.constants.AddressZero,
       ethers.constants.AddressZero,
       ethers.constants.AddressZero,
       1,
@@ -244,6 +263,7 @@ const setupTest = deployments.createFixture<
 
   const encodedShamanInitParams = getShamanInitParams(
     tokenSingleton.address,
+    userRegistry.address,
     shamanArgs,
     [deployer]
   );
@@ -294,6 +314,7 @@ const setupTest = deployments.createFixture<
       shares: shares.connect(signer),
       safe: safe.connect(signer),
       token: tokenSingleton.connect(signer),
+      userRegistry: userRegistry.connect(signer),
     };
   };
 
@@ -307,6 +328,7 @@ const setupTest = deployments.createFixture<
       shares,
       safe,
       token: tokenSingleton,
+      userRegistry,
     },
     deployer: await setupAddress(deployer),
     user: await setupAddress(user),

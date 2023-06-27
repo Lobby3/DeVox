@@ -42,7 +42,7 @@ export interface DeVoxShamanV1Interface extends utils.Interface {
     "grantRole(bytes32,address)": FunctionFragment;
     "hasRole(bytes32,address)": FunctionFragment;
     "id()": FunctionFragment;
-    "initialize(address,address,uint256,uint256,uint256,uint256,address[])": FunctionFragment;
+    "initialize(address,address,address,uint256,uint256,uint256,uint256,address[])": FunctionFragment;
     "owner()": FunctionFragment;
     "pricePerUnit()": FunctionFragment;
     "proxiableUUID()": FunctionFragment;
@@ -61,8 +61,8 @@ export interface DeVoxShamanV1Interface extends utils.Interface {
     "updateVersion()": FunctionFragment;
     "upgradeTo(address)": FunctionFragment;
     "upgradeToAndCall(address,bytes)": FunctionFragment;
+    "userRegistry()": FunctionFragment;
     "version()": FunctionFragment;
-    "whitelist(bool,bytes)": FunctionFragment;
   };
 
   getFunction(
@@ -96,8 +96,8 @@ export interface DeVoxShamanV1Interface extends utils.Interface {
       | "updateVersion"
       | "upgradeTo"
       | "upgradeToAndCall"
+      | "userRegistry"
       | "version"
-      | "whitelist"
   ): FunctionFragment;
 
   encodeFunctionData(
@@ -137,6 +137,7 @@ export interface DeVoxShamanV1Interface extends utils.Interface {
   encodeFunctionData(
     functionFragment: "initialize",
     values: [
+      PromiseOrValue<string>,
       PromiseOrValue<string>,
       PromiseOrValue<string>,
       PromiseOrValue<BigNumberish>,
@@ -206,11 +207,11 @@ export interface DeVoxShamanV1Interface extends utils.Interface {
     functionFragment: "upgradeToAndCall",
     values: [PromiseOrValue<string>, PromiseOrValue<BytesLike>]
   ): string;
-  encodeFunctionData(functionFragment: "version", values?: undefined): string;
   encodeFunctionData(
-    functionFragment: "whitelist",
-    values: [PromiseOrValue<boolean>, PromiseOrValue<BytesLike>]
+    functionFragment: "userRegistry",
+    values?: undefined
   ): string;
+  encodeFunctionData(functionFragment: "version", values?: undefined): string;
 
   decodeFunctionResult(
     functionFragment: "DEFAULT_ADMIN_ROLE",
@@ -280,8 +281,11 @@ export interface DeVoxShamanV1Interface extends utils.Interface {
     functionFragment: "upgradeToAndCall",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(
+    functionFragment: "userRegistry",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "version", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "whitelist", data: BytesLike): Result;
 
   events: {
     "AdminChanged(address,address)": EventFragment;
@@ -539,6 +543,7 @@ export interface DeVoxShamanV1 extends BaseContract {
     initialize(
       _moloch: PromiseOrValue<string>,
       _token: PromiseOrValue<string>,
+      _userRegistry: PromiseOrValue<string>,
       _id: PromiseOrValue<BigNumberish>,
       _pricePerUnit: PromiseOrValue<BigNumberish>,
       _tokensPerUnit: PromiseOrValue<BigNumberish>,
@@ -619,13 +624,9 @@ export interface DeVoxShamanV1 extends BaseContract {
       overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
-    version(overrides?: CallOverrides): Promise<[BigNumber]>;
+    userRegistry(overrides?: CallOverrides): Promise<[string]>;
 
-    whitelist(
-      _status: PromiseOrValue<boolean>,
-      _metadata: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
+    version(overrides?: CallOverrides): Promise<[BigNumber]>;
   };
 
   DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<string>;
@@ -674,6 +675,7 @@ export interface DeVoxShamanV1 extends BaseContract {
   initialize(
     _moloch: PromiseOrValue<string>,
     _token: PromiseOrValue<string>,
+    _userRegistry: PromiseOrValue<string>,
     _id: PromiseOrValue<BigNumberish>,
     _pricePerUnit: PromiseOrValue<BigNumberish>,
     _tokensPerUnit: PromiseOrValue<BigNumberish>,
@@ -754,13 +756,9 @@ export interface DeVoxShamanV1 extends BaseContract {
     overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
-  version(overrides?: CallOverrides): Promise<BigNumber>;
+  userRegistry(overrides?: CallOverrides): Promise<string>;
 
-  whitelist(
-    _status: PromiseOrValue<boolean>,
-    _metadata: PromiseOrValue<BytesLike>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
+  version(overrides?: CallOverrides): Promise<BigNumber>;
 
   callStatic: {
     DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<string>;
@@ -807,6 +805,7 @@ export interface DeVoxShamanV1 extends BaseContract {
     initialize(
       _moloch: PromiseOrValue<string>,
       _token: PromiseOrValue<string>,
+      _userRegistry: PromiseOrValue<string>,
       _id: PromiseOrValue<BigNumberish>,
       _pricePerUnit: PromiseOrValue<BigNumberish>,
       _tokensPerUnit: PromiseOrValue<BigNumberish>,
@@ -881,13 +880,9 @@ export interface DeVoxShamanV1 extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    version(overrides?: CallOverrides): Promise<BigNumber>;
+    userRegistry(overrides?: CallOverrides): Promise<string>;
 
-    whitelist(
-      _status: PromiseOrValue<boolean>,
-      _metadata: PromiseOrValue<BytesLike>,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    version(overrides?: CallOverrides): Promise<BigNumber>;
   };
 
   filters: {
@@ -1071,6 +1066,7 @@ export interface DeVoxShamanV1 extends BaseContract {
     initialize(
       _moloch: PromiseOrValue<string>,
       _token: PromiseOrValue<string>,
+      _userRegistry: PromiseOrValue<string>,
       _id: PromiseOrValue<BigNumberish>,
       _pricePerUnit: PromiseOrValue<BigNumberish>,
       _tokensPerUnit: PromiseOrValue<BigNumberish>,
@@ -1151,13 +1147,9 @@ export interface DeVoxShamanV1 extends BaseContract {
       overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
-    version(overrides?: CallOverrides): Promise<BigNumber>;
+    userRegistry(overrides?: CallOverrides): Promise<BigNumber>;
 
-    whitelist(
-      _status: PromiseOrValue<boolean>,
-      _metadata: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
+    version(overrides?: CallOverrides): Promise<BigNumber>;
   };
 
   populateTransaction: {
@@ -1209,6 +1201,7 @@ export interface DeVoxShamanV1 extends BaseContract {
     initialize(
       _moloch: PromiseOrValue<string>,
       _token: PromiseOrValue<string>,
+      _userRegistry: PromiseOrValue<string>,
       _id: PromiseOrValue<BigNumberish>,
       _pricePerUnit: PromiseOrValue<BigNumberish>,
       _tokensPerUnit: PromiseOrValue<BigNumberish>,
@@ -1289,12 +1282,8 @@ export interface DeVoxShamanV1 extends BaseContract {
       overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
-    version(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    userRegistry(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    whitelist(
-      _status: PromiseOrValue<boolean>,
-      _metadata: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
+    version(overrides?: CallOverrides): Promise<PopulatedTransaction>;
   };
 }
