@@ -19,7 +19,7 @@ export const useCampaignSign = (campaignId: string) => {
 
   return useMutation(["campaign", "sign", campaignId], async () => {
     if (!shamanContract) {
-      throw new Error("No contract");
+      throw new Error("No shaman contract");
     }
 
     if (!isActive) {
