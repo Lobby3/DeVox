@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useWeb3React } from "@web3-react/core";
 import { ethers } from "ethers";
 import { JSEncrypt } from "jsencrypt";
@@ -55,4 +55,20 @@ export const useShamanWhitelist = () => {
       return result;
     }
   );
+};
+
+export const useUserHasVerifiedZipCode = () => {
+  const userRegistryContract = useUserRegistryContract();
+  const { account } = useWeb3React();
+  return useQuery(["user-registry", "get-user", account], async () => {
+    if (!userRegistryContract) {
+      throw new Error("No contract");
+    }
+
+    if (!account) {
+      throw new Error("No user connected");
+    }
+
+    return userRegistryContract.getUser(account) as Promise<boolean>;
+  });
 };
