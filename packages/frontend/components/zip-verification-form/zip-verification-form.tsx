@@ -25,11 +25,10 @@ export interface ZipVerificationFormProps {
 }
 
 const ZipVerificationForm = ({
-  campaignId,
   onSuccessfulVerification,
 }: ZipVerificationFormProps) => {
   const { isActive } = useWeb3React();
-  const whiteList = useShamanWhitelist(campaignId);
+  const whiteList = useShamanWhitelist();
 
   if (typeof window === "undefined") {
     return null;
@@ -55,7 +54,6 @@ const ZipVerificationForm = ({
       onSubmit={async (values) => {
         try {
           const txHash = await whiteList.mutateAsync({
-            status: true,
             zipCode: values.zipCode,
             share: values.shareZipCode,
           });
@@ -63,7 +61,7 @@ const ZipVerificationForm = ({
           onSuccessfulVerification();
         } catch (e) {
           console.log(e);
-          toast("Error submitting ZIP Code", {
+          toast((e as Error).message || "Error submitting ZIP Code", {
             type: "error",
           });
         }
