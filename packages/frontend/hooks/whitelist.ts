@@ -1,28 +1,25 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { useWeb3React } from "@web3-react/core";
 import { ethers } from "ethers";
+import { gql } from "graphql-request";
 import { JSEncrypt } from "jsencrypt";
 import { toast } from "react-toastify";
 
-import { useGetCampaign } from "../graph/campaigns";
-import { useShamanContract } from "./contracts";
+import { graphQLClient } from "../graph/client";
+import { useUserRegistryContract } from "./contracts";
 
-export const useShamanWhitelist = (campaignId: string) => {
-  const { data } = useGetCampaign(campaignId);
-  const shamanContract = useShamanContract(data?.shamanAddress);
-
+export const useShamanWhitelist = () => {
+  const userRegistryContract = useUserRegistryContract();
+  const { account } = useWeb3React();
   return useMutation(
-    ["shaman-whitelist"],
-    async ({
-      status,
-      zipCode,
-      share,
-    }: {
-      status: boolean;
-      zipCode: string;
-      share: boolean;
-    }) => {
-      if (!shamanContract) {
+    ["user-registry", "save-user"],
+    async ({ zipCode, share }: { zipCode: string; share: boolean }) => {
+      if (!userRegistryContract) {
         throw new Error("No contract");
+      }
+
+      if (!account) {
+        throw new Error("No user connected");
       }
 
       let zipCodeString = "";
@@ -50,7 +47,7 @@ export const useShamanWhitelist = (campaignId: string) => {
       // Encode for contract call
       const encodedZipCode = ethers.utils.toUtf8Bytes(zipCodeString);
 
-      const tx = await shamanContract.whitelist(status, encodedZipCode);
+      const tx = await userRegistryContract.saveUser(account, encodedZipCode);
       const toastId = toast("Updating ZIP Code...", {});
       const result = await tx.wait();
       toast.dismiss(toastId);
@@ -60,4 +57,28 @@ export const useShamanWhitelist = (campaignId: string) => {
       return result;
     }
   );
+};
+
+export const useUserHasVerifiedZipCode = () => {
+  const { account } = useWeb3React();
+  return useQuery(["user-registry", "get-user", account], async () => {
+    if (!account) {
+      return false;
+    }
+
+    return graphQLClient
+      .request(
+        gql`
+          query GetUser($address: String!) {
+            user(id: $address) {
+              id
+            }
+          }
+        `,
+        { address: account }
+      )
+      .then((result) => {
+        return !!(result as { user: { id: string } }).user;
+      });
+  });
 };
