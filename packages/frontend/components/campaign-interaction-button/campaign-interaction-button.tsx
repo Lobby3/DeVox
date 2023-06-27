@@ -23,7 +23,7 @@ export const CampaignInteractionButton = ({
 }: CampaignInteractionButtonProps) => {
   return (
     <button
-      style={{ width: "100%", cursor: isDisabled ? "default" : "pointer" }}
+      style={{ width: "420px", cursor: isDisabled ? "default" : "pointer" }}
       onClick={onClick}
       disabled={isDisabled}
     >
