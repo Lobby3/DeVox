@@ -39,7 +39,7 @@ export interface DonateModalProps extends Omit<ModalProps, "children"> {
 }
 
 export function DonateModal({ isOpen, onClose, campaignId }: DonateModalProps) {
-  const { data: campaign, isFetching: isFetchingCampaign } =
+  const { data: campaign, isFetched: isFetchedCampaign } =
     useGetCampaign(campaignId);
   const {
     data: hasVerified,
@@ -52,7 +52,7 @@ export function DonateModal({ isOpen, onClose, campaignId }: DonateModalProps) {
   >("zip-verification");
 
   useEffect(() => {
-    if (!isFetchingZipCodeStatus && isFetchedZipCodeStatus && hasVerified) {
+    if (!isFetchingZipCodeStatus && hasVerified) {
       setStep("donate");
     }
   }, [isFetchingZipCodeStatus, isFetchedZipCodeStatus, hasVerified]);
@@ -61,19 +61,19 @@ export function DonateModal({ isOpen, onClose, campaignId }: DonateModalProps) {
   const { formattedBalance } = useBalance(campaign?.tokenAddress);
   const { symbol } = useTokenInfo(campaign?.tokenAddress);
   const donate = useDonate(campaignId);
-  const isFetching = isFetchingCampaign || isFetchingZipCodeStatus;
+  const isFetched = isFetchedCampaign && isFetchedZipCodeStatus;
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent p={4} my="auto">
-        {isFetching && <Loader />}
-        {!isFetching && step === "zip-verification" && (
+        {!isFetched && <Loader />}
+        {isFetched && step === "zip-verification" && (
           <ZipVerificationForm
             campaignId={campaignId}
             onSuccessfulVerification={() => setStep("donate")}
           />
         )}
-        {!isFetching && step === "donate" && (
+        {isFetched && step === "donate" && (
           <Formik
             initialValues={{
               amount: 0,
@@ -198,7 +198,7 @@ export function DonateModal({ isOpen, onClose, campaignId }: DonateModalProps) {
             }}
           </Formik>
         )}
-        {!isFetching && step === "success" && (
+        {isFetched && step === "success" && (
           <>
             <ModalHeader>
               <Heading textAlign={"center"} textTransform={"uppercase"}>

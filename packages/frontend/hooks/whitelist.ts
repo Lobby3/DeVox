@@ -1,9 +1,11 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useWeb3React } from "@web3-react/core";
 import { ethers } from "ethers";
+import { gql } from "graphql-request";
 import { JSEncrypt } from "jsencrypt";
 import { toast } from "react-toastify";
 
+import { graphQLClient } from "../graph/client";
 import { useUserRegistryContract } from "./contracts";
 
 export const useShamanWhitelist = () => {
@@ -58,17 +60,25 @@ export const useShamanWhitelist = () => {
 };
 
 export const useUserHasVerifiedZipCode = () => {
-  const userRegistryContract = useUserRegistryContract();
   const { account } = useWeb3React();
   return useQuery(["user-registry", "get-user", account], async () => {
-    if (!userRegistryContract) {
-      throw new Error("No contract");
-    }
-
     if (!account) {
-      throw new Error("No user connected");
+      return false;
     }
 
-    return userRegistryContract.getUser(account) as Promise<boolean>;
+    return graphQLClient
+      .request(
+        gql`
+          query GetUser($address: String!) {
+            user(id: $address) {
+              id
+            }
+          }
+        `,
+        { address: account }
+      )
+      .then((result) => {
+        return !!(result as { user: { id: string } }).user;
+      });
   });
 };
