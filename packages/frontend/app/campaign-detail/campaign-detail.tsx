@@ -22,7 +22,7 @@ import CampaignSignButton from "../../components/campaign-sign-button/campaign-s
 import DonationsOverview from "../../components/donations-overview/donations-overview";
 import ErrorScreen from "../../components/error-screen/error-screen";
 import Loader from "../../components/loader/loader";
-import { useGetCampaign } from "../../graph/campaigns";
+import { useDaoInfo, useGetCampaign } from "../../graph/campaigns";
 import { useTokenInfo } from "../../hooks/token";
 import { headerBackground } from "../../styles/colors";
 
@@ -31,11 +31,16 @@ export interface CampaignDetailProps {
 }
 
 const CampaignDetail = ({ campaignId }: CampaignDetailProps) => {
-  const { data: campaign, isLoading, isError } = useGetCampaign(campaignId);
+  const {
+    data: campaign,
+    isLoading: isLoadingCampaign,
+    isError,
+  } = useGetCampaign(campaignId);
+  const { dao, isLoading: isLoadingDao } = useDaoInfo(campaignId);
   const { decimals } = useTokenInfo(campaign?.tokenAddress);
   const [tab, setTab] = React.useState<"details" | "donations">("donations");
 
-  if (isLoading) {
+  if (isLoadingCampaign || isLoadingDao) {
     return <Loader />;
   }
 
@@ -51,7 +56,10 @@ const CampaignDetail = ({ campaignId }: CampaignDetailProps) => {
     );
   }
 
-  const formattedTotal = ethers.utils.formatUnits(campaign.total, decimals);
+  const formattedTotal = ethers.utils.formatUnits(
+    campaign.total || 0,
+    decimals
+  );
 
   const progressValue =
     (Number(formattedTotal) / Number(campaign.target)) * 100;
@@ -68,7 +76,10 @@ const CampaignDetail = ({ campaignId }: CampaignDetailProps) => {
                 marginLeft={"auto"}
               >
                 <Image
-                  src={campaign.dao?.avatarImg}
+                  src={
+                    dao?.avatarImg ||
+                    "https://randomwordgenerator.com/img/picture-generator/57e7dc4b4c5ba914f1dc8460962e33791c3ad6e04e5074417c2f7dd5904cc0_640.jpg"
+                  }
                   height="auto"
                   width={"50%"}
                   objectFit={"fill"}
@@ -86,7 +97,7 @@ const CampaignDetail = ({ campaignId }: CampaignDetailProps) => {
                   <Flex alignItems="center">
                     <PencilSquareIcon height="20px" width="20px" />
                     <Heading size={"sm"} ml={2} mr={12}>
-                      {campaign.donations.length} signers
+                      {campaign.signatures.length} signers
                     </Heading>
                   </Flex>
                   <Flex alignItems={"center"}>
@@ -125,9 +136,7 @@ const CampaignDetail = ({ campaignId }: CampaignDetailProps) => {
                   </Button>
                 </HStack>
                 {tab === "details" && (
-                  <Text>
-                    {campaign.dao?.longDescription || campaign.dao?.description}
-                  </Text>
+                  <Text>{dao?.longDescription || dao?.description}</Text>
                 )}
                 {tab === "donations" && (
                   <DonationsOverview campaignId={campaignId} />

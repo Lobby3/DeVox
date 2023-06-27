@@ -60,6 +60,7 @@ export const useUserHasSignedCampaign = (campaignId: string) => {
         { campaignId, address: account }
       )
       .then((result) => {
+        console.log(result);
         return !!(result as { signatures: Signature[] }).signatures.length;
       });
   });

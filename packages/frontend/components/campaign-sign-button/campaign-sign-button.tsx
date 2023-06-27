@@ -30,6 +30,7 @@ export function CampaignSignButton({ campaignId }: CampaignSignButtonProps) {
     <CampaignInteractionButton
       onClick={onSignCampaign}
       title="Sign"
+      isDisabled={userHasSigned}
       icon={
         <PencilSquareIcon
           height="80px"
