@@ -11,7 +11,7 @@ export const [magicConnect, hooks] = initializeConnector<MagicConnect>(
       actions,
 
       options: {
-        apiKey: process.env.NEXT_PUBLIC_MAGIC_PUBLISHABLE_API_KEY!,
+        apiKey: process.env.NEXT_PUBLIC_MAGIC_PUBLISHABLE_API_KEY as string,
         network: "goerli",
         networkOptions: {
           rpcUrl:

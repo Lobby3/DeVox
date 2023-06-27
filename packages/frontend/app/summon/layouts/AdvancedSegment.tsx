@@ -20,7 +20,7 @@ export const AdvancedSegment = ({
 }) => {
   const {
     watch,
-    formState: { errors, touchedFields },
+    formState: { touchedFields },
   } = useFormContext();
   const treasuryToken = watch(FORM_KEYS.TREASURY_TOKEN);
   const [nativeSymbol, setNativeSymbol] =

@@ -13,7 +13,6 @@ import { ReactSetter } from "@daohaus/utils";
 import React from "react";
 import styled from "styled-components";
 
-import { HausBlockLoading } from "../components/HausBlockLoading/HausBlockLoading";
 import { SummonStates } from "../types";
 import { InfoSection } from "./FormLayouts";
 
@@ -66,15 +65,8 @@ export const SummonerSuccess = ({
   return (
     <div>
       <H1 className="title">
-        <Bold>DAO Summoned</Bold>
+        <Bold>Campaign DAO Created</Bold>
       </H1>
-      <ParMd>
-        Learn more about{" "}
-        <Link href="https://daohaus.mirror.xyz/U_JQtheSzdpRFqQwf9Ow3LgLNG0WMZ6ibAyrjWDu_fc">
-          Moloch v3
-        </Link>
-      </ParMd>
-      <HausBlockLoading loading={false} />
       <AddressInfoSection>
         <ParMd className="info">DAO contract:</ParMd>
         <AddressDisplay
@@ -91,7 +83,7 @@ export const SummonerSuccess = ({
           // centerAlign={isMobile}
           fullWidth={isMobile}
         >
-          <Bold>Summon Another DAO</Bold>
+          <Bold>Create Another Campaign DAO</Bold>
         </Button>
         <Link
           href={`https://admin.daohaus.fun/#/molochv3/${chainId}/${daoAddress}`}

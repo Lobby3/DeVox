@@ -143,7 +143,7 @@ export function DonateModal({ isOpen, onClose, campaignId }: DonateModalProps) {
                           <InputGroup>
                             <InputLeftElement
                               pointerEvents="none"
-                              children="$"
+                              // children="$"
                             />
                             <Input
                               type="number"

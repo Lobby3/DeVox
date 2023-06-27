@@ -64,8 +64,8 @@ export const SummonerForm = ({
     !isValid || !isValidNetwork(chainIdHex) || isSubmitting;
   const formDisabled = isSubmitting;
 
-  console.log("chainId (valid)", chainIdHex, isValidNetwork(chainIdHex));
-  console.log("account", account);
+  // console.log("chainId (valid)", chainIdHex, isValidNetwork(chainIdHex));
+  // console.log("account", account);
 
   const handleFormSubmit: SubmitHandler<SummonParams> = async (formValues) => {
     if (!chainIdHex || !isValidNetwork(chainIdHex)) {

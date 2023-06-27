@@ -1,6 +1,7 @@
 /* eslint-disable-next-line */
 import { Tag, TagLabel, Text } from "@chakra-ui/react";
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface FundedProps {}
 
 export function Funded() {

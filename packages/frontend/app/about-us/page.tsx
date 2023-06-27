@@ -6,6 +6,7 @@ import React from "react";
 
 import BodyContainer from "../../components/body-container/body-container";
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface AboutUsProps {}
 
 export default async function Index(props: AboutUsProps) {

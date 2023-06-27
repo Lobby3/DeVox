@@ -34,13 +34,10 @@ const TemporaryLayout = styled.div`
     color: #fff;
   }
 `;
-function Content() {
+const Content: React.FC = () => {
   // TODO: Wire this up with magic.link
   // TODO: Summon at the same time
   //
-  if (typeof window === "undefined") {
-    return null;
-  }
   const { provider, chainId } = useWeb3React();
 
   const chainIdHex = hexadecimalize(chainId);
@@ -49,6 +46,10 @@ function Content() {
   const [txHash, setTxHash] = useState<string>("");
   const [daoAddress, setDaoAddress] = useState<string>("");
   const [errMsg, setErrMsg] = useState<string>("");
+
+  if (typeof window === "undefined") {
+    return null;
+  }
 
   return (
     <HausConnectProvider>
@@ -85,6 +86,6 @@ function Content() {
       </HausThemeProvider>
     </HausConnectProvider>
   );
-}
+};
 
 export default Content;

@@ -6,6 +6,7 @@ import CampaignTile from "../campaign-tile/campaign-tile";
 import ErrorScreen from "../error-screen/error-screen";
 import Loader from "../loader/loader";
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface CampaignGridViewProps {}
 
 export function CampaignGridView(props: CampaignGridViewProps) {

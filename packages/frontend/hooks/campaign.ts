@@ -1,5 +1,4 @@
 // 5 mock campaigns
-import { useDaoData } from "@daohaus/moloch-v3-hooks";
 import _ from "lodash";
 
 import { Campaign } from "../types/Campaign";

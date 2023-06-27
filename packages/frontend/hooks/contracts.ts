@@ -1,3 +1,4 @@
+import { StaticContract } from "@daohaus/utils";
 import { useWeb3React } from "@web3-react/core";
 import { Contract, ethers } from "ethers";
 import { useEffect, useState } from "react";
@@ -62,16 +63,17 @@ export const useTokenContract = (tokenAddress?: string) => {
 
 export const usePublicTokenContract = (tokenAddress?: string) => {
   const [contract, setContract] = useState<Contract | null>(null);
-  const provider = new ethers.providers.AlchemyProvider(
-    "goerli",
-    process.env.NEXT_PUBLIC_ALCHEMY_API_KEY
-  );
 
   useEffect(() => {
     const getTokenContract = async () => {
       if (!tokenAddress) {
         return;
       }
+
+      const provider = new ethers.providers.AlchemyProvider(
+        "goerli",
+        process.env.NEXT_PUBLIC_ALCHEMY_API_KEY
+      );
 
       const tokenContract = new ethers.Contract(tokenAddress, _abi, provider);
       setContract(tokenContract);
@@ -82,7 +84,7 @@ export const usePublicTokenContract = (tokenAddress?: string) => {
 };
 
 export const useUserRegistryContract = () => {
-  const userRegistryKeychain = DeVoxUserRegistryContract;
+  const userRegistryKeychain = DeVoxUserRegistryContract as StaticContract;
   const [contract, setContract] = useState<Contract | null>(null);
   const {
     hooks: { usePriorityProvider },
@@ -103,7 +105,7 @@ export const useUserRegistryContract = () => {
       setContract(contract);
     };
     getContract();
-  }, [provider]);
+  }, [provider, userRegistryKeychain.abi, userRegistryKeychain.targetAddress]);
 
   return contract;
 };
