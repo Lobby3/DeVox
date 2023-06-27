@@ -12,7 +12,6 @@ import {
 import { ReactSetter } from "@daohaus/utils";
 import React from "react";
 
-import { HausBlockLoading } from "../components/HausBlockLoading/HausBlockLoading";
 import { SummonStates } from "../types";
 import { InfoSection } from "./FormLayouts";
 
@@ -36,13 +35,6 @@ export const SummonError = ({
       <H1 className="title">
         <Bold>Summon Error</Bold>
       </H1>
-      <ParMd>
-        Learn more about{" "}
-        <Link href="https://daohaus.mirror.xyz/U_JQtheSzdpRFqQwf9Ow3LgLNG0WMZ6ibAyrjWDu_fc">
-          Moloch v3
-        </Link>
-      </ParMd>
-      <HausBlockLoading loading={false} />
       <InfoSection>
         <ParLg className="info">
           <Bold>Summon Failed:</Bold>
