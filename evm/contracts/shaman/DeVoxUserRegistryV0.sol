@@ -48,7 +48,7 @@ contract DeVoxUserRegistryV0 is
     /// @notice Check if a user is in the registry
     /// @param user user address
     /// @return true if user is in the registry
-    function getUser(address user) external override view returns (bool) {
+    function getUser(address user) external view override returns (bool) {
         return _registry[user];
     }
 
@@ -66,7 +66,7 @@ contract DeVoxUserRegistryV0 is
     /// @param metadata user metadata
     function saveUser(address user, bytes calldata metadata) external override {
         _registry[user] = true;
-        
+
         emit UserSaved(user, metadata);
     }
 

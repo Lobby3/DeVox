@@ -165,7 +165,10 @@ contract DeVoxShamanV1 is
         require(address(baal) != address(0), "donate: !baal");
         require(address(token) != address(0), "donate: !token");
         require(baal.isManager(address(this)), "donate: shaman not manager");
-        require(userRegistry.getUser(msg.sender), "donate: sender not registered");
+        require(
+            userRegistry.getUser(msg.sender),
+            "donate: sender not registered"
+        );
         require(_value % pricePerUnit == 0, "donate: invalid amount"); // require value as multiple of units
 
         // send to DAO
@@ -230,7 +233,10 @@ contract DeVoxShamanV1 is
     }
 
     function sign() external override {
-        require(userRegistry.getUser(msg.sender), "sign: sender not registered");
+        require(
+            userRegistry.getUser(msg.sender),
+            "sign: sender not registered"
+        );
         require(!signatures[msg.sender], "sign: already signed");
 
         signatures[msg.sender] = true;

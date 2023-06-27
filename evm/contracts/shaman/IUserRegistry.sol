@@ -6,7 +6,7 @@ interface IUserRegistry {
     /// @param user user address
     /// @param metadata user metadata
     event UserSaved(address indexed user, bytes metadata);
-    
+
     /// @notice emitted when a user is removed from the registry
     /// @param user user address
     event UserRemoved(address indexed user);
