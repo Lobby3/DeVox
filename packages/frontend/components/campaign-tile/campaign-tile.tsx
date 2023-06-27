@@ -4,7 +4,7 @@ import { formatUnits } from "ethers/lib/utils";
 import Link from "next/link";
 import React from "react";
 
-import { Campaign, useGetCampaign } from "../../graph/campaigns";
+import { Campaign, useDaoInfo, useGetCampaign } from "../../graph/campaigns";
 import { useTokenInfo } from "../../hooks/token";
 import { headerBackground } from "../../styles/colors";
 import Funded from "../tags/funded/funded";
@@ -15,6 +15,7 @@ export interface CampaignTileProps {
 
 export function CampaignTile({ campaign }: CampaignTileProps) {
   const { data } = useGetCampaign(campaign.id);
+  const { dao } = useDaoInfo(campaign.id);
   const { decimals } = useTokenInfo(campaign?.tokenAddress);
   const isFunded =
     data &&
@@ -30,7 +31,7 @@ export function CampaignTile({ campaign }: CampaignTileProps) {
       height="100%"
     >
       <Image
-        src={data?.dao?.avatarImg}
+        src={dao?.avatarImg}
         alt=""
         width="368px"
         height="368px"
@@ -38,7 +39,7 @@ export function CampaignTile({ campaign }: CampaignTileProps) {
       />
       {isFunded && <Funded />}
       <Heading textTransform="uppercase">{campaign.name}</Heading>
-      <Text noOfLines={3}>{data?.dao?.description}</Text>
+      <Text noOfLines={3}>{dao?.description}</Text>
       <Flex flexGrow={1} alignItems={"flex-end"}>
         <Link href={`campaign/${campaign.id}`}>
           <Button

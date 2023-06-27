@@ -21,7 +21,12 @@ export function CampaignGridView(props: CampaignGridViewProps) {
   }
 
   return (
-    <SimpleGrid gap={6} width="100%" minChildWidth={"340px"}>
+    <SimpleGrid
+      gap={6}
+      width="100%"
+      minChildWidth={"340px"}
+      columns={[1, 2, 3]}
+    >
       {(data || []).map((campaign) => (
         <GridItem key={campaign.id}>
           <CampaignTile campaign={campaign} />

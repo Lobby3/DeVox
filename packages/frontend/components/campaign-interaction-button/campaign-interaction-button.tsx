@@ -5,6 +5,7 @@ import React from "react";
 import { headerBackground, lavender } from "../../styles/colors";
 
 export interface CampaignInteractionButtonProps {
+  isDisabled?: boolean;
   onClick: () => void;
   title: string;
   subtitle: React.ReactNode;
@@ -17,33 +18,40 @@ export const CampaignInteractionButton = ({
   title,
   subtitle,
   icon,
+  isDisabled,
   complete = false,
 }: CampaignInteractionButtonProps) => {
   return (
-    <VStack
-      as="button"
+    <button
+      style={{ width: "100%", cursor: isDisabled ? "default" : "pointer" }}
       onClick={onClick}
-      width={"100%"}
-      maxWidth={420}
-      height={250}
-      p="32px"
-      backgroundColor={complete ? lavender : headerBackground}
-      justifyContent="center"
-      border={complete ? "none" : "1px solid white"}
-      spacing={4}
+      disabled={isDisabled}
     >
-      <Heading textTransform={"uppercase"} color={complete ? "black" : "white"}>
-        {title}
-      </Heading>
-      {icon}
-      <Text
-        fontFamily={"Inter"}
-        fontWeight="500"
-        color={complete ? "black" : "white"}
+      <VStack
+        maxWidth={420}
+        height={250}
+        p="32px"
+        backgroundColor={complete ? lavender : headerBackground}
+        justifyContent="center"
+        border={complete ? "none" : "1px solid white"}
+        spacing={4}
       >
-        {subtitle}
-      </Text>
-    </VStack>
+        <Heading
+          textTransform={"uppercase"}
+          color={complete ? "black" : "white"}
+        >
+          {title}
+        </Heading>
+        {icon}
+        <Text
+          fontFamily={"Inter"}
+          fontWeight="500"
+          color={complete ? "black" : "white"}
+        >
+          {subtitle}
+        </Text>
+      </VStack>
+    </button>
   );
 };
 

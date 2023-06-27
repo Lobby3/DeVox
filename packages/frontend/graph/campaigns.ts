@@ -29,6 +29,9 @@ export interface Campaign {
       id: string;
     };
   }[];
+  signatures: {
+    id: string;
+  }[];
 }
 
 const campaignFragment = gql`
@@ -52,6 +55,9 @@ const campaignFragment = gql`
         id
       }
     }
+    signatures {
+      id
+    }
   }
 `;
 
@@ -74,46 +80,29 @@ export const useGetCampaigns = () => {
   });
 };
 
-export const useGetCampaign = (id: string) => {
-  const { dao } = useDaoData({
+export const useDaoInfo = (id: string) => {
+  return useDaoData({
     daoId: id,
     daoChain: process.env.NEXT_PUBLIC_CHAIN_ID_HEX as string,
   });
-  return useQuery(
-    ["campaign", id],
-    async () => {
-      return graphQLClient
-        .request(
-          gql`
-            ${campaignFragment}
-            query GetCampaign($id: ID!) {
-              campaign(id: $id) {
-                ...campaignFragment
-              }
-            }
-          `,
-          { id }
-        )
-        .then((result) => {
-          return (result as { campaign: Campaign }).campaign;
-        });
-    },
-    {
-      select: (data) => {
-        return {
-          ...data,
-          dao,
-        };
-      },
-    }
-  );
 };
 
-export const useCampaignData = (id: string) => {
-  const imageUrl = useMemo(() => getRandomCampaignImage(), []);
-  const description = useMemo(() => getRandomCampaignDescription(), []);
-  return {
-    imageUrl,
-    description,
-  };
+export const useGetCampaign = (id: string) => {
+  return useQuery(["campaign", id], async () => {
+    return graphQLClient
+      .request(
+        gql`
+          ${campaignFragment}
+          query GetCampaign($id: ID!) {
+            campaign(id: $id) {
+              ...campaignFragment
+            }
+          }
+        `,
+        { id }
+      )
+      .then((result) => {
+        return (result as { campaign: Campaign }).campaign;
+      });
+  });
 };
