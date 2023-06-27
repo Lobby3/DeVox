@@ -2,6 +2,7 @@ import { useWeb3React } from "@web3-react/core";
 import { Contract, ethers } from "ethers";
 import { useEffect, useState } from "react";
 
+import { DeVoxUserRegistryContract } from "../app/summon/utils";
 import shamanContractJson from "../contract-types/DeVoxShamanV1.json";
 import { _abi } from "../contract-types/erc20";
 
@@ -77,5 +78,32 @@ export const usePublicTokenContract = (tokenAddress?: string) => {
     };
     getTokenContract();
   }, [tokenAddress]);
+  return contract;
+};
+
+export const useUserRegistryContract = () => {
+  const userRegistryKeychain = DeVoxUserRegistryContract;
+  const [contract, setContract] = useState<Contract | null>(null);
+  const {
+    hooks: { usePriorityProvider },
+  } = useWeb3React();
+  const provider = usePriorityProvider();
+
+  useEffect(() => {
+    const getContract = async () => {
+      if (!provider) {
+        return;
+      }
+
+      const contract = new ethers.Contract(
+        userRegistryKeychain.targetAddress as `0x${string}`,
+        userRegistryKeychain.abi,
+        provider.getSigner()
+      );
+      setContract(contract);
+    };
+    getContract();
+  }, [provider]);
+
   return contract;
 };
