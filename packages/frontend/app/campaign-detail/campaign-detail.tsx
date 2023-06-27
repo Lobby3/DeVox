@@ -142,7 +142,7 @@ const CampaignDetail = ({ campaignId }: CampaignDetailProps) => {
           height={"100%"}
         >
           <VStack width="100%" spacing={8} alignItems={"flex-start"}>
-            <CampaignSignButton />
+            <CampaignSignButton campaignId={campaignId} />
             <CampaignDonateButton campaignId={campaignId} />
           </VStack>
         </GridItem>
