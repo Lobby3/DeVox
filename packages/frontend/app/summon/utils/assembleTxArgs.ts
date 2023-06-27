@@ -50,7 +50,7 @@ export const assembleTxArgs = (
     );
   }
 
-  // addDeadLoot(formValues);
+  addDeadLoot(formValues);
 
   const { POSTER } = handleKeychains(chainId);
   const mintParams = encodeMintParams(formValues);
@@ -69,7 +69,7 @@ export const assembleTxArgs = (
     baalInitActions,
     shamanArgs,
   ];
-  console.log("args", args);
+  // console.log("args", args);
 
   return args;
 };
@@ -118,8 +118,7 @@ const getShamanInitParams = function (
     daoName,
     adminAddresses,
   ];
-
-  console.log("shamanArgs", shamanArgs);
+  // console.log("shamanArgs", shamanArgs);
 
   return encodeValues(
     [
@@ -209,28 +208,30 @@ const metadataConfigTX = (
 };
 
 function addDeadLoot(formValues: Record<string, unknown>) {
-  const deadLoot = process.env.SHAMAN_DEAD_LOOT_MINT;
-  if (isNumberish(deadLoot)) {
-    const { members } = formValues as SummonParams;
-    if (
-      !members ||
-      !isArray(members?.memberAddresses) ||
-      members.memberAddresses.some((addr) => !isString(addr)) ||
-      !isArray(members?.memberShares) ||
-      members.memberShares.some((shares) => !isNumberish(shares)) ||
-      !isArray(members?.memberLoot) ||
-      members.memberLoot.some((shares) => !isNumberish(shares))
-    ) {
-      console.log("ERROR: Form Values", formValues);
-      throw new Error(
-        "encodeMintParams recieved arguments in the wrong shape or type"
-      );
-    }
-    const { memberAddresses, memberShares, memberLoot } = members;
-    memberAddresses.push("0x000000000000000000000000000000000000dEaD");
-    memberShares.push("0");
-    memberLoot.push(deadLoot);
-    // formValues.members = members;
-    console.log("members", formValues.members);
+  const deadLoot = process.env.NEXT_PUBLIC_SHAMAN_DEAD_LOOT;
+  if (!isNumberish(deadLoot))
+    throw new Error(".env key NEXT_PUBLIC_SHAMAN_DEAD_LOOT is not a number");
+
+  const { members } = formValues as SummonParams;
+  if (
+    !members ||
+    !isArray(members?.memberAddresses) ||
+    members.memberAddresses.some((addr) => !isString(addr)) ||
+    !isArray(members?.memberShares) ||
+    members.memberShares.some((shares) => !isNumberish(shares)) ||
+    !isArray(members?.memberLoot) ||
+    members.memberLoot.some((shares) => !isNumberish(shares))
+  ) {
+    console.log("ERROR: Form Values", formValues);
+    throw new Error(
+      "encodeMintParams recieved arguments in the wrong shape or type"
+    );
   }
+
+  const { memberAddresses, memberShares, memberLoot } = members;
+  memberAddresses.push("0x000000000000000000000000000000000000dEaD");
+  memberShares.push("0");
+  memberLoot.push(deadLoot);
+
+  // console.log("members", formValues.members);
 }
