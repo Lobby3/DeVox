@@ -3,4 +3,4 @@ export * from "./common";
 export * from "./formKeys";
 export * from "./hex";
 export * from "./summonlegos";
-export * from "./wellKnown";
+export * from "./keychains";
