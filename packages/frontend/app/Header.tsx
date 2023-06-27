@@ -2,7 +2,7 @@
 
 import { Flex, HStack, Heading } from "@chakra-ui/react";
 import {
-  ChatBubbleBottomCenterTextIcon,
+  // ChatBubbleBottomCenterTextIcon,
   FaceSmileIcon,
   GlobeAsiaAustraliaIcon,
 } from "@heroicons/react/20/solid";
@@ -20,11 +20,11 @@ const headerLinks = {
     href: "/",
     icon: GlobeAsiaAustraliaIcon,
   },
-  create: {
-    label: "Create campaign",
-    href: "/create",
-    icon: ChatBubbleBottomCenterTextIcon,
-  },
+  // create: {
+  //   label: "Create campaign",
+  //   href: "/create",
+  //   icon: ChatBubbleBottomCenterTextIcon,
+  // },
   aboutUs: {
     label: "About Us",
     href: "/about-us",

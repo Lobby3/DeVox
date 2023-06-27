@@ -4,12 +4,11 @@ import {
   Button,
   Center,
   Flex,
-  GridItem,
   HStack,
   Heading,
   Image,
   Progress,
-  SimpleGrid,
+  Stack,
   Text,
   VStack,
 } from "@chakra-ui/react";
@@ -68,24 +67,32 @@ const CampaignDetail = ({ campaignId }: CampaignDetailProps) => {
   return (
     <>
       <BodyContainer>
-        <Flex width="100%" border={"1px solid black"} height={"480px"}>
+        <Flex
+          flexDirection={["column", "row"]}
+          width="100%"
+          border={"1px solid black"}
+          height={["fit-content", "480px"]}
+        >
           <Image
             src={
               dao?.avatarImg ||
               "https://randomwordgenerator.com/img/picture-generator/57e7dc4b4c5ba914f1dc8460962e33791c3ad6e04e5074417c2f7dd5904cc0_640.jpg"
             }
-            height={"100%"}
-            width={"50%"}
+            height={["auto", "100%"]}
+            width={["100%", "50%"]}
             objectFit={"cover"}
           />
           <VStack
-            px={"40px"}
+            py={["16px", 0]}
+            px={["16px", "40px"]}
             alignItems={"flex-start"}
             height={"100%"}
             justifyContent={"center"}
             spacing={6}
           >
-            <Heading size={"sm"}>{campaign.shamanAddress}</Heading>
+            <Heading noOfLines={1} size={"sm"}>
+              {campaign.shamanAddress}
+            </Heading>
             <Heading size={"xl"}>{campaign.name}</Heading>
             <Flex alignItems="center">
               <PencilSquareIcon height="20px" width="20px" />
@@ -95,11 +102,11 @@ const CampaignDetail = ({ campaignId }: CampaignDetailProps) => {
             </Flex>
             <Flex alignItems={"center"}>
               <Heading size={"sm"} mr={2}>
-                ${campaign.total}/{campaign.target}
+                ${formattedTotal}/{campaign.target}
               </Heading>
-              <Box width="200px" mr={2}>
+              <Flex width={[0, "200px"]} flexGrow={[1, 1, 0]} mr={2}>
                 <Progress colorScheme="devoxSuccess" value={progressValue} />
-              </Box>
+              </Flex>
               <CircleStackIcon height={20} width={20} />
             </Flex>
             <Text noOfLines={10}>{dao?.description}</Text>
@@ -108,10 +115,15 @@ const CampaignDetail = ({ campaignId }: CampaignDetailProps) => {
       </BodyContainer>
       <Box width={"100%"} backgroundColor={headerBackground}>
         <BodyContainer>
-          <HStack width="100%" spacing={8} justifyContent={"flex-start"}>
+          <Stack
+            direction={["column", "row"]}
+            width="100%"
+            spacing={8}
+            justifyContent={"flex-start"}
+          >
             <CampaignSignButton campaignId={campaignId} />
             <CampaignDonateButton campaignId={campaignId} />
-          </HStack>
+          </Stack>
         </BodyContainer>
       </Box>
       <BodyContainer>
