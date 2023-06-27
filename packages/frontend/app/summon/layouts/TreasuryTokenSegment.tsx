@@ -1,3 +1,4 @@
+import { isValidNetwork } from "@daohaus/keychain-utils";
 import {
   FormSegment,
   SplitColumn,
@@ -5,11 +6,13 @@ import {
   WrappedSelect,
 } from "@daohaus/ui";
 import { ValidateField } from "@daohaus/utils";
+import { useWeb3React } from "@web3-react/core";
 import { useEffect, useState } from "react";
 import React from "react";
 import { useFormContext } from "react-hook-form";
 
-import { TreasuryTokenKeychains } from "../utils";
+import { useTokenInfo } from "../../../hooks/token";
+import { TreasuryTokenKeychains, hexadecimalize } from "../utils";
 import { FORM_KEYS } from "../utils/formKeys";
 
 export const TreasuryTokenSegment = ({
@@ -20,10 +23,21 @@ export const TreasuryTokenSegment = ({
   const {
     watch,
     formState: { errors, touchedFields },
+    setValue,
   } = useFormContext();
+  const { chainId } = useWeb3React();
+  const chainIdHex = hexadecimalize(chainId);
   const treasuryToken = watch(FORM_KEYS.TREASURY_TOKEN);
-
   const [helperText, setHelperText] = useState("");
+  const tokenAddress =
+    treasuryToken && isValidNetwork(chainIdHex)
+      ? TreasuryTokenKeychains[treasuryToken][chainIdHex]
+      : undefined;
+  const { decimals } = useTokenInfo(tokenAddress);
+
+  useEffect(() => {
+    setValue(FORM_KEYS.TREASURY_TOKEN_DECIMALS, decimals);
+  }, [decimals, setValue]);
 
   useEffect(() => {
     if (treasuryToken == null) return;
@@ -43,16 +57,24 @@ export const TreasuryTokenSegment = ({
             {
               rowId: "treasuryToken1",
               left: (
-                <WrappedSelect
-                  id={FORM_KEYS.TREASURY_TOKEN}
-                  label="Token"
-                  disabled={formDisabled}
-                  helperText={helperText}
-                  options={Object.keys(TreasuryTokenKeychains).map((token) => ({
-                    name: token,
-                    value: token,
-                  }))}
-                />
+                <>
+                  <WrappedSelect
+                    id={FORM_KEYS.TREASURY_TOKEN}
+                    label="Token"
+                    disabled={formDisabled}
+                    helperText={helperText}
+                    options={Object.keys(TreasuryTokenKeychains).map(
+                      (token) => ({
+                        name: token,
+                        value: token,
+                      })
+                    )}
+                  />
+                  <WrappedInput
+                    id={FORM_KEYS.TREASURY_TOKEN_DECIMALS}
+                    hidden={true}
+                  />
+                </>
               ),
               right: (
                 <WrappedInput

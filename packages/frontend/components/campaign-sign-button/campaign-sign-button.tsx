@@ -3,6 +3,7 @@ import { PencilSquareIcon } from "@heroicons/react/24/outline";
 
 import CampaignInteractionButton from "../campaign-interaction-button/campaign-interaction-button";
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface CampaignSignButtonProps {}
 
 export function CampaignSignButton(props: CampaignSignButtonProps) {

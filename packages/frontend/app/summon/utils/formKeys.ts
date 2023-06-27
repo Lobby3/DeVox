@@ -19,5 +19,6 @@ export const FORM_KEYS = {
   SHAMANS: 'shamans',
   MEMBERS: 'members',
   TREASURY_TOKEN: 'treasuryToken',
+  TREASURY_TOKEN_DECIMALS: 'treasuryTokenDecimals',
   CAMPAIGN_TARGET: 'campaignTarget',
 };

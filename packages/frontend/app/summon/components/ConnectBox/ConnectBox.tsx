@@ -1,5 +1,5 @@
 import { useHausConnect } from "@daohaus/daohaus-connect-feature";
-import { Button, ParSm, Theme, border } from "@daohaus/ui";
+import { Button, ParSm } from "@daohaus/ui";
 
 export const ConnectBox = () => {
   const { connectWallet } = useHausConnect();

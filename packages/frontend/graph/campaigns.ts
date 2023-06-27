@@ -77,7 +77,7 @@ export const useGetCampaigns = () => {
 export const useGetCampaign = (id: string) => {
   const { dao } = useDaoData({
     daoId: id,
-    daoChain: process.env.NEXT_PUBLIC_CHAIN_ID_HEX!,
+    daoChain: process.env.NEXT_PUBLIC_CHAIN_ID_HEX as string,
   });
   return useQuery(
     ["campaign", id],
@@ -110,8 +110,8 @@ export const useGetCampaign = (id: string) => {
 };
 
 export const useCampaignData = (id: string) => {
-  const imageUrl = useMemo(() => getRandomCampaignImage(), [id]);
-  const description = useMemo(() => getRandomCampaignDescription(), [id]);
+  const imageUrl = useMemo(() => getRandomCampaignImage(), []);
+  const description = useMemo(() => getRandomCampaignDescription(), []);
   return {
     imageUrl,
     description,
