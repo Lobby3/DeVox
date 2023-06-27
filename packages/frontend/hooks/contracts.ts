@@ -2,9 +2,8 @@ import { useWeb3React } from "@web3-react/core";
 import { Contract, ethers } from "ethers";
 import { useEffect, useState } from "react";
 
+import shamanContractJson from "../contract-types/DeVoxShamanV1.json";
 import { _abi } from "../contract-types/erc20";
-
-const shamanContractJson = require("../contract-types/DeVoxShamanV1.json");
 
 export const useShamanContract = (shamanAddress?: string) => {
   const [contract, setContract] = useState<Contract | null>(null);
