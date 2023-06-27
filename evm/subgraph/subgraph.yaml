@@ -51,7 +51,7 @@ dataSources:
     network: goerli
     source:
       abi: DeVoxShamanSummonerV1
-      address: "0x9f723A885108236E478FC5E31ff90E60E300876D"
+      address: "0xdee8E745A71dd9b2D0Cde741495bE21f3c1A453b"
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -73,11 +73,44 @@ dataSources:
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
         - event: SummonComplete(indexed address,indexed
-            address,address,uint256,uint256,uint256,uint256,string)
+            address,address,address,uint256,uint256,uint256,uint256,string)
           handler: handleSummonComplete
         - event: Upgraded(indexed address)
           handler: handleUpgraded
       file: ./src/de-vox-shaman-summoner-v-1.ts
+  - kind: ethereum
+    name: DeVoxUserRegistryV0
+    network: goerli
+    source:
+      abi: DeVoxUserRegistryV0
+      address: "0xCf8a0e1A1E3678431C777c546E9aCd358C4e08e0"
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - BeaconUpgraded
+        - Initialized
+        - OwnershipTransferred
+        - SummonComplete
+        - Upgraded
+      abis:
+        - name: DeVoxUserRegistryV0
+          file: ./abis/DeVoxUserRegistryV0.json
+      eventHandlers:
+        - event: BeaconUpgraded(indexed address)
+          handler: handleBeaconUpgraded
+        - event: Initialized(uint8)
+          handler: handleInitialized
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: Upgraded(indexed address)
+          handler: handleUpgraded
+        - event: UserSaved(indexed address,bytes)
+          handler: handleUserSaved
+        - event: UserRemoved(indexed address)
+          handler: handleUserRemoved
+      file: ./src/de-vox-user-registry-v-0.ts
 templates:
   - kind: ethereum
     name: Baal

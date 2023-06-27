@@ -612,6 +612,21 @@ export class DeVoxShamanV1 extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBigInt());
   }
 
+  userRegistry(): Address {
+    let result = super.call("userRegistry", "userRegistry():(address)", []);
+
+    return result[0].toAddress();
+  }
+
+  try_userRegistry(): ethereum.CallResult<Address> {
+    let result = super.tryCall("userRegistry", "userRegistry():(address)", []);
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toAddress());
+  }
+
   version(): BigInt {
     let result = super.call("version", "version():(uint256)", []);
 
@@ -650,6 +665,36 @@ export class ConstructorCall__Outputs {
   _call: ConstructorCall;
 
   constructor(call: ConstructorCall) {
+    this._call = call;
+  }
+}
+
+export class CancelProposalCall extends ethereum.Call {
+  get inputs(): CancelProposalCall__Inputs {
+    return new CancelProposalCall__Inputs(this);
+  }
+
+  get outputs(): CancelProposalCall__Outputs {
+    return new CancelProposalCall__Outputs(this);
+  }
+}
+
+export class CancelProposalCall__Inputs {
+  _call: CancelProposalCall;
+
+  constructor(call: CancelProposalCall) {
+    this._call = call;
+  }
+
+  get proposalId(): BigInt {
+    return this._call.inputValues[0].value.toBigInt();
+  }
+}
+
+export class CancelProposalCall__Outputs {
+  _call: CancelProposalCall;
+
+  constructor(call: CancelProposalCall) {
     this._call = call;
   }
 }
@@ -777,24 +822,28 @@ export class InitializeCall__Inputs {
     return this._call.inputValues[1].value.toAddress();
   }
 
-  get _id(): BigInt {
-    return this._call.inputValues[2].value.toBigInt();
+  get _userRegistry(): Address {
+    return this._call.inputValues[2].value.toAddress();
   }
 
-  get _pricePerUnit(): BigInt {
+  get _id(): BigInt {
     return this._call.inputValues[3].value.toBigInt();
   }
 
-  get _tokensPerUnit(): BigInt {
+  get _pricePerUnit(): BigInt {
     return this._call.inputValues[4].value.toBigInt();
   }
 
-  get _target(): BigInt {
+  get _tokensPerUnit(): BigInt {
     return this._call.inputValues[5].value.toBigInt();
   }
 
+  get _target(): BigInt {
+    return this._call.inputValues[6].value.toBigInt();
+  }
+
   get _admins(): Array<Address> {
-    return this._call.inputValues[6].value.toAddressArray();
+    return this._call.inputValues[7].value.toAddressArray();
   }
 }
 
@@ -1102,40 +1151,6 @@ export class UpgradeToAndCallCall__Outputs {
   _call: UpgradeToAndCallCall;
 
   constructor(call: UpgradeToAndCallCall) {
-    this._call = call;
-  }
-}
-
-export class WhitelistCall extends ethereum.Call {
-  get inputs(): WhitelistCall__Inputs {
-    return new WhitelistCall__Inputs(this);
-  }
-
-  get outputs(): WhitelistCall__Outputs {
-    return new WhitelistCall__Outputs(this);
-  }
-}
-
-export class WhitelistCall__Inputs {
-  _call: WhitelistCall;
-
-  constructor(call: WhitelistCall) {
-    this._call = call;
-  }
-
-  get _status(): boolean {
-    return this._call.inputValues[0].value.toBoolean();
-  }
-
-  get _metadata(): Bytes {
-    return this._call.inputValues[1].value.toBytes();
-  }
-}
-
-export class WhitelistCall__Outputs {
-  _call: WhitelistCall;
-
-  constructor(call: WhitelistCall) {
     this._call = call;
   }
 }

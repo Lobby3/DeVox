@@ -29,10 +29,9 @@ export interface IShamanInterface extends utils.Interface {
   functions: {
     "cancelProposal(uint32)": FunctionFragment;
     "donate(uint256,string)": FunctionFragment;
-    "initialize(address,address,uint256,uint256,uint256,uint256,address[])": FunctionFragment;
+    "initialize(address,address,address,uint256,uint256,uint256,uint256,address[])": FunctionFragment;
     "setAdmin(address)": FunctionFragment;
     "sign()": FunctionFragment;
-    "whitelist(bool,bytes)": FunctionFragment;
   };
 
   getFunction(
@@ -42,7 +41,6 @@ export interface IShamanInterface extends utils.Interface {
       | "initialize"
       | "setAdmin"
       | "sign"
-      | "whitelist"
   ): FunctionFragment;
 
   encodeFunctionData(
@@ -58,6 +56,7 @@ export interface IShamanInterface extends utils.Interface {
     values: [
       PromiseOrValue<string>,
       PromiseOrValue<string>,
+      PromiseOrValue<string>,
       PromiseOrValue<BigNumberish>,
       PromiseOrValue<BigNumberish>,
       PromiseOrValue<BigNumberish>,
@@ -70,10 +69,6 @@ export interface IShamanInterface extends utils.Interface {
     values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(functionFragment: "sign", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "whitelist",
-    values: [PromiseOrValue<boolean>, PromiseOrValue<BytesLike>]
-  ): string;
 
   decodeFunctionResult(
     functionFragment: "cancelProposal",
@@ -83,7 +78,6 @@ export interface IShamanInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: "initialize", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "setAdmin", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "sign", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "whitelist", data: BytesLike): Result;
 
   events: {};
 }
@@ -129,6 +123,7 @@ export interface IShaman extends BaseContract {
     initialize(
       _moloch: PromiseOrValue<string>,
       _token: PromiseOrValue<string>,
+      _userRegistry: PromiseOrValue<string>,
       _id: PromiseOrValue<BigNumberish>,
       _pricePerUnit: PromiseOrValue<BigNumberish>,
       _tokensPerUnit: PromiseOrValue<BigNumberish>,
@@ -143,12 +138,6 @@ export interface IShaman extends BaseContract {
     ): Promise<ContractTransaction>;
 
     sign(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
-
-    whitelist(
-      _status: PromiseOrValue<boolean>,
-      _metadata: PromiseOrValue<BytesLike>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
   };
@@ -167,6 +156,7 @@ export interface IShaman extends BaseContract {
   initialize(
     _moloch: PromiseOrValue<string>,
     _token: PromiseOrValue<string>,
+    _userRegistry: PromiseOrValue<string>,
     _id: PromiseOrValue<BigNumberish>,
     _pricePerUnit: PromiseOrValue<BigNumberish>,
     _tokensPerUnit: PromiseOrValue<BigNumberish>,
@@ -181,12 +171,6 @@ export interface IShaman extends BaseContract {
   ): Promise<ContractTransaction>;
 
   sign(
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
-
-  whitelist(
-    _status: PromiseOrValue<boolean>,
-    _metadata: PromiseOrValue<BytesLike>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
@@ -205,6 +189,7 @@ export interface IShaman extends BaseContract {
     initialize(
       _moloch: PromiseOrValue<string>,
       _token: PromiseOrValue<string>,
+      _userRegistry: PromiseOrValue<string>,
       _id: PromiseOrValue<BigNumberish>,
       _pricePerUnit: PromiseOrValue<BigNumberish>,
       _tokensPerUnit: PromiseOrValue<BigNumberish>,
@@ -219,12 +204,6 @@ export interface IShaman extends BaseContract {
     ): Promise<void>;
 
     sign(overrides?: CallOverrides): Promise<void>;
-
-    whitelist(
-      _status: PromiseOrValue<boolean>,
-      _metadata: PromiseOrValue<BytesLike>,
-      overrides?: CallOverrides
-    ): Promise<void>;
   };
 
   filters: {};
@@ -244,6 +223,7 @@ export interface IShaman extends BaseContract {
     initialize(
       _moloch: PromiseOrValue<string>,
       _token: PromiseOrValue<string>,
+      _userRegistry: PromiseOrValue<string>,
       _id: PromiseOrValue<BigNumberish>,
       _pricePerUnit: PromiseOrValue<BigNumberish>,
       _tokensPerUnit: PromiseOrValue<BigNumberish>,
@@ -258,12 +238,6 @@ export interface IShaman extends BaseContract {
     ): Promise<BigNumber>;
 
     sign(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
-
-    whitelist(
-      _status: PromiseOrValue<boolean>,
-      _metadata: PromiseOrValue<BytesLike>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
   };
@@ -283,6 +257,7 @@ export interface IShaman extends BaseContract {
     initialize(
       _moloch: PromiseOrValue<string>,
       _token: PromiseOrValue<string>,
+      _userRegistry: PromiseOrValue<string>,
       _id: PromiseOrValue<BigNumberish>,
       _pricePerUnit: PromiseOrValue<BigNumberish>,
       _tokensPerUnit: PromiseOrValue<BigNumberish>,
@@ -297,12 +272,6 @@ export interface IShaman extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     sign(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
-
-    whitelist(
-      _status: PromiseOrValue<boolean>,
-      _metadata: PromiseOrValue<BytesLike>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
   };

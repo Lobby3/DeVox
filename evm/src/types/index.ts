@@ -186,7 +186,11 @@ export type { DeVoxShamanSummonerV1 } from "./contracts/shaman/DeVoxShamanSummon
 export { DeVoxShamanSummonerV1__factory } from "./factories/contracts/shaman/DeVoxShamanSummonerV1__factory";
 export type { DeVoxShamanV1 } from "./contracts/shaman/DeVoxShamanV1";
 export { DeVoxShamanV1__factory } from "./factories/contracts/shaman/DeVoxShamanV1__factory";
+export type { DeVoxUserRegistryV0 } from "./contracts/shaman/DeVoxUserRegistryV0";
+export { DeVoxUserRegistryV0__factory } from "./factories/contracts/shaman/DeVoxUserRegistryV0__factory";
 export type { IShaman } from "./contracts/shaman/IShaman";
 export { IShaman__factory } from "./factories/contracts/shaman/IShaman__factory";
 export type { IShamanSummoner } from "./contracts/shaman/IShamanSummoner";
 export { IShamanSummoner__factory } from "./factories/contracts/shaman/IShamanSummoner__factory";
+export type { IUserRegistry } from "./contracts/shaman/IUserRegistry";
+export { IUserRegistry__factory } from "./factories/contracts/shaman/IUserRegistry__factory";

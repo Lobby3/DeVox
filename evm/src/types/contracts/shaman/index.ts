@@ -4,5 +4,7 @@
 export type { DeVoxBaalAndShamanSummonerV1 } from "./DeVoxBaalAndShamanSummonerV1";
 export type { DeVoxShamanSummonerV1 } from "./DeVoxShamanSummonerV1";
 export type { DeVoxShamanV1 } from "./DeVoxShamanV1";
+export type { DeVoxUserRegistryV0 } from "./DeVoxUserRegistryV0";
 export type { IShaman } from "./IShaman";
 export type { IShamanSummoner } from "./IShamanSummoner";
+export type { IUserRegistry } from "./IUserRegistry";

@@ -1,4 +1,4 @@
-import { Address, BigInt, Bytes } from "@graphprotocol/graph-ts";
+import { Address, BigInt } from "@graphprotocol/graph-ts";
 import {
   assert,
   beforeEach,
@@ -7,18 +7,16 @@ import {
   test,
 } from "matchstick-as/assembly/index";
 
-import { Campaign, Donation, Signature, User } from "../generated/schema";
+import { Campaign, Donation, Signature } from "../generated/schema";
 import {
   handleDonationReceived,
   handleSigned,
   handleTargetUpdated,
-  handleUserWhitelisted,
 } from "../src/de-vox-shaman-v-1";
 import {
   createDonationReceivedEvent,
   createSignedEvent,
   createTargetUpdatedEvent,
-  createUserWhitelistedEvent,
 } from "./de-vox-shaman-v-1-utils";
 
 describe("DeVoxShamanV1", () => {
@@ -183,40 +181,5 @@ describe("DeVoxShamanV1", () => {
       return;
     }
     assert.bigIntEquals(target, campaign.target);
-  });
-
-  test("User whitelisted", () => {
-    // arrange
-    const baalAddress = Address.fromString(
-      "0x90F9ac6B6dD860d4E40976eb6De6d6580Cc7e94D"
-    );
-    const shamanAddress = Address.fromString(
-      "0xEe79604E3D82641D3dE15dEc23E2064786011E94"
-    );
-    const userAddress = Address.fromString(
-      "0x65Fc100DD791746B5945609373e5311dd0C77545"
-    );
-    const id = BigInt.fromI32(1);
-    const status = true;
-    const metadata = Bytes.fromHexString("0x1234");
-    const event = createUserWhitelistedEvent(
-      userAddress,
-      baalAddress,
-      id,
-      status,
-      metadata
-    );
-    event.address = shamanAddress;
-
-    // act
-    handleUserWhitelisted(event);
-
-    assert.entityCount("User", 1);
-    const user = User.load(userAddress);
-    assert.assertNotNull(user);
-    if (!user) {
-      return;
-    }
-    assert.bytesEquals(metadata, user.metadata);
   });
 });

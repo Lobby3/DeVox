@@ -32,6 +32,7 @@ contract DeVoxShamanSummonerV1 is
     /// @param baal Baal contract address
     /// @param shaman Shaman contract address
     /// @param token ERC20 token address
+    /// @param userRegistry UserRegistry contract address
     /// @param id Id of the campaign
     /// @param pricePerUnit Raw amount of ERC20 required per accounting unit (USD)
     /// @param tokensPerUnit Amount of tokens issued per accounting unit (USD)
@@ -41,6 +42,7 @@ contract DeVoxShamanSummonerV1 is
         address indexed baal,
         address indexed shaman,
         address token,
+        address userRegistry,
         uint256 id,
         uint256 pricePerUnit,
         uint256 tokensPerUnit,
@@ -69,7 +71,8 @@ contract DeVoxShamanSummonerV1 is
         _id = _id + 1;
 
         (
-            address payable _token,
+            address _token,
+            address _userRegistry,
             uint256 _pricePerUnit,
             uint256 _tokensPerUnit,
             uint256 _target,
@@ -77,7 +80,7 @@ contract DeVoxShamanSummonerV1 is
             address[] memory _admins
         ) = abi.decode(
                 _initializationParams,
-                (address, uint256, uint256, uint256, string, address[])
+                (address, address, uint256, uint256, uint256, string, address[])
             );
 
         require(
@@ -96,6 +99,7 @@ contract DeVoxShamanSummonerV1 is
                     IShaman(template).initialize.selector,
                     _baal,
                     _token,
+                    _userRegistry,
                     _id,
                     _pricePerUnit,
                     _tokensPerUnit,
@@ -114,6 +118,7 @@ contract DeVoxShamanSummonerV1 is
             _baal,
             shaman,
             _token,
+            _userRegistry,
             _id,
             _pricePerUnit,
             _tokensPerUnit,
