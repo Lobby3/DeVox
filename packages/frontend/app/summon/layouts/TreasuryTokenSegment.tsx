@@ -1,4 +1,3 @@
-import { VisuallyHiddenInput } from "@chakra-ui/visually-hidden";
 import { isValidNetwork } from "@daohaus/keychain-utils";
 import {
   FormSegment,
@@ -8,12 +7,11 @@ import {
 } from "@daohaus/ui";
 import { ValidateField } from "@daohaus/utils";
 import { useWeb3React } from "@web3-react/core";
-import { set } from "lodash";
-import { useTokenInfo } from "packages/frontend/hooks/token";
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import React from "react";
 import { useFormContext } from "react-hook-form";
 
+import { useTokenInfo } from "../../../hooks/token";
 import { TreasuryTokenKeychains, hexadecimalize } from "../utils";
 import { FORM_KEYS } from "../utils/formKeys";
 
@@ -39,7 +37,7 @@ export const TreasuryTokenSegment = ({
 
   useEffect(() => {
     setValue(FORM_KEYS.TREASURY_TOKEN_DECIMALS, decimals);
-  }, [decimals]);
+  }, [decimals, setValue]);
 
   useEffect(() => {
     if (treasuryToken == null) return;

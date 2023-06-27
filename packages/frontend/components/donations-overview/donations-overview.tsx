@@ -1,11 +1,10 @@
-import { Box, HStack, List, ListIcon, ListItem, Text } from "@chakra-ui/react";
+import { List, ListIcon, ListItem, Text } from "@chakra-ui/react";
 import { CircleStackIcon } from "@heroicons/react/24/outline";
-import { formatEther, formatUnits } from "ethers/lib/utils";
+import { formatUnits } from "ethers/lib/utils";
 import React from "react";
 
 import { useGetCampaign } from "../../graph/campaigns";
 import { useGetDonationsForCampaign } from "../../graph/donations";
-import { useBalance } from "../../hooks/balance";
 import { useTokenInfo } from "../../hooks/token";
 import ErrorScreen from "../error-screen/error-screen";
 import Loader from "../loader/loader";

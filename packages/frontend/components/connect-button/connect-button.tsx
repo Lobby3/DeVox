@@ -43,19 +43,18 @@ export function ConnectButton({
     }
   };
 
-  const checkWalletType = async () => {
-    if (connector instanceof MagicConnect) {
-      const walletInfo = await connector.magic?.wallet.getInfo();
-
-      const isMagicWallet = walletInfo?.walletType === "magic";
-
-      setShowButton(isMagicWallet);
-    }
-  };
-
   useEffect(() => {
+    const checkWalletType = async () => {
+      if (connector instanceof MagicConnect) {
+        const walletInfo = await connector.magic?.wallet.getInfo();
+
+        const isMagicWallet = walletInfo?.walletType === "magic";
+
+        setShowButton(isMagicWallet);
+      }
+    };
     checkWalletType();
-  }, [handleConnect]);
+  }, [connector]);
 
   const getButtonMessage = () => {
     if (isActivating) {

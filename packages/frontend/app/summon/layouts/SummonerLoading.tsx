@@ -1,5 +1,5 @@
 import { ExplorerLink } from "@daohaus/connect";
-import { Bold, H1, Link, ParMd } from "@daohaus/ui";
+import { Bold, H1, ParMd } from "@daohaus/ui";
 import React from "react";
 
 import { InfoSection } from "./FormLayouts";

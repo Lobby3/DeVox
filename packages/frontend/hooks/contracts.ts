@@ -61,16 +61,17 @@ export const useTokenContract = (tokenAddress?: string) => {
 
 export const usePublicTokenContract = (tokenAddress?: string) => {
   const [contract, setContract] = useState<Contract | null>(null);
-  const provider = new ethers.providers.AlchemyProvider(
-    "goerli",
-    process.env.NEXT_PUBLIC_ALCHEMY_API_KEY
-  );
 
   useEffect(() => {
     const getTokenContract = async () => {
       if (!tokenAddress) {
         return;
       }
+
+      const provider = new ethers.providers.AlchemyProvider(
+        "goerli",
+        process.env.NEXT_PUBLIC_ALCHEMY_API_KEY
+      );
 
       const tokenContract = new ethers.Contract(tokenAddress, _abi, provider);
       setContract(tokenContract);

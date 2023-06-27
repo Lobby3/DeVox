@@ -72,6 +72,7 @@ const CampaignDetail = ({ campaignId }: CampaignDetailProps) => {
                   height="auto"
                   width={"50%"}
                   objectFit={"fill"}
+                  alt="campaign avatar"
                 />
                 <VStack
                   px={"40px"}

@@ -42,7 +42,7 @@ const ZipVerificationForm = ({
         shareZipCode: true,
       }}
       validate={(values) => {
-        const errors: any = {};
+        const errors: { zipCode?: string } = {};
         if (!values.zipCode) {
           errors.zipCode = "Required";
         } else if (values.zipCode.length < 5) {

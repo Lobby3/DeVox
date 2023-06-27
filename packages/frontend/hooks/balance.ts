@@ -22,7 +22,7 @@ export const useBalance = (tokenAddress?: string) => {
       setBalance(balance);
     };
     getBalance();
-  }, [contract, tokenAddress]);
+  }, [account, contract, tokenAddress]);
 
   return {
     balance,

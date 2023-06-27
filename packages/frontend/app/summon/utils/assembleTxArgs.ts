@@ -216,11 +216,11 @@ function addDeadLoot(formValues: Record<string, unknown>) {
   if (
     !members ||
     !isArray(members?.memberAddresses) ||
-    members.memberAddresses.some((addr) => !isString(addr)) ||
+    members.memberAddresses.some((addr: string) => !isString(addr)) ||
     !isArray(members?.memberShares) ||
-    members.memberShares.some((shares) => !isNumberish(shares)) ||
+    members.memberShares.some((shares: string) => !isNumberish(shares)) ||
     !isArray(members?.memberLoot) ||
-    members.memberLoot.some((shares) => !isNumberish(shares))
+    members.memberLoot.some((shares: string) => !isNumberish(shares))
   ) {
     console.log("ERROR: Form Values", formValues);
     throw new Error(
