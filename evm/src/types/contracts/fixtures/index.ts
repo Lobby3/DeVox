@@ -4,5 +4,8 @@
 
 /* eslint-disable */
 import type * as baal from "./Baal";
+import type * as deVox from "./DeVox";
 
 export type { baal };
+
+export type { deVox };

@@ -22,7 +22,7 @@ contract DeVoxShamanSummonerV0 is
     /// @notice Current version of the contract
     uint256 internal _id;
 
-    address payable public template;
+    address public template;
 
     /*******************
      * EVENTS
@@ -57,7 +57,7 @@ contract DeVoxShamanSummonerV0 is
     }
 
     /// @notice Contract initialization logic
-    function initialize(address payable _template) public initializer {
+    function initialize(address _template) public initializer {
         __Ownable_init();
         __UUPSUpgradeable_init();
 
@@ -67,7 +67,7 @@ contract DeVoxShamanSummonerV0 is
     function summonDeVoxShaman(
         address _baal,
         bytes calldata _initializationParams
-    ) external override returns (address) {
+    ) external virtual override returns (address) {
         _id = _id + 1;
 
         (

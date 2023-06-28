@@ -178,6 +178,8 @@ export type { DelegationEIP712Upgradeable } from "./contracts/fixtures/Baal/util
 export { DelegationEIP712Upgradeable__factory } from "./factories/contracts/fixtures/Baal/utils/DelegationEIP712Upgradeable__factory";
 export type { Poster } from "./contracts/fixtures/Baal/utils/Poster";
 export { Poster__factory } from "./factories/contracts/fixtures/Baal/utils/Poster__factory";
+export type { DeVoxShamanV1 } from "./contracts/fixtures/DeVox/DeVoxShamanV1";
+export { DeVoxShamanV1__factory } from "./factories/contracts/fixtures/DeVox/DeVoxShamanV1__factory";
 export type { MyToken } from "./contracts/mock/MyToken";
 export { MyToken__factory } from "./factories/contracts/mock/MyToken__factory";
 export type { DeVoxBaalAndShamanSummonerV0 } from "./contracts/shaman/DeVoxBaalAndShamanSummonerV0";

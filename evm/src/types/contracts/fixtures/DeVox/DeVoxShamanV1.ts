@@ -9,7 +9,7 @@ import type {
   TypedListener,
   OnEvent,
   PromiseOrValue,
-} from "../../common";
+} from "../../../common";
 import type {
   FunctionFragment,
   Result,
@@ -30,7 +30,7 @@ import type {
   utils,
 } from "ethers";
 
-export interface DeVoxShamanV0Interface extends utils.Interface {
+export interface DeVoxShamanV1Interface extends utils.Interface {
   functions: {
     "DEFAULT_ADMIN_ROLE()": FunctionFragment;
     "UPGRADER_ROLE()": FunctionFragment;
@@ -44,6 +44,7 @@ export interface DeVoxShamanV0Interface extends utils.Interface {
     "hasRole(bytes32,address)": FunctionFragment;
     "id()": FunctionFragment;
     "initialize(address,address,address,uint256,uint256,uint256,uint256,address[])": FunctionFragment;
+    "mockedUpgradeFunction()": FunctionFragment;
     "pricePerUnit()": FunctionFragment;
     "proxiableUUID()": FunctionFragment;
     "renounceRole(bytes32,address)": FunctionFragment;
@@ -77,6 +78,7 @@ export interface DeVoxShamanV0Interface extends utils.Interface {
       | "hasRole"
       | "id"
       | "initialize"
+      | "mockedUpgradeFunction"
       | "pricePerUnit"
       | "proxiableUUID"
       | "renounceRole"
@@ -150,6 +152,10 @@ export interface DeVoxShamanV0Interface extends utils.Interface {
       PromiseOrValue<BigNumberish>,
       PromiseOrValue<string>[]
     ]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "mockedUpgradeFunction",
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "pricePerUnit",
@@ -235,6 +241,10 @@ export interface DeVoxShamanV0Interface extends utils.Interface {
   decodeFunctionResult(functionFragment: "hasRole", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "id", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "initialize", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "mockedUpgradeFunction",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "pricePerUnit",
     data: BytesLike
@@ -428,12 +438,12 @@ export type UserSignedEvent = TypedEvent<
 
 export type UserSignedEventFilter = TypedEventFilter<UserSignedEvent>;
 
-export interface DeVoxShamanV0 extends BaseContract {
+export interface DeVoxShamanV1 extends BaseContract {
   connect(signerOrProvider: Signer | Provider | string): this;
   attach(addressOrName: string): this;
   deployed(): Promise<this>;
 
-  interface: DeVoxShamanV0Interface;
+  interface: DeVoxShamanV1Interface;
 
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,
@@ -512,6 +522,8 @@ export interface DeVoxShamanV0 extends BaseContract {
       _admins: PromiseOrValue<string>[],
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
+
+    mockedUpgradeFunction(overrides?: CallOverrides): Promise<[boolean]>;
 
     pricePerUnit(overrides?: CallOverrides): Promise<[BigNumber]>;
 
@@ -637,6 +649,8 @@ export interface DeVoxShamanV0 extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
+  mockedUpgradeFunction(overrides?: CallOverrides): Promise<boolean>;
+
   pricePerUnit(overrides?: CallOverrides): Promise<BigNumber>;
 
   proxiableUUID(overrides?: CallOverrides): Promise<string>;
@@ -758,6 +772,8 @@ export interface DeVoxShamanV0 extends BaseContract {
       _admins: PromiseOrValue<string>[],
       overrides?: CallOverrides
     ): Promise<void>;
+
+    mockedUpgradeFunction(overrides?: CallOverrides): Promise<boolean>;
 
     pricePerUnit(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -988,6 +1004,8 @@ export interface DeVoxShamanV0 extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
+    mockedUpgradeFunction(overrides?: CallOverrides): Promise<BigNumber>;
+
     pricePerUnit(overrides?: CallOverrides): Promise<BigNumber>;
 
     proxiableUUID(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1113,6 +1131,10 @@ export interface DeVoxShamanV0 extends BaseContract {
       _target: PromiseOrValue<BigNumberish>,
       _admins: PromiseOrValue<string>[],
       overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    mockedUpgradeFunction(
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     pricePerUnit(overrides?: CallOverrides): Promise<PopulatedTransaction>;

@@ -21,7 +21,6 @@ import {IShaman} from "./IShaman.sol";
 contract DeVoxShamanV0 is
     Initializable,
     AccessControlUpgradeable,
-    OwnableUpgradeable,
     ReentrancyGuardUpgradeable,
     UUPSUpgradeable,
     IShaman
@@ -30,6 +29,9 @@ contract DeVoxShamanV0 is
         LOOT,
         SHARES
     }
+
+    /// @notice User role required in order to upgrade the contract
+    bytes32 public constant UPGRADER_ROLE = keccak256("UPGRADER_ROLE");
 
     /// @notice Current version of the contract
     uint16 internal _version;
@@ -125,8 +127,11 @@ contract DeVoxShamanV0 is
         address[] calldata _admins
     ) external initializer {
         __AccessControl_init();
-        __Ownable_init();
         __UUPSUpgradeable_init();
+
+        require(address(_moloch) != address(0), "!baal");
+        require(address(_token) != address(0), "!token");
+        require(address(_userRegistry) != address(0), "!userRegistry");
 
         baal = IBaal(_moloch);
         token = IERC20(_token);
@@ -139,8 +144,10 @@ contract DeVoxShamanV0 is
         // set admins
         for (uint256 i = 0; i < _admins.length; i++) {
             _grantRole(DEFAULT_ADMIN_ROLE, _admins[i]);
+            _grantRole(UPGRADER_ROLE, msg.sender);
         }
         _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
+        _grantRole(UPGRADER_ROLE, msg.sender);
 
         // console.log("DeVoxShamanV1 deployed by %s", msg.sender);
     }
@@ -155,8 +162,6 @@ contract DeVoxShamanV0 is
         bool _signCampaign,
         string calldata _message
     ) external override nonReentrant {
-        require(address(baal) != address(0), "donate: !baal");
-        require(address(token) != address(0), "donate: !token");
         require(baal.isManager(address(this)), "donate: shaman not manager");
         require(
             userRegistry.getUser(msg.sender),
@@ -254,12 +259,12 @@ contract DeVoxShamanV0 is
     }
 
     /*******************
-     * OWNER
+     * UPGRADER_ROLE
      ******************/
 
     /// @notice Update the contract version number
-    /// @dev onlyOwner
-    function updateVersion() external onlyOwner {
+    /// @dev onlyRole(UPGRADER_ROLE)
+    function updateVersion() external onlyRole(UPGRADER_ROLE) {
         _version += 1;
     }
 
@@ -305,14 +310,14 @@ contract DeVoxShamanV0 is
     }
 
     /// @notice upgrade authorization logic
-    /// @dev adds onlyOwner requirement
+    /// @dev override adds onlyRole(UPGRADER_ROLE) requirement
     function _authorizeUpgrade(
         address /*newImplementation*/
     )
         internal
         view
         override
-        onlyOwner // solhint-disable-next-line no-empty-blocks
+        onlyRole(UPGRADER_ROLE) // solhint-disable-next-line no-empty-blocks
     {
         //empty block
     }
