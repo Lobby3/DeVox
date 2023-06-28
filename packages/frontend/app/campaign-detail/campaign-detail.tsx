@@ -1,3 +1,5 @@
+"use client";
+
 /* eslint-disable-next-line */
 import {
   Box,
