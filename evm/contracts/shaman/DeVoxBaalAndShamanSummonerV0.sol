@@ -14,7 +14,7 @@ import {IShamanSummoner} from "./IShamanSummoner.sol";
 // import {console} from "hardhat/console.sol";
 
 /// @title Higher-order summoner contract for Baal and Shaman in a single transaction
-contract DeVoxBaalAndShamanSummonerV1 is
+contract DeVoxBaalAndShamanSummonerV0 is
     Initializable,
     OwnableUpgradeable,
     UUPSUpgradeable

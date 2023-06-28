@@ -6,11 +6,11 @@ import {Initializable} from "@openzeppelin/contracts-upgradeable/proxy/utils/Ini
 import {UUPSUpgradeable} from "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";
 import {ERC1967Proxy} from "@openzeppelin/contracts/proxy/ERC1967/ERC1967Proxy.sol";
 
-import {DeVoxShamanV1} from "./DeVoxShamanV1.sol";
+import {DeVoxShamanV0} from "./DeVoxShamanV0.sol";
 import {IShaman} from "./IShaman.sol";
 import {IShamanSummoner} from "./IShamanSummoner.sol";
 
-contract DeVoxShamanSummonerV1 is
+contract DeVoxShamanSummonerV0 is
     Initializable,
     OwnableUpgradeable,
     UUPSUpgradeable,
@@ -110,7 +110,7 @@ contract DeVoxShamanSummonerV1 is
         );
 
         require(
-            address(DeVoxShamanV1(shaman).token()) == address(_token),
+            address(DeVoxShamanV0(shaman).token()) == address(_token),
             "DeVoxShamanSummonerV1: token mismatch"
         );
 

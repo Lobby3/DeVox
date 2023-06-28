@@ -13,7 +13,7 @@ import {IBaalSummoner} from "../interfaces/IBaalSummoner.sol";
 import {IBaalAdvTokenSummoner} from "../interfaces/IBaalAdvTokenSummoner.sol";
 import {IBaalToken} from "../../fixtures/Baal/interfaces/IBaalToken.sol";
 
-contract DeVoxBaalAdvTokenSummonerV1 is
+contract DeVoxBaalAdvTokenSummonerV0 is
     Initializable,
     OwnableUpgradeable,
     UUPSUpgradeable,

@@ -18,7 +18,7 @@ import {IShaman} from "./IShaman.sol";
 
 /// @notice Shaman contract for Baal v3 DAOhaus
 /// @dev This contract is used to issue voting shares (quadratic) and loot (1:1) for donations
-contract DeVoxShamanV1 is
+contract DeVoxShamanV0 is
     Initializable,
     AccessControlUpgradeable,
     OwnableUpgradeable,
