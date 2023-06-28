@@ -1,3 +1,4 @@
+import { Keychain } from "@daohaus/keychain-utils";
 import { StaticContract } from "@daohaus/utils";
 import { useWeb3React } from "@web3-react/core";
 import { Contract, ethers } from "ethers";
@@ -89,6 +90,7 @@ export const useUserRegistryContract = () => {
   const {
     hooks: { usePriorityProvider },
   } = useWeb3React();
+
   const provider = usePriorityProvider();
 
   useEffect(() => {
@@ -98,7 +100,7 @@ export const useUserRegistryContract = () => {
       }
 
       const contract = new ethers.Contract(
-        userRegistryKeychain.targetAddress as `0x${string}`,
+        (userRegistryKeychain.targetAddress as Keychain)["0x5"]!,
         userRegistryKeychain.abi,
         provider.getSigner()
       );
