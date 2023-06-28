@@ -13,6 +13,7 @@ import { useGetCampaignsWithDonationsFromUser } from "../../graph/campaigns";
 import BodyContainer from "../body-container/body-container";
 import CampaignGridView from "../campaign-grid-view/campaign-grid-view";
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface MyDonationsProps {}
 
 export function MyDonations(props: MyDonationsProps) {

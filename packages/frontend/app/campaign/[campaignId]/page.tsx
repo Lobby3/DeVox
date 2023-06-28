@@ -67,6 +67,7 @@ export async function generateMetadata(props: {
 
   const [campaign, dao] = await Promise.all([campaignPromise, daoPromise]);
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const getDaoAvatarImg = (dao: any): string | undefined => {
     if (!dao.profile || !dao.profile.length) return;
 
