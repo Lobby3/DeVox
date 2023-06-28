@@ -29,18 +29,24 @@ export const useDonate = (campaignId: string) => {
         amountInToken.toString(),
         decimals
       );
+      const approveToast = toast("Approving...");
       const approveTx = await tokenContract.approve(
         shamanContract.address,
         amountInTokenWithDecimals
       );
       await approveTx.wait();
+      toast.dismiss(approveToast);
+      toast("Approved!", {
+        type: "success",
+      });
 
+      const donateToastId = toast("Donating...");
       const tx = await shamanContract.donate(
         amountInTokenWithDecimals,
         message
       );
-      toast("Donating...");
       const txHash = await tx.wait();
+      toast.dismiss(donateToastId);
       toast("Donated!", {
         type: "success",
       });
