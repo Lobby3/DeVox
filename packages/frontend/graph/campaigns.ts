@@ -1,13 +1,7 @@
 import { useDaoData } from "@daohaus/moloch-v3-hooks";
 import { useQuery } from "@tanstack/react-query";
 import { gql } from "graphql-request";
-import { useMemo } from "react";
-import { Donation } from "subgraph/generated/schema";
 
-import {
-  getRandomCampaignDescription,
-  getRandomCampaignImage,
-} from "../hooks/campaign";
 import { graphQLClient } from "./client";
 
 export interface Campaign {

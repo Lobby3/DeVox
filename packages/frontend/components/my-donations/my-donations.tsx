@@ -17,7 +17,8 @@ export interface MyDonationsProps {}
 
 export function MyDonations(props: MyDonationsProps) {
   const { account } = useWeb3React();
-  const { data: campaigns } = useGetCampaignsWithDonationsFromUser(account);
+  const { data: campaigns, isLoading } =
+    useGetCampaignsWithDonationsFromUser(account);
 
   if (!account) {
     return (
@@ -34,6 +35,23 @@ export function MyDonations(props: MyDonationsProps) {
       </BodyContainer>
     );
   }
+
+  if (!isLoading && campaigns !== undefined && campaigns.length === 0) {
+    return (
+      <BodyContainer>
+        <Alert status="info">
+          <AlertIcon />
+          <VStack alignItems={"flex-start"}>
+            <AlertTitle>No donations found</AlertTitle>
+            <AlertDescription>
+              You have not donated to any campaigns yet.
+            </AlertDescription>
+          </VStack>
+        </Alert>
+      </BodyContainer>
+    );
+  }
+
   return (
     <BodyContainer>
       <VStack alignItems={"flex-start"}>
