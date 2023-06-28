@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-types */
-import { Address, BigInt, Bytes, ethereum } from "@graphprotocol/graph-ts";
+import { Address, BigInt, ethereum } from "@graphprotocol/graph-ts";
 import { newMockEvent } from "matchstick-as";
 
 import {
@@ -10,7 +10,6 @@ import {
   TargetUpdated,
   Upgraded,
   UserSigned,
-  UserWhitelisted,
 } from "../generated/templates/DeVoxShamanV1/DeVoxShamanV1";
 
 export function createAdminChangedEvent(
@@ -52,10 +51,9 @@ export function createDonationReceivedEvent(
   id: BigInt,
   amount: BigInt,
   total: BigInt,
-  target: BigInt,
-  balance: BigInt,
   lootIssued: BigInt,
   sharesIssued: BigInt,
+  signedCampaign: boolean,
   message: string
 ): DonationReceived {
   const donationReceivedEvent = changetype<DonationReceived>(newMockEvent());
@@ -81,15 +79,6 @@ export function createDonationReceivedEvent(
     new ethereum.EventParam("total", ethereum.Value.fromUnsignedBigInt(total))
   );
   donationReceivedEvent.parameters.push(
-    new ethereum.EventParam("target", ethereum.Value.fromUnsignedBigInt(target))
-  );
-  donationReceivedEvent.parameters.push(
-    new ethereum.EventParam(
-      "balance",
-      ethereum.Value.fromUnsignedBigInt(balance)
-    )
-  );
-  donationReceivedEvent.parameters.push(
     new ethereum.EventParam(
       "lootIssued",
       ethereum.Value.fromUnsignedBigInt(lootIssued)
@@ -99,6 +88,12 @@ export function createDonationReceivedEvent(
     new ethereum.EventParam(
       "sharesIssued",
       ethereum.Value.fromUnsignedBigInt(sharesIssued)
+    )
+  );
+  donationReceivedEvent.parameters.push(
+    new ethereum.EventParam(
+      "signedCampaign",
+      ethereum.Value.fromBoolean(signedCampaign)
     )
   );
   donationReceivedEvent.parameters.push(
@@ -191,38 +186,4 @@ export function createUpgradedEvent(implementation: Address): Upgraded {
   );
 
   return upgradedEvent;
-}
-
-export function createUserWhitelistedEvent(
-  user: Address,
-  baal: Address,
-  id: BigInt,
-  status: boolean,
-  metadata: Bytes
-): UserWhitelisted {
-  const userWhitelistedEvent = changetype<UserWhitelisted>(newMockEvent());
-
-  userWhitelistedEvent.parameters = [];
-
-  userWhitelistedEvent.parameters.push(
-    new ethereum.EventParam("user", ethereum.Value.fromAddress(user))
-  );
-
-  userWhitelistedEvent.parameters.push(
-    new ethereum.EventParam("baal", ethereum.Value.fromAddress(baal))
-  );
-
-  userWhitelistedEvent.parameters.push(
-    new ethereum.EventParam("id", ethereum.Value.fromUnsignedBigInt(id))
-  );
-
-  userWhitelistedEvent.parameters.push(
-    new ethereum.EventParam("status", ethereum.Value.fromBoolean(status))
-  );
-
-  userWhitelistedEvent.parameters.push(
-    new ethereum.EventParam("metadata", ethereum.Value.fromBytes(metadata))
-  );
-
-  return userWhitelistedEvent;
 }

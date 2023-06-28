@@ -54,15 +54,14 @@ describe("DeVoxShamanV1", () => {
       "0xEe79604E3D82641D3dE15dEc23E2064786011E94"
     );
     const id = BigInt.fromI32(1);
-    const target = BigInt.fromI32(1000000000);
     const contributorAddress = Address.fromString(
       "0x65Fc100DD791746B5945609373e5311dd0C77545"
     );
     const amount = BigInt.fromI32(1234567890);
     const total = BigInt.fromI32(1234567890);
-    const balance = BigInt.fromI32(1234567890);
     const lootIssued = BigInt.fromI32(0);
     const sharesIssued = BigInt.fromI32(100);
+    const signedCampaign = false;
     const message = "test message";
     const event = createDonationReceivedEvent(
       contributorAddress,
@@ -70,10 +69,9 @@ describe("DeVoxShamanV1", () => {
       id,
       amount,
       total,
-      target,
-      balance,
       lootIssued,
       sharesIssued,
+      signedCampaign,
       message
     );
     event.address = shamanAddress;
@@ -118,6 +116,118 @@ describe("DeVoxShamanV1", () => {
       const messageId = baalAddress.toHexString() + "-" + donationId;
       assert.fieldEquals("Message", messageId, "text", message);
       assert.fieldEquals("Donation", donationId, "message", messageId);
+    }
+
+    if (signedCampaign) {
+      assert.entityCount("Signature", 1);
+      const signatureId =
+        event.transaction.hash.toHex() + "-" + event.logIndex.toString();
+      const signature = Signature.load(signatureId);
+      assert.assertNotNull(signature);
+      if (!signature) {
+        return;
+      }
+      assert.stringEquals(baalAddress.toHexString(), signature.campaign);
+      assert.stringEquals(
+        contributorAddress.toHexString(),
+        signature.user.toHexString()
+      );
+      assert.bigIntEquals(event.block.timestamp, signature.timestamp);
+    } else {
+      assert.entityCount("Signature", 0);
+    }
+  });
+
+  test("Donation, Signature stored and Campaign updated", () => {
+    // arrange
+    const baalAddress = Address.fromString(
+      "0x90F9ac6B6dD860d4E40976eb6De6d6580Cc7e94D"
+    );
+    const shamanAddress = Address.fromString(
+      "0xEe79604E3D82641D3dE15dEc23E2064786011E94"
+    );
+    const id = BigInt.fromI32(1);
+    const contributorAddress = Address.fromString(
+      "0x65Fc100DD791746B5945609373e5311dd0C77545"
+    );
+    const amount = BigInt.fromI32(1234567890);
+    const total = BigInt.fromI32(1234567890);
+    const lootIssued = BigInt.fromI32(0);
+    const sharesIssued = BigInt.fromI32(100);
+    const signedCampaign = true;
+    const message = "test message";
+    const event = createDonationReceivedEvent(
+      contributorAddress,
+      baalAddress,
+      id,
+      amount,
+      total,
+      lootIssued,
+      sharesIssued,
+      signedCampaign,
+      message
+    );
+    event.address = shamanAddress;
+
+    // act
+    handleDonationReceived(event);
+
+    // assert
+    assert.entityCount("Donation", 1);
+    const donationId =
+      event.transaction.hash.toHex() + "-" + event.logIndex.toString();
+    const donation = Donation.load(donationId);
+    assert.assertNotNull(donation);
+    if (!donation) {
+      return;
+    }
+    assert.bigIntEquals(donation.amount, amount);
+    assert.bigIntEquals(donation.loot, lootIssued);
+    assert.bigIntEquals(donation.shares, sharesIssued);
+    assert.fieldEquals(
+      "Donation",
+      donationId,
+      "user",
+      contributorAddress.toHexString()
+    );
+    assert.fieldEquals(
+      "Donation",
+      donationId,
+      "campaign",
+      baalAddress.toHexString()
+    );
+
+    assert.entityCount("Campaign", 1);
+    assert.fieldEquals(
+      "Campaign",
+      baalAddress.toHexString(),
+      "total",
+      donation.amount.toString()
+    );
+
+    if (message) {
+      const messageId = baalAddress.toHexString() + "-" + donationId;
+      assert.fieldEquals("Message", messageId, "text", message);
+      assert.fieldEquals("Donation", donationId, "message", messageId);
+    }
+
+    if (signedCampaign) {
+      assert.entityCount("Signature", 1);
+      const signatureId =
+        event.transaction.hash.toHex() + "-" + event.logIndex.toString();
+      const signature = Signature.load(signatureId);
+      assert.assertNotNull(signature);
+      if (!signature) {
+        return;
+      }
+      assert.stringEquals(baalAddress.toHexString(), signature.campaign);
+      assert.stringEquals(
+        contributorAddress.toHexString(),
+        signature.user.toHexString()
+      );
+      assert.bigIntEquals(event.block.timestamp, signature.timestamp);
+    } else {
+      assert.entityCount("Signature", 0);
     }
   });
 

@@ -32,6 +32,11 @@ const _abi = [
         type: "uint256",
       },
       {
+        internalType: "bool",
+        name: "_signCampaign",
+        type: "bool",
+      },
+      {
         internalType: "string",
         name: "_message",
         type: "string",

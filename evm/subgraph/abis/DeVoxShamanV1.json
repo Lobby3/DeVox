@@ -72,18 +72,6 @@
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "target",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "balance",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
         "name": "lootIssued",
         "type": "uint256"
       },
@@ -92,6 +80,12 @@
         "internalType": "uint256",
         "name": "sharesIssued",
         "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "signedCampaign",
+        "type": "bool"
       },
       {
         "indexed": false,
@@ -280,43 +274,6 @@
     "type": "event"
   },
   {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "address",
-        "name": "user",
-        "type": "address"
-      },
-      {
-        "indexed": true,
-        "internalType": "address",
-        "name": "baal",
-        "type": "address"
-      },
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "id",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "bool",
-        "name": "status",
-        "type": "bool"
-      },
-      {
-        "indexed": false,
-        "internalType": "bytes",
-        "name": "metadata",
-        "type": "bytes"
-      }
-    ],
-    "name": "UserWhitelisted",
-    "type": "event"
-  },
-  {
     "inputs": [],
     "name": "DEFAULT_ADMIN_ROLE",
     "outputs": [
@@ -361,6 +318,11 @@
         "internalType": "uint256",
         "name": "_value",
         "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "_signCampaign",
+        "type": "bool"
       },
       {
         "internalType": "string",
