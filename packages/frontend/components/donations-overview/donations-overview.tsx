@@ -1,4 +1,11 @@
-import { List, ListIcon, ListItem, Text } from "@chakra-ui/react";
+import {
+  Center,
+  Heading,
+  List,
+  ListIcon,
+  ListItem,
+  Text,
+} from "@chakra-ui/react";
 import { CircleStackIcon } from "@heroicons/react/24/outline";
 import { formatUnits } from "ethers/lib/utils";
 import React from "react";
@@ -28,6 +35,14 @@ export function DonationsOverview({ campaignId }: DonationsOverviewProps) {
 
   if (isError || !donations) {
     return <ErrorScreen />;
+  }
+
+  if (donations.length === 0) {
+    return (
+      <Center>
+        <Heading textAlign={"center"}>No donations yet.</Heading>
+      </Center>
+    );
   }
 
   return (

@@ -1,5 +1,5 @@
 /* eslint-disable-next-line */
-import { Heading, Text, VStack } from "@chakra-ui/react";
+import { Heading, Text, VStack, useMediaQuery } from "@chakra-ui/react";
 import React from "react";
 
 import { headerBackground, lavender } from "../../styles/colors";
@@ -21,14 +21,18 @@ export const CampaignInteractionButton = ({
   isDisabled,
   complete = false,
 }: CampaignInteractionButtonProps) => {
+  const [isMobile] = useMediaQuery("(max-width: 420px)");
   return (
     <button
-      style={{ width: "100%", cursor: isDisabled ? "default" : "pointer" }}
+      style={{
+        width: isMobile ? "100%" : "420px",
+        cursor: isDisabled ? "default" : "pointer",
+      }}
       onClick={onClick}
       disabled={isDisabled}
     >
       <VStack
-        maxWidth={420}
+        maxWidth={[420]}
         height={250}
         p="32px"
         backgroundColor={complete ? lavender : headerBackground}
