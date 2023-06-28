@@ -98,20 +98,6 @@ contract DeVoxShamanV1 is
         uint indexed id
     );
 
-    /// @notice emitted when a user is whitelisted
-    /// @param user user address
-    /// @param baal baal contract address
-    /// @param id campaign id
-    /// @param status whitelist status
-    /// @param metadata user metadata
-    event UserWhitelisted(
-        address indexed user,
-        address indexed baal,
-        uint indexed id,
-        bool status,
-        bytes metadata
-    );
-
     /*******************
      * DEPLOY
      ******************/
