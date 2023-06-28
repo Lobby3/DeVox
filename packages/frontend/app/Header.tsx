@@ -96,8 +96,8 @@ const MobileNav = () => {
   return (
     <Stack direction="column" p={4} px={6} display={{ md: "none" }}>
       {Object.values(headerLinks).map((link) => (
-        <Box mb={2}>
-          <Link href={link.href} key={link.href}>
+        <Box mb={2} key={link.href}>
+          <Link href={link.href}>
             <Flex alignItems="center">
               <link.icon
                 color={headerBackground}

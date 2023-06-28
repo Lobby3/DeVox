@@ -89,8 +89,14 @@ const CampaignDetail = ({ campaignId }: CampaignDetailProps) => {
             height={"100%"}
             justifyContent={"center"}
             spacing={6}
+            width={["100%", "50%"]}
           >
-            <Heading noOfLines={1} size={"sm"}>
+            <Heading
+              maxWidth={"100%"}
+              size={"sm"}
+              overflowWrap={"anywhere"}
+              isTruncated
+            >
               {campaign.shamanAddress}
             </Heading>
             <Heading size={"xl"}>{campaign.name}</Heading>
@@ -104,7 +110,7 @@ const CampaignDetail = ({ campaignId }: CampaignDetailProps) => {
               <Heading size={"sm"} mr={2}>
                 ${formattedTotal}/{campaign.target}
               </Heading>
-              <Flex width={[0, "200px"]} flexGrow={[1, 1, 0]} mr={2}>
+              <Flex width={[0, 0, "200px"]} flexGrow={[1, 1, 0]} mr={2}>
                 <Progress colorScheme="devoxSuccess" value={progressValue} />
               </Flex>
               <CircleStackIcon height={20} width={20} />
