@@ -54,6 +54,16 @@ export function handleDonationReceived(event: DonationReceived): void {
 
   campaign.total = campaign.total.plus(event.params.amount);
   campaign.save();
+
+  if (event.params.signedCampaign) {
+    const signature = new Signature(
+      event.transaction.hash.toHex() + "-" + event.logIndex.toString()
+    );
+    signature.campaign = event.params.baal.toHexString();
+    signature.timestamp = event.block.timestamp;
+    signature.user = event.params.contributorAddress;
+    signature.save();
+  }
 }
 
 export function handleInitialized(event: Initialized): void {

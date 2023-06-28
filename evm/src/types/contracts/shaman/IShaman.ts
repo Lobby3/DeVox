@@ -28,7 +28,7 @@ import type {
 export interface IShamanInterface extends utils.Interface {
   functions: {
     "cancelProposal(uint32)": FunctionFragment;
-    "donate(uint256,string)": FunctionFragment;
+    "donate(uint256,bool,string)": FunctionFragment;
     "initialize(address,address,address,uint256,uint256,uint256,uint256,address[])": FunctionFragment;
     "setAdmin(address)": FunctionFragment;
     "sign()": FunctionFragment;
@@ -49,7 +49,11 @@ export interface IShamanInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "donate",
-    values: [PromiseOrValue<BigNumberish>, PromiseOrValue<string>]
+    values: [
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<boolean>,
+      PromiseOrValue<string>
+    ]
   ): string;
   encodeFunctionData(
     functionFragment: "initialize",
@@ -116,6 +120,7 @@ export interface IShaman extends BaseContract {
 
     donate(
       _value: PromiseOrValue<BigNumberish>,
+      _signCampaign: PromiseOrValue<boolean>,
       _message: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
@@ -149,6 +154,7 @@ export interface IShaman extends BaseContract {
 
   donate(
     _value: PromiseOrValue<BigNumberish>,
+    _signCampaign: PromiseOrValue<boolean>,
     _message: PromiseOrValue<string>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
@@ -182,6 +188,7 @@ export interface IShaman extends BaseContract {
 
     donate(
       _value: PromiseOrValue<BigNumberish>,
+      _signCampaign: PromiseOrValue<boolean>,
       _message: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<void>;
@@ -216,6 +223,7 @@ export interface IShaman extends BaseContract {
 
     donate(
       _value: PromiseOrValue<BigNumberish>,
+      _signCampaign: PromiseOrValue<boolean>,
       _message: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
@@ -250,6 +258,7 @@ export interface IShaman extends BaseContract {
 
     donate(
       _value: PromiseOrValue<BigNumberish>,
+      _signCampaign: PromiseOrValue<boolean>,
       _message: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;

@@ -58,10 +58,9 @@ contract DeVoxShamanV1 is
     /// @param id campaign id
     /// @param amount amount donated
     /// @param total total donated from this wallet
-    /// @param target campaign target amount
-    /// @param balance current campaign balance
     /// @param lootIssued loot issued for this donation
     /// @param sharesIssued shares issued for this donation
+    /// @param signedCampaign whether the user has simultaneously signed the campaign
     /// @param message message accompanying the donation
     event DonationReceived(
         address indexed contributorAddress,
@@ -69,10 +68,9 @@ contract DeVoxShamanV1 is
         uint256 indexed id,
         uint256 amount,
         uint256 total,
-        uint256 target,
-        uint256 balance,
         uint256 lootIssued,
         uint256 sharesIssued,
+        bool signedCampaign,
         string message
     );
 
@@ -142,10 +140,12 @@ contract DeVoxShamanV1 is
 
     /// @notice Make a donation, join the DAO and receive voting shares
     /// @param _value amount donated
+    /// @param _signCampaign if true, also sign the campaign
     /// @param _message message accompanying donation
     /// @dev message sender must be whitelisted
     function donate(
         uint256 _value,
+        bool _signCampaign,
         string calldata _message
     ) external override nonReentrant {
         require(address(baal) != address(0), "donate: !baal");
@@ -156,6 +156,10 @@ contract DeVoxShamanV1 is
             "donate: sender not registered"
         );
         require(_value % pricePerUnit == 0, "donate: invalid amount"); // require value as multiple of units
+
+        if (_signCampaign) {
+            _sign(msg.sender);
+        }
 
         // send to DAO
         require(
@@ -179,10 +183,9 @@ contract DeVoxShamanV1 is
             id,
             _value,
             total,
-            target,
-            getTokenBalance(),
             lootIssued,
             sharesIssued,
+            _signCampaign,
             _message
         );
     }
@@ -223,11 +226,16 @@ contract DeVoxShamanV1 is
             userRegistry.getUser(msg.sender),
             "sign: sender not registered"
         );
-        require(!signatures[msg.sender], "sign: already signed");
 
-        signatures[msg.sender] = true;
+        _sign(msg.sender);
+    }
 
-        emit UserSigned(msg.sender, address(baal), id);
+    function _sign(address user) internal {
+        require(!signatures[user], "sign: already signed");
+
+        signatures[user] = true;
+
+        emit UserSigned(user, address(baal), id);
     }
 
     /// @notice Update campaign target

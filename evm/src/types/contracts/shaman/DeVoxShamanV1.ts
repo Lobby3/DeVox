@@ -35,7 +35,7 @@ export interface DeVoxShamanV1Interface extends utils.Interface {
     "DEFAULT_ADMIN_ROLE()": FunctionFragment;
     "baal()": FunctionFragment;
     "cancelProposal(uint32)": FunctionFragment;
-    "donate(uint256,string)": FunctionFragment;
+    "donate(uint256,bool,string)": FunctionFragment;
     "donations(address)": FunctionFragment;
     "getRoleAdmin(bytes32)": FunctionFragment;
     "getTokenBalance()": FunctionFragment;
@@ -111,7 +111,11 @@ export interface DeVoxShamanV1Interface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "donate",
-    values: [PromiseOrValue<BigNumberish>, PromiseOrValue<string>]
+    values: [
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<boolean>,
+      PromiseOrValue<string>
+    ]
   ): string;
   encodeFunctionData(
     functionFragment: "donations",
@@ -290,7 +294,7 @@ export interface DeVoxShamanV1Interface extends utils.Interface {
   events: {
     "AdminChanged(address,address)": EventFragment;
     "BeaconUpgraded(address)": EventFragment;
-    "DonationReceived(address,address,uint256,uint256,uint256,uint256,uint256,uint256,uint256,string)": EventFragment;
+    "DonationReceived(address,address,uint256,uint256,uint256,uint256,uint256,bool,string)": EventFragment;
     "Initialized(uint8)": EventFragment;
     "OwnershipTransferred(address,address)": EventFragment;
     "RoleAdminChanged(bytes32,bytes32,bytes32)": EventFragment;
@@ -299,7 +303,6 @@ export interface DeVoxShamanV1Interface extends utils.Interface {
     "TargetUpdated(address,uint256,uint256,uint256)": EventFragment;
     "Upgraded(address)": EventFragment;
     "UserSigned(address,address,uint256)": EventFragment;
-    "UserWhitelisted(address,address,uint256,bool,bytes)": EventFragment;
   };
 
   getEvent(nameOrSignatureOrTopic: "AdminChanged"): EventFragment;
@@ -313,7 +316,6 @@ export interface DeVoxShamanV1Interface extends utils.Interface {
   getEvent(nameOrSignatureOrTopic: "TargetUpdated"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "Upgraded"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "UserSigned"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "UserWhitelisted"): EventFragment;
 }
 
 export interface AdminChangedEventObject {
@@ -343,10 +345,9 @@ export interface DonationReceivedEventObject {
   id: BigNumber;
   amount: BigNumber;
   total: BigNumber;
-  target: BigNumber;
-  balance: BigNumber;
   lootIssued: BigNumber;
   sharesIssued: BigNumber;
+  signedCampaign: boolean;
   message: string;
 }
 export type DonationReceivedEvent = TypedEvent<
@@ -358,8 +359,7 @@ export type DonationReceivedEvent = TypedEvent<
     BigNumber,
     BigNumber,
     BigNumber,
-    BigNumber,
-    BigNumber,
+    boolean,
     string
   ],
   DonationReceivedEventObject
@@ -456,20 +456,6 @@ export type UserSignedEvent = TypedEvent<
 
 export type UserSignedEventFilter = TypedEventFilter<UserSignedEvent>;
 
-export interface UserWhitelistedEventObject {
-  user: string;
-  baal: string;
-  id: BigNumber;
-  status: boolean;
-  metadata: string;
-}
-export type UserWhitelistedEvent = TypedEvent<
-  [string, string, BigNumber, boolean, string],
-  UserWhitelistedEventObject
->;
-
-export type UserWhitelistedEventFilter = TypedEventFilter<UserWhitelistedEvent>;
-
 export interface DeVoxShamanV1 extends BaseContract {
   connect(signerOrProvider: Signer | Provider | string): this;
   attach(addressOrName: string): this;
@@ -508,6 +494,7 @@ export interface DeVoxShamanV1 extends BaseContract {
 
     donate(
       _value: PromiseOrValue<BigNumberish>,
+      _signCampaign: PromiseOrValue<boolean>,
       _message: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
@@ -640,6 +627,7 @@ export interface DeVoxShamanV1 extends BaseContract {
 
   donate(
     _value: PromiseOrValue<BigNumberish>,
+    _signCampaign: PromiseOrValue<boolean>,
     _message: PromiseOrValue<string>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
@@ -772,6 +760,7 @@ export interface DeVoxShamanV1 extends BaseContract {
 
     donate(
       _value: PromiseOrValue<BigNumberish>,
+      _signCampaign: PromiseOrValue<boolean>,
       _message: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<void>;
@@ -902,16 +891,15 @@ export interface DeVoxShamanV1 extends BaseContract {
       beacon?: PromiseOrValue<string> | null
     ): BeaconUpgradedEventFilter;
 
-    "DonationReceived(address,address,uint256,uint256,uint256,uint256,uint256,uint256,uint256,string)"(
+    "DonationReceived(address,address,uint256,uint256,uint256,uint256,uint256,bool,string)"(
       contributorAddress?: PromiseOrValue<string> | null,
       baal?: PromiseOrValue<string> | null,
       id?: PromiseOrValue<BigNumberish> | null,
       amount?: null,
       total?: null,
-      target?: null,
-      balance?: null,
       lootIssued?: null,
       sharesIssued?: null,
+      signedCampaign?: null,
       message?: null
     ): DonationReceivedEventFilter;
     DonationReceived(
@@ -920,10 +908,9 @@ export interface DeVoxShamanV1 extends BaseContract {
       id?: PromiseOrValue<BigNumberish> | null,
       amount?: null,
       total?: null,
-      target?: null,
-      balance?: null,
       lootIssued?: null,
       sharesIssued?: null,
+      signedCampaign?: null,
       message?: null
     ): DonationReceivedEventFilter;
 
@@ -1002,21 +989,6 @@ export interface DeVoxShamanV1 extends BaseContract {
       baal?: PromiseOrValue<string> | null,
       id?: PromiseOrValue<BigNumberish> | null
     ): UserSignedEventFilter;
-
-    "UserWhitelisted(address,address,uint256,bool,bytes)"(
-      user?: PromiseOrValue<string> | null,
-      baal?: PromiseOrValue<string> | null,
-      id?: PromiseOrValue<BigNumberish> | null,
-      status?: null,
-      metadata?: null
-    ): UserWhitelistedEventFilter;
-    UserWhitelisted(
-      user?: PromiseOrValue<string> | null,
-      baal?: PromiseOrValue<string> | null,
-      id?: PromiseOrValue<BigNumberish> | null,
-      status?: null,
-      metadata?: null
-    ): UserWhitelistedEventFilter;
   };
 
   estimateGas: {
@@ -1031,6 +1003,7 @@ export interface DeVoxShamanV1 extends BaseContract {
 
     donate(
       _value: PromiseOrValue<BigNumberish>,
+      _signCampaign: PromiseOrValue<boolean>,
       _message: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
@@ -1166,6 +1139,7 @@ export interface DeVoxShamanV1 extends BaseContract {
 
     donate(
       _value: PromiseOrValue<BigNumberish>,
+      _signCampaign: PromiseOrValue<boolean>,
       _message: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;

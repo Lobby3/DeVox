@@ -83,24 +83,20 @@ export class DonationReceived__Params {
     return this._event.parameters[4].value.toBigInt();
   }
 
-  get target(): BigInt {
+  get lootIssued(): BigInt {
     return this._event.parameters[5].value.toBigInt();
   }
 
-  get balance(): BigInt {
+  get sharesIssued(): BigInt {
     return this._event.parameters[6].value.toBigInt();
   }
 
-  get lootIssued(): BigInt {
-    return this._event.parameters[7].value.toBigInt();
-  }
-
-  get sharesIssued(): BigInt {
-    return this._event.parameters[8].value.toBigInt();
+  get signedCampaign(): boolean {
+    return this._event.parameters[7].value.toBoolean();
   }
 
   get message(): string {
-    return this._event.parameters[9].value.toString();
+    return this._event.parameters[8].value.toString();
   }
 }
 
@@ -293,40 +289,6 @@ export class UserSigned__Params {
 
   get id(): BigInt {
     return this._event.parameters[2].value.toBigInt();
-  }
-}
-
-export class UserWhitelisted extends ethereum.Event {
-  get params(): UserWhitelisted__Params {
-    return new UserWhitelisted__Params(this);
-  }
-}
-
-export class UserWhitelisted__Params {
-  _event: UserWhitelisted;
-
-  constructor(event: UserWhitelisted) {
-    this._event = event;
-  }
-
-  get user(): Address {
-    return this._event.parameters[0].value.toAddress();
-  }
-
-  get baal(): Address {
-    return this._event.parameters[1].value.toAddress();
-  }
-
-  get id(): BigInt {
-    return this._event.parameters[2].value.toBigInt();
-  }
-
-  get status(): boolean {
-    return this._event.parameters[3].value.toBoolean();
-  }
-
-  get metadata(): Bytes {
-    return this._event.parameters[4].value.toBytes();
   }
 }
 
@@ -720,8 +682,12 @@ export class DonateCall__Inputs {
     return this._call.inputValues[0].value.toBigInt();
   }
 
+  get _signCampaign(): boolean {
+    return this._call.inputValues[1].value.toBoolean();
+  }
+
   get _message(): string {
-    return this._call.inputValues[1].value.toString();
+    return this._call.inputValues[2].value.toString();
   }
 }
 

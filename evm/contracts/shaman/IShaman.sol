@@ -20,8 +20,13 @@ interface IShaman {
 
     /// @notice Make a donation, join the DAO and receive voting shares
     /// @param _value amount donated
+    /// @param _signCampaign if true, also sign the campaign
     /// @param _message message accompanying donation
-    function donate(uint256 _value, string calldata _message) external;
+    function donate(
+        uint256 _value,
+        bool _signCampaign,
+        string calldata _message
+    ) external;
 
     /// @notice Grant the specified user admin privileges
     /// @param user user address

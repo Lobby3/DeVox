@@ -33,7 +33,7 @@ export const TreasuryTokenKeychains = {
 export const DeVoxContractKeychains = {
   BaalAndShamanSummoner: {
     "0x1": "", // mainnet
-    "0x5": "0xc54Bb6694c2eB96Fd8D636A446f35A2C734d8413", // goerli
+    "0x5": "0x0B5018245D251a403B7F12260187B45d766e814C", // goerli
     "0x64": "", // xDai
     "0xa": "", // Optimism
     "0x89": "", // polygon
@@ -41,7 +41,7 @@ export const DeVoxContractKeychains = {
   },
   DeVoxUserRegistryContract: {
     "0x1": "", // mainnet
-    "0x5": "0xCf8a0e1A1E3678431C777c546E9aCd358C4e08e0", // goerli
+    "0x5": "0x3BC63a4AfDe6a753498894b0FAFaD71BcC30B583", // goerli
     "0x64": "", // xDai
     "0xa": "", // Optimism
     "0x89": "", // polygon

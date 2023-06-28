@@ -58,7 +58,7 @@ describe(ContractNames.DeVoxShaman, function () {
     const amount = ethers.utils.parseUnits("100", "ether");
 
     // act & assert
-    await expect(shaman.donate(amount, "hello")).to.be.revertedWith(
+    await expect(shaman.donate(amount, false, "hello")).to.be.revertedWith(
       "donate: sender not registered"
     );
   });
@@ -71,13 +71,13 @@ describe(ContractNames.DeVoxShaman, function () {
       user: { address: userAddress, baal, loot, shaman, shares, token },
     } = await setupTest({ shamanArgs: defaultSummonArgs });
 
-    const { pricePerUnit, tokensPerUnit, target } = defaultSummonArgs;
+    const { pricePerUnit, tokensPerUnit } = defaultSummonArgs;
 
     await userRegistry.saveUser(userAddress, ethers.utils.randomBytes(256));
 
     let total = BigNumber.from(0);
 
-    const testDonate = async (donation: string) => {
+    const testDonate = async (donation: string, sign = false) => {
       const amount = BigNumber.from(donation).mul(1000000);
       await deployerToken.transfer(userAddress, amount);
 
@@ -102,7 +102,7 @@ describe(ContractNames.DeVoxShaman, function () {
       );
 
       // act & assert
-      await expect(shaman.donate(amount, msg))
+      await expect(shaman.donate(amount, sign, msg))
         .to.emit(shaman, "DonationReceived")
         .withArgs(
           userAddress,
@@ -110,10 +110,9 @@ describe(ContractNames.DeVoxShaman, function () {
           1, // devoxShamanId
           amount,
           total, // wallet total donated
-          target,
-          total, // campaign total donated
           newLoot,
           newShares,
+          sign,
           msg
         );
 
@@ -148,7 +147,7 @@ describe(ContractNames.DeVoxShaman, function () {
 
     await testDonate("100");
 
-    await testDonate("10000");
+    await testDonate("10000", true);
   });
 
   it("should not allow ragequit of funds", async function () {
@@ -162,7 +161,7 @@ describe(ContractNames.DeVoxShaman, function () {
     await deployerToken.transfer(userAddress, amount);
     await token.approve(shaman.address, amount);
     await userRegistry.saveUser(userAddress, ethers.utils.randomBytes(256));
-    await shaman.donate(amount, "hello");
+    await shaman.donate(amount, false, "hello");
     const lootBefore = await loot.balanceOf(userAddress);
     const sharesBefore = await shares.balanceOf(userAddress);
     const safeTokenBefore = await token.balanceOf(safe.address);
