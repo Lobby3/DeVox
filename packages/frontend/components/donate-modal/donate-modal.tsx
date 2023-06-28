@@ -18,6 +18,7 @@ import {
   ModalHeader,
   ModalOverlay,
   ModalProps,
+  Switch,
   Text,
   VStack,
 } from "@chakra-ui/react";
@@ -29,6 +30,7 @@ import { toast } from "react-toastify";
 import { useGetCampaign } from "../../graph/campaigns";
 import { useBalance } from "../../hooks/balance";
 import { useDonate } from "../../hooks/donate";
+import { useUserHasSignedCampaign } from "../../hooks/sign";
 import { useTokenInfo } from "../../hooks/token";
 import { useUserHasVerifiedZipCode } from "../../hooks/whitelist";
 import Loader from "../loader/loader";
@@ -39,6 +41,7 @@ export interface DonateModalProps extends Omit<ModalProps, "children"> {
 }
 
 export function DonateModal({ isOpen, onClose, campaignId }: DonateModalProps) {
+  const { data: userHasSignedCampaign } = useUserHasSignedCampaign(campaignId);
   const { data: campaign, isFetched: isFetchedCampaign } =
     useGetCampaign(campaignId);
   const {
@@ -75,9 +78,11 @@ export function DonateModal({ isOpen, onClose, campaignId }: DonateModalProps) {
         )}
         {isFetched && step === "donate" && (
           <Formik
+            enableReinitialize
             initialValues={{
               amount: 0,
               message: "",
+              signCampaign: !userHasSignedCampaign,
             }}
             validate={(values) => {
               const errors: Record<string, string> = {};
@@ -91,6 +96,7 @@ export function DonateModal({ isOpen, onClose, campaignId }: DonateModalProps) {
                 const txHash = await donate.mutateAsync({
                   amountInToken: values.amount,
                   message: values.message,
+                  signCampaign: values.signCampaign,
                 });
                 console.log(txHash);
                 setStep("success");
@@ -113,6 +119,7 @@ export function DonateModal({ isOpen, onClose, campaignId }: DonateModalProps) {
               submitForm,
             }) => {
               const disabled = !isValid || isSubmitting || !isActive;
+              const inputsDisabled = !isActive || isSubmitting;
               return (
                 <>
                   <ModalHeader>
@@ -143,7 +150,7 @@ export function DonateModal({ isOpen, onClose, campaignId }: DonateModalProps) {
                           <InputGroup>
                             <InputLeftElement
                               pointerEvents="none"
-                              // children="$"
+                              children="$"
                             />
                             <Input
                               type="number"
@@ -151,11 +158,30 @@ export function DonateModal({ isOpen, onClose, campaignId }: DonateModalProps) {
                               onChange={handleChange}
                               onBlur={handleBlur}
                               value={values.amount}
-                              isDisabled={!isActive}
+                              isDisabled={inputsDisabled}
                             />
                           </InputGroup>
                           <FormErrorMessage>{errors.amount}</FormErrorMessage>
                         </FormControl>
+                        {!userHasSignedCampaign && (
+                          <FormControl
+                            maxWidth={300}
+                            isRequired
+                            isInvalid={!!errors.signCampaign}
+                          >
+                            <FormLabel>Sign Campaign</FormLabel>
+                            <Switch
+                              isChecked={values.signCampaign}
+                              onChange={handleChange}
+                              name={"signCampaign"}
+                              isDisabled={inputsDisabled}
+                            />
+                            <FormErrorMessage>
+                              {errors.signCampaign}
+                            </FormErrorMessage>
+                          </FormControl>
+                        )}
+
                         <FormControl
                           maxWidth={300}
                           isInvalid={!!errors.message}
@@ -168,7 +194,7 @@ export function DonateModal({ isOpen, onClose, campaignId }: DonateModalProps) {
                             onChange={handleChange}
                             onBlur={handleBlur}
                             value={values.message}
-                            isDisabled={!isActive}
+                            isDisabled={inputsDisabled}
                           />
                           <FormErrorMessage>{errors.message}</FormErrorMessage>
                         </FormControl>
