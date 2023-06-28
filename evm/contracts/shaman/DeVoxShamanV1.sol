@@ -11,6 +11,7 @@ import {Clones} from "@openzeppelin/contracts/proxy/Clones.sol";
 
 import {IBaal} from "../baal/interfaces/IBaal.sol";
 import {FixedPointMathLib} from "../lib/FixedPointMathLib.sol";
+import {IUserRegistry} from "./IUserRegistry.sol";
 import {IShaman} from "./IShaman.sol";
 
 // import "hardhat/console.sol";
@@ -35,6 +36,7 @@ contract DeVoxShamanV1 is
 
     IBaal public baal;
     IERC20 public token;
+    IUserRegistry public userRegistry;
     uint256 public id;
     uint256 public pricePerUnit;
     uint256 public tokensPerUnit;
@@ -46,9 +48,6 @@ contract DeVoxShamanV1 is
     /// @notice Signatures made by address
     mapping(address => bool) public signatures;
 
-    /// @notice Whitelist of addresses that can join the DAO
-    mapping(address => bool) private _whitelist;
-
     /*******************
      * EVENTS
      ******************/
@@ -59,10 +58,9 @@ contract DeVoxShamanV1 is
     /// @param id campaign id
     /// @param amount amount donated
     /// @param total total donated from this wallet
-    /// @param target campaign target amount
-    /// @param balance current campaign balance
     /// @param lootIssued loot issued for this donation
     /// @param sharesIssued shares issued for this donation
+    /// @param signedCampaign whether the user has simultaneously signed the campaign
     /// @param message message accompanying the donation
     event DonationReceived(
         address indexed contributorAddress,
@@ -70,10 +68,9 @@ contract DeVoxShamanV1 is
         uint256 indexed id,
         uint256 amount,
         uint256 total,
-        uint256 target,
-        uint256 balance,
         uint256 lootIssued,
         uint256 sharesIssued,
+        bool signedCampaign,
         string message
     );
 
@@ -99,20 +96,6 @@ contract DeVoxShamanV1 is
         uint indexed id
     );
 
-    /// @notice emitted when a user is whitelisted
-    /// @param user user address
-    /// @param baal baal contract address
-    /// @param id campaign id
-    /// @param status whitelist status
-    /// @param metadata user metadata
-    event UserWhitelisted(
-        address indexed user,
-        address indexed baal,
-        uint indexed id,
-        bool status,
-        bytes metadata
-    );
-
     /*******************
      * DEPLOY
      ******************/
@@ -134,6 +117,7 @@ contract DeVoxShamanV1 is
     function initialize(
         address _moloch,
         address _token,
+        address _userRegistry,
         uint256 _id,
         uint256 _pricePerUnit,
         uint256 _tokensPerUnit,
@@ -146,6 +130,7 @@ contract DeVoxShamanV1 is
 
         baal = IBaal(_moloch);
         token = IERC20(_token);
+        userRegistry = IUserRegistry(_userRegistry);
         id = _id;
         pricePerUnit = _pricePerUnit;
         tokensPerUnit = _tokensPerUnit;
@@ -160,36 +145,28 @@ contract DeVoxShamanV1 is
         // console.log("DeVoxShamanV1 deployed by %s", msg.sender);
     }
 
-    /// Whitelist a user, enabling them to join the DAO
-    /// @param _status whitelist status
-    /// @param _metadata user metadata
-    function whitelist(
-        bool _status,
-        bytes calldata _metadata
-    ) external override {
-        require(
-            _whitelist[msg.sender] != _status,
-            "whitelist status unchanged"
-        );
-
-        _whitelist[msg.sender] = _status;
-
-        emit UserWhitelisted(msg.sender, address(baal), id, _status, _metadata);
-    }
-
     /// @notice Make a donation, join the DAO and receive voting shares
     /// @param _value amount donated
+    /// @param _signCampaign if true, also sign the campaign
     /// @param _message message accompanying donation
     /// @dev message sender must be whitelisted
     function donate(
         uint256 _value,
+        bool _signCampaign,
         string calldata _message
     ) external override nonReentrant {
         require(address(baal) != address(0), "donate: !baal");
         require(address(token) != address(0), "donate: !token");
         require(baal.isManager(address(this)), "donate: shaman not manager");
-        require(_whitelist[msg.sender], "donate: sender not whitelisted");
+        require(
+            userRegistry.getUser(msg.sender),
+            "donate: sender not registered"
+        );
         require(_value % pricePerUnit == 0, "donate: invalid amount"); // require value as multiple of units
+
+        if (_signCampaign) {
+            _sign(msg.sender);
+        }
 
         // send to DAO
         require(
@@ -213,10 +190,9 @@ contract DeVoxShamanV1 is
             id,
             _value,
             total,
-            target,
-            getTokenBalance(),
             lootIssued,
             sharesIssued,
+            _signCampaign,
             _message
         );
     }
@@ -253,12 +229,20 @@ contract DeVoxShamanV1 is
     }
 
     function sign() external override {
-        require(_whitelist[msg.sender], "sign: not whitelisted");
-        require(!signatures[msg.sender], "sign: already signed");
+        require(
+            userRegistry.getUser(msg.sender),
+            "sign: sender not registered"
+        );
 
-        signatures[msg.sender] = true;
+        _sign(msg.sender);
+    }
 
-        emit UserSigned(msg.sender, address(baal), id);
+    function _sign(address user) internal {
+        require(!signatures[user], "sign: already signed");
+
+        signatures[user] = true;
+
+        emit UserSigned(user, address(baal), id);
     }
 
     /// @notice Update campaign target

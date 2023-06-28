@@ -11,6 +11,7 @@ type Campaign @entity {
   donations: [Donation!]! @derivedFrom(field: "campaign")
   messages: [Message!]! @derivedFrom(field: "campaign")
   proposals: [Proposal!]! @derivedFrom(field: "campaign")
+  signatures: [Signature!]! @derivedFrom(field: "campaign")
 }
 
 type Donation @entity {
@@ -63,7 +64,7 @@ type User @entity {
   messages: [Message!]! @derivedFrom(field: "user")
   metadata: Bytes!
   votes: [Vote!]! @derivedFrom(field: "user")
-}
+}  
 
 type Vote @entity {
   id: ID!

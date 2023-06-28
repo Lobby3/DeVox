@@ -72,18 +72,6 @@
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "target",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "balance",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
         "name": "lootIssued",
         "type": "uint256"
       },
@@ -92,6 +80,12 @@
         "internalType": "uint256",
         "name": "sharesIssued",
         "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "signedCampaign",
+        "type": "bool"
       },
       {
         "indexed": false,
@@ -280,43 +274,6 @@
     "type": "event"
   },
   {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "address",
-        "name": "user",
-        "type": "address"
-      },
-      {
-        "indexed": true,
-        "internalType": "address",
-        "name": "baal",
-        "type": "address"
-      },
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "id",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "bool",
-        "name": "status",
-        "type": "bool"
-      },
-      {
-        "indexed": false,
-        "internalType": "bytes",
-        "name": "metadata",
-        "type": "bytes"
-      }
-    ],
-    "name": "UserWhitelisted",
-    "type": "event"
-  },
-  {
     "inputs": [],
     "name": "DEFAULT_ADMIN_ROLE",
     "outputs": [
@@ -345,9 +302,27 @@
   {
     "inputs": [
       {
+        "internalType": "uint32",
+        "name": "proposalId",
+        "type": "uint32"
+      }
+    ],
+    "name": "cancelProposal",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "uint256",
         "name": "_value",
         "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "_signCampaign",
+        "type": "bool"
       },
       {
         "internalType": "string",
@@ -474,8 +449,13 @@
         "type": "address"
       },
       {
-        "internalType": "address payable",
+        "internalType": "address",
         "name": "_token",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_userRegistry",
         "type": "address"
       },
       {
@@ -754,6 +734,19 @@
   },
   {
     "inputs": [],
+    "name": "userRegistry",
+    "outputs": [
+      {
+        "internalType": "contract IUserRegistry",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
     "name": "version",
     "outputs": [
       {
@@ -763,24 +756,6 @@
       }
     ],
     "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "bool",
-        "name": "_status",
-        "type": "bool"
-      },
-      {
-        "internalType": "bytes",
-        "name": "_metadata",
-        "type": "bytes"
-      }
-    ],
-    "name": "whitelist",
-    "outputs": [],
-    "stateMutability": "nonpayable",
     "type": "function"
   }
 ]

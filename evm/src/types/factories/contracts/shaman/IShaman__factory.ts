@@ -32,6 +32,11 @@ const _abi = [
         type: "uint256",
       },
       {
+        internalType: "bool",
+        name: "_signCampaign",
+        type: "bool",
+      },
+      {
         internalType: "string",
         name: "_message",
         type: "string",
@@ -52,6 +57,11 @@ const _abi = [
       {
         internalType: "address",
         name: "_token",
+        type: "address",
+      },
+      {
+        internalType: "address",
+        name: "_userRegistry",
         type: "address",
       },
       {
@@ -101,24 +111,6 @@ const _abi = [
   {
     inputs: [],
     name: "sign",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "bool",
-        name: "_status",
-        type: "bool",
-      },
-      {
-        internalType: "bytes",
-        name: "_metadata",
-        type: "bytes",
-      },
-    ],
-    name: "whitelist",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",

@@ -1,10 +1,11 @@
+import { StaticContract } from "@daohaus/utils";
 import { useWeb3React } from "@web3-react/core";
 import { Contract, ethers } from "ethers";
 import { useEffect, useState } from "react";
 
+import { DeVoxUserRegistryContract } from "../app/summon/utils";
+import shamanContractJson from "../contract-types/DeVoxShamanV1.json";
 import { _abi } from "../contract-types/erc20";
-
-const shamanContractJson = require("../contract-types/DeVoxShamanV1.json");
 
 export const useShamanContract = (shamanAddress?: string) => {
   const [contract, setContract] = useState<Contract | null>(null);
@@ -62,10 +63,6 @@ export const useTokenContract = (tokenAddress?: string) => {
 
 export const usePublicTokenContract = (tokenAddress?: string) => {
   const [contract, setContract] = useState<Contract | null>(null);
-  const provider = new ethers.providers.AlchemyProvider(
-    "goerli",
-    process.env.NEXT_PUBLIC_ALCHEMY_API_KEY
-  );
 
   useEffect(() => {
     const getTokenContract = async () => {
@@ -73,10 +70,42 @@ export const usePublicTokenContract = (tokenAddress?: string) => {
         return;
       }
 
+      const provider = new ethers.providers.AlchemyProvider(
+        "goerli",
+        process.env.NEXT_PUBLIC_ALCHEMY_API_KEY
+      );
+
       const tokenContract = new ethers.Contract(tokenAddress, _abi, provider);
       setContract(tokenContract);
     };
     getTokenContract();
   }, [tokenAddress]);
+  return contract;
+};
+
+export const useUserRegistryContract = () => {
+  const userRegistryKeychain = DeVoxUserRegistryContract as StaticContract;
+  const [contract, setContract] = useState<Contract | null>(null);
+  const {
+    hooks: { usePriorityProvider },
+  } = useWeb3React();
+  const provider = usePriorityProvider();
+
+  useEffect(() => {
+    const getContract = async () => {
+      if (!provider) {
+        return;
+      }
+
+      const contract = new ethers.Contract(
+        userRegistryKeychain.targetAddress as `0x${string}`,
+        userRegistryKeychain.abi,
+        provider.getSigner()
+      );
+      setContract(contract);
+    };
+    getContract();
+  }, [provider, userRegistryKeychain.abi, userRegistryKeychain.targetAddress]);
+
   return contract;
 };

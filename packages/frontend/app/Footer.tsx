@@ -10,13 +10,18 @@ import { headerBackground } from "../styles/colors";
 
 export const Footer = () => {
   return (
-    <Flex as="footer" marginTop="auto" backgroundColor={headerBackground}>
+    <Flex
+      as="footer"
+      flexDirection={["column-reverse", "row"]}
+      marginTop="auto"
+      backgroundColor={headerBackground}
+    >
       <VStack
         flexDirection="column"
         alignItems="flex-start"
-        p="80px"
+        p={["24px", "80px"]}
         color="white"
-        width="50%"
+        width={["100%", "50%"]}
         spacing={8}
       >
         <Image src={Logo} alt="logo" width={80} height={80} />
@@ -31,6 +36,8 @@ export const Footer = () => {
         alignItems={"flex-start"}
         color={"white"}
         fontSize={"xl"}
+        p={["24px", "80px"]}
+        pb={"12px"}
       >
         <Link href={"/"}>
           <Text fontFamily={"Inter"}>Discover</Text>

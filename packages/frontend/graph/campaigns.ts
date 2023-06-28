@@ -1,11 +1,7 @@
+import { useDaoData } from "@daohaus/moloch-v3-hooks";
 import { useQuery } from "@tanstack/react-query";
 import { gql } from "graphql-request";
-import { useMemo } from "react";
 
-import {
-  getRandomCampaignDescription,
-  getRandomCampaignImage,
-} from "../hooks/campaign";
 import { graphQLClient } from "./client";
 
 export interface Campaign {
@@ -27,6 +23,9 @@ export interface Campaign {
     user: {
       id: string;
     };
+  }[];
+  signatures: {
+    id: string;
   }[];
 }
 
@@ -51,6 +50,9 @@ const campaignFragment = gql`
         id
       }
     }
+    signatures {
+      id
+    }
   }
 `;
 
@@ -70,6 +72,13 @@ export const useGetCampaigns = () => {
       .then((result) => {
         return (result as { campaigns: Campaign[] }).campaigns;
       });
+  });
+};
+
+export const useDaoInfo = (id: string) => {
+  return useDaoData({
+    daoId: id,
+    daoChain: process.env.NEXT_PUBLIC_CHAIN_ID_HEX as string,
   });
 };
 
@@ -93,11 +102,32 @@ export const useGetCampaign = (id: string) => {
   });
 };
 
-export const useCampaignData = (id: string) => {
-  const imageUrl = useMemo(() => getRandomCampaignImage(), [id]);
-  const description = useMemo(() => getRandomCampaignDescription(), [id]);
-  return {
-    imageUrl,
-    description,
-  };
+export const useGetCampaignsWithDonationsFromUser = (address?: string) => {
+  return useQuery(["campaigns", "user-donations", address], async () => {
+    if (!address) {
+      return [];
+    }
+
+    return graphQLClient
+      .request(
+        gql`
+          ${campaignFragment}
+          query GetCampaignsWithDonationsFromUser($address: String!) {
+            donations(where: { user: $address }) {
+              id
+              amount
+              campaign {
+                ...campaignFragment
+              }
+            }
+          }
+        `,
+        { address }
+      )
+      .then((result) => {
+        return (
+          result as { donations: { campaign: Campaign }[] }
+        ).donations.map((donation) => donation.campaign);
+      });
+  });
 };

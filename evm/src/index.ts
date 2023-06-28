@@ -21,6 +21,7 @@ export {
   DeVoxBaalAndShamanSummonerV1 as DeVoxBaalAndShamanSummoner,
   DeVoxShamanSummonerV1 as DeVoxShamanSummoner,
   DeVoxShamanV1 as DeVoxShaman,
+  DeVoxUserRegistryV0 as DeVoxUserRegistry,
   GnosisSafe,
   GnosisSafeProxyFactory,
   IBaal,

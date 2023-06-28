@@ -115,24 +115,28 @@ export class SummonComplete__Params {
     return this._event.parameters[2].value.toAddress();
   }
 
-  get id(): BigInt {
-    return this._event.parameters[3].value.toBigInt();
+  get userRegistry(): Address {
+    return this._event.parameters[3].value.toAddress();
   }
 
-  get pricePerUnit(): BigInt {
+  get id(): BigInt {
     return this._event.parameters[4].value.toBigInt();
   }
 
-  get tokensPerUnit(): BigInt {
+  get pricePerUnit(): BigInt {
     return this._event.parameters[5].value.toBigInt();
   }
 
-  get target(): BigInt {
+  get tokensPerUnit(): BigInt {
     return this._event.parameters[6].value.toBigInt();
   }
 
+  get target(): BigInt {
+    return this._event.parameters[7].value.toBigInt();
+  }
+
   get name(): string {
-    return this._event.parameters[7].value.toString();
+    return this._event.parameters[8].value.toString();
   }
 }
 

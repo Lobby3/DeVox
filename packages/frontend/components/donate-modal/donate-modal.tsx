@@ -23,13 +23,15 @@ import {
 } from "@chakra-ui/react";
 import { useWeb3React } from "@web3-react/core";
 import { Form, Formik } from "formik";
-import React from "react";
+import React, { useEffect } from "react";
 import { toast } from "react-toastify";
 
 import { useGetCampaign } from "../../graph/campaigns";
 import { useBalance } from "../../hooks/balance";
 import { useDonate } from "../../hooks/donate";
 import { useTokenInfo } from "../../hooks/token";
+import { useUserHasVerifiedZipCode } from "../../hooks/whitelist";
+import Loader from "../loader/loader";
 import ZipVerificationForm from "../zip-verification-form/zip-verification-form";
 
 export interface DonateModalProps extends Omit<ModalProps, "children"> {
@@ -37,25 +39,41 @@ export interface DonateModalProps extends Omit<ModalProps, "children"> {
 }
 
 export function DonateModal({ isOpen, onClose, campaignId }: DonateModalProps) {
-  const { data } = useGetCampaign(campaignId);
+  const { data: campaign, isFetched: isFetchedCampaign } =
+    useGetCampaign(campaignId);
+  const {
+    data: hasVerified,
+    isFetching: isFetchingZipCodeStatus,
+    isFetched: isFetchedZipCodeStatus,
+  } = useUserHasVerifiedZipCode();
+
   const [step, setStep] = React.useState<
     "zip-verification" | "donate" | "success"
   >("zip-verification");
+
+  useEffect(() => {
+    if (!isFetchingZipCodeStatus && hasVerified) {
+      setStep("donate");
+    }
+  }, [isFetchingZipCodeStatus, isFetchedZipCodeStatus, hasVerified]);
+
   const { isActive } = useWeb3React();
-  const { formattedBalance } = useBalance(data?.tokenAddress);
-  const { symbol } = useTokenInfo(data?.tokenAddress);
+  const { formattedBalance } = useBalance(campaign?.tokenAddress);
+  const { symbol } = useTokenInfo(campaign?.tokenAddress);
   const donate = useDonate(campaignId);
+  const isFetched = isFetchedCampaign && isFetchedZipCodeStatus;
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent p={4} my="auto">
-        {step === "zip-verification" && (
+        {!isFetched && <Loader />}
+        {isFetched && step === "zip-verification" && (
           <ZipVerificationForm
             campaignId={campaignId}
             onSuccessfulVerification={() => setStep("donate")}
           />
         )}
-        {step === "donate" && (
+        {isFetched && step === "donate" && (
           <Formik
             initialValues={{
               amount: 0,
@@ -125,7 +143,7 @@ export function DonateModal({ isOpen, onClose, campaignId }: DonateModalProps) {
                           <InputGroup>
                             <InputLeftElement
                               pointerEvents="none"
-                              children="$"
+                              // children="$"
                             />
                             <Input
                               type="number"
@@ -180,7 +198,7 @@ export function DonateModal({ isOpen, onClose, campaignId }: DonateModalProps) {
             }}
           </Formik>
         )}
-        {step === "success" && (
+        {isFetched && step === "success" && (
           <>
             <ModalHeader>
               <Heading textAlign={"center"} textTransform={"uppercase"}>

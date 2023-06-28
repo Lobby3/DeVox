@@ -180,6 +180,15 @@ export class Campaign extends Entity {
       return value.toStringArray();
     }
   }
+
+  get signatures(): Array<string> {
+    let value = this.get("signatures");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toStringArray();
+    }
+  }
 }
 
 export class Donation extends Entity {

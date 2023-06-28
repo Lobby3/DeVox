@@ -49,24 +49,7 @@ describe(ContractNames.DeVoxShaman, function () {
     expect(balance).to.be.eq(0);
   });
 
-  it("whitelist: should emit UserWhitelisted event", async function () {
-    // arrange
-    const {
-      user: { address: userAddress, baal, shaman },
-    } = await setupTest({ shamanArgs: defaultSummonArgs });
-
-    const status = true;
-    const metadata = ethers.utils.randomBytes(256);
-    const metadataHex = ethers.utils.hexlify(metadata);
-    const campaignId = BigNumber.from(1);
-
-    // act & assert
-    await expect(shaman.whitelist(status, metadata))
-      .to.emit(shaman, "UserWhitelisted")
-      .withArgs(userAddress, baal.address, campaignId, status, metadataHex);
-  });
-
-  it("donate: should only allow whitelisted sender", async function () {
+  it("donate: should only allow registered sender", async function () {
     // arrange
     const {
       user: { shaman },
@@ -75,25 +58,26 @@ describe(ContractNames.DeVoxShaman, function () {
     const amount = ethers.utils.parseUnits("100", "ether");
 
     // act & assert
-    await expect(shaman.donate(amount, "hello")).to.be.revertedWith(
-      "donate: sender not whitelisted"
+    await expect(shaman.donate(amount, false, "hello")).to.be.revertedWith(
+      "donate: sender not registered"
     );
   });
 
   it("donate: should mint shares", async function () {
     // arrange
     const {
+      default: { userRegistry },
       deployer: { token: deployerToken },
       user: { address: userAddress, baal, loot, shaman, shares, token },
     } = await setupTest({ shamanArgs: defaultSummonArgs });
 
-    const { pricePerUnit, tokensPerUnit, target } = defaultSummonArgs;
+    const { pricePerUnit, tokensPerUnit } = defaultSummonArgs;
 
-    await shaman.whitelist(true, ethers.utils.randomBytes(256));
+    await userRegistry.saveUser(userAddress, ethers.utils.randomBytes(256));
 
     let total = BigNumber.from(0);
 
-    const testDonate = async (donation: string) => {
+    const testDonate = async (donation: string, sign = false) => {
       const amount = BigNumber.from(donation).mul(1000000);
       await deployerToken.transfer(userAddress, amount);
 
@@ -118,7 +102,7 @@ describe(ContractNames.DeVoxShaman, function () {
       );
 
       // act & assert
-      await expect(shaman.donate(amount, msg))
+      await expect(shaman.donate(amount, sign, msg))
         .to.emit(shaman, "DonationReceived")
         .withArgs(
           userAddress,
@@ -126,10 +110,9 @@ describe(ContractNames.DeVoxShaman, function () {
           1, // devoxShamanId
           amount,
           total, // wallet total donated
-          target,
-          total, // campaign total donated
           newLoot,
           newShares,
+          sign,
           msg
         );
 
@@ -164,20 +147,21 @@ describe(ContractNames.DeVoxShaman, function () {
 
     await testDonate("100");
 
-    await testDonate("10000");
+    await testDonate("10000", true);
   });
 
   it("should not allow ragequit of funds", async function () {
     // arrange
     const {
+      default: { userRegistry },
       deployer: { token: deployerToken, safe },
       user: { address: userAddress, baal, loot, shaman, shares, token },
     } = await setupTest({ shamanArgs: defaultSummonArgs });
     const amount = ethers.utils.parseUnits("1", "ether");
     await deployerToken.transfer(userAddress, amount);
     await token.approve(shaman.address, amount);
-    await shaman.whitelist(true, ethers.utils.randomBytes(256));
-    await shaman.donate(amount, "hello");
+    await userRegistry.saveUser(userAddress, ethers.utils.randomBytes(256));
+    await shaman.donate(amount, false, "hello");
     const lootBefore = await loot.balanceOf(userAddress);
     const sharesBefore = await shares.balanceOf(userAddress);
     const safeTokenBefore = await token.balanceOf(safe.address);
@@ -322,12 +306,13 @@ describe(ContractNames.DeVoxShaman, function () {
   it("sign: should allow any whitelisted user to sign campaign", async function () {
     // arrange
     const {
+      default: { userRegistry },
       user: { address, baal, shaman },
     } = await setupTest({ shamanArgs: defaultSummonArgs });
 
     const campaignId = 1;
 
-    await shaman.whitelist(true, ethers.utils.randomBytes(256));
+    await userRegistry.saveUser(address, ethers.utils.randomBytes(256));
 
     // act
     await expect(shaman.sign())
@@ -344,10 +329,11 @@ describe(ContractNames.DeVoxShaman, function () {
   it("sign: should not allow user to sign campaign more than once", async function () {
     // arrange
     const {
+      default: { userRegistry },
       user: { address, baal, shaman },
     } = await setupTest({ shamanArgs: defaultSummonArgs });
 
-    await shaman.whitelist(true, ethers.utils.randomBytes(256));
+    await userRegistry.saveUser(address, ethers.utils.randomBytes(256));
 
     // act
     await expect(shaman.sign()).to.emit(shaman, "UserSigned").withArgs(
@@ -360,13 +346,15 @@ describe(ContractNames.DeVoxShaman, function () {
     await expect(shaman.sign()).to.be.revertedWith("sign: already signed");
   });
 
-  it("sign: should reject non-whitelisted user", async function () {
+  it("sign: should reject unregistered user", async function () {
     // arrange
     const {
       user: { shaman },
     } = await setupTest({ shamanArgs: defaultSummonArgs });
 
     // act & assert
-    await expect(shaman.sign()).to.be.revertedWith("sign: not whitelisted");
+    await expect(shaman.sign()).to.be.revertedWith(
+      "sign: sender not registered"
+    );
   });
 });

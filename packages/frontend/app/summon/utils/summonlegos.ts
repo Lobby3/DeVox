@@ -1,11 +1,12 @@
 import { ContractLego } from '@daohaus/utils';
 import DeVoxBaalAndShamanSummonerV1Abi from '../../../abi/DeVoxBaalAndShamanSummonerV1';
+import { DeVoxContractKeychains } from './keychains';
 
 const BaalAndShamanSummonerContract: ContractLego = {
   contractName: 'DeVoxBaalAndShamanSummonerV1',
   type: 'static',
   abi: DeVoxBaalAndShamanSummonerV1Abi,
-  targetAddress: "0x8A3C734715D80460f25B51ba30aA571Af2fbAf24"
+  targetAddress: DeVoxContractKeychains.BaalAndShamanSummoner,
 };
 
 export const SummonTX = {

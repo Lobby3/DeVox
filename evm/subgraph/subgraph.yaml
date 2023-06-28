@@ -51,7 +51,7 @@ dataSources:
     network: goerli
     source:
       abi: DeVoxShamanSummonerV1
-      address: "0x9f723A885108236E478FC5E31ff90E60E300876D"
+      address: "0xB1D33ed9BbFD0b76456fd9d9A015F2E1663C02FD"
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -73,11 +73,44 @@ dataSources:
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
         - event: SummonComplete(indexed address,indexed
-            address,address,uint256,uint256,uint256,uint256,string)
+            address,address,address,uint256,uint256,uint256,uint256,string)
           handler: handleSummonComplete
         - event: Upgraded(indexed address)
           handler: handleUpgraded
       file: ./src/de-vox-shaman-summoner-v-1.ts
+  - kind: ethereum
+    name: DeVoxUserRegistryV0
+    network: goerli
+    source:
+      abi: DeVoxUserRegistryV0
+      address: "0x3BC63a4AfDe6a753498894b0FAFaD71BcC30B583"
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - BeaconUpgraded
+        - Initialized
+        - OwnershipTransferred
+        - SummonComplete
+        - Upgraded
+      abis:
+        - name: DeVoxUserRegistryV0
+          file: ./abis/DeVoxUserRegistryV0.json
+      eventHandlers:
+        - event: BeaconUpgraded(indexed address)
+          handler: handleBeaconUpgraded
+        - event: Initialized(uint8)
+          handler: handleInitialized
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: Upgraded(indexed address)
+          handler: handleUpgraded
+        - event: UserSaved(indexed address,bytes)
+          handler: handleUserSaved
+        - event: UserRemoved(indexed address)
+          handler: handleUserRemoved
+      file: ./src/de-vox-user-registry-v-0.ts
 templates:
   - kind: ethereum
     name: Baal
@@ -176,7 +209,7 @@ templates:
         - Initialized
         - TargetUpdated
         - Upgraded
-        - UserWhitelisted
+        - UserSigned
       abis:
         - name: DeVoxShamanV1
           file: ./abis/DeVoxShamanV1.json
@@ -186,7 +219,7 @@ templates:
         - event: BeaconUpgraded(indexed address)
           handler: handleBeaconUpgraded
         - event: DonationReceived(indexed address,indexed address,indexed
-            uint256,uint256,uint256,uint256,uint256,uint256,uint256,string)
+            uint256,uint256,uint256,uint256,uint256,bool,string)
           handler: handleDonationReceived
         - event: Initialized(uint8)
           handler: handleInitialized
@@ -194,7 +227,6 @@ templates:
           handler: handleTargetUpdated
         - event: Upgraded(indexed address)
           handler: handleUpgraded
-        - event: UserWhitelisted(indexed address,indexed address,indexed
-            uint256,bool,bytes)
-          handler: handleUserWhitelisted
+        - event: UserSigned(indexed address,indexed address,indexed uint256)
+          handler: handleUserSigned
       file: ./src/de-vox-shaman-v-1.ts

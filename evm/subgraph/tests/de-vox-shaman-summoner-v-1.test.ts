@@ -17,6 +17,9 @@ describe("DeVoxShamanSummoner", () => {
     const tokenAddress = Address.fromString(
       "0xdF92fA61868DC84c94D2Af646b4dBe8c6a3f5454"
     );
+    const userRegistryAddress = Address.fromString(
+      "0x693f20811a8fEbD0b377d13B5757089441774CDD"
+    );
     const id = BigInt.fromI32(11);
     const pricePerUnit = BigInt.fromI32(1000000);
     const tokensPerUnit = BigInt.fromI32(100);
@@ -26,6 +29,7 @@ describe("DeVoxShamanSummoner", () => {
       baalAddress,
       shamanAddress,
       tokenAddress,
+      userRegistryAddress,
       id,
       pricePerUnit,
       tokensPerUnit,

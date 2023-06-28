@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { BigNumber } from "ethers";
+import { parseUnits } from "ethers/lib/utils";
 import { toast } from "react-toastify";
 
 import { useGetCampaign } from "../graph/campaigns";
@@ -25,21 +25,28 @@ export const useDonate = (campaignId: string) => {
         throw new Error("No contract");
       }
 
-      const amountInTokenWithDecimals = BigNumber.from(
-        amountInToken * 10 ** decimals
+      const amountInTokenWithDecimals = parseUnits(
+        amountInToken.toString(),
+        decimals
       );
+      const approveToast = toast("Approving...");
       const approveTx = await tokenContract.approve(
         shamanContract.address,
         amountInTokenWithDecimals
       );
       await approveTx.wait();
+      toast.dismiss(approveToast);
+      toast("Approved!", {
+        type: "success",
+      });
 
+      const donateToastId = toast("Donating...");
       const tx = await shamanContract.donate(
         amountInTokenWithDecimals,
         message
       );
-      toast("Donating...");
       const txHash = await tx.wait();
+      toast.dismiss(donateToastId);
       toast("Donated!", {
         type: "success",
       });

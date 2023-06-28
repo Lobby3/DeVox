@@ -3,6 +3,7 @@ import { Center, Spinner } from "@chakra-ui/react";
 
 import { lavender } from "../../styles/colors";
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface LoaderProps {}
 
 export function Loader(props: LoaderProps) {

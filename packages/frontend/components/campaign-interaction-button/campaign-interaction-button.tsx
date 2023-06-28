@@ -1,10 +1,11 @@
 /* eslint-disable-next-line */
-import { Heading, Text, VStack } from "@chakra-ui/react";
+import { Heading, Text, VStack, useMediaQuery } from "@chakra-ui/react";
 import React from "react";
 
 import { headerBackground, lavender } from "../../styles/colors";
 
 export interface CampaignInteractionButtonProps {
+  isDisabled?: boolean;
   onClick: () => void;
   title: string;
   subtitle: React.ReactNode;
@@ -17,33 +18,44 @@ export const CampaignInteractionButton = ({
   title,
   subtitle,
   icon,
+  isDisabled,
   complete = false,
 }: CampaignInteractionButtonProps) => {
+  const [isMobile] = useMediaQuery("(max-width: 420px)");
   return (
-    <VStack
-      as="button"
+    <button
+      style={{
+        width: isMobile ? "100%" : "420px",
+        cursor: isDisabled ? "default" : "pointer",
+      }}
       onClick={onClick}
-      width={"100%"}
-      maxWidth={420}
-      height={250}
-      p="32px"
-      backgroundColor={complete ? lavender : headerBackground}
-      justifyContent="center"
-      border={complete ? "none" : "1px solid white"}
-      spacing={4}
+      disabled={isDisabled}
     >
-      <Heading textTransform={"uppercase"} color={complete ? "black" : "white"}>
-        {title}
-      </Heading>
-      {icon}
-      <Text
-        fontFamily={"Inter"}
-        fontWeight="500"
-        color={complete ? "black" : "white"}
+      <VStack
+        maxWidth={[420]}
+        height={250}
+        p="32px"
+        backgroundColor={complete ? lavender : headerBackground}
+        justifyContent="center"
+        border={complete ? "none" : "1px solid white"}
+        spacing={4}
       >
-        {subtitle}
-      </Text>
-    </VStack>
+        <Heading
+          textTransform={"uppercase"}
+          color={complete ? "black" : "white"}
+        >
+          {title}
+        </Heading>
+        {icon}
+        <Text
+          fontFamily={"Inter"}
+          fontWeight="500"
+          color={complete ? "black" : "white"}
+        >
+          {subtitle}
+        </Text>
+      </VStack>
+    </button>
   );
 };
 

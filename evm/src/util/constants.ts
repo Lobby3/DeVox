@@ -9,6 +9,7 @@ export const ContractNames = {
   DeVoxBaalAndShamanSummoner: "DeVoxBaalAndShamanSummonerV1",
   DeVoxShaman: "DeVoxShamanV1",
   DeVoxShamanSummoner: "DeVoxShamanSummonerV1",
+  DeVoxUserRegistry: "DeVoxUserRegistryV0",
   Loot: "Loot",
   ModuleProxyFactory: "ModuleProxyFactory",
   MultiSend: "MultiSend",

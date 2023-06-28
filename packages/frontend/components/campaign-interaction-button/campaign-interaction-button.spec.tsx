@@ -8,7 +8,9 @@ describe("CampaignInteractionButton", () => {
       <CampaignInteractionButton
         title="test title"
         subtitle={"test subtitle"}
-        onClick={() => {}}
+        onClick={() => {
+          return;
+        }}
       />
     );
     expect(baseElement).toBeTruthy();

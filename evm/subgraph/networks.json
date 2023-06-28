@@ -1,13 +1,16 @@
 {
   "hardhat": {
     "BaalSummoner": {
-      "address": "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9"
+      "address": "0x8A791620dd6260079BF849Dc5567aDC3F2FdC318"
     },
     "Baal": {},
     "DeVoxShamanSummonerV1": {
-      "address": "0x0B306BF915C4d645ff596e518fAf3F9669b97016"
+      "address": "0x3Aa5ebB10DC797CAC828524e59A333d0A371443c"
     },
-    "DeVoxShamanV1": {}
+    "DeVoxShamanV1": {},
+    "DeVoxUserRegistryV0": {
+      "address": "0x959922bE3CAee4b8Cd9a407cc3ac1C251C2007B1"
+    }
   },
   "goerli": {
     "BaalSummoner": {
@@ -15,8 +18,11 @@
     },
     "Baal": {},
     "DeVoxShamanSummonerV1": {
-      "address": "0x9f723A885108236E478FC5E31ff90E60E300876D"
+      "address": "0xB1D33ed9BbFD0b76456fd9d9A015F2E1663C02FD"
     },
-    "DeVoxShamanV1": {}
+    "DeVoxShamanV1": {},
+    "DeVoxUserRegistryV0": {
+      "address": "0x3BC63a4AfDe6a753498894b0FAFaD71BcC30B583"
+    }
   }
 }
