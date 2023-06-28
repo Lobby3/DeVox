@@ -14,9 +14,11 @@ import {
 } from "@chakra-ui/react";
 import {
   // ChatBubbleBottomCenterTextIcon,
+  CircleStackIcon,
   FaceSmileIcon,
   GlobeAsiaAustraliaIcon,
 } from "@heroicons/react/20/solid";
+import { useWeb3React } from "@web3-react/core";
 import Image from "next/image";
 import Link from "next/link";
 import * as React from "react";
@@ -30,6 +32,7 @@ const headerLinks = {
     label: "Discover",
     href: "/",
     icon: GlobeAsiaAustraliaIcon,
+    showOnlyWhenConnected: false,
   },
   // create: {
   //   label: "Create campaign",
@@ -40,6 +43,13 @@ const headerLinks = {
     label: "About Us",
     href: "/about-us",
     icon: FaceSmileIcon,
+    showOnlyWhenConnected: false,
+  },
+  myDonations: {
+    label: "My Donations",
+    href: "/my-donations",
+    icon: CircleStackIcon,
+    showOnlyWhenConnected: true,
   },
 };
 
@@ -93,54 +103,65 @@ export const Header = () => {
 };
 
 const MobileNav = () => {
+  const { isActive } = useWeb3React();
   return (
     <Stack direction="column" p={4} px={6} display={{ md: "none" }}>
-      {Object.values(headerLinks).map((link) => (
-        <Box mb={2} key={link.href}>
-          <Link href={link.href}>
-            <Flex alignItems="center">
-              <link.icon
-                color={headerBackground}
-                height={20}
-                width={20}
-                style={{ marginTop: 2 }}
-              />
-              <Heading
-                size={"md"}
-                ml={1}
-                color={headerBackground}
-                fontFamily={"Inter"}
-              >
-                {link.label}
-              </Heading>
-            </Flex>
-          </Link>
-        </Box>
-      ))}
+      {Object.values(headerLinks)
+        .filter((link) => (link.showOnlyWhenConnected ? isActive : true))
+        .map((link) => (
+          <Box mb={2} key={link.href}>
+            <Link href={link.href}>
+              <Flex alignItems="center">
+                <link.icon
+                  color={headerBackground}
+                  height={20}
+                  width={20}
+                  style={{ marginTop: 2 }}
+                />
+                <Heading
+                  size={"md"}
+                  ml={1}
+                  color={headerBackground}
+                  fontFamily={"Inter"}
+                >
+                  {link.label}
+                </Heading>
+              </Flex>
+            </Link>
+          </Box>
+        ))}
       <ConnectButton />
     </Stack>
   );
 };
 
 const DesktopNav = () => {
+  const { isActive } = useWeb3React();
   return (
     <Flex>
       <HStack spacing={4} mr={4}>
-        {Object.values(headerLinks).map((link) => (
-          <Link href={link.href} key={link.href}>
-            <Flex alignItems="center">
-              <link.icon
-                color="white"
-                height={20}
-                width={20}
-                style={{ marginTop: 2 }}
-              />
-              <Heading size={"sm"} ml={1} color="gray.300" fontFamily={"Inter"}>
-                {link.label}
-              </Heading>
-            </Flex>
-          </Link>
-        ))}
+        {Object.values(headerLinks)
+          .filter((link) => (link.showOnlyWhenConnected ? isActive : true))
+          .map((link) => (
+            <Link href={link.href} key={link.href}>
+              <Flex alignItems="center">
+                <link.icon
+                  color="white"
+                  height={20}
+                  width={20}
+                  style={{ marginTop: 2 }}
+                />
+                <Heading
+                  size={"sm"}
+                  ml={1}
+                  color="gray.300"
+                  fontFamily={"Inter"}
+                >
+                  {link.label}
+                </Heading>
+              </Flex>
+            </Link>
+          ))}
       </HStack>
       <ConnectButton showWalletButton />
     </Flex>
