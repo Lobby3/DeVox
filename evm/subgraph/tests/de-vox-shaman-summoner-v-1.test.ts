@@ -2,7 +2,7 @@ import { Address, BigInt, Bytes } from "@graphprotocol/graph-ts";
 import { assert, describe, test } from "matchstick-as/assembly/index";
 
 import { Campaign } from "../generated/schema";
-import { handleSummonComplete } from "../src/de-vox-shaman-summoner-v-1";
+import { handleSummonComplete } from "../src/de-vox-shaman-summoner-v-0";
 import { createSummonCompleteEvent } from "./de-vox-shaman-summoner-v-1-utils";
 
 describe("DeVoxShamanSummoner", () => {

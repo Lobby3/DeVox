@@ -8,7 +8,7 @@ tmp
 artifacts
 cache
 .bin
-./evm/src/types
+evm/src/types
 
 # dependencies
 node_modules

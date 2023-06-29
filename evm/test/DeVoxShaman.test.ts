@@ -49,7 +49,7 @@ describe(ContractNames.DeVoxShaman, function () {
     expect(balance).to.be.eq(0);
   });
 
-  it("donate: should only allow whitelisted sender", async function () {
+  it("donate: should only allow registered sender", async function () {
     // arrange
     const {
       user: { shaman },
@@ -184,7 +184,7 @@ describe(ContractNames.DeVoxShaman, function () {
   it("setTarget: should allow admin user", async function () {
     // arrange
     const {
-      deployer: { shaman },
+      deployer: { baal, shaman },
     } = await setupTest({ shamanArgs: defaultSummonArgs });
 
     const newTarget = BigNumber.from("123456789");
@@ -194,7 +194,9 @@ describe(ContractNames.DeVoxShaman, function () {
     );
 
     // act
-    await shaman.setTarget(newTarget);
+    await expect(shaman.setTarget(newTarget))
+      .to.emit(shaman, "TargetUpdated")
+      .withArgs(baal.address, 1, newTarget, 0);
 
     // assert
     expect(await shaman.target()).to.equal(newTarget, "!=newTarget after!");
@@ -308,14 +310,14 @@ describe(ContractNames.DeVoxShaman, function () {
       user: { address, baal, shaman },
     } = await setupTest({ shamanArgs: defaultSummonArgs });
 
+    const campaignId = 1;
+
     await userRegistry.saveUser(address, ethers.utils.randomBytes(256));
 
     // act
-    await expect(shaman.sign()).to.emit(shaman, "UserSigned").withArgs(
-      address,
-      baal.address,
-      1 // devoxShamanId;
-    );
+    await expect(shaman.sign())
+      .to.emit(shaman, "UserSigned")
+      .withArgs(address, baal.address, campaignId);
 
     // assert
     expect(await shaman.signatures(address)).to.equal(

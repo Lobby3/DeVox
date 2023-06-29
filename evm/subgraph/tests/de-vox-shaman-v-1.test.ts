@@ -12,14 +12,14 @@ import {
   handleDonationReceived,
   handleTargetUpdated,
   handleUserSigned,
-} from "../src/de-vox-shaman-v-1";
+} from "../src/de-vox-shaman-v-0";
 import {
   createDonationReceivedEvent,
   createSignedEvent,
   createTargetUpdatedEvent,
 } from "./de-vox-shaman-v-1-utils";
 
-describe("DeVoxShamanV1", () => {
+describe("DeVoxShamanV0", () => {
   beforeEach(() => {
     clearStore();
 
