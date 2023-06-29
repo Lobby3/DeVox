@@ -36,15 +36,15 @@ export const DeVoxContractKeychains = {
     "0x5": "0x0B5018245D251a403B7F12260187B45d766e814C", // goerli
     "0x64": "", // xDai
     "0xa": "", // Optimism
-    "0x89": "", // polygon
+    "0x89": "0x8a3cAfaa570A52919569ec97A61320883Eb54094", // polygon
     "0xa4b1": "", // Arbitrum One
   },
-  DeVoxUserRegistryContract: {
+  DeVoxUserRegistry: {
     "0x1": "", // mainnet
     "0x5": "0x3BC63a4AfDe6a753498894b0FAFaD71BcC30B583", // goerli
     "0x64": "", // xDai
     "0xa": "", // Optimism
-    "0x89": "", // polygon
+    "0x89": "0x88Bcb9813Ecc34a44aB998d809d01841cd0dF3a0", // polygon
     "0xa4b1": "", // Arbitrum One
   },
 } as Record<string, Keychain>;

@@ -1,10 +1,13 @@
-import { Keychain } from "@daohaus/keychain-utils";
-import { StaticContract } from "@daohaus/utils";
+import { ValidNetwork } from "@daohaus/keychain-utils";
 import { useWeb3React } from "@web3-react/core";
 import { Contract, ethers } from "ethers";
 import { useEffect, useState } from "react";
 
-import { DeVoxUserRegistryContract } from "../app/summon/utils";
+import {
+  DeVoxContractKeychains,
+  DeVoxUserRegistryContract,
+  hexadecimalize,
+} from "../app/summon/utils";
 import shamanContractJson from "../contract-types/DeVoxShamanV1.json";
 import { _abi } from "../contract-types/erc20";
 
@@ -64,6 +67,7 @@ export const useTokenContract = (tokenAddress?: string) => {
 
 export const usePublicTokenContract = (tokenAddress?: string) => {
   const [contract, setContract] = useState<Contract | null>(null);
+  const { chainId } = useWeb3React();
 
   useEffect(() => {
     const getTokenContract = async () => {
@@ -72,7 +76,7 @@ export const usePublicTokenContract = (tokenAddress?: string) => {
       }
 
       const provider = new ethers.providers.AlchemyProvider(
-        "goerli",
+        chainId,
         process.env.NEXT_PUBLIC_ALCHEMY_API_KEY
       );
 
@@ -80,15 +84,16 @@ export const usePublicTokenContract = (tokenAddress?: string) => {
       setContract(tokenContract);
     };
     getTokenContract();
-  }, [tokenAddress]);
+  }, [chainId, tokenAddress]);
+
   return contract;
 };
 
 export const useUserRegistryContract = () => {
-  const userRegistryKeychain = DeVoxUserRegistryContract as StaticContract;
   const [contract, setContract] = useState<Contract | null>(null);
   const {
     hooks: { usePriorityProvider },
+    chainId,
   } = useWeb3React();
 
   const provider = usePriorityProvider();
@@ -99,15 +104,24 @@ export const useUserRegistryContract = () => {
         return;
       }
 
+      const chainIdHex = hexadecimalize(chainId) as ValidNetwork;
+      const contractAddress =
+        DeVoxContractKeychains.DeVoxUserRegistry[chainIdHex];
+      if (!contractAddress) {
+        return;
+      }
+
       const contract = new ethers.Contract(
-        (userRegistryKeychain.targetAddress as Keychain)["0x5"]!,
-        userRegistryKeychain.abi,
+        contractAddress,
+        DeVoxUserRegistryContract.abi,
         provider.getSigner()
       );
+
       setContract(contract);
     };
+
     getContract();
-  }, [provider, userRegistryKeychain.abi, userRegistryKeychain.targetAddress]);
+  }, [chainId, provider]);
 
   return contract;
 };
