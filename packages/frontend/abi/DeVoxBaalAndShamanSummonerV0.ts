@@ -1,4 +1,4 @@
-const DeVoxBaalAndShamanSummonerV1Abi = [
+const DeVoxBaalAndShamanSummonerV0Abi = [
   {
     anonymous: false,
     inputs: [
@@ -243,7 +243,7 @@ const DeVoxBaalAndShamanSummonerV1Abi = [
   },
 ];
 
-export type DeVoxBaalAndShamanSummonerV1Type =
-  typeof DeVoxBaalAndShamanSummonerV1Abi;
+export type DeVoxBaalAndShamanSummonerV0Type =
+  typeof DeVoxBaalAndShamanSummonerV0Abi;
 
-export default DeVoxBaalAndShamanSummonerV1Abi;
+export default DeVoxBaalAndShamanSummonerV0Abi;
