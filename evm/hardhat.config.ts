@@ -61,15 +61,15 @@ const config: HardhatUserConfig = {
     },
     matic: {
       // url: 'https://rpc-mainnet.maticvigil.com/v1/036f1ba8516f0eee2204a574a960b68437ac8661',
-      url: "https://polygon-mainnet.infura.io/v3/cc7ca25d68f246f393d7630842360c47",
-      gasPrice: 1000000000,
+      url: `https://polygon-mainnet.infura.io/v3/${process.env.INFURA_KEY}`,
+      gasPrice: 300000000000,
       accounts: {
         mnemonic: process.env.MNEMONIC,
       },
     },
     mumbai: {
       url: "https://rpc-mumbai.maticvigil.com/v1/036f1ba8516f0eee2204a574a960b68437ac8661",
-      gasPrice: 1000000000,
+      gasPrice: 300000000000,
       accounts: {
         mnemonic: process.env.MNEMONIC,
       },
