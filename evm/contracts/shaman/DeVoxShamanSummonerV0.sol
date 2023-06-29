@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 pragma solidity ^0.8.12;
 
-import {OwnableUpgradeable} from "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
+import {AccessControlUpgradeable} from "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol";
 import {Initializable} from "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import {UUPSUpgradeable} from "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";
 import {ERC1967Proxy} from "@openzeppelin/contracts/proxy/ERC1967/ERC1967Proxy.sol";
@@ -12,10 +12,13 @@ import {IShamanSummoner} from "./IShamanSummoner.sol";
 
 contract DeVoxShamanSummonerV0 is
     Initializable,
-    OwnableUpgradeable,
+    AccessControlUpgradeable,
     UUPSUpgradeable,
     IShamanSummoner
 {
+    /// @notice User role required in order to upgrade the contract
+    bytes32 public constant UPGRADER_ROLE = keccak256("UPGRADER_ROLE");
+
     /// @notice Current version of the contract
     uint16 internal _version;
 
@@ -58,10 +61,13 @@ contract DeVoxShamanSummonerV0 is
 
     /// @notice Contract initialization logic
     function initialize(address _template) public initializer {
-        __Ownable_init();
+        __AccessControl_init();
         __UUPSUpgradeable_init();
 
         template = _template;
+
+        _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
+        _grantRole(UPGRADER_ROLE, msg.sender);
     }
 
     function summonDeVoxShaman(
@@ -136,7 +142,7 @@ contract DeVoxShamanSummonerV0 is
 
     /// @notice Update the contract version number
     /// @dev onlyOwner
-    function updateVersion() external onlyOwner {
+    function updateVersion() external onlyRole(UPGRADER_ROLE) {
         _version += 1;
     }
 
@@ -145,14 +151,14 @@ contract DeVoxShamanSummonerV0 is
      ******************/
 
     /// @notice upgrade authorization logic
-    /// @dev adds onlyOwner requirement
+    /// @dev adds onlyRole(UPGRADER_ROLE) requirement
     function _authorizeUpgrade(
         address /*newImplementation*/
     )
         internal
         view
         override
-        onlyOwner // solhint-disable-next-line no-empty-blocks
+        onlyRole(UPGRADER_ROLE) // solhint-disable-next-line no-empty-blocks
     {
         //empty block
     }

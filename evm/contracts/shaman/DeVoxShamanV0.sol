@@ -14,8 +14,6 @@ import {FixedPointMathLib} from "../lib/FixedPointMathLib.sol";
 import {IUserRegistry} from "./IUserRegistry.sol";
 import {IShaman} from "./IShaman.sol";
 
-// import "hardhat/console.sol";
-
 /// @notice Shaman contract for Baal v3 DAOhaus
 /// @dev This contract is used to issue voting shares (quadratic) and loot (1:1) for donations
 contract DeVoxShamanV0 is
@@ -148,8 +146,6 @@ contract DeVoxShamanV0 is
         }
         _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
         _grantRole(UPGRADER_ROLE, msg.sender);
-
-        // console.log("DeVoxShamanV1 deployed by %s", msg.sender);
     }
 
     /// @notice Make a donation, join the DAO and receive voting shares
