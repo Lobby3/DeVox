@@ -48,7 +48,7 @@ export const SummonerForm = ({
       [FORM_KEYS.VOTE_TOKEN_TRANSFER]: false,
       [FORM_KEYS.NV_TOKEN_TRANSFER]: false,
       [FORM_KEYS.SPONSOR_THRESHOLD]: "1",
-      [FORM_KEYS.TREASURY_TOKEN]: "USDT",
+      [FORM_KEYS.TREASURY_TOKEN]: "DAI",
       [FORM_KEYS.CAMPAIGN_TARGET]: "10000",
       [FORM_KEYS.MEMBERS]: account && `${account} 1000000 0`,
     },
