@@ -158,9 +158,9 @@ export class Upgraded__Params {
   }
 }
 
-export class DeVoxShamanSummonerV1 extends ethereum.SmartContract {
-  static bind(address: Address): DeVoxShamanSummonerV1 {
-    return new DeVoxShamanSummonerV1("DeVoxShamanSummonerV1", address);
+export class DeVoxShamanSummonerV0 extends ethereum.SmartContract {
+  static bind(address: Address): DeVoxShamanSummonerV0 {
+    return new DeVoxShamanSummonerV0("DeVoxShamanSummonerV0", address);
   }
 
   owner(): Address {

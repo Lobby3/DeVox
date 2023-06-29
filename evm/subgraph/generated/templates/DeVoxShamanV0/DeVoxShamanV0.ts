@@ -292,9 +292,9 @@ export class UserSigned__Params {
   }
 }
 
-export class DeVoxShamanV1 extends ethereum.SmartContract {
-  static bind(address: Address): DeVoxShamanV1 {
-    return new DeVoxShamanV1("DeVoxShamanV1", address);
+export class DeVoxShamanV0 extends ethereum.SmartContract {
+  static bind(address: Address): DeVoxShamanV0 {
+    return new DeVoxShamanV0("DeVoxShamanV0", address);
   }
 
   DEFAULT_ADMIN_ROLE(): Bytes {

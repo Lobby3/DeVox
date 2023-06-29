@@ -9,7 +9,7 @@ import {
   OwnershipTransferred,
   SummonComplete,
   Upgraded,
-} from "../generated/DeVoxShamanSummonerV1/DeVoxShamanSummonerV1";
+} from "../generated/DeVoxShamanSummonerV0/DeVoxShamanSummonerV0";
 
 export function createAdminChangedEvent(
   previousAdmin: Address,

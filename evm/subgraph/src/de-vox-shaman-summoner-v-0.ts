@@ -6,9 +6,9 @@ import {
   OwnershipTransferred,
   SummonComplete,
   Upgraded,
-} from "../generated/DeVoxShamanSummonerV1/DeVoxShamanSummonerV1";
+} from "../generated/DeVoxShamanSummonerV0/DeVoxShamanSummonerV0";
 import { Campaign } from "../generated/schema";
-import { Baal, DeVoxShamanV1 } from "../generated/templates";
+import { Baal, DeVoxShamanV0 } from "../generated/templates";
 
 export function handleBeaconUpgraded(event: BeaconUpgraded): void {
   log.info("BeaconUpgraded: {}", [event.params.beacon.toHexString()]);
@@ -23,7 +23,7 @@ export function handleOwnershipTransferred(event: OwnershipTransferred): void {
 }
 
 export function handleSummonComplete(event: SummonComplete): void {
-  DeVoxShamanV1.create(event.params.shaman);
+  DeVoxShamanV0.create(event.params.shaman);
   Baal.create(event.params.baal);
 
   const campaign = new Campaign(event.params.baal.toHexString());

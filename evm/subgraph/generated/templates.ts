@@ -16,14 +16,14 @@ export class Baal extends DataSourceTemplate {
   }
 }
 
-export class DeVoxShamanV1 extends DataSourceTemplate {
+export class DeVoxShamanV0 extends DataSourceTemplate {
   static create(address: Address): void {
-    DataSourceTemplate.create("DeVoxShamanV1", [address.toHex()]);
+    DataSourceTemplate.create("DeVoxShamanV0", [address.toHex()]);
   }
 
   static createWithContext(address: Address, context: DataSourceContext): void {
     DataSourceTemplate.createWithContext(
-      "DeVoxShamanV1",
+      "DeVoxShamanV0",
       [address.toHex()],
       context
     );

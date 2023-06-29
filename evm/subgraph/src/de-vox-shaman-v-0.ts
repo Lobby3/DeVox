@@ -10,7 +10,7 @@ import {
   TargetUpdated,
   Upgraded,
   UserSigned,
-} from "../generated/templates/DeVoxShamanV1/DeVoxShamanV1";
+} from "../generated/templates/DeVoxShamanV0/DeVoxShamanV0";
 
 export function handleAdminChanged(event: AdminChanged): void {
   log.info("AdminChanged: {}", [event.params.newAdmin.toHexString()]);
