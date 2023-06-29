@@ -8,6 +8,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { useWeb3React } from "@web3-react/core";
+import _ from "lodash";
 
 import { useGetCampaignsWithDonationsFromUser } from "../../graph/campaigns";
 import BodyContainer from "../body-container/body-container";
@@ -53,11 +54,13 @@ export function MyDonations(props: MyDonationsProps) {
     );
   }
 
+  const uniqCampaigns = _.uniqBy(campaigns, (campaign) => campaign.id);
+
   return (
     <BodyContainer>
-      <VStack alignItems={"flex-start"}>
+      <VStack alignItems={"flex-start"} width={"100%"}>
         <Heading mb={4}>Campaigns you have donated to</Heading>
-        <CampaignGridView campaigns={campaigns} />
+        <CampaignGridView campaigns={uniqCampaigns} />
       </VStack>
     </BodyContainer>
   );

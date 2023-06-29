@@ -1,24 +1,12 @@
-"use client";
+import { pageTitle } from "../utils/formatting";
+import HomePage from "./home";
 
-import { VStack } from "@chakra-ui/react";
-import dynamic from "next/dynamic";
-import React from "react";
-
-import BodyContainer from "../components/body-container/body-container";
-
-const CampaignGridView = dynamic(
-  () => import("../components/campaign-grid-view/campaign-grid-view"),
-  {
-    ssr: false,
-  }
-);
+export async function generateMetadata() {
+  return {
+    title: pageTitle("Home"),
+  };
+}
 
 export default async function Index() {
-  return (
-    <VStack>
-      <BodyContainer>
-        <CampaignGridView />
-      </BodyContainer>
-    </VStack>
-  );
+  return <HomePage />;
 }

@@ -1,12 +1,12 @@
-"use client";
+import { pageTitle } from "../../utils/formatting";
+import SummonPage from "./summon-page";
 
-import dynamic from "next/dynamic";
-import React from "react";
-
-const DynamicContent = dynamic(() => import("./Content"), {
-  ssr: false,
-});
+export async function generateMetadata() {
+  return {
+    title: pageTitle("Summon"),
+  };
+}
 
 export default async function Index() {
-  return <DynamicContent />;
+  return <SummonPage />;
 }
