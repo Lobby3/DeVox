@@ -24,5 +24,18 @@
     "DeVoxUserRegistryV0": {
       "address": "0x3BC63a4AfDe6a753498894b0FAFaD71BcC30B583"
     }
+  },
+  "matic": {
+    "BaalSummoner": {
+      "address": "0x7e988A9db2F8597735fc68D21060Daed948a3e8C"
+    },
+    "Baal": {},
+    "DeVoxShamanSummonerV0": {
+      "address": "0x2E618C2e69c84378cb5CD2D153fcA3d7FEc66D08"
+    },
+    "DeVoxShamanV1": {},
+    "DeVoxUserRegistryV0": {
+      "address": "0x88Bcb9813Ecc34a44aB998d809d01841cd0dF3a0"
+    }
   }
 }
