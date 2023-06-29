@@ -67,7 +67,6 @@ export const useTokenContract = (tokenAddress?: string) => {
 
 export const usePublicTokenContract = (tokenAddress?: string) => {
   const [contract, setContract] = useState<Contract | null>(null);
-  const { chainId } = useWeb3React();
 
   useEffect(() => {
     const getTokenContract = async () => {
@@ -76,7 +75,7 @@ export const usePublicTokenContract = (tokenAddress?: string) => {
       }
 
       const provider = new ethers.providers.AlchemyProvider(
-        chainId,
+        "polygon",
         process.env.NEXT_PUBLIC_ALCHEMY_API_KEY
       );
 
@@ -84,7 +83,7 @@ export const usePublicTokenContract = (tokenAddress?: string) => {
       setContract(tokenContract);
     };
     getTokenContract();
-  }, [chainId, tokenAddress]);
+  }, [tokenAddress]);
 
   return contract;
 };
