@@ -1,6 +1,9 @@
+import dynamic from "next/dynamic";
 import React from "react";
 
-import CampaignDetail from "../../campaign-detail/campaign-detail";
+const CampaignDetailPage = dynamic(() => import("./campaign-detail-page"), {
+  ssr: false,
+});
 
 export async function generateMetadata(props: {
   params: { campaignId: string };
@@ -101,5 +104,5 @@ export async function generateMetadata(props: {
 export default async function Index(props: { params: { campaignId: string } }) {
   const campaignId = props?.params?.campaignId;
 
-  return <CampaignDetail campaignId={campaignId} />;
+  return <CampaignDetailPage campaignId={campaignId} />;
 }
