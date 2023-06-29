@@ -39,7 +39,7 @@ export function CampaignTile({ campaign }: CampaignTileProps) {
         objectFit={"cover"}
       />
       {isFunded && <Funded />}
-      <Heading textTransform="uppercase">{campaign.name}</Heading>
+      <Heading textTransform="uppercase">{dao?.name}</Heading>
       <Text noOfLines={3}>{dao?.description}</Text>
       <Flex flexGrow={1} alignItems={"flex-end"}>
         <Link href={`campaign/${campaign.id}`}>

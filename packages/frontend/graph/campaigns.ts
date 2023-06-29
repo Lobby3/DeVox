@@ -2,6 +2,8 @@ import { useDaoData } from "@daohaus/moloch-v3-hooks";
 import { useQuery } from "@tanstack/react-query";
 import { gql } from "graphql-request";
 
+import { hexadecimalize } from "../app/summon/utils";
+import { getChainInfo } from "../utils/chain-info";
 import { graphQLClient } from "./client";
 
 export interface Campaign {
@@ -76,9 +78,11 @@ export const useGetCampaigns = () => {
 };
 
 export const useDaoInfo = (id: string) => {
+  const chainInfo = getChainInfo();
+  const chainId = hexadecimalize(chainInfo.chainId);
   return useDaoData({
     daoId: id,
-    daoChain: process.env.NEXT_PUBLIC_CHAIN_ID_HEX as string,
+    daoChain: chainId!,
   });
 };
 

@@ -10,6 +10,7 @@ import {
 } from "../app/summon/utils";
 import shamanContractJson from "../contract-types/DeVoxShamanV1.json";
 import { _abi } from "../contract-types/erc20";
+import { getChainInfo } from "../utils/chain-info";
 
 export const useShamanContract = (shamanAddress?: string) => {
   const [contract, setContract] = useState<Contract | null>(null);
@@ -74,8 +75,10 @@ export const usePublicTokenContract = (tokenAddress?: string) => {
         return;
       }
 
+      const networkInfo = getChainInfo();
+
       const provider = new ethers.providers.AlchemyProvider(
-        "polygon",
+        networkInfo.alchemyName,
         process.env.NEXT_PUBLIC_ALCHEMY_API_KEY
       );
 
