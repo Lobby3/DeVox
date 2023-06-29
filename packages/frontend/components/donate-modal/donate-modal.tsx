@@ -150,6 +150,7 @@ export function DonateModal({ isOpen, onClose, campaignId }: DonateModalProps) {
                           <InputGroup>
                             <InputLeftElement
                               pointerEvents="none"
+                              // eslint-disable-next-line react/no-children-prop
                               children="$"
                             />
                             <Input
