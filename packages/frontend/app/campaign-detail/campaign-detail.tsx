@@ -109,12 +109,20 @@ const CampaignDetail = ({ campaignId }: CampaignDetailProps) => {
                 {campaign.signatures.length} signers
               </Heading>
             </Flex>
-            <Flex alignItems={"center"}>
+            <Flex alignItems={"center"} width={["100%", "100%", "fit-content"]}>
               <Heading size={"sm"} mr={2}>
                 ${formattedTotal}/{campaign.target}
               </Heading>
-              <Flex width={[0, 0, "200px"]} flexGrow={[1, 1, 0]} mr={2}>
-                <Progress colorScheme="devoxSuccess" value={progressValue} />
+              <Flex
+                width={["100%", "100%", "200px"]}
+                flexGrow={[1, 1, 0]}
+                mr={2}
+              >
+                <Progress
+                  width={"100%"}
+                  colorScheme="devoxSuccess"
+                  value={progressValue}
+                />
               </Flex>
               <CircleStackIcon height={20} width={20} />
             </Flex>

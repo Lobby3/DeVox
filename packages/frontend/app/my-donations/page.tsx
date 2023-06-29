@@ -1,15 +1,12 @@
-"use client";
+import { pageTitle } from "../../utils/formatting";
+import MyDonationsPage from "./my-donations-page";
 
-import dynamic from "next/dynamic";
-import React from "react";
-
-const MyDonations = dynamic(
-  () => import("../../components/my-donations/my-donations"),
-  {
-    ssr: false,
-  }
-);
+export async function generateMetadata() {
+  return {
+    title: pageTitle("My Donations"),
+  };
+}
 
 export default async function Index() {
-  return <MyDonations />;
+  return <MyDonationsPage />;
 }

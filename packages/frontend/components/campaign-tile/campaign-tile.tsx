@@ -29,6 +29,7 @@ export function CampaignTile({ campaign }: CampaignTileProps) {
       borderColor={headerBackground}
       borderWidth={"1px"}
       height="100%"
+      maxWidth={400}
     >
       <Image
         src={dao?.avatarImg}
