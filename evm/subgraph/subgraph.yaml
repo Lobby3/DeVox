@@ -4,7 +4,7 @@ schema:
 dataSources:
   - kind: ethereum
     name: BaalSummoner
-    network: goerli
+    network: matic
     source:
       abi: BaalSummoner
       address: "0x7e988A9db2F8597735fc68D21060Daed948a3e8C"
@@ -48,10 +48,10 @@ dataSources:
       file: ./src/baal-summoner.ts
   - kind: ethereum
     name: DeVoxShamanSummonerV0
-    network: goerli
+    network: matic
     source:
       abi: DeVoxShamanSummonerV0
-      address: "0xB1D33ed9BbFD0b76456fd9d9A015F2E1663C02FD"
+      address: "0x2E618C2e69c84378cb5CD2D153fcA3d7FEc66D08"
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -80,10 +80,10 @@ dataSources:
       file: ./src/de-vox-shaman-summoner-v-0.ts
   - kind: ethereum
     name: DeVoxUserRegistryV0
-    network: goerli
+    network: matic
     source:
       abi: DeVoxUserRegistryV0
-      address: "0x3BC63a4AfDe6a753498894b0FAFaD71BcC30B583"
+      address: "0x88Bcb9813Ecc34a44aB998d809d01841cd0dF3a0"
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -114,7 +114,7 @@ dataSources:
 templates:
   - kind: ethereum
     name: Baal
-    network: goerli
+    network: matic
     source:
       abi: Baal
     mapping:
@@ -195,7 +195,7 @@ templates:
       file: ./src/baal.ts
   - kind: ethereum
     name: DeVoxShamanV0
-    network: goerli
+    network: matic
     source:
       abi: DeVoxShamanV0
     mapping:

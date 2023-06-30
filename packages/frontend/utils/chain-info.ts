@@ -9,14 +9,15 @@ export const chainInfo: Record<
 > = {
   polygon: {
     chainId: 137,
-    subgraph: "https://api.thegraph.com/subgraphs/name/moconnell/lobby3-devox",
+    subgraph: "https://api.thegraph.com/subgraphs/name/seanmgonzalez/devox",
     daoHausSubgraph:
-      "https://api.thegraph.com/subgraphs/name/hausdao/daohaus-v3-goerli",
+      "https://api.thegraph.com/subgraphs/name/hausdao/daohaus-v3-matic",
     alchemyName: "matic",
   },
   goerli: {
     chainId: 5,
-    subgraph: "https://api.thegraph.com/subgraphs/name/moconnell/lobby3-devox",
+    subgraph:
+      "https://api.thegraph.com/subgraphs/name/moconnell/lobby3-devox-goerli",
     daoHausSubgraph:
       "https://api.thegraph.com/subgraphs/name/hausdao/daohaus-v3-goerli",
     alchemyName: "goerli",
