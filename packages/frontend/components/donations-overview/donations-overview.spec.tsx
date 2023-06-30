@@ -1,4 +1,3 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { render } from "@testing-library/react";
 
 import DonationsOverview from "./donations-overview";
@@ -10,6 +9,27 @@ jest.mock("../../graph/campaigns", () => {
     isFetched: true,
   });
   return { useGetCampaign: mockUseGetCampaign };
+});
+
+jest.mock("../../graph/donations", () => {
+  const mockUseGetDonationsForCampaign = jest.fn();
+  mockUseGetDonationsForCampaign.mockReturnValue({
+    data: [],
+    isLoading: false,
+    isError: false,
+  });
+  return { useGetDonationsForCampaign: mockUseGetDonationsForCampaign };
+});
+
+jest.mock("../../hooks/token", () => {
+  const mockUseTokenInfo = jest.fn();
+  mockUseTokenInfo.mockReturnValue({
+    decimals: 18,
+  });
+
+  return {
+    useTokenInfo: mockUseTokenInfo,
+  };
 });
 
 jest.mock("@web3-react/core", () => {
@@ -25,15 +45,8 @@ jest.mock("@web3-react/core", () => {
 
 describe("DonationsOverview", () => {
   it("should render successfully", () => {
-    // arrange
-    const queryClient = new QueryClient();
-
     // act
-    const { baseElement } = render(
-      <QueryClientProvider client={queryClient}>
-        <DonationsOverview campaignId="" />
-      </QueryClientProvider>
-    );
+    const { baseElement } = render(<DonationsOverview campaignId="" />);
 
     // assert
     expect(baseElement).toBeTruthy();

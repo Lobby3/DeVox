@@ -1,8 +1,6 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { act, render } from "@testing-library/react";
 import React from "react";
 
-import { MagicWalletProvider } from "../../app/magic-wallet-context";
 import CampaignDonateButton from "./campaign-donate-button";
 
 Object.defineProperty(window, "matchMedia", {
@@ -19,19 +17,20 @@ Object.defineProperty(window, "matchMedia", {
   })),
 });
 
+jest.mock("../../graph/donations", () => {
+  const mockUseGetDonationsForUser = jest.fn();
+  mockUseGetDonationsForUser.mockReturnValue({
+    data: [],
+    isLoading: false,
+    isError: false,
+  });
+  return { useGetDonationsForUser: mockUseGetDonationsForUser };
+});
+
 describe("CampaignDonateButton", () => {
   it("should render successfully", async () => {
-    // prepare
-    const queryClient = new QueryClient();
-
     await act(async () => {
-      const { baseElement } = render(
-        <MagicWalletProvider>
-          <QueryClientProvider client={queryClient}>
-            <CampaignDonateButton campaignId="" />
-          </QueryClientProvider>
-        </MagicWalletProvider>
-      );
+      const { baseElement } = render(<CampaignDonateButton campaignId="" />);
 
       // assert
       expect(baseElement).toBeTruthy();

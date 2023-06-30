@@ -1,4 +1,3 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { act, render } from "@testing-library/react";
 
 import CampaignDetail from "./campaign-detail";
@@ -38,6 +37,11 @@ jest.mock("../../graph/campaigns", () => {
 });
 
 jest.mock(
+  "../../components/campaign-donate-button/campaign-donate-button",
+  () => () => "{CampaignDonateButton}"
+);
+
+jest.mock(
   "../../components/campaign-sign-button/campaign-sign-button",
   () => () => "{CampaignSignButton}"
 );
@@ -45,6 +49,11 @@ jest.mock(
 jest.mock(
   "../../components/donate-modal/donate-modal",
   () => () => "{DonateModal}"
+);
+
+jest.mock(
+  "../../components/donations-overview/donations-overview",
+  () => () => "{DonationsOverview}"
 );
 
 jest.mock("../../hooks/token", () => {
@@ -71,16 +80,9 @@ jest.mock("@web3-react/core", () => {
 
 describe("CampaignDetail", () => {
   it("should render successfully", async () => {
-    // arrange
-    const queryClient = new QueryClient();
-
     // act
     await act(async () => {
-      const { baseElement } = render(
-        <QueryClientProvider client={queryClient}>
-          <CampaignDetail campaignId="" />
-        </QueryClientProvider>
-      );
+      const { baseElement } = render(<CampaignDetail campaignId="" />);
 
       // assert
       expect(baseElement).toBeTruthy();
