@@ -38,6 +38,11 @@ jest.mock("../../graph/campaigns", () => {
   };
 });
 
+jest.mock(
+  "../campaign-grid-view/campaign-grid-view",
+  () => () => "{CampaignGridView}"
+);
+
 jest.mock("@web3-react/core", () => {
   return {
     useWeb3React: () => {

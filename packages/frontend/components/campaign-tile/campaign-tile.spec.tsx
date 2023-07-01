@@ -10,10 +10,21 @@ jest.mock("../../graph/campaigns", () => {
   });
   const mockUseGetCampaign = jest.fn();
   mockUseGetCampaign.mockReturnValue({
-    data: { tokenAddress: "" },
+    data: { tokenAddress: "", total: "12345", target: "100000" },
     isFetched: true,
   });
   return { useGetCampaign: mockUseGetCampaign, useDaoInfo: mockUseDaoInfo };
+});
+
+jest.mock("../../hooks/token", () => {
+  const mockUseTokenInfo = jest.fn();
+  mockUseTokenInfo.mockReturnValue({
+    decimals: 18,
+  });
+
+  return {
+    useTokenInfo: mockUseTokenInfo,
+  };
 });
 
 jest.mock("@web3-react/core", () => {

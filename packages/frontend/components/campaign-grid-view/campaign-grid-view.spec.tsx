@@ -1,5 +1,4 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { act, render } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import React from "react";
 
 import CampaignGridView from "./campaign-grid-view";
@@ -43,20 +42,11 @@ jest.mock("../../graph/campaigns", () => {
 jest.mock("../campaign-tile/campaign-tile", () => () => "{CampaignTile}");
 
 describe("CampaignGridView", () => {
-  it("should render successfully", async () => {
-    // prepare
-    const queryClient = new QueryClient();
-
+  it("should render successfully", () => {
     // act
-    await act(async () => {
-      const { baseElement } = render(
-        <QueryClientProvider client={queryClient}>
-          <CampaignGridView />
-        </QueryClientProvider>
-      );
+    const { baseElement } = render(<CampaignGridView />);
 
-      // assert
-      expect(baseElement).toBeTruthy();
-    });
+    // assert
+    expect(baseElement).toBeTruthy();
   });
 });

@@ -16,6 +16,11 @@ Object.defineProperty(window, "matchMedia", {
   })),
 });
 
+jest.mock(
+  "../campaign-interaction-button/campaign-interaction-button",
+  () => () => "{CampaignInteractionButton}"
+);
+
 jest.mock("../../hooks/sign", () => {
   const mockUseCampaignSign = jest.fn();
   mockUseCampaignSign.mockReturnValue({});

@@ -57,6 +57,11 @@ jest.mock("../../hooks/whitelist", () => {
   };
 });
 
+jest.mock(
+  "../zip-verification-form/zip-verification-form",
+  () => () => "{ZipVerificationForm}"
+);
+
 jest.mock("@web3-react/core", () => {
   return {
     useWeb3React: () => {

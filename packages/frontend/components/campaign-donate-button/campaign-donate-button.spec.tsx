@@ -27,6 +27,11 @@ jest.mock("../../graph/donations", () => {
   return { useGetDonationsForUser: mockUseGetDonationsForUser };
 });
 
+jest.mock(
+  "../campaign-interaction-button/campaign-interaction-button",
+  () => () => "{CampaignInteractionButton}"
+);
+
 describe("CampaignDonateButton", () => {
   it("should render successfully", async () => {
     await act(async () => {
