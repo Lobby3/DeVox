@@ -102,7 +102,7 @@ const CampaignDetail = ({ campaignId }: CampaignDetailProps) => {
             >
               {campaign.shamanAddress}
             </Heading>
-            <Heading size={"xl"}>{campaign.name}</Heading>
+            <Heading size={"xl"}>{dao?.name}</Heading>
             <Flex alignItems="center">
               <PencilSquareIcon height="20px" width="20px" />
               <Heading size={"sm"} ml={2} mr={12}>

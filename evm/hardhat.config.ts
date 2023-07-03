@@ -51,25 +51,9 @@ const config: HardhatUserConfig = {
         mnemonic: process.env.MNEMONIC,
       },
     },
-    xdai: {
-      url: "https://rpc.gnosischain.com/",
-      gas: 5000000,
-      gasPrice: 8000000000,
-      accounts: {
-        mnemonic: process.env.MNEMONIC,
-      },
-    },
     matic: {
-      // url: 'https://rpc-mainnet.maticvigil.com/v1/036f1ba8516f0eee2204a574a960b68437ac8661',
-      url: "https://polygon-mainnet.infura.io/v3/cc7ca25d68f246f393d7630842360c47",
-      gasPrice: 1000000000,
-      accounts: {
-        mnemonic: process.env.MNEMONIC,
-      },
-    },
-    mumbai: {
-      url: "https://rpc-mumbai.maticvigil.com/v1/036f1ba8516f0eee2204a574a960b68437ac8661",
-      gasPrice: 1000000000,
+      url: `https://polygon-mainnet.infura.io/v3/${process.env.INFURA_KEY}`,
+      gasPrice: 300000000000,
       accounts: {
         mnemonic: process.env.MNEMONIC,
       },
@@ -78,12 +62,10 @@ const config: HardhatUserConfig = {
   etherscan: {
     // Your API key for Etherscan
     // Obtain one at https://etherscan.io/
-    // apiKey: "61ED96HQAY6PASTEWRXN6AMYQEKM8SYTRY" // etherscan
     apiKey: {
-      gnosis: "SN711KA5TEDG6JRJ2XGD8AITT7Q3VE58XG",
-      xdai: process.env.NX_ETHERSCAN_KEY ?? "",
       goerli: process.env.NX_ETHERSCAN_KEY ?? "",
       mainnet: process.env.NX_ETHERSCAN_KEY ?? "",
+      polygon: process.env.NX_POLYGONSCAN_KEY ?? "",
     },
     customChains: [
       // {
@@ -101,6 +83,14 @@ const config: HardhatUserConfig = {
         urls: {
           apiURL: "https://blockscout.com/xdai/mainnet/api",
           browserURL: "https://blockscout.com/xdai/mainnet/",
+        },
+      },
+      {
+        network: "polygon",
+        chainId: 137,
+        urls: {
+          apiURL: "https://api.polygonscan.com/api",
+          browserURL: "https://polygonscan.com/",
         },
       },
     ],

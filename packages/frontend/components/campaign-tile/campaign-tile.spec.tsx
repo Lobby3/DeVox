@@ -3,9 +3,57 @@ import React from "react";
 
 import CampaignTile from "./campaign-tile";
 
+jest.mock("../../graph/campaigns", () => {
+  const mockUseDaoInfo = jest.fn();
+  mockUseDaoInfo.mockReturnValue({
+    dao: { name: "", description: "", avatarImg: "" },
+  });
+  const mockUseGetCampaign = jest.fn();
+  mockUseGetCampaign.mockReturnValue({
+    data: { tokenAddress: "", total: "12345", target: "100000" },
+    isFetched: true,
+  });
+  return { useGetCampaign: mockUseGetCampaign, useDaoInfo: mockUseDaoInfo };
+});
+
+jest.mock("../../hooks/token", () => {
+  const mockUseTokenInfo = jest.fn();
+  mockUseTokenInfo.mockReturnValue({
+    decimals: 18,
+  });
+
+  return {
+    useTokenInfo: mockUseTokenInfo,
+  };
+});
+
+jest.mock("@web3-react/core", () => {
+  return {
+    useWeb3React: () => {
+      return {
+        account: "",
+        isActive: true,
+      };
+    },
+  };
+});
+
 describe("CampaignTile", () => {
+  const env = process.env;
+
+  beforeEach(() => {
+    jest.resetModules();
+    process.env = { ...env };
+  });
+
+  afterEach(() => {
+    process.env = env;
+  });
+
   it("should render successfully", () => {
     // prepare
+    process.env.NEXT_PUBLIC_NETWORK_NAME = "polygon";
+
     const campaign = {
       id: "1",
       name: "test",
@@ -15,9 +63,9 @@ describe("CampaignTile", () => {
       treasury: "test",
       votingPeriod: 1,
       gracePeriod: 1,
-      baalAddress: "0x000",
-      shamanAddress: "0x000",
-      tokenAddress: "0x000",
+      baalAddress: "0xdd52DDC9ac38cfabbc2CF9a287814817c259D55C",
+      shamanAddress: "0xc4B8ec6b6380EC000663F0659A4fC9AA417dfaeb",
+      tokenAddress: "0x5FEcE30aCcd5bc3512BAB2e77EAE7d0C1C57eD45",
       tokenSymbol: "test",
       tokenDecimals: 1,
       total: "1",
@@ -26,6 +74,7 @@ describe("CampaignTile", () => {
       tokensPerUnit: "1",
       proposals: [],
       donations: [],
+      signatures: [],
     };
 
     // act

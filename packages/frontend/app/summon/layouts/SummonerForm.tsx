@@ -38,18 +38,14 @@ export const SummonerForm = ({
   const methods = useForm({
     mode: "onTouched",
     defaultValues: {
-      [FORM_KEYS.DAO_NAME]: "DeVox Test Campaign DAO 1",
-      [FORM_KEYS.GRACE_PERIOD]: "3",
-      [FORM_KEYS.VOTING_PERIOD]: "7",
       [FORM_KEYS.TOKEN_NAME]: "DeVox",
       [FORM_KEYS.TOKEN_SYMBOL]: "DVOX",
       [FORM_KEYS.LOOT_TOKEN_NAME]: "DeVox Loot",
       [FORM_KEYS.LOOT_TOKEN_SYMBOL]: "DVOXL",
-      [FORM_KEYS.VOTE_TOKEN_TRANSFER]: false,
+      [FORM_KEYS.VOTE_TOKEN_TRANSFER]: true,
       [FORM_KEYS.NV_TOKEN_TRANSFER]: false,
       [FORM_KEYS.SPONSOR_THRESHOLD]: "1",
-      [FORM_KEYS.TREASURY_TOKEN]: "USDT",
-      [FORM_KEYS.CAMPAIGN_TARGET]: "10000",
+      [FORM_KEYS.TREASURY_TOKEN]: "DAI",
       [FORM_KEYS.MEMBERS]: account && `${account} 1000000 0`,
     },
   });

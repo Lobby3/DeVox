@@ -83,8 +83,7 @@ const getShamanInitParams = function (
   const tokenAddress = TreasuryTokenKeychains[tokenSymbol][chainId] ?? "";
   if (!isAddress(tokenAddress))
     throw new Error(`tokenAddress is not a valid address: ${tokenAddress}`);
-  const userRegistryAddress =
-    DeVoxContractKeychains.DeVoxUserRegistryContract[chainId];
+  const userRegistryAddress = DeVoxContractKeychains.DeVoxUserRegistry[chainId];
   if (!isString(userRegistryAddress))
     throw new Error(`userRegistryAddress not found for chainId: ${chainId}`);
   if (!isAddress(userRegistryAddress))
